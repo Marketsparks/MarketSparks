@@ -35,6 +35,8 @@ import type {
   AdminAffiliateListing,
 } from "@/types/admin-affiliate.types";
 
+import { getCloudinaryImageUrl } from "@/lib/cloudinary/url";
+
 type AffiliateCreateInterestDialogProps = {
   listing:
     | AdminAffiliateListing
@@ -697,10 +699,12 @@ function BuyerAvatar({
 }: {
   buyer: AffiliateTestBuyer;
 }) {
-  const imageUrl =
-    buyer.imageKey
-      ? `/api/image/${buyer.imageKey}`
-      : null;
+const imageUrl =
+  buyer.imageKey
+    ? getCloudinaryImageUrl(
+        buyer.imageKey,
+      )
+    : null;
 
   return (
     <div

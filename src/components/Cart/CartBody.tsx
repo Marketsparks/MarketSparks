@@ -178,7 +178,7 @@ className="
           </section>
         )}
 
-        <div className="h-3" />
+        <div className="h-44" />
       </div>
     </div>
   );

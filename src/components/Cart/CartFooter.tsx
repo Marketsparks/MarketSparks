@@ -24,6 +24,9 @@ export default function CartFooter({
   return (
     <footer
       className="
+        sticky
+        bottom-0
+        z-20
         shrink-0
         border-t
         px-3
@@ -33,7 +36,6 @@ export default function CartFooter({
       style={{
         background:
           "var(--cart-bg)",
-
         borderColor:
           "var(--cart-divider)",
       }}

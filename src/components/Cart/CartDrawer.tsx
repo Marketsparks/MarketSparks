@@ -147,20 +147,26 @@ export default function CartDrawer({
 
             <CartHeader />
 
-            <div className="min-h-0 flex-1 overflow-hidden">
-<CartBody
-  environment={
-    environment
-  }
-  onClose={
-    onClose
-  }
-/>
-            </div>
+<div className="relative min-h-0 flex-1 overflow-hidden">
+  <CartBody
+    environment={environment}
+    onClose={onClose}
+  />
 
-            <CartFooter
-              onClose={onClose}
-            />
+  <div
+    className="
+      absolute
+      bottom-0
+      left-0
+      right-0
+      z-20
+    "
+  >
+    <CartFooter
+      onClose={onClose}
+    />
+  </div>
+</div>
           </motion.aside>
         </>
       )}
