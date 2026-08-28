@@ -1,0 +1,160 @@
+import "server-only";
+
+import { cookies } from "next/headers";
+
+import { prisma } from "@/lib/prisma";
+
+import { AUTH_CONSTANTS } from "./constants";
+import { generateToken, hashToken } from "./tokens";
+
+type CreateSessionInput = {
+  userId: string;
+  rememberMe?: boolean;
+  userAgent?: string | null;
+  ipAddress?: string | null;
+};
+
+function getSessionExpiration(rememberMe: boolean): Date {
+  const timeout = rememberMe
+    ? AUTH_CONSTANTS.REMEMBERED_SESSION_ABSOLUTE_TIMEOUT_MS
+    : AUTH_CONSTANTS.SESSION_ABSOLUTE_TIMEOUT_MS;
+
+  return new Date(Date.now() + timeout);
+}
+
+function getCookieOptions(expiresAt: Date) {
+  return {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax" as const,
+    expires: expiresAt,
+    path: "/",
+  };
+}
+
+export async function createSession({
+  userId,
+  rememberMe = false,
+  userAgent = null,
+  ipAddress = null,
+}: CreateSessionInput) {
+  const token = generateToken();
+  const tokenHash = hashToken(token);
+  const expiresAt = getSessionExpiration(rememberMe);
+
+  const session = await prisma.session.create({
+    data: {
+      userId,
+      tokenHash,
+      userAgent,
+      ipAddress,
+      rememberMe,
+      expiresAt,
+    },
+  });
+
+  const cookieStore = await cookies();
+
+  cookieStore.set(
+    AUTH_CONSTANTS.SESSION_COOKIE_NAME,
+    token,
+    getCookieOptions(expiresAt),
+  );
+
+  return session;
+}
+
+export async function getCurrentSession() {
+  const cookieStore = await cookies();
+
+  const token = cookieStore.get(
+    AUTH_CONSTANTS.SESSION_COOKIE_NAME,
+  )?.value;
+
+  if (!token) {
+    return null;
+  }
+
+  const tokenHash = hashToken(token);
+  const now = new Date();
+
+  const session = await prisma.session.findUnique({
+    where: {
+      tokenHash,
+    },
+    include: {
+      user: true,
+    },
+  });
+
+  if (!session) {
+    return null;
+  }
+
+  if (session.revokedAt || session.expiresAt <= now) {
+    return null;
+  }
+
+  if (
+    session.user.status !== "ACTIVE"
+  ) {
+    return null;
+  }
+
+  const idleDeadline = new Date(
+    session.lastActivityAt.getTime() +
+      AUTH_CONSTANTS.SESSION_IDLE_TIMEOUT_MS,
+  );
+
+  if (idleDeadline <= now) {
+    await prisma.session.update({
+      where: {
+        id: session.id,
+      },
+      data: {
+        revokedAt: now,
+      },
+    });
+
+    return null;
+  }
+
+  return session;
+}
+
+export async function revokeCurrentSession() {
+  const cookieStore = await cookies();
+
+  const token = cookieStore.get(
+    AUTH_CONSTANTS.SESSION_COOKIE_NAME,
+  )?.value;
+
+  if (token) {
+    const tokenHash = hashToken(token);
+
+    await prisma.session.updateMany({
+      where: {
+        tokenHash,
+        revokedAt: null,
+      },
+      data: {
+        revokedAt: new Date(),
+      },
+    });
+  }
+
+  cookieStore.delete(AUTH_CONSTANTS.SESSION_COOKIE_NAME);
+}
+
+export async function refreshSessionActivity(sessionId: string) {
+  const now = new Date();
+
+  return prisma.session.update({
+    where: {
+      id: sessionId,
+    },
+    data: {
+      lastActivityAt: now,
+    },
+  });
+}
