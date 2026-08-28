@@ -146,19 +146,25 @@ const [
       },
     }),
 
-    prisma.cartItem.aggregate({
-      where: {
-        userId:
-          session.user.id,
-
-        status:
-          "SAVED_FOR_LATER",
+prisma.cart.findUnique({
+  where: {
+    userId: session.user.id,
+  },
+  select: {
+    _count: {
+      select: {
+        items: {
+          where: {
+            status: "SAVED_FOR_LATER",
+            variantSize: {
+              isNot: null,
+            },
+          },
+        },
       },
-
-      _sum: {
-        quantity: true,
-      },
-    }),
+    },
+  },
+}),
 
     prisma.order.count({
       where: {
@@ -305,11 +311,9 @@ const [
       },
     )}`;
 
-  const savedForLaterCount =
-    Number(
-      savedForLater._sum.quantity ??
-        0,
-    );
+const savedForLaterCount =
+  savedForLater?._count.items ??
+  0;
 
   const dashboardFeaturedProducts =
     featuredProducts.map(

@@ -107,16 +107,6 @@ export default function SavedForLater({
   return (
     <section className="space-y-3">
       <div className="px-1">
-        <h3
-          className="
-            text-[11px]
-            font-semibold
-            tracking-tight
-            sm:text-xs
-          "
-        >
-          Saved for Later
-        </h3>
 
         <p
           className="
@@ -144,16 +134,22 @@ export default function SavedForLater({
             item.product.price;
 
 const primaryImage =
-  item.variantSize.variant.imageUrl
+  item.variantSize.variant.imageKey
     ? {
-        imageUrl:
-          item.variantSize.variant.imageUrl,
         imageKey:
           item.variantSize.variant.imageKey,
+        imageUrl:
+          item.variantSize.variant.imageUrl,
         altText:
+          item.variantSize.variant.label ??
           item.product.name,
       }
-    : null;
+    : item.product.images.find(
+        (image) =>
+          image.isPrimary,
+      ) ??
+      item.product.images[0] ??
+      null;
 
           const moving =
             actionLoading?.itemId ===

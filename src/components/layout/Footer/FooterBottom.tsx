@@ -5,15 +5,15 @@ import { Container } from "@/components/layout";
 const legalLinks = [
   {
     label: "Terms of Service",
-    href: "/terms",
+    href: "/Terms",
   },
   {
     label: "Privacy Policy",
-    href: "/privacy",
+    href: "/Privacy",
   },
   {
-    label: "Cookie Policy",
-    href: "/cookies",
+    label: "Refund Policy",
+    href: "/Refund",
   },
 ];
 

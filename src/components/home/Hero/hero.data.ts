@@ -11,7 +11,7 @@ export const heroData: HeroData = {
 
   primaryButton: {
     label: "Shop Now",
-    href: "/shop",
+    href: "/Shop",
   },
 
   videoButton: {

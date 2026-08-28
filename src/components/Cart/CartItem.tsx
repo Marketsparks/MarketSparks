@@ -21,6 +21,7 @@ type CartItemProps = {
   item: CartItemType;
   environment?: AppEnvironment;
   onClose: () => void;
+  showDivider?: boolean;
 };
 
 type CartItemAction =
@@ -34,6 +35,7 @@ export default function CartItem({
   item,
   environment = "public",
   onClose,
+  showDivider = true,
 }: CartItemProps) {
   const {
     updateQuantity,
@@ -100,14 +102,6 @@ const primaryImage =
   ) ??
   item.product.images[0] ??
   null;
-
-console.log({
-  variantImageKey: item.variantSize.variant.imageKey,
-  primaryImage,
-  src:
-    primaryImage?.imageUrl ??
-    `/api/image/${primaryImage?.imageKey}`,
-});
 
   const decrease =
     async () => {
@@ -256,33 +250,18 @@ console.log({
     actionLoading !== null;
 
   return (
-    <article
-      className="
-        rounded-[16px]
-        p-2.5
-        transition-all
-        sm:p-3
-      "
-      style={{
-        background:
-          "var(--cart-item-bg)",
-
-        border:
-          "1px solid var(--cart-border)",
-
-        transition:
-          "var(--cart-transition)",
-      }}
-      onMouseEnter={(event) => {
-        event.currentTarget.style.background =
-          "var(--cart-item-hover)";
-      }}
-      onMouseLeave={(event) => {
-        event.currentTarget.style.background =
-          "var(--cart-item-bg)";
-      }}
-    >
-      <div className="flex gap-2.5 sm:gap-3">
+<article
+  className="
+    group
+    py-2
+    transition-colors
+  "
+  style={{
+    transition:
+      "var(--cart-transition)",
+  }}
+>
+<div className="flex gap-2.5">
 <Link
   href={
     environment === "user"
@@ -296,18 +275,16 @@ console.log({
   onClick={
     onClose
   }
-  className="
-    group
-    relative
-    block
-    h-[68px]
-    w-[68px]
-    shrink-0
-    overflow-hidden
-    rounded-[11px]
-    sm:h-[74px]
-    sm:w-[74px]
-  "
+className="
+  group
+  relative
+  block
+  h-[56px]
+  w-[56px]
+  shrink-0
+  overflow-hidden
+  rounded-[10px]
+"
 >
           <div
             className="absolute inset-0"
@@ -357,11 +334,11 @@ src={
   className="
     min-w-0
     truncate
-    text-[12px]
+    text-[11px]
     font-semibold
     transition-colors
     hover:text-[var(--primary)]
-    sm:text-[13px]
+    leading-tight
   "
 >
   {item.product.name}
@@ -387,7 +364,7 @@ src={
                 </span>
               )}
 
-              <span className="text-[12px] font-semibold sm:text-[13px]">
+              <span className="text-[11px] font-semibold">
                 $
                 {price.toLocaleString()}
               </span>
@@ -396,7 +373,7 @@ src={
 
           <div
             className="
-              mt-0.5
+              mt-px
               flex
               min-w-0
               flex-wrap
@@ -428,7 +405,7 @@ src={
             )}
           </div>
 
-          <div className="mt-2 flex items-center justify-between gap-2">
+          <div className="mt-1.5 flex items-center justify-between gap-2">
             <span
               className={`
                 truncate
@@ -469,8 +446,8 @@ src={
                 }
                 className="
                   flex
-                  h-6
-                  w-6
+                  h-5
+                  w-5
                   items-center
                   justify-center
                   rounded-full
@@ -492,7 +469,7 @@ src={
                 )}
               </button>
 
-              <span className="min-w-6 text-center text-[11px] font-medium">
+              <span className="min-w-5 text-center text-[11px] font-medium">
                 {item.quantity}
               </span>
 
@@ -535,95 +512,99 @@ src={
             </div>
           </div>
 
-          <div className="mt-2 flex flex-wrap items-center gap-1.5">
-            <button
-              type="button"
-              onClick={() =>
-                void handleSaveForLater()
-              }
-              disabled={isBusy}
-              className="
-                inline-flex
-                items-center
-                gap-1.5
-                rounded-lg
-                px-2
-                py-1.5
-                text-[10px]
-                font-medium
-                transition-all
-                disabled:cursor-not-allowed
-                disabled:opacity-60
-                sm:text-[11px]
-              "
-              style={{
-                background:
-                  "var(--cart-button-secondary-bg)",
+<div className="mt-1.5 flex items-center gap-3">
+  <button
+    type="button"
+    onClick={() =>
+      void handleSaveForLater()
+    }
+    disabled={isBusy}
+    className="
+      inline-flex
+      items-center
+      gap-1
+      rounded-md
+      px-0
+      py-0
+      text-[10px]
+      font-medium
+      transition-opacity
+      hover:opacity-70
+      disabled:cursor-not-allowed
+      disabled:opacity-60
+    "
+    style={{
+      background: "transparent",
+      border: "none",
+    }}
+  >
+    {actionLoading ===
+    "save" ? (
+      <Loader2
+        size={11}
+        className="animate-spin"
+      />
+    ) : (
+      <Heart size={11} />
+    )}
 
-                border:
-                  "1px solid var(--cart-border)",
-              }}
-            >
-              {actionLoading ===
-              "save" ? (
-                <Loader2
-                  size={12}
-                  className="animate-spin"
-                />
-              ) : (
-                <Heart size={12} />
-              )}
+    {actionLoading ===
+    "save"
+      ? "Saving..."
+      : "Save"}
+  </button>
 
-              {actionLoading ===
-              "save"
-                ? "Saving..."
-                : "Save"}
-            </button>
+  <button
+    type="button"
+    onClick={() =>
+      void handleRemove()
+    }
+    disabled={isBusy}
+    className="
+      inline-flex
+      items-center
+      gap-1
+      rounded-md
+      px-0
+      py-0
+      text-[10px]
+      font-medium
+      transition-opacity
+      hover:opacity-70
+      disabled:cursor-not-allowed
+      disabled:opacity-60
+    "
+    style={{
+      background: "transparent",
+      border: "none",
+    }}
+  >
+    {actionLoading ===
+    "remove" ? (
+      <Loader2
+        size={11}
+        className="animate-spin"
+      />
+    ) : (
+      <Trash2 size={11} />
+    )}
 
-            <button
-              type="button"
-              onClick={() =>
-                void handleRemove()
-              }
-              disabled={isBusy}
-              className="
-                inline-flex
-                items-center
-                gap-1.5
-                rounded-lg
-                px-2
-                py-1.5
-                text-[10px]
-                font-medium
-                transition-all
-                disabled:cursor-not-allowed
-                disabled:opacity-60
-                sm:text-[11px]
-              "
-              style={{
-                background:
-                  "var(--cart-danger-bg)",
-
-                border:
-                  "1px solid var(--cart-border)",
-              }}
-            >
-              {actionLoading ===
-              "remove" ? (
-                <Loader2
-                  size={12}
-                  className="animate-spin"
-                />
-              ) : (
-                <Trash2 size={12} />
-              )}
-
-              {actionLoading ===
-              "remove"
-                ? "Removing..."
-                : "Remove"}
-            </button>
+    {actionLoading ===
+    "remove"
+      ? "Removing..."
+      : "Remove"}
+  </button>
           </div>
+
+          {showDivider && (
+            <div
+              className="mt-3 h-px"
+              style={{
+                background:
+                  "var(--cart-divider)",
+              }}
+            />
+          )}
         </div>
       </div>
     </article>

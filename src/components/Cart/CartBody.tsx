@@ -33,7 +33,6 @@ export default function CartBody({
             style={{
               borderColor:
                 "var(--cart-border)",
-
               borderTopColor:
                 "transparent",
             }}
@@ -65,124 +64,122 @@ export default function CartBody({
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="min-h-0 flex-1 overflow-y-auto px-4 pt-4">
-        <section
-          className="
-            rounded-[24px]
-            border
-            p-4
-            shadow-sm
-          "
-          style={{
-            background:
-              "var(--cart-button-secondary-bg)",
+      <div
+        className="
+          min-h-0
+          flex-1
+          overflow-y-auto
+          px-4
+          py-3
+        "
+      >
+        {hasCartItems ? (
+          <section>
+            {cart.items.map(
+              (
+                item,
+                index,
+              ) => (
+                <CartItem
+                  key={item.id}
+                  item={item}
+                  environment={
+                    environment
+                  }
+                  onClose={
+                    onClose
+                  }
+                  showDivider={
+                    index <
+                    cart.items.length - 1
+                  }
+                />
+              ),
+            )}
+          </section>
+        ) : (
+          <EmptyCart
+            hasSavedItems={false}
+          />
+        )}
 
-            borderColor:
-              "var(--cart-border)",
-          }}
-        >
-          {hasCartItems ? (
-            <div className="space-y-3">
-              {cart.items.map(
-                (item) => (
-<CartItem
-  key={item.id}
-  item={item}
-  environment={
-    environment
-  }
-  onClose={
-    onClose
-  }
-/>
-                ),
-              )}
-            </div>
-          ) : (
-            <div className="min-h-[260px]">
-              <EmptyCart
-                hasSavedItems={false}
+        {hasSavedItems && (
+          <section className="mt-8">
+            <div
+              className="
+                mb-6
+                flex
+                items-center
+                justify-center
+                gap-3
+              "
+            >
+              <div
+                className="
+                  h-px
+                  flex-1
+                  max-w-16
+                "
+                style={{
+                  background:
+                    "color-mix(in srgb, var(--foreground) 35%, transparent)",
+                }}
+              />
+
+              <span
+className="
+  max-w-[190px]
+  shrink-0
+  text-center
+  text-[9px]
+  sm:text-[10px]
+  font-medium
+  leading-none
+"
+                style={{
+                  color:
+                    "var(--text-secondary)",
+                }}
+              >
+                Below are items you saved for later.
+              </span>
+
+              <div
+                className="
+                  h-px
+                  flex-1
+                  max-w-16
+                "
+                style={{
+                  background:
+                    "color-mix(in srgb, var(--foreground) 35%, transparent)",
+                }}
               />
             </div>
-          )}
-        </section>
-      </div>
 
-      {hasSavedItems && (
-        <section
-          className="
-            shrink-0
-            border-t
-            px-4
-            pb-4
-            pt-4
-          "
-          style={{
-            borderColor:
-              "var(--cart-divider)",
-
-            background:
-              "var(--cart-bg)",
-          }}
-        >
-          <div className="mb-3 flex items-center gap-3 px-1">
             <div
-              className="h-px flex-1"
-              style={{
-                background:
-                  "var(--cart-divider)",
-              }}
-            />
-
-            <span
               className="
-                shrink-0
-                text-[9px]
-                font-semibold
-                uppercase
-                tracking-[0.24em]
+                rounded-2xl
+                p-3
               "
               style={{
-                color:
-                  "var(--text-secondary)",
+                background:
+                  "var(--cart-button-secondary-bg)",
+                border:
+                  "1px solid var(--cart-border)",
               }}
             >
-              Saved For Later
-            </span>
+              <SavedForLater
+                items={
+                  cart.savedItems
+                }
+              />
+            </div>
+          </section>
+        )}
 
-            <div
-              className="h-px flex-1"
-              style={{
-                background:
-                  "var(--cart-divider)",
-              }}
-            />
-          </div>
-
-          <div
-            className="
-              max-h-[180px]
-              overflow-y-auto
-              rounded-[22px]
-              border
-              p-2
-            "
-            style={{
-              background:
-                "var(--cart-button-secondary-bg)",
-
-              borderColor:
-                "var(--cart-border)",
-            }}
-          >
-            <SavedForLater
-              items={
-                cart.savedItems
-              }
-            />
-          </div>
-        </section>
-      )}
+        <div className="h-3" />
+      </div>
     </div>
   );
 }

@@ -472,7 +472,7 @@ country,
             I agree to{" "}
 
             <Link
-              href="/terms"
+              href="/Terms"
               className="
                 font-medium
                 text-[var(--primary)]
@@ -484,7 +484,7 @@ country,
             {" "}and{" "}
 
             <Link
-              href="/privacy"
+              href="/Privacy"
               className="
                 font-medium
                 text-[var(--primary)]

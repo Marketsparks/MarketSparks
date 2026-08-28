@@ -98,7 +98,7 @@ export default function UserFooter({
             <span>•</span>
 
             <Link
-              href="/privacy"
+              href="/Privacy"
               className="
                 transition-colors
                 duration-300

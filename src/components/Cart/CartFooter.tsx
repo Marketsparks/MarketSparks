@@ -14,25 +14,37 @@ export default function CartFooter({
 }: CartFooterProps) {
   const { cart } = useCart();
 
-  if (!cart || cart.items.length === 0) {
+  if (
+    !cart ||
+    cart.items.length === 0
+  ) {
     return null;
   }
 
   return (
     <footer
-      className="shrink-0 space-y-4 px-4 py-4"
+      className="
+        shrink-0
+        border-t
+        px-3
+        py-3
+        shadow-[0_-8px_24px_rgba(0,0,0,0.08)]
+      "
       style={{
         background:
           "var(--cart-bg)",
-        borderTop:
-          "1px solid var(--cart-divider)",
+
+        borderColor:
+          "var(--cart-divider)",
       }}
     >
-      <CartSummary />
+      <div className="space-y-3">
+        <CartSummary />
 
-      <CartCheckoutButton
-        onCheckout={onClose}
-      />
+        <CartCheckoutButton
+          onCheckout={onClose}
+        />
+      </div>
     </footer>
   );
 }
