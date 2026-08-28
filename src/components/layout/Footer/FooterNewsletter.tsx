@@ -1,6 +1,6 @@
 export default function FooterNewsletter() {
   return (
-    <div>
+    <div className="w-full min-w-0">
       <h3 className="relative mb-6 inline-block pb-5 text-[22px] font-semibold tracking-tight text-[var(--foreground)]">
         Newsletter
 
@@ -16,6 +16,8 @@ export default function FooterNewsletter() {
         className="
           flex
           w-full
+          max-w-full
+          min-w-0
           overflow-hidden
           rounded-md
           border
@@ -48,8 +50,10 @@ export default function FooterNewsletter() {
             shrink-0
             items-center
             justify-center
+            whitespace-nowrap
             bg-[#5B5EF7]
-            px-7
+            px-5
+            sm:px-7
             text-[15px]
             font-semibold
             text-white
