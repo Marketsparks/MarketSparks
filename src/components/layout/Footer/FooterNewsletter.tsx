@@ -12,16 +12,51 @@ export default function FooterNewsletter() {
         latest news, updates, and exclusive offers.
       </p>
 
-      <form className="flex overflow-hidden rounded-md border border-[var(--primary)] bg-[var(--surface-footer-bottom)]">
+      <form
+        className="
+          flex
+          w-full
+          overflow-hidden
+          rounded-md
+          border
+          border-[var(--primary)]
+          bg-[var(--surface-footer-bottom)]
+        "
+      >
         <input
           type="email"
           placeholder="Enter your mail..."
-          className="h-12 flex-1 bg-transparent px-5 text-[15px] font-medium text-[var(--foreground)] placeholder:text-[var(--foreground-muted)] focus:outline-none"
+          className="
+            h-12
+            min-w-0
+            flex-1
+            bg-transparent
+            px-5
+            text-[15px]
+            font-medium
+            text-[var(--foreground)]
+            placeholder:text-[var(--foreground-muted)]
+            focus:outline-none
+          "
         />
 
         <button
           type="submit"
-          className="flex h-12 items-center justify-center bg-[#5B5EF7] px-7 text-[15px] font-semibold text-white transition-colors duration-200 hover:bg-[#6B6EFF]"
+          className="
+            flex
+            h-12
+            shrink-0
+            items-center
+            justify-center
+            bg-[#5B5EF7]
+            px-7
+            text-[15px]
+            font-semibold
+            text-white
+            transition-colors
+            duration-200
+            hover:bg-[#6B6EFF]
+          "
         >
           Subscribe
         </button>
