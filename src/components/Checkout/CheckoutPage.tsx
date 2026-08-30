@@ -25,6 +25,10 @@ import {
   useCartContext,
 } from "@/context/CartContext";
 
+import {
+  useCheckout,
+} from "@/context/CheckoutContext";
+
 import type {
   Address,
 } from "@/types/address.types";
@@ -74,6 +78,12 @@ export default function CheckoutPage({
     loading: cartLoading,
     refresh: refreshCart,
   } = useCartContext();
+
+const {
+  mode,
+  directItem,
+  clearCheckout,
+} = useCheckout();
 
   const [
     loading,
@@ -305,12 +315,149 @@ export default function CheckoutPage({
       ],
     );
 
-  const checkoutTotal =
-    cart?.summary.total ?? 0;
+const isDirectCheckout =
+  mode === "direct" &&
+  directItem !== null;
 
-  const walletCanPay =
-    walletBalance >=
-    checkoutTotal;
+const includeCart =
+  isDirectCheckout &&
+  directItem.includeCart;
+
+const directCheckoutItem =
+  isDirectCheckout &&
+  directItem
+    ? {
+        id: "direct",
+
+        quantity:
+          directItem.quantity,
+
+        unitPrice:
+          directItem.unitPrice,
+
+        product: {
+          name:
+            directItem.productName,
+
+          price:
+            directItem.unitPrice,
+
+          images: [
+            {
+              id: "direct",
+
+              imageKey:
+                directItem.imageKey,
+
+              imageUrl:
+                directItem.imageUrl,
+
+              altText: null,
+
+              isPrimary: true,
+
+              sortOrder: 0,
+            },
+          ],
+        },
+
+        variant: {
+          label:
+            directItem.variantLabel,
+
+          imageKey:
+            directItem.imageKey,
+
+          imageUrl:
+            directItem.imageUrl,
+        },
+
+        size:
+          directItem.size,
+      }
+    : null;
+
+const cartCheckoutItems =
+  cart?.items.map(
+    (item) => ({
+      id: item.id,
+
+      quantity:
+        item.quantity,
+
+      unitPrice:
+        item.variantSize.price ??
+        item.product.price,
+
+      product: {
+        name:
+          item.product.name,
+
+        price:
+          item.product.price,
+
+        images:
+          item.product.images,
+      },
+
+      variant: {
+        label:
+          item.variantSize.variant.label,
+
+        imageKey:
+          item.variantSize.variant.imageKey,
+
+        imageUrl:
+          item.variantSize.variant.imageUrl,
+      },
+
+      size:
+        item.variantSize.size,
+    }),
+  ) ?? [];
+
+const checkoutItems =
+  !isDirectCheckout
+    ? cartCheckoutItems
+    : directItem.includeCart
+      ? [
+          ...cartCheckoutItems,
+          directCheckoutItem!,
+        ]
+      : [
+          directCheckoutItem!,
+        ];
+
+const cartSubtotal =
+  cart?.summary.subtotal ?? 0;
+
+const directSubtotal =
+  isDirectCheckout && directItem
+    ? directItem.unitPrice *
+      directItem.quantity
+    : 0;
+
+const checkoutSubtotal =
+  !isDirectCheckout
+    ? cartSubtotal
+    : directItem.includeCart
+      ? cartSubtotal +
+        directSubtotal
+      : directSubtotal;
+
+const checkoutSavings =
+  !isDirectCheckout
+    ? cart?.summary.savings ?? 0
+    : directItem.includeCart
+      ? cart?.summary.savings ?? 0
+      : 0;
+
+const checkoutTotal =
+  checkoutSubtotal;
+
+const walletCanPay =
+  walletBalance >=
+  checkoutTotal;
 
   const hasDeliveryDetails =
     useNewAddress
@@ -494,7 +641,13 @@ function handlePaymentMethodChange(
       return;
     }
 
-    if (!cart || cart.items.length === 0) {
+if (
+  !isDirectCheckout &&
+  (
+    !cart ||
+    cart.items.length === 0
+  )
+) {
       toast.error(
         "Your cart is empty.",
       );
@@ -546,13 +699,13 @@ function handlePaymentMethodChange(
       return;
     }
 
-    try {
-      setSubmitting(true);
+try {
+  setSubmitting(true);
 
-      const response =
-        await fetch(
-          "/api/checkout",
-          {
+  const response =
+    await fetch(
+      "/api/checkout",
+      {
             method: "POST",
 
             credentials:
@@ -563,40 +716,56 @@ function handlePaymentMethodChange(
                 "application/json",
             },
 
-            body: JSON.stringify({
-              paymentMethod,
+body: JSON.stringify({
+mode:
+  isDirectCheckout &&
+  !directItem.includeCart
+    ? "DIRECT"
+    : "CART",
 
-              addressSource:
-                useNewAddress
-                  ? {
-                      type: "NEW",
+...(isDirectCheckout && {
+  productId:
+    directItem.productId,
 
-                      details:
-                        delivery,
+  variantSizeId:
+    directItem.variantSizeId,
 
-                      saveAsPrimary,
-                    }
-                  : {
-                      type: "SAVED",
+  quantity:
+    directItem.quantity,
 
-                      addressId:
-                        selectedAddressId,
-                    },
+  includeCart:
+    directItem.includeCart,
+}),
 
-              ...(paymentMethod ===
-              "CRYPTO"
-                ? {
-                    depositMethodId:
-                      selectedDepositMethodId,
+  paymentMethod,
 
-                    receiptUrl,
-                  }
-                : {}),
+  addressSource:
+    useNewAddress
+      ? {
+          type: "NEW",
+          details: delivery,
+          saveAsPrimary,
+        }
+      : {
+          type: "SAVED",
+          addressId:
+            selectedAddressId!,
+        },
 
-              notes:
-                notes.trim() ||
-                null,
-            }),
+  ...(paymentMethod ===
+  "CRYPTO"
+    ? {
+        depositMethodId:
+          selectedDepositMethodId,
+
+        receiptUrl,
+      }
+    : {}),
+
+  notes:
+    notes.trim() ||
+    null,
+}),
           },
         );
 
@@ -613,16 +782,22 @@ function handlePaymentMethodChange(
         );
       }
 
-      await refreshCart();
+if (!isDirectCheckout) {
+  await refreshCart();
+}
 
-      toast.success(
-        paymentMethod ===
-          "WALLET"
-          ? "Order placed successfully."
-          : "Payment submitted for review.",
-      );
+toast.success(
+  paymentMethod ===
+    "WALLET"
+    ? "Order placed successfully."
+    : "Payment submitted for review.",
+);
 
-      router.push("/orders");
+if (isDirectCheckout) {
+  clearCheckout();
+}
+
+router.push("/orders");
     } catch (error) {
       console.error(
         "Checkout submission error:",
@@ -638,6 +813,8 @@ function handlePaymentMethodChange(
       setSubmitting(false);
     }
   }
+
+
 
   if (
     loading ||
@@ -669,10 +846,13 @@ function handlePaymentMethodChange(
     );
   }
 
-  if (
+if (
+  !isDirectCheckout &&
+  (
     !cart ||
     cart.items.length === 0
-  ) {
+  )
+) {
     return (
       <DashboardPageLayout
         environment="user"
@@ -932,22 +1112,20 @@ function handlePaymentMethodChange(
               min-w-0
             "
           >
-            <CheckoutOrderSummary
-              items={
-                cart.items
-              }
-              subtotal={
-                cart.summary
-                  .subtotal
-              }
-              savings={
-                cart.summary
-                  .savings
-              }
-              total={
-                cart.summary.total
-              }
-            />
+<CheckoutOrderSummary
+  items={
+    checkoutItems
+  }
+  subtotal={
+    checkoutSubtotal
+  }
+  savings={
+    checkoutSavings
+  }
+  total={
+    checkoutTotal
+  }
+/>
 
             <div
               className="

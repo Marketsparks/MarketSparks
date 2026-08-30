@@ -6,9 +6,7 @@ import {
   useState,
 } from "react";
 
-import {
-  useCart,
-} from "@/components/Cart";
+import { useCartContext } from "@/context/CartContext";
 
 import {
   cn,
@@ -41,7 +39,7 @@ export default function TopBar({
 }: TopBarProps) {
   const {
     cartOpen,
-  } = useCart();
+  } = useCartContext();
 
   const [
     mobileSearchOpen,

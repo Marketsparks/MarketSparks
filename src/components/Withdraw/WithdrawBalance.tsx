@@ -11,18 +11,22 @@ type WithdrawBalanceProps = {
 
   profitBalance: number;
 
+  affiliateBalance: number;
+
   lockedBalance: number;
 };
 
 export default function WithdrawBalance({
   availableBalance,
   profitBalance,
+  affiliateBalance,
   lockedBalance,
 }: WithdrawBalanceProps) {
-  const totalBalance =
-    availableBalance +
-    profitBalance +
-    lockedBalance;
+const totalBalance =
+  availableBalance +
+  profitBalance +
+  affiliateBalance +
+  lockedBalance;
 
   return (
     <section
@@ -149,6 +153,27 @@ export default function WithdrawBalance({
                 )}
               </span>
             </div>
+<div
+  className="
+    flex
+    items-center
+    justify-between
+    gap-4
+    text-[var(--withdraw-balance-text)]
+  "
+>
+  <span>
+    Affiliate Balance
+  </span>
+
+  <span
+    className="font-medium"
+  >
+    {formatWithdrawAmount(
+      affiliateBalance
+    )}
+  </span>
+</div>
           </div>
 
           <p

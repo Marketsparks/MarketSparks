@@ -13,9 +13,7 @@ import {
   toast,
 } from "sonner";
 
-import {
-  useCart,
-} from "@/components/Cart";
+import { useCartContext } from "@/context/CartContext";
 
 import {
   useAuth,
@@ -32,7 +30,7 @@ export default function CartCheckoutButton({
     useRouter();
 
   const { cart } =
-    useCart();
+    useCartContext();
 
   const {
     user,

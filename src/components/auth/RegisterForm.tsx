@@ -241,7 +241,7 @@ country,
   name="phoneNumber"
   type="tel"
   label="Phone Number"
-  placeholder="+234 800 000 0000"
+  placeholder="+1 (800) 000 0000"
   autoComplete="tel"
   required
   disabled={loading}

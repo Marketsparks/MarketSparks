@@ -32,6 +32,8 @@ export default function WithdrawPage() {
 
   const [profitBalance, setProfitBalance] = useState(0);
 
+  const [affiliateBalance, setAffiliateBalance] = useState(0);
+
   const [lockedBalance, setLockedBalance] = useState(0);
 
   const [
@@ -153,6 +155,10 @@ setProfitBalance(
   data.wallet.profitBalance
 );
 
+setAffiliateBalance(
+  data.wallet.affiliateBalance
+);
+
 setLockedBalance(
   data.wallet.lockedBalance
 );
@@ -214,7 +220,9 @@ const hasDestinationDetails =
 const selectedBalance =
   balanceType === "wallet"
     ? walletBalance
-    : profitBalance;
+    : balanceType === "profit"
+      ? profitBalance
+      : affiliateBalance;
 
   const canWithdraw =
     Boolean(
@@ -321,18 +329,19 @@ async function handleConfirm() {
     }
 
 setWalletBalance(
-  result.wallet
-    .availableBalance
+  result.wallet.availableBalance
 );
 
 setProfitBalance(
-  result.wallet
-    .profitBalance
+  result.wallet.profitBalance
+);
+
+setAffiliateBalance(
+  result.wallet.affiliateBalance
 );
 
 setLockedBalance(
-  result.wallet
-    .lockedBalance
+  result.wallet.lockedBalance
 );
 
 setWithdrawals(
@@ -400,15 +409,10 @@ setWithdrawals(
   "
 >
 <WithdrawBalance
-  availableBalance={
-    walletBalance
-  }
-  profitBalance={
-    profitBalance
-  }
-  lockedBalance={
-    lockedBalance
-  }
+  availableBalance={walletBalance}
+  profitBalance={profitBalance}
+  affiliateBalance={affiliateBalance}
+  lockedBalance={lockedBalance}
 />
 
 <WithdrawMethod
@@ -417,7 +421,7 @@ setWithdrawals(
   onChange={handleMethodChange}
 />
 
-        {selectedMethod && (
+{selectedMethod && (
 <WithdrawDetails
   method={selectedMethod}
   address={address}

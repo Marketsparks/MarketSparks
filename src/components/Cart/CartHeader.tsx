@@ -2,10 +2,10 @@
 
 import { ShoppingBag } from "lucide-react";
 
-import { useCart } from "@/components/Cart";
+import { useCartContext } from "@/context/CartContext";
 
 export default function CartHeader() {
-  const { itemCount } = useCart();
+  const { itemCount } = useCartContext();
 
   return (
 <header

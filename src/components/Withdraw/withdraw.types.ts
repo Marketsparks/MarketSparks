@@ -9,7 +9,8 @@ export type WithdrawMethodType =
 
 export type WithdrawBalanceType =
   | "wallet"
-  | "profit";
+  | "profit"
+  | "affiliate";
 
 export type WithdrawCryptoMethod = {
   id: string;

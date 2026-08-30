@@ -16,46 +16,47 @@ export async function GET() {
       },
       {
         status: 401,
-      }
+      },
     );
   }
 
-const [
-  methods,
-  wallet,
-  user,
-] = await Promise.all([
-  prisma.withdrawalMethod.findMany({
-    where: {
-      isActive: true,
-    },
+  const [
+    methods,
+    wallet,
+    user,
+  ] = await Promise.all([
+    prisma.withdrawalMethod.findMany({
+      where: {
+        isActive: true,
+      },
 
-    orderBy: {
-      displayOrder: "asc",
-    },
-  }),
+      orderBy: {
+        displayOrder: "asc",
+      },
+    }),
 
-  prisma.wallet.findUnique({
-    where: {
-      userId: session.user.id,
-    },
+    prisma.wallet.findUnique({
+      where: {
+        userId: session.user.id,
+      },
 
-    select: {
-      availableBalance: true,
-      lockedBalance: true,
-    },
-  }),
+      select: {
+        availableBalance: true,
+        lockedBalance: true,
+      },
+    }),
 
-  prisma.user.findUnique({
-    where: {
-      id: session.user.id,
-    },
+    prisma.user.findUnique({
+      where: {
+        id: session.user.id,
+      },
 
-    select: {
-      profit: true,
-    },
-  }),
-]);
+      select: {
+        profit: true,
+        affiliateBalance: true,
+      },
+    }),
+  ]);
 
   return NextResponse.json({
     methods: methods.map(
@@ -63,7 +64,8 @@ const [
         id: method.id,
 
         type:
-          method.type === "CRYPTO"
+          method.type ===
+          "CRYPTO"
             ? "crypto"
             : "bank",
 
@@ -79,7 +81,7 @@ const [
           method.placeholder,
 
         fee: Number(
-          method.processingFee
+          method.processingFee,
         ),
 
         feeType:
@@ -89,7 +91,7 @@ const [
             : "percentage",
 
         minimumAmount: Number(
-          method.minimumAmount
+          method.minimumAmount,
         ),
 
         maximumAmount:
@@ -97,34 +99,39 @@ const [
           null
             ? null
             : Number(
-                method.maximumAmount
+                method.maximumAmount,
               ),
 
-icon:
-  getCloudinaryImageUrl(
-    method.iconKey
-  ),
+        icon:
+          getCloudinaryImageUrl(
+            method.iconKey,
+          ),
 
         isActive:
           method.isActive,
-      })
+      }),
     ),
 
-wallet: {
-  availableBalance: Number(
-    wallet?.availableBalance ??
-      0
-  ),
+    wallet: {
+      availableBalance: Number(
+        wallet?.availableBalance ??
+          0,
+      ),
 
-  profitBalance: Number(
-    user?.profit ??
-      0
-  ),
+      profitBalance: Number(
+        user?.profit ??
+          0,
+      ),
 
-  lockedBalance: Number(
-    wallet?.lockedBalance ??
-      0
-  ),
-},
+      affiliateBalance: Number(
+        user?.affiliateBalance ??
+          0,
+      ),
+
+      lockedBalance: Number(
+        wallet?.lockedBalance ??
+          0,
+      ),
+    },
   });
 }

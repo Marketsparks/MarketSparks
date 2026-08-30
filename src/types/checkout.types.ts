@@ -15,6 +15,10 @@ import type {
   DepositMethod,
 } from "@/components/Deposit/deposit.types";
 
+import type {
+  CheckoutValidationInput,
+} from "@/validation/checkout.validation";
+
 export type CheckoutPaymentMethod =
   PaymentMethod;
 
@@ -121,22 +125,8 @@ export type CheckoutFormState = {
   notes: string;
 };
 
-export type CheckoutSubmitInput = {
-  addressSource:
-    CheckoutAddressSource;
-
-  paymentMethod:
-    CheckoutPaymentMethod;
-
-  depositMethodId?:
-    string;
-
-  receiptUrl?:
-    string;
-
-  notes?:
-    string | null;
-};
+export type CheckoutSubmitInput =
+  CheckoutValidationInput;
 
 export type CheckoutOrderItemPreview = {
   productId: string;

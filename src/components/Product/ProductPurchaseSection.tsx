@@ -143,14 +143,30 @@ export default function ProductPurchaseSection({
         }
       />
 
-      <ProductInfo
-        productId={
-          product.id
-        }
+<ProductInfo
+  productId={
+    product.id
+  }
 
-        name={
-          product.name
-        }
+  productImageKey={
+    product.images.find(
+      image => image.isPrimary,
+    )?.imageKey ??
+    product.images[0]?.imageKey ??
+    null
+  }
+
+  productImageUrl={
+    product.images.find(
+      image => image.isPrimary,
+    )?.imageUrl ??
+    product.images[0]?.imageUrl ??
+    null
+  }
+
+  name={
+    product.name
+  }
 
         description={
           product.description

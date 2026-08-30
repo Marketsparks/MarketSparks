@@ -4,7 +4,7 @@ import CartItem from "./CartItem";
 import EmptyCart from "./EmptyCart";
 import SavedForLater from "./SavedForLater";
 
-import { useCart } from "@/components/Cart";
+import { useCartContext } from "@/context/CartContext";
 
 import type {
   AppEnvironment,
@@ -22,7 +22,7 @@ export default function CartBody({
   const {
     cart,
     loading,
-  } = useCart();
+  } = useCartContext();
 
   if (loading) {
     return (
@@ -98,9 +98,17 @@ export default function CartBody({
             )}
           </section>
         ) : (
-          <EmptyCart
-            hasSavedItems={false}
-          />
+<EmptyCart
+  hasSavedItems={false}
+  continueShoppingHref={
+    environment === "user"
+      ? "/Market-Place"
+      : "/Shop"
+  }
+  onContinueShopping={
+    onClose
+  }
+/>
         )}
 
         {hasSavedItems && (

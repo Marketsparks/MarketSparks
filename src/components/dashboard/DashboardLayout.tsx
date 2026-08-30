@@ -22,10 +22,9 @@ import {
   getCloudinaryImageUrl,
 } from "@/lib/cloudinary";
 
-import {
-  CartDrawer,
-  useCart,
-} from "@/components/Cart";
+import { CartDrawer } from "@/components/Cart";
+
+import { useCartContext } from "@/context/CartContext";
 
 type DashboardUser = {
   firstName: string;
@@ -65,7 +64,7 @@ export default function DashboardLayout({
   const {
     cartOpen,
     closeCart,
-  } = useCart();
+  } = useCartContext();
 
   return (
     <div

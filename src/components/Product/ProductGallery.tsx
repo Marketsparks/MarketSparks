@@ -29,6 +29,8 @@ import type {
 
 import { useAuth } from "@/context/AuthContext";
 
+import { useWishlist } from "@/context/WishlistContext";
+
 type ProductGalleryProps = {
   productId: string;
 
@@ -129,15 +131,17 @@ export default function ProductGallery({
     setIsModalOpen,
   ] = useState(false);
 
-  const [
-    inWishlist,
-    setInWishlist,
-  ] = useState(false);
+const {
+  isInWishlist,
+  addToWishlist,
+  removeFromWishlist,
+  loading: wishlistLoading,
+} = useWishlist();
 
-  const [
-    wishlistLoading,
-    setWishlistLoading,
-  ] = useState(false);
+const inWishlist = isInWishlist(
+  productId,
+  selectedVariantSizeId ?? undefined,
+);
 
   const {
     user,
@@ -212,116 +216,74 @@ export default function ProductGallery({
     }
   };
 
-  async function handleWishlistToggle() {
-    if (
-      wishlistLoading ||
-      authLoading
-    ) {
-      return;
-    }
-
-    if (!user) {
-      toast.info(
-        "Sign in to save this product to your wishlist.",
-      );
-
-      const params =
-        new URLSearchParams({
-          redirect:
-            "/wishlist",
-
-          wishlistProduct:
-            productId,
-        });
-
-      if (
-        selectedVariantSizeId
-      ) {
-        params.set(
-          "wishlistVariantSize",
-          selectedVariantSizeId,
-        );
-      }
-
-      router.push(
-        `/Auth?${params.toString()}`,
-      );
-
-      return;
-    }
-
-    try {
-      setWishlistLoading(
-        true,
-      );
-
-      const response =
-        await fetch(
-          "/api/wishlist",
-          {
-            method:
-              "POST",
-
-            credentials:
-              "include",
-
-            headers: {
-              "Content-Type":
-                "application/json",
-            },
-
-            body:
-              JSON.stringify({
-                productId,
-
-                ...(selectedVariantSizeId
-                  ? {
-                      variantSizeId:
-                        selectedVariantSizeId,
-                    }
-                  : {}),
-              }),
-          },
-        );
-
-      const data =
-        await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          data.error ??
-            "Failed to add product to wishlist.",
-        );
-      }
-
-      setInWishlist(
-        true,
-      );
-
-      toast.success(
-        "Added to wishlist.",
-      );
-
-      window.dispatchEvent(
-        new Event(
-          "wishlist:changed",
-        ),
-      );
-    } catch (
-      error
-    ) {
-      toast.error(
-        error instanceof
-          Error
-          ? error.message
-          : "Unable to update wishlist.",
-      );
-    } finally {
-      setWishlistLoading(
-        false,
-      );
-    }
+async function handleWishlistToggle() {
+  if (
+    wishlistLoading ||
+    authLoading
+  ) {
+    return;
   }
+
+  if (!user) {
+    toast.info(
+      "Sign in to save this product to your wishlist.",
+    );
+
+    const params =
+      new URLSearchParams({
+        redirect:
+          "/wishlist",
+
+        wishlistProduct:
+          productId,
+      });
+
+    if (
+      selectedVariantSizeId
+    ) {
+      params.set(
+        "wishlistVariantSize",
+        selectedVariantSizeId,
+      );
+    }
+
+    router.push(
+      `/Auth?${params.toString()}`,
+    );
+
+    return;
+  }
+
+try {
+  if (inWishlist) {
+await removeFromWishlist(
+  productId,
+  selectedVariantSizeId ??
+    undefined,
+);
+
+    toast.success(
+      "Removed from wishlist.",
+    );
+  } else {
+await addToWishlist(
+  productId,
+  selectedVariantSizeId ??
+    undefined,
+);
+
+    toast.success(
+      "Added to wishlist.",
+    );
+  }
+} catch (error) {
+    toast.error(
+      error instanceof Error
+        ? error.message
+        : "Unable to update wishlist.",
+    );
+  }
+}
 
   return (
     <>

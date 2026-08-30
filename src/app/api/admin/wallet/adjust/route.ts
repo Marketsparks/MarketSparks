@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+
 import { prisma } from "@/lib/prisma";
 
 import {
@@ -110,22 +111,12 @@ export async function POST(
                 id: userId,
               },
 
-              select: {
-                id: true,
-                profit: true,
-                totalDeposit: true,
-                affiliateListings: {
-                  select: {
-                    totalCommission: true,
-                  },
-                },
-                affiliateCommissionAdjustmentsMade: {
-                  select: {
-                    type: true,
-                    amount: true,
-                  },
-                },
-              },
+select: {
+  id: true,
+  affiliateBalance: true,
+  profit: true,
+  totalDeposit: true,
+},
             });
 
           if (!wallet || !user) {
@@ -134,141 +125,97 @@ export async function POST(
             );
           }
 
-          if (
-            balanceType ===
-            "affiliateCommission"
-          ) {
-            const earnedCommission =
-              user.affiliateListings.reduce(
-                (
-                  total,
-                  listing,
-                ) =>
-                  total +
-                  Number(
-                    listing.totalCommission,
-                  ),
-                0,
-              );
+if (
+  balanceType ===
+  "affiliateCommission"
+) {
+  const balanceBefore =
+    user.affiliateBalance;
 
-            const adjustedCommission =
-              user.affiliateCommissionAdjustmentsMade.reduce(
-                (
-                  total,
-                  adjustment,
-                ) =>
-                  adjustment.type ===
-                  "CREDIT"
-                    ? total +
-                      Number(
-                        adjustment.amount,
-                      )
-                    : total -
-                      Number(
-                        adjustment.amount,
-                      ),
-                0,
-              );
+  let balanceAfter =
+    balanceBefore;
 
-            const balanceBefore =
-              earnedCommission +
-              adjustedCommission;
+  if (
+    action === "CREDIT"
+  ) {
+    balanceAfter =
+      balanceBefore.plus(
+        amount,
+      );
+  } else {
+    if (
+      balanceBefore.lessThan(
+        amount,
+      )
+    ) {
+      throw new Error(
+        "INSUFFICIENT_BALANCE",
+      );
+    }
 
-            let balanceAfter =
-              balanceBefore;
+    balanceAfter =
+      balanceBefore.minus(
+        amount,
+      );
+  }
 
-            if (
-              action === "CREDIT"
-            ) {
-              balanceAfter =
-                balanceBefore +
-                Number(amount);
-            } else {
-              if (
-                balanceBefore <
-                Number(amount)
-              ) {
-                throw new Error(
-                  "INSUFFICIENT_BALANCE",
-                );
-              }
+  await tx.user.update({
+    where: {
+      id: userId,
+    },
 
-              balanceAfter =
-                balanceBefore -
-                Number(amount);
-            }
+    data: {
+      affiliateBalance:
+        balanceAfter,
+    },
+  });
 
-            await tx.affiliateCommissionAdjustment.create(
-              {
-                data: {
-                  userId,
+  await tx.notification.create({
+    data: {
+      userId,
 
-                  adminId:
-                    session.user.id,
+      type: "SYSTEM",
 
-                  type:
-                    action,
+      title:
+        action === "CREDIT"
+          ? "Affiliate Commission Credited"
+          : "Affiliate Commission Debited",
 
-                  amount,
-                },
-              },
-            );
+      message:
+        action === "CREDIT"
+          ? "Affiliate commission credited successfully."
+          : "Affiliate commission debited successfully.",
+    },
+  });
 
-            await tx.notification.create(
-              {
-                data: {
-                  userId,
+  await tx.activityLog.create({
+    data: {
+      adminId:
+        session.user.id,
 
-                  type: "SYSTEM",
+      action:
+        action === "CREDIT"
+          ? "PROFIT_CREDIT"
+          : "PROFIT_DEBIT",
 
-                  title:
-                    action ===
-                    "CREDIT"
-                      ? "Affiliate Commission Credited"
-                      : "Affiliate Commission Debited",
+      entity:
+        "Affiliate Commission",
 
-                  message:
-                    action ===
-                    "CREDIT"
-                      ? "Affiliate commission credited successfully."
-                      : "Affiliate commission debited successfully.",
-                },
-              },
-            );
+      entityId:
+        userId,
 
-            await tx.activityLog.create(
-              {
-                data: {
-                  adminId:
-                    session.user.id,
+      description:
+        `${action}ED affiliate commission of user ${userId} by $${Number(
+          amount,
+        ).toLocaleString()}.`,
+   },
+});
 
-                  action:
-                    action ===
-                    "CREDIT"
-                      ? "PROFIT_CREDIT"
-                      : "PROFIT_DEBIT",
-
-                  entity:
-                    "Affiliate Commission",
-
-                  entityId:
-                    userId,
-
-                  description:
-                    `${action}ED affiliate commission of user ${userId} by $${Number(
-                      amount,
-                    ).toLocaleString()}.`,
-                },
-              },
-            );
-
-            return {
-              balance:
-                balanceAfter.toFixed(
-                  2,
-                ),
-            };
-          }
+  return {
+    balance:
+      balanceAfter.toString(),
+  };
+}
 
           const balanceBefore =
             balanceType ===

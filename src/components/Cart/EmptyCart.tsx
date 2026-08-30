@@ -9,10 +9,16 @@ import {
 
 type EmptyCartProps = {
   hasSavedItems?: boolean;
+
+  continueShoppingHref?: string;
+
+  onContinueShopping?: () => void;
 };
 
 export default function EmptyCart({
   hasSavedItems = false,
+  continueShoppingHref = "/Shop",
+  onContinueShopping,
 }: EmptyCartProps) {
   return (
     <div className="flex h-full flex-col items-center justify-center px-8 text-center">
@@ -43,8 +49,9 @@ export default function EmptyCart({
         Browse our latest collection and add pieces you love. They'll appear here when you're ready to check out.
       </p>
 
-      <Link
-        href="/shop"
+<Link
+  href={continueShoppingHref}
+  onClick={onContinueShopping}
         className="mt-8 inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all hover:scale-[1.02]"
         style={{
           background:

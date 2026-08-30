@@ -304,6 +304,34 @@ onChange={() =>
         Profit Balance
       </span>
     </label>
+
+  <label
+  className="
+    flex
+    cursor-pointer
+    items-center
+    gap-3
+  "
+>
+  <input
+    type="radio"
+    name="withdrawFrom"
+    checked={
+      withdrawFrom ===
+      "affiliate"
+    }
+    onChange={() =>
+      onWithdrawFromChange(
+        "affiliate",
+      )
+    }
+    disabled={disabled}
+  />
+
+  <span>
+    Affiliate Balance
+  </span>
+</label>
   </div>
 </div>
 

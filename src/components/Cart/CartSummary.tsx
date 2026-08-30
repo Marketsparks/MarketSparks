@@ -2,10 +2,10 @@
 
 import { useMemo } from "react";
 
-import { useCart } from "@/components/Cart";
+import { useCartContext } from "@/context/CartContext";
 
 export default function CartSummary() {
-  const { cart } = useCart();
+  const { cart } = useCartContext();
 
   const summary = useMemo(
     () => cart?.summary,

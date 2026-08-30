@@ -9,7 +9,7 @@ import { useState } from "react";
 
 import { toast } from "sonner";
 
-import { useCart } from "@/components/Cart";
+import { useCartContext } from "@/context/CartContext";
 
 import type { CartItem as CartItemType } from "./cart.types";
 
@@ -41,7 +41,7 @@ export default function CartItem({
     updateQuantity,
     removeFromCart,
     saveForLater,
-  } = useCart();
+  } = useCartContext();
 
   const [
     actionLoading,

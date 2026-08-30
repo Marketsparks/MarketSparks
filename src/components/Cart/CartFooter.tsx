@@ -3,7 +3,7 @@
 import CartSummary from "./CartSummary";
 import CartCheckoutButton from "./CartCheckoutButton";
 
-import { useCart } from "@/components/Cart";
+import { useCartContext } from "@/context/CartContext";
 
 type CartFooterProps = {
   onClose: () => void;
@@ -12,7 +12,7 @@ type CartFooterProps = {
 export default function CartFooter({
   onClose,
 }: CartFooterProps) {
-  const { cart } = useCart();
+  const { cart } = useCartContext();
 
   if (
     !cart ||

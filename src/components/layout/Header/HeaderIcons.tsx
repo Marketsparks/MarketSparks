@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 import CartDrawer from "@/components/Cart/CartDrawer";
-import { useCart } from "@/hooks/useCart";
+import { useCartContext } from "@/context/CartContext";
 import { cn } from "@/lib/utils";
 
 import { useRouter } from "next/navigation";
@@ -41,7 +41,7 @@ const {
   cartOpen,
   openCart,
   closeCart,
-} = useCart();
+} = useCartContext();
 
 const {
   searchOpen,

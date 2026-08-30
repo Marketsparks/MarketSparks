@@ -34,6 +34,10 @@ import {
 } from "@/context/CartContext";
 
 import {
+  useWishlist,
+} from "@/context/WishlistContext";
+
+import {
   submitAffiliateProduct,
 } from "@/services/affiliate-api.service";
 
@@ -73,6 +77,10 @@ export default function AuthPageClient() {
       refreshAuth,
   } = useAuth();
 
+const {
+  addToWishlist,
+} = useWishlist();
+
   const searchParams =
     useSearchParams();
 
@@ -86,14 +94,32 @@ export default function AuthPageClient() {
       "wishlistProduct",
     );
 
-  const affiliateProduct =
-    searchParams.get(
-      "affiliateProduct",
-    );
+const affiliateProduct =
+  searchParams.get(
+    "affiliateProduct",
+  );
 
-  const {
-    openCart,
-  } = useCartContext();
+const buyNowProduct =
+  searchParams.get(
+    "buyNowProduct",
+  );
+
+const buyNowVariantSizeId =
+  searchParams.get(
+    "buyNowVariantSizeId",
+  );
+
+const buyNowQuantity =
+  Number(
+    searchParams.get(
+      "buyNowQuantity",
+    ) ?? "1",
+  );
+
+const {
+  addToCart,
+  openCart,
+} = useCartContext();
 
   const [
     mode,
@@ -106,42 +132,6 @@ export default function AuthPageClient() {
     loading,
     setLoading,
   ] = useState(false);
-
-  async function saveWishlistProduct(
-    productId: string,
-  ) {
-    const response =
-      await fetch(
-        "/api/wishlist",
-        {
-          method:
-            "POST",
-
-          credentials:
-            "include",
-
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-
-          body:
-            JSON.stringify({
-              productId,
-            }),
-        },
-      );
-
-    const data =
-      await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.error ??
-          "Unable to save product to wishlist.",
-      );
-    }
-  }
 
   async function submitAffiliateProductAfterLogin(
     productId: string,
@@ -278,6 +268,37 @@ export default function AuthPageClient() {
 
       await refreshAuth();
 
+if (
+  buyNowProduct &&
+  buyNowVariantSizeId &&
+  data.user.role !== "ADMIN"
+) {
+  try {
+    await addToCart({
+      productId:
+        buyNowProduct,
+
+      variantSizeId:
+        buyNowVariantSizeId,
+
+      quantity:
+        buyNowQuantity,
+    });
+
+    router.push(
+      "/checkout",
+    );
+  } catch (error) {
+    toast.error(
+      error instanceof Error
+        ? error.message
+        : "Unable to continue to checkout.",
+    );
+  }
+
+  return;
+}
+
       const wantsCart =
         redirect ===
         "/checkout";
@@ -326,9 +347,9 @@ export default function AuthPageClient() {
           "ADMIN"
       ) {
         try {
-          await saveWishlistProduct(
-            wishlistProduct,
-          );
+await addToWishlist(
+  wishlistProduct,
+);
 
           toast.success(
             "Product saved to wishlist.",

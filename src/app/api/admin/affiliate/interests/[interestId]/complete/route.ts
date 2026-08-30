@@ -235,36 +235,48 @@ export async function PATCH(
               },
             );
 
-          const listing =
-            await tx.affiliateListing.update(
-              {
-                where: {
-                  id:
-                    interest
-                      .listing
-                      .id,
-                },
+const listing =
+  await tx.affiliateListing.update(
+    {
+      where: {
+        id:
+          interest
+            .listing
+            .id,
+      },
 
-                data: {
-                  totalSales: {
-                    increment:
-                      1,
-                  },
+      data: {
+        totalSales: {
+          increment:
+            1,
+        },
 
-                  totalRevenue: {
-                    increment:
-                      transaction
-                        .agreedPrice,
-                  },
+        totalRevenue: {
+          increment:
+            transaction
+              .agreedPrice,
+        },
 
-                  totalCommission: {
-                    increment:
-                      transaction
-                        .commissionAmount,
-                  },
-                },
-              },
-            );
+        totalCommission: {
+          increment:
+            transaction
+              .commissionAmount,
+        },
+      },
+    },
+  );
+
+await tx.user.update({
+  where: {
+    id: interest.listing.userId,
+  },
+
+  data: {
+    affiliateBalance: {
+      increment: transaction.commissionAmount,
+    },
+  },
+});
 
           await tx.activityLog.create({
             data: {

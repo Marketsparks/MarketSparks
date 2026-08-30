@@ -101,30 +101,34 @@ export async function GET(
 
         select: {
           id: true,
+
           firstName: true,
+
           lastName: true,
+
           email: true,
+
           status: true,
+
           createdAt: true,
+
           role: true,
 
           balance: true,
 
           profit: true,
 
+          affiliateBalance: true,
+
           totalDeposit: true,
 
           wallet: {
             select: {
               id: true,
-              availableBalance: true,
-              lockedBalance: true,
-            },
-          },
 
-          affiliateListings: {
-            select: {
-              totalCommission: true,
+              availableBalance: true,
+
+              lockedBalance: true,
             },
           },
         },
@@ -138,19 +142,6 @@ export async function GET(
 
         data: users.map(
           (user) => {
-            const affiliateCommission =
-              user.affiliateListings.reduce(
-                (
-                  total,
-                  listing,
-                ) =>
-                  total +
-                  Number(
-                    listing.totalCommission,
-                  ),
-                0,
-              );
-
             return {
               id:
                 user.id,
@@ -200,7 +191,10 @@ export async function GET(
                 ).toString(),
 
               affiliateCommission:
-                affiliateCommission.toString(),
+                (
+                  user.affiliateBalance ??
+                  0
+                ).toString(),
             };
           },
         ),

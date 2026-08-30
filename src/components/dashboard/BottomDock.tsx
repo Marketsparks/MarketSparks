@@ -2,9 +2,6 @@
 
 import {
   ReactNode,
-  useCallback,
-  useEffect,
-  useState,
 } from "react";
 
 import Link from "next/link";
@@ -18,9 +15,11 @@ import {
   useAuth,
 } from "@/context/AuthContext";
 
+import { useCartContext } from "@/context/CartContext";
+
 import {
-  useCart,
-} from "@/components/Cart";
+  useWishlist,
+} from "@/context/WishlistContext";
 
 import {
   CreditCard,
@@ -108,97 +107,23 @@ export default function BottomDock({
     user,
   } = useAuth();
 
-  const [
-    wishlistCount,
-    setWishlistCount,
-  ] = useState(0);
 
   const {
-    itemCount,
-    openCart,
-  } = useCart();
+  itemCount,
+  openCart,
+} = useCartContext();
 
-  const isCheckoutPage =
-    pathname ===
-      "/checkout" ||
-    pathname.startsWith(
-      "/checkout/",
-    );
+const {
+  itemCount: wishlistCount,
+} = useWishlist();
 
-  const loadWishlistCount =
-    useCallback(
-      async () => {
-        if (!user) {
-          setWishlistCount(
-            0,
-          );
+const isCheckoutPage =
+  pathname ===
+    "/checkout" ||
+  pathname.startsWith(
+    "/checkout/",
+  );
 
-          return;
-        }
-
-        try {
-          const response =
-            await fetch(
-              "/api/wishlist",
-              {
-                method:
-                  "GET",
-
-                cache:
-                  "no-store",
-              },
-            );
-
-          if (!response.ok) {
-            return;
-          }
-
-          const result =
-            await response.json();
-
-          const count =
-            result?.summary
-              ?.itemCount ??
-            0;
-
-          setWishlistCount(
-            count,
-          );
-        } catch {
-          setWishlistCount(
-            0,
-          );
-        }
-      },
-      [user],
-    );
-
-  useEffect(() => {
-    void loadWishlistCount();
-  }, [
-    loadWishlistCount,
-  ]);
-
-  useEffect(() => {
-    const handleWishlistChanged =
-      () => {
-        void loadWishlistCount();
-      };
-
-    window.addEventListener(
-      "wishlist:changed",
-      handleWishlistChanged,
-    );
-
-    return () => {
-      window.removeEventListener(
-        "wishlist:changed",
-        handleWishlistChanged,
-      );
-    };
-  }, [
-    loadWishlistCount,
-  ]);
 
   if (
     environment ===

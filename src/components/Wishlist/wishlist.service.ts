@@ -2,8 +2,6 @@ import type {
   AddToWishlistInput,
   WishlistActionResponse,
   WishlistResponse,
-  WishlistStatusResponse,
-  WishlistCountResponse,
 } from "@/types/wishlist.types";
 
 const BASE_URL =
@@ -90,19 +88,5 @@ export async function clearWishlist() {
     {
       method: "DELETE",
     },
-  );
-}
-
-export async function getWishlistStatus(
-  productId: string,
-) {
-  return request<WishlistStatusResponse>(
-    `${BASE_URL}/${productId}`,
-  );
-}
-
-export async function getWishlistCount() {
-  return request<WishlistCountResponse>(
-    `${BASE_URL}/count`,
   );
 }

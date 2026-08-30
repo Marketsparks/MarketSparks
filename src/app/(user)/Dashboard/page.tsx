@@ -39,8 +39,6 @@ const [
   user,
   withdrawals,
   subscription,
-  affiliateListings,
-  affiliateAdjustments,
   activeOrders,
   pendingPayments,
   savedForLater,
@@ -64,10 +62,11 @@ const [
         id: session.user.id,
       },
 
-      select: {
-        profit: true,
-        totalDeposit: true,
-      },
+select: {
+  affiliateBalance: true,
+  profit: true,
+  totalDeposit: true,
+},
     }),
 
     prisma.withdrawal.aggregate({
@@ -95,29 +94,6 @@ const [
       select: {
         badgeName: true,
         expiresAt: true,
-      },
-    }),
-
-    prisma.affiliateListing.findMany({
-      where: {
-        userId:
-          session.user.id,
-      },
-
-      select: {
-        totalCommission: true,
-      },
-    }),
-
-    prisma.affiliateCommissionAdjustment.findMany({
-      where: {
-        userId:
-          session.user.id,
-      },
-
-      select: {
-        type: true,
-        amount: true,
       },
     }),
 
@@ -251,41 +227,10 @@ prisma.cart.findUnique({
         0,
     );
 
-  const earnedCommission =
-    affiliateListings.reduce(
-      (
-        total,
-        listing,
-      ) =>
-        total +
-        Number(
-          listing.totalCommission,
-        ),
-      0,
-    );
-
-  const commissionAdjustments =
-    affiliateAdjustments.reduce(
-      (
-        total,
-        adjustment,
-      ) =>
-        adjustment.type ===
-        "CREDIT"
-          ? total +
-            Number(
-              adjustment.amount,
-            )
-          : total -
-            Number(
-              adjustment.amount,
-            ),
-      0,
-    );
-
-  const affiliateCommission =
-    earnedCommission +
-    commissionAdjustments;
+const affiliateCommission =
+  Number(
+    user?.affiliateBalance ?? 0,
+  );
 
   const planTitle =
     subscription

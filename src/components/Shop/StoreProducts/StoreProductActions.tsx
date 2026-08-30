@@ -17,7 +17,7 @@ import { useCartContext } from "@/context/CartContext";
 
 import { useAuth } from "@/context/AuthContext";
 
-import { useWishlist } from "@/hooks/useWishlist";
+import { useWishlist } from "@/context/WishlistContext";
 
 import type {
   AppEnvironment,
@@ -165,9 +165,9 @@ export default function StoreProductActions({
     loading: authLoading,
   } = useAuth();
 
-  const {
-    addToWishlist,
-  } = useWishlist();
+const {
+  addToWishlist,
+} = useWishlist();
 
   const {
     execute:
@@ -271,21 +271,11 @@ await addToCart({
   quantity: 1,
 });
 
-      await addToCart({
-        productId:
-          product.id,
+toast.success(
+  "Product added to cart.",
+);
 
-        variantSizeId:
-          selection.inventory.id,
-
-        quantity: 1,
-      });
-
-      toast.success(
-        "Product added to cart.",
-      );
-
-      openCart();
+openCart();
     } catch (error) {
       toast.error(
         error instanceof Error
@@ -396,13 +386,10 @@ if (!selection) {
   return;
 }
 
-await addToWishlist({
-  productId:
-    product.id,
-
-  variantSizeId:
-    selection.inventory.id,
-});
+await addToWishlist(
+  product.id,
+  selection.inventory.id,
+);
 
       toast.success(
         "Product saved to wishlist.",

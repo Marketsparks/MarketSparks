@@ -86,22 +86,22 @@ const checkoutDeliveryDetailsSchema =
 
 const savedAddressSourceSchema =
   z.object({
-    type:
-      z.literal("SAVED"),
+    type: z.literal(
+      "SAVED",
+    ),
 
     addressId:
-      z
-        .string()
-        .min(
-          1,
-          "Address is required.",
-        ),
+      z.string().min(
+        1,
+        "Address is required.",
+      ),
   });
 
 const newAddressSourceSchema =
   z.object({
-    type:
-      z.literal("NEW"),
+    type: z.literal(
+      "NEW",
+    ),
 
     details:
       checkoutDeliveryDetailsSchema,
@@ -119,13 +119,8 @@ const checkoutAddressSourceSchema =
     ],
   );
 
-const walletCheckoutSchema =
+const commonCheckoutSchema =
   z.object({
-    paymentMethod:
-      z.literal(
-        PaymentMethod.WALLET,
-      ),
-
     addressSource:
       checkoutAddressSourceSchema,
 
@@ -136,42 +131,102 @@ const walletCheckoutSchema =
         .max(1000)
         .optional()
         .nullable()
-        .or(z.literal("")),
+        .or(
+          z.literal(""),
+        ),
   });
+
+const walletCheckoutSchema =
+  z.discriminatedUnion(
+    "mode",
+    [
+      commonCheckoutSchema.extend({
+        mode:
+          z.literal(
+            "CART",
+          ),
+
+        paymentMethod:
+          z.literal(
+            PaymentMethod.WALLET,
+          ),
+      }),
+
+      commonCheckoutSchema.extend({
+        mode:
+          z.literal(
+            "DIRECT",
+          ),
+
+productId: z.string().cuid(),
+
+variantSizeId: z.string().cuid(),
+
+quantity:
+  z.number().int().min(1),
+
+includeCart:
+  z.boolean(),
+
+paymentMethod:
+  z.literal(
+    PaymentMethod.WALLET,
+  ),
+      }),
+    ],
+  );
 
 const cryptoCheckoutSchema =
-  z.object({
-    paymentMethod:
-      z.literal(
-        PaymentMethod.CRYPTO,
-      ),
+  z.discriminatedUnion(
+    "mode",
+    [
+      commonCheckoutSchema.extend({
+        mode:
+          z.literal(
+            "CART",
+          ),
 
-    addressSource:
-      checkoutAddressSourceSchema,
+        paymentMethod:
+          z.literal(
+            PaymentMethod.CRYPTO,
+          ),
 
-    depositMethodId:
-      z
-        .string()
-        .uuid(
-          "Invalid deposit method.",
-        ),
+        depositMethodId:
+          z.string().uuid(),
 
-    receiptUrl:
-      z
-        .string()
-        .url(
-          "Valid receipt upload is required.",
-        ),
+        receiptUrl:
+          z.string().url(),
+      }),
 
-    notes:
-      z
-        .string()
-        .trim()
-        .max(1000)
-        .optional()
-        .nullable()
-        .or(z.literal("")),
-  });
+      commonCheckoutSchema.extend({
+        mode:
+          z.literal(
+            "DIRECT",
+          ),
+
+productId: z.string().cuid(),
+
+variantSizeId: z.string().cuid(),
+
+quantity:
+  z.number().int().min(1),
+
+includeCart:
+  z.boolean(),
+
+paymentMethod:
+  z.literal(
+    PaymentMethod.CRYPTO,
+  ),
+
+        depositMethodId:
+          z.string().uuid(),
+
+        receiptUrl:
+          z.string().url(),
+      }),
+    ],
+  );
 
 export const checkoutSchema =
   z.discriminatedUnion(

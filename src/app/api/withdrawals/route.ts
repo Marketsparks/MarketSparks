@@ -23,6 +23,7 @@ const withdrawalSchema = z.object({
 balanceType: z.enum([
   "wallet",
   "profit",
+  "affiliate",
 ]),
 
   destinationAddress: z
@@ -250,10 +251,11 @@ const [wallet, user] =
       where: {
         id: session.user.id,
       },
-      select: {
-        id: true,
-        profit: true,
-      },
+select: {
+  id: true,
+  profit: true,
+  affiliateBalance: true,
+},
     }),
   ]);
 
@@ -332,9 +334,14 @@ const availableBalance =
     ? Number(
         wallet.availableBalance
       )
-    : Number(
-        user.profit
-      );
+    : data.balanceType ===
+      "profit"
+      ? Number(
+          user.profit
+        )
+      : Number(
+          user.affiliateBalance
+        );
 
   if (
     amount >
@@ -417,13 +424,37 @@ if (data.balanceType === "wallet") {
       },
     },
   });
-} else {
+} else if (
+  data.balanceType === "profit"
+) {
   await tx.user.update({
     where: {
       id: user.id,
     },
     data: {
       profit: {
+        decrement: data.amount,
+      },
+    },
+  });
+
+  await tx.wallet.update({
+    where: {
+      id: wallet.id,
+    },
+    data: {
+      lockedBalance: {
+        increment: data.amount,
+      },
+    },
+  });
+} else {
+  await tx.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      affiliateBalance: {
         decrement: data.amount,
       },
     },
@@ -463,11 +494,12 @@ data: {
 
   reference,
 
-  balanceType:
-    data.balanceType ===
-    "wallet"
-      ? WithdrawalBalanceType.WALLET
-      : WithdrawalBalanceType.PROFIT,
+balanceType:
+  data.balanceType === "wallet"
+    ? WithdrawalBalanceType.WALLET
+    : data.balanceType === "profit"
+      ? WithdrawalBalanceType.PROFIT
+      : WithdrawalBalanceType.AFFILIATE,
 
   destinationAddress:
     method.type ===
@@ -544,10 +576,17 @@ data: {
 return {
   withdrawal: createdWithdrawal,
   wallet: updatedWallet,
-  profitBalance:
-    data.balanceType === "wallet"
-      ? Number(user.profit)
-      : Number(user.profit) - Number(data.amount),
+
+profitBalance:
+  data.balanceType === "profit"
+    ? Number(user.profit) - Number(data.amount)
+    : Number(user.profit),
+
+affiliateBalance:
+  data.balanceType === "affiliate"
+    ? Number(user.affiliateBalance) -
+      Number(data.amount)
+    : Number(user.affiliateBalance),
 };
       }
     );
@@ -611,6 +650,9 @@ wallet: {
 
   profitBalance:
     withdrawal.profitBalance,
+
+  affiliateBalance:
+    withdrawal.affiliateBalance,
 
   lockedBalance: Number(
     withdrawal.wallet.lockedBalance

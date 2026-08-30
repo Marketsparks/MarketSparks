@@ -13,8 +13,20 @@ import {
 } from "@/context/CartContext";
 
 import {
+  CheckoutProvider,
+} from "@/context/CheckoutContext";
+
+import {
   SearchProvider,
 } from "@/context/SearchContext";
+
+import {
+  WishlistProvider,
+} from "@/context/WishlistContext";
+
+import {
+  SubscriptionProvider,
+} from "@/context/SubscriptionContext";
 
 type AppProviderProps = {
   children: ReactNode;
@@ -26,11 +38,17 @@ export default function AppProvider({
   return (
     <ThemeProvider>
       <AuthProvider>
-        <CartProvider>
-          <SearchProvider>
-            {children}
-          </SearchProvider>
-        </CartProvider>
+        <WishlistProvider>
+          <SubscriptionProvider>
+            <CartProvider>
+              <CheckoutProvider>
+                <SearchProvider>
+                  {children}
+                </SearchProvider>
+              </CheckoutProvider>
+            </CartProvider>
+          </SubscriptionProvider>
+        </WishlistProvider>
       </AuthProvider>
     </ThemeProvider>
   );

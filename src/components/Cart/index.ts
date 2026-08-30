@@ -1,5 +1,3 @@
-export { useCart } from "@/hooks/useCart";
-
 export {
   CartProvider,
   useCartContext,

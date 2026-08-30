@@ -268,6 +268,17 @@ export async function getAffiliateEarnings(
       },
     });
 
+const user =
+  await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+
+    select: {
+      affiliateBalance: true,
+    },
+  });
+
   const totalSales =
     listings.reduce(
       (
@@ -626,7 +637,11 @@ export async function getAffiliateEarnings(
 
       totalRevenue,
 
-      totalCommission,
+totalCommission:
+  Number(
+    user?.affiliateBalance ??
+      0,
+  ),
     },
   };
 }

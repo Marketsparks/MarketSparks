@@ -2,12 +2,39 @@
 
 import Image from "next/image";
 
-import type {
-  CartItem,
-} from "@/components/Cart/cart.types";
+export type CheckoutSummaryItem = {
+  id: string;
+
+  quantity: number;
+
+product: {
+  name: string;
+
+  price: number;
+
+  images: {
+    imageUrl: string | null;
+    imageKey: string | null;
+    altText: string | null;
+    isPrimary: boolean;
+  }[];
+};
+
+  variant: {
+    label: string | null;
+
+    imageUrl: string | null;
+
+    imageKey: string | null;
+  };
+
+  size: string | null;
+
+  unitPrice: number;
+};
 
 type CheckoutOrderSummaryProps = {
-  items: CartItem[];
+  items: CheckoutSummaryItem[];
 
   subtotal: number;
 
@@ -74,25 +101,21 @@ export default function CheckoutOrderSummary({
       <div className="mt-4 space-y-3">
         {items.map(
           (item) => {
-            const unitPrice =
-              item.variantSize.price ??
-              item.product.price;
-
-            const lineTotal =
-              unitPrice *
-              item.quantity;
+const lineTotal =
+  item.unitPrice *
+  item.quantity;
 
 const image =
-  item.variantSize.variant.imageUrl
+  item.variant.imageUrl
     ? {
         imageUrl:
-          item.variantSize.variant.imageUrl,
+          item.variant.imageUrl,
 
         imageKey:
-          item.variantSize.variant.imageKey,
+          item.variant.imageKey,
 
         altText:
-          item.variantSize.variant.label ??
+          item.variant.label ??
           item.product.name,
       }
     : (
@@ -200,9 +223,7 @@ const image =
                       }
                     </span>
 
-                    {item.variantSize
-                      .variant
-                      .label && (
+                    {item.variant.label && (
                       <span
                         className="
                           truncate
@@ -211,15 +232,12 @@ const image =
                         "
                       >
                         {
-                          item.variantSize
-                            .variant
-                            .label
+                      item.variant.label
                         }
                       </span>
                     )}
 
-                    {item.variantSize
-                      .size && (
+                    {item.size && (
                       <span
                         className="
                           text-[10px]
@@ -227,8 +245,7 @@ const image =
                         "
                       >
                         {
-                          item.variantSize
-                            .size
+                          item.size
                         }
                       </span>
                     )}

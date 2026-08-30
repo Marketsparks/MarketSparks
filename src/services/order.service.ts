@@ -199,10 +199,118 @@ async function resolveDeliveryAddress(
   };
 }
 
-async function getCheckoutCart(
+async function getCheckoutItems(
   tx: Prisma.TransactionClient,
   userId: string,
+  input: CheckoutSubmitInput,
 ) {
+if (input.mode === "DIRECT") {
+  const inventory =
+    await tx.productVariantSize.findUnique({
+      where: {
+        id: input.variantSizeId,
+      },
+
+      select: {
+        id: true,
+
+        size: true,
+
+        price: true,
+
+        stock: true,
+
+        reservedStock: true,
+
+        allowPreorder: true,
+
+        variant: {
+          select: {
+            id: true,
+
+            type: true,
+
+            label: true,
+
+            product: {
+              select: {
+                id: true,
+
+                name: true,
+
+                status: true,
+
+                price: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+  if (!inventory) {
+    throw new Error(
+      "INVENTORY_NOT_FOUND",
+    );
+  }
+
+  const directItem = {
+    id: `direct:${randomUUID()}`,
+
+    productId:
+      inventory.variant.product.id,
+
+    variantSizeId:
+      inventory.id,
+
+    quantity:
+      input.quantity,
+
+    product:
+      inventory.variant.product,
+
+    variantSize: {
+      id:
+        inventory.id,
+
+      size:
+        inventory.size,
+
+      price:
+        inventory.price,
+
+      stock:
+        inventory.stock,
+
+      reservedStock:
+        inventory.reservedStock,
+
+      allowPreorder:
+        inventory.allowPreorder,
+
+      variant: {
+        id:
+          inventory.variant.id,
+
+        type:
+          inventory.variant.type,
+
+        label:
+          inventory.variant.label,
+      },
+    },
+  };
+
+  if (!input.includeCart) {
+    return {
+      cartId: null,
+
+      items: [
+        directItem,
+      ],
+    };
+  }
+
   const cart =
     await tx.cart.findUnique({
       where: {
@@ -212,14 +320,98 @@ async function getCheckoutCart(
       select: {
         id: true,
 
-items: {
-  where: {
-    status: "CART",
+        items: {
+          where: {
+            status: "CART",
 
-    variantSize: {
-      isNot: null,
-    },
-  },
+            variantSize: {
+              isNot: null,
+            },
+          },
+
+          orderBy: {
+            createdAt: "asc",
+          },
+
+          select: {
+            id: true,
+
+            productId: true,
+
+            variantSizeId: true,
+
+            quantity: true,
+
+            product: {
+              select: {
+                id: true,
+
+                name: true,
+
+                status: true,
+
+                price: true,
+              },
+            },
+
+            variantSize: {
+              select: {
+                id: true,
+
+                size: true,
+
+                price: true,
+
+                stock: true,
+
+                reservedStock: true,
+
+                allowPreorder: true,
+
+                variant: {
+                  select: {
+                    id: true,
+
+                    type: true,
+
+                    label: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+  return {
+    cartId:
+      cart?.id ?? null,
+
+    items: [
+      ...(cart?.items ?? []),
+      directItem,
+    ],
+  };
+}
+
+  const cart =
+    await tx.cart.findUnique({
+      where: {
+        userId,
+      },
+
+      select: {
+        id: true,
+
+        items: {
+          where: {
+            status: "CART",
+
+            variantSize: {
+              isNot: null,
+            },
+          },
 
           orderBy: {
             createdAt: "asc",
@@ -285,7 +477,11 @@ items: {
     );
   }
 
-  return cart;
+  return {
+    cartId: cart.id,
+
+    items: cart.items,
+  };
 }
 
 export async function createCheckoutOrderService(
@@ -296,11 +492,12 @@ export async function createCheckoutOrderService(
     async () =>
       prisma.$transaction(
         async (tx) => {
-          const cart =
-            await getCheckoutCart(
-              tx,
-              userId,
-            );
+const checkout =
+  await getCheckoutItems(
+    tx,
+    userId,
+    input,
+  );
 
           const address =
             await resolveDeliveryAddress(
@@ -325,7 +522,7 @@ export async function createCheckoutOrderService(
           let subtotal =
             new Prisma.Decimal(0);
 
-          for (const item of cart.items) {
+          for (const item of checkout.items) {
             if (
               item.product.status !==
               "ACTIVE"
@@ -615,14 +812,14 @@ where: {
                 },
               });
 
-            await tx.cartItem.deleteMany({
-              where: {
-                cartId: cart.id,
-
-                status:
-                  "CART",
-              },
-            });
+if (checkout.cartId) {
+  await tx.cartItem.deleteMany({
+    where: {
+      cartId: checkout.cartId,
+      status: "CART",
+    },
+  });
+}
 
             return {
               order,
@@ -694,7 +891,7 @@ where: {
               },
             );
 
-          for (const item of cart.items) {
+          for (const item of checkout.items) {
 if (!item.variantSizeId) {
   throw new Error(
     "INVENTORY_NOT_FOUND",
@@ -889,14 +1086,14 @@ where: {
               },
             });
 
-          await tx.cartItem.deleteMany({
-            where: {
-              cartId: cart.id,
-
-              status:
-                "CART",
-            },
-          });
+if (checkout.cartId) {
+  await tx.cartItem.deleteMany({
+    where: {
+      cartId: checkout.cartId,
+      status: "CART",
+    },
+  });
+}
 
           return {
             order,

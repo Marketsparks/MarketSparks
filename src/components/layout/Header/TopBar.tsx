@@ -10,7 +10,7 @@ import {
 
 import { Container } from "@/components/layout";
 
-import { useCart } from "@/components/Cart";
+import { useCartContext } from "@/context/CartContext";
 
 const socialClass =
   "flex h-7 w-7 items-center justify-center rounded-md border border-[var(--foreground)] text-[var(--icon-color)] transition-all duration-200 hover:border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)]";
@@ -24,7 +24,7 @@ const languages = [
 ];
 
 export default function TopBar() {
-  const { cartOpen } = useCart();
+  const { cartOpen } = useCartContext();
   return (
 <div
   className={[
@@ -82,7 +82,7 @@ export default function TopBar() {
             className="flex items-center gap-2 transition-colors duration-200 hover:text-[var(--primary)]"
           >
             <Phone size={14} />
-            <span>+234 800 000 0000</span>
+            <span>+1 (753) 689 1030</span>
           </a>
 
           <a

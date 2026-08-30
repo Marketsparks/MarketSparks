@@ -4,15 +4,23 @@ import { toast } from "sonner";
 
 import WishlistGrid from "./WishlistGrid";
 
-import { useWishlist } from "@/hooks/useWishlist";
+import { useWishlist } from "@/context/WishlistContext";
+
+import { useCartContext } from "@/context/CartContext";
 
 export default function WishlistPage() {
-  const {
-    items,
-    isLoading,
-    removeFromWishlist,
-    addWishlistItemToCart,
-  } = useWishlist();
+const {
+  wishlist,
+  loading,
+  removeFromWishlist,
+} = useWishlist();
+
+const {
+  addToCart,
+} = useCartContext();
+
+const items =
+  wishlist?.items ?? [];
 
 async function handleRemove(
   productId: string,
@@ -38,8 +46,22 @@ async function handleAddToCart(
   productId: string,
   variantSizeId?: string,
 ) {
+  if (!variantSizeId) {
+    toast.error(
+      "This wishlist item has no selected product option.",
+    );
+
+    return;
+  }
+
   try {
-    await addWishlistItemToCart(
+    await addToCart({
+      productId,
+      variantSizeId,
+      quantity: 1,
+    });
+
+    await removeFromWishlist(
       productId,
       variantSizeId,
     );
@@ -56,7 +78,7 @@ async function handleAddToCart(
   }
 }
 
-  return (
+return (
 <section
   className="
     space-y-5
@@ -111,7 +133,7 @@ async function handleAddToCart(
 
       <WishlistGrid
         items={items}
-        loading={isLoading}
+        loading={loading}
         onRemove={
           handleRemove
         }

@@ -14,7 +14,7 @@ import {
 
 import { toast } from "sonner";
 
-import { useCart } from "@/components/Cart";
+import { useCartContext } from "@/context/CartContext";
 
 import type {
   CartItem,
@@ -30,7 +30,7 @@ export default function SavedForLater({
   const {
     moveToCart,
     removeFromCart,
-  } = useCart();
+  } = useCartContext();
 
   const [
     actionLoading,

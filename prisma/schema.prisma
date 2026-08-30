@@ -40,12 +40,10 @@ model User {
 
   wallet Wallet?
 
-  balance      Decimal @default(0) @db.Decimal(18, 2)
-  profit       Decimal @default(0) @db.Decimal(18, 2)
-  totalDeposit Decimal @default(0) @db.Decimal(18, 2)
-
-  affiliateCommissionAdjustmentsMade      AffiliateCommissionAdjustment[] @relation("UserAffiliateCommissionAdjustments")
-  affiliateCommissionAdjustmentsProcessed AffiliateCommissionAdjustment[] @relation("AdminAffiliateCommissionAdjustments")
+  balance          Decimal @default(0) @db.Decimal(18, 2)
+  profit           Decimal @default(0) @db.Decimal(18, 2)
+  affiliateBalance Decimal @default(0) @db.Decimal(18, 2)
+  totalDeposit     Decimal @default(0) @db.Decimal(18, 2)
 
   walletTransactions    WalletTransaction[] @relation("UserWalletTransactions")
   walletAdjustmentsMade WalletTransaction[] @relation("AdminWalletTransactions")
@@ -687,22 +685,6 @@ model AffiliateTransaction {
   @@index([createdAt])
 }
 
-model AffiliateCommissionAdjustment {
-  id        String                @id @default(cuid())
-  userId    String                @db.Uuid
-  adminId   String                @db.Uuid
-  type      WalletTransactionType
-  amount    Decimal               @db.Decimal(18, 2)
-  createdAt DateTime              @default(now())
-
-  user  User @relation("UserAffiliateCommissionAdjustments", fields: [userId], references: [id], onDelete: Cascade)
-  admin User @relation("AdminAffiliateCommissionAdjustments", fields: [adminId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-  @@index([adminId])
-  @@index([createdAt])
-}
-
 model Product {
   id String @id @default(cuid())
 
@@ -1133,6 +1115,7 @@ enum WithdrawalMethodType {
 enum WithdrawalBalanceType {
   WALLET
   PROFIT
+  AFFILIATE
 }
 
 enum WalletTransactionType {

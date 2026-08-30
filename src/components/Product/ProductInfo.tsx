@@ -5,6 +5,14 @@ import {
   useState,
 } from "react";
 
+import {
+  useRouter,
+} from "next/navigation";
+
+import {
+  useAuth,
+} from "@/context/AuthContext";
+
 import { toast } from "sonner";
 
 import ProductActions from "./ProductActions";
@@ -22,6 +30,10 @@ import {
 } from "@/context/CartContext";
 
 import {
+  useCheckout,
+} from "@/context/CheckoutContext";
+
+import {
   useAffiliateAction,
 } from "@/hooks/useAffiliateAction";
 
@@ -29,8 +41,18 @@ import type {
   ProductVariant,
 } from "@/lib/products/product.types";
 
+import BuyNowConfirmationDialog from "../Checkout/BuyNowConfirmationDialog";
+
 type ProductInfoProps = {
   productId: string;
+
+  productImageKey:
+    | string
+    | null;
+
+  productImageUrl:
+    | string
+    | null;
 
   name: string;
 
@@ -63,6 +85,8 @@ type ProductInfoProps = {
 
 export default function ProductInfo({
   productId,
+  productImageKey,
+  productImageUrl,
   name,
   description,
   rating,
@@ -76,10 +100,23 @@ export default function ProductInfo({
   returnPolicy,
   productUrl,
 }: ProductInfoProps) {
-  const {
-    addToCart,
-    openCart,
-  } = useCartContext();
+const {
+  addToCart,
+  openCart,
+  cart,
+} = useCartContext();
+
+const router =
+  useRouter();
+
+const {
+  user,
+  loading: authLoading,
+} = useAuth();
+
+const {
+  startDirectCheckout,
+} = useCheckout();
 
   const {
     execute:
@@ -104,6 +141,11 @@ export default function ProductInfo({
     buyingNow,
     setBuyingNow,
   ] = useState(false);
+
+const [
+  showBuyNowDialog,
+  setShowBuyNowDialog,
+] = useState(false);
 
   const [
     selectedSelection,
@@ -256,81 +298,156 @@ export default function ProductInfo({
     }
   }
 
-  async function handleBuyNow() {
-    if (!selectedInventory) {
-      toast.error(
-        "Please select an available product option.",
-      );
+function proceedWithDirectCheckout(
+  includeCart: boolean,
+) {
+const primaryVariantImage =
+  selectedVariant?.images.find(
+    (image) =>
+      image.isPrimary,
+  ) ??
+  selectedVariant?.images[0] ??
+  null;
 
-      return;
-    }
+  startDirectCheckout({
+    productId,
 
-    if (
-      activeStock <= 0 &&
-      !selectedInventory.allowPreorder
-    ) {
-      toast.error(
-        "This product is currently out of stock.",
-      );
+    variantSizeId:
+      selectedInventory!.id,
 
-      return;
-    }
+    quantity,
 
-    if (
-      quantity > activeStock &&
-      !selectedInventory.allowPreorder
-    ) {
-      toast.error(
-        `Only ${activeStock} item${
-          activeStock === 1
-            ? ""
-            : "s"
-        } currently available.`,
-      );
+    productName:
+      name,
 
-      return;
-    }
+    unitPrice:
+      activePrice,
 
-    try {
-      setBuyingNow(
-        true,
-      );
+    variantLabel:
+      selectedVariant?.label ??
+      null,
 
-      await addToCart({
-        productId,
+    size:
+      selectedInventory!.size,
 
-        variantSizeId:
-          selectedInventory.id,
+imageKey:
+  primaryVariantImage?.imageKey ??
+  productImageKey,
 
-        quantity,
-      });
+imageUrl:
+  primaryVariantImage?.imageUrl ??
+  productImageUrl,
 
-      toast.success(
-        "Product added to cart.",
-      );
+    includeCart,
+  });
 
-      openCart();
-    } catch (
-      error
-    ) {
-      toast.error(
-        error instanceof
-          Error
-          ? error.message
-          : "Failed to process purchase.",
-      );
-    } finally {
-      setBuyingNow(
-        false,
-      );
-    }
-  }
+  router.push(
+    "/checkout",
+  );
+}
 
-  async function handleAffiliate() {
-    await executeAffiliate(
-      productId,
+async function handleBuyNow() {
+  if (!selectedInventory) {
+    toast.error(
+      "Please select an available product option.",
     );
+
+    return;
   }
+
+  if (
+    activeStock <= 0 &&
+    !selectedInventory.allowPreorder
+  ) {
+    toast.error(
+      "This product is currently out of stock.",
+    );
+
+    return;
+  }
+
+  if (
+    quantity > activeStock &&
+    !selectedInventory.allowPreorder
+  ) {
+    toast.error(
+      `Only ${activeStock} item${
+        activeStock === 1
+          ? ""
+          : "s"
+      } currently available.`,
+    );
+
+    return;
+  }
+
+  if (authLoading) {
+    return;
+  }
+
+  if (!user) {
+    router.push(
+      `/Auth?buyNowProduct=${encodeURIComponent(
+        productId,
+      )}&buyNowVariantSizeId=${encodeURIComponent(
+        selectedInventory.id,
+      )}&buyNowQuantity=${quantity}`,
+    );
+
+    return;
+  }
+
+try {
+  setBuyingNow(
+    true,
+  );
+
+  if (
+    (cart?.items.length ?? 0) >
+    0
+  ) {
+    setShowBuyNowDialog(
+      true,
+    );
+
+    return;
+  }
+
+proceedWithDirectCheckout(
+  false,
+);
+} finally {
+  setBuyingNow(
+    false,
+  );
+ }
+}
+
+function handleCheckoutEverything() {
+  setShowBuyNowDialog(
+    false,
+  );
+
+  proceedWithDirectCheckout(
+    true,
+  );
+}
+
+function handleCheckoutDirectOnly() {
+  setShowBuyNowDialog(
+    false,
+  );
+
+  proceedWithDirectCheckout(
+    false,
+  );
+}
+
+async function handleAffiliate() {
+  await executeAffiliate(
+    productId,
+  );
+}
 
   return (
     <div
@@ -537,6 +654,23 @@ export default function ProductInfo({
           }
         />
       </div>
+
+<BuyNowConfirmationDialog
+  open={
+    showBuyNowDialog
+  }
+  onClose={() =>
+    setShowBuyNowDialog(
+      false,
+    )
+  }
+  onCartCheckout={
+    handleCheckoutEverything
+  }
+  onDirectCheckout={
+    handleCheckoutDirectOnly
+  }
+/>
     </div>
   );
 }
