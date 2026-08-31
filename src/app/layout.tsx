@@ -35,6 +35,35 @@ export const metadata: Metadata = {
   },
 
   description: SITE.description,
+
+  openGraph: {
+    type: "website",
+    url: "https://marketsparks.top",
+    siteName: "MarketSparks",
+
+    title: "MarketSparks",
+
+    description: SITE.description,
+
+    images: [
+      {
+        url: "/assets/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MarketSparks",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+
+    title: "MarketSparks",
+
+    description: SITE.description,
+
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
