@@ -62,7 +62,7 @@ export const metadata: Metadata = {
 
     description: SITE.description,
 
-    images: ["/og-image.png"],
+    images: ["/assets/images/og-image.png"],
   },
 };
 
