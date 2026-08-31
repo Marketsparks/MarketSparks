@@ -24,23 +24,23 @@ export default function CartFooter({
   return (
     <footer
       className="
-        sticky
-        bottom-0
-        z-20
         shrink-0
         border-t
-        px-3
-        py-3
-        shadow-[0_-8px_24px_rgba(0,0,0,0.08)]
+        px-4
+        pt-4
+        pb-[calc(env(safe-area-inset-bottom)+16px)]
+        backdrop-blur-xl
       "
       style={{
         background:
-          "var(--cart-bg)",
+          "color-mix(in srgb, var(--cart-bg) 94%, transparent)",
         borderColor:
           "var(--cart-divider)",
+        boxShadow:
+          "0 -12px 32px rgba(0,0,0,0.12)",
       }}
     >
-      <div className="space-y-3">
+      <div className="space-y-4">
         <CartSummary />
 
         <CartCheckoutButton

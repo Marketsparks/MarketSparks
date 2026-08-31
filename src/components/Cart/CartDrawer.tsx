@@ -36,7 +36,8 @@ export default function CartDrawer({
 
   useEffect(() => {
     if (!open) {
-      document.body.style.overflow = "";
+      document.body.style.overflow =
+        "";
 
       return;
     }
@@ -90,7 +91,6 @@ export default function CartDrawer({
             style={{
               background:
                 "var(--cart-backdrop)",
-
               backdropFilter:
                 "blur(var(--cart-blur))",
             }}
@@ -121,10 +121,8 @@ export default function CartDrawer({
             style={{
               background:
                 "var(--cart-bg)",
-
               borderColor:
                 "var(--cart-border)",
-
               boxShadow:
                 "var(--cart-shadow)",
             }}
@@ -137,7 +135,6 @@ export default function CartDrawer({
               style={{
                 background:
                   "var(--cart-button-secondary-bg)",
-
                 border:
                   "1px solid var(--cart-border)",
               }}
@@ -147,26 +144,18 @@ export default function CartDrawer({
 
             <CartHeader />
 
-<div className="relative min-h-0 flex-1 overflow-hidden">
-  <CartBody
-    environment={environment}
-    onClose={onClose}
-  />
+            <div className="flex min-h-0 flex-1 flex-col">
+              <CartBody
+                environment={
+                  environment
+                }
+                onClose={onClose}
+              />
 
-  <div
-    className="
-      absolute
-      bottom-0
-      left-0
-      right-0
-      z-20
-    "
-  >
-    <CartFooter
-      onClose={onClose}
-    />
-  </div>
-</div>
+              <CartFooter
+                onClose={onClose}
+              />
+            </div>
           </motion.aside>
         </>
       )}

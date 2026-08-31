@@ -70,7 +70,8 @@ export default function CartBody({
           flex-1
           overflow-y-auto
           px-4
-          py-3
+          pt-3
+          pb-72
         "
       >
         {hasCartItems ? (
@@ -98,17 +99,17 @@ export default function CartBody({
             )}
           </section>
         ) : (
-<EmptyCart
-  hasSavedItems={false}
-  continueShoppingHref={
-    environment === "user"
-      ? "/Market-Place"
-      : "/Shop"
-  }
-  onContinueShopping={
-    onClose
-  }
-/>
+          <EmptyCart
+            hasSavedItems={false}
+            continueShoppingHref={
+              environment === "user"
+                ? "/Market-Place"
+                : "/Shop"
+            }
+            onContinueShopping={
+              onClose
+            }
+          />
         )}
 
         {hasSavedItems && (
@@ -135,15 +136,15 @@ export default function CartBody({
               />
 
               <span
-className="
-  max-w-[190px]
-  shrink-0
-  text-center
-  text-[9px]
-  sm:text-[10px]
-  font-medium
-  leading-none
-"
+                className="
+                  max-w-[190px]
+                  shrink-0
+                  text-center
+                  text-[9px]
+                  font-medium
+                  leading-none
+                  sm:text-[10px]
+                "
                 style={{
                   color:
                     "var(--text-secondary)",
@@ -185,8 +186,6 @@ className="
             </div>
           </section>
         )}
-
-        <div className="h-44" />
       </div>
     </div>
   );

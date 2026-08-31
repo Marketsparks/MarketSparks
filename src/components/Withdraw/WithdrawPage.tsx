@@ -210,8 +210,7 @@ const hasDestinationDetails =
         bankDetails.bankName.trim() &&
         bankDetails.accountNumber.trim() &&
         bankDetails.country.trim() &&
-        bankDetails.currency.trim() &&
-        bankDetails.bankAddress.trim()
+        bankDetails.currency.trim()
       )
     : Boolean(
         address.trim()

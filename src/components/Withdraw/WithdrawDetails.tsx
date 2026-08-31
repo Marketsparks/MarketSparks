@@ -149,14 +149,14 @@ export default function WithdrawDetails({
 
     <InputField
       id="withdraw-bank-address"
-      label="Bank Address *"
+      label="Bank Address"
       value={bankDetails.bankAddress}
       onChange={(value) =>
         onBankDetailsChange({
           bankAddress: value,
         })
       }
-      placeholder="Enter bank address"
+      placeholder="Optional"
       disabled={disabled}
     />
 
@@ -174,51 +174,12 @@ export default function WithdrawDetails({
     />
 
     <InputField
-      id="withdraw-iban"
-      label="IBAN"
-      value={bankDetails.iban}
-      onChange={(value) =>
-        onBankDetailsChange({
-          iban: value,
-        })
-      }
-      placeholder="Optional"
-      disabled={disabled}
-    />
-
-    <InputField
       id="withdraw-routing"
       label="Routing Number"
       value={bankDetails.routingNumber}
       onChange={(value) =>
         onBankDetailsChange({
           routingNumber: value,
-        })
-      }
-      placeholder="Optional"
-      disabled={disabled}
-    />
-
-    <InputField
-      id="withdraw-sort-code"
-      label="Sort Code"
-      value={bankDetails.sortCode}
-      onChange={(value) =>
-        onBankDetailsChange({
-          sortCode: value,
-        })
-      }
-      placeholder="Optional"
-      disabled={disabled}
-    />
-
-    <InputField
-      id="withdraw-ifsc"
-      label="IFSC"
-      value={bankDetails.ifsc}
-      onChange={(value) =>
-        onBankDetailsChange({
-          ifsc: value,
         })
       }
       placeholder="Optional"
