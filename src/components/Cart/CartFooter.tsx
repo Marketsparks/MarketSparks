@@ -23,14 +23,14 @@ export default function CartFooter({
 
   return (
     <footer
-      className="
-        shrink-0
-        border-t
-        px-4
-        pt-4
-        pb-[calc(env(safe-area-inset-bottom)+16px)]
-        backdrop-blur-xl
-      "
+className="
+  shrink-0
+  border-t
+  px-4
+  pt-4
+  pb-[max(24px,calc(env(safe-area-inset-bottom)+16px))]
+  backdrop-blur-xl
+"
       style={{
         background:
           "color-mix(in srgb, var(--cart-bg) 94%, transparent)",

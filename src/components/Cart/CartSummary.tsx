@@ -18,7 +18,7 @@ export default function CartSummary() {
 
   return (
     <section
-      className="space-y-4 rounded-2xl p-4"
+      className="space-y-2 rounded-xl p-3 sm:space-y-4 sm:rounded-2xl sm:p-4"
       style={{
         background:
           "var(--cart-summary-bg)",
@@ -27,7 +27,7 @@ export default function CartSummary() {
           "1px solid var(--cart-summary-border)",
       }}
     >
-      <div className="flex items-center justify-between text-sm">
+      <div className="flex items-center justify-between text-[11px] sm:text-sm">
         <span
           style={{
             color:
@@ -42,7 +42,7 @@ export default function CartSummary() {
         </span>
       </div>
 
-      <div className="flex items-center justify-between text-sm">
+      <div className="flex items-center justify-between text-[11px] sm:text-sm">
         <span
           style={{
             color:
@@ -59,7 +59,7 @@ export default function CartSummary() {
       </div>
 
       {summary.savings > 0 && (
-        <div className="flex items-center justify-between text-sm">
+        <div className="flex items-center justify-between text-[11px] sm:text-sm">
           <span
             style={{
               color:
@@ -91,11 +91,11 @@ export default function CartSummary() {
       />
 
       <div className="flex items-center justify-between">
-        <span className="text-base font-semibold">
+        <span className="text-sm font-semibold sm:text-base">
           Total
         </span>
 
-        <span className="text-lg font-bold tracking-tight">
+        <span className="text-base font-bold tracking-tight sm:text-lg">
           $
           {summary.total.toLocaleString()}
         </span>
