@@ -2,9 +2,9 @@
 
 import {
   ReactNode,
+  useEffect,
+  useState,
 } from "react";
-
-import Link from "next/link";
 
 import {
   usePathname,
@@ -100,8 +100,23 @@ export default function BottomDock({
   const pathname =
     usePathname();
 
-  const router =
-    useRouter();
+const router =
+  useRouter();
+
+const [navigating, setNavigating] =
+  useState(false);
+
+useEffect(() => {
+  if (environment === "user") {
+    router.prefetch("/Dashboard");
+    router.prefetch("/Market-Place");
+    router.prefetch("/wishlist");
+  } else {
+    router.prefetch("/admin/dashboard");
+    router.prefetch("/admin/deposits");
+    router.prefetch("/admin/withdrawals");
+  }
+}, [environment, router]);
 
   const {
     user,
@@ -508,84 +523,83 @@ const isCheckoutPage =
                         </span>
                       )}
                   </button>
-                ) : (
-                  <Link
-                    href={href}
-                    aria-label={
-                      label
-                    }
-                    className={cn(
-                      `
-                        group
+) : (
+  <button
+    type="button"
+    aria-label={label}
+    onClick={() => {
+      if (pathname !== href) {
+        router.replace(href);
+      }
+    }}
+    className={cn(
+      `
+        group
 
-                        flex
+        flex
 
-                        h-8
+        h-8
 
-                        w-8
+        w-8
 
-                        items-center
+        items-center
 
-                        justify-center
+        justify-center
 
-                        rounded-full
+        rounded-full
 
-                        border
+        border
 
-                        border-[var(--dock-item-border)]
+        border-[var(--dock-item-border)]
 
-                        bg-[var(--dock-item-bg)]
+        bg-[var(--dock-item-bg)]
 
-                        transition-all
-                        duration-300
+        transition-all
+        duration-300
 
-                        sm:h-11
+        sm:h-11
 
-                        sm:w-11
-                      `,
-                      active
-                        ? `
-                            border-[var(--dock-active-bg)]
+        sm:w-11
+      `,
+      active
+        ? `
+            border-[var(--dock-active-bg)]
 
-                            bg-[var(--dock-active-bg)]
+            bg-[var(--dock-active-bg)]
 
-                            text-[var(--dock-active-text)]
+            text-[var(--dock-active-text)]
 
-                            shadow-[0_8px_20px_var(--dock-active-shadow)]
-                          `
-                        : `
-                            text-[var(--dock-icon)]
+            shadow-[0_8px_20px_var(--dock-active-shadow)]
+          `
+        : `
+            text-[var(--dock-icon)]
 
-                            hover:border-[var(--dock-hover-border)]
+            hover:border-[var(--dock-hover-border)]
 
-                            hover:bg-[var(--dock-hover)]
+            hover:bg-[var(--dock-hover)]
 
-                            hover:text-[var(--dock-icon-hover)]
-                          `,
-                    )}
-                  >
-                    <Icon
-                      size={
-                        20
-                      }
-                      strokeWidth={
-                        2
-                      }
-                      className={cn(
-                        active
-                          ? "text-[var(--dock-active-text)]"
-                          : `
-                              text-[var(--dock-icon)]
+            hover:text-[var(--dock-icon-hover)]
+          `,
+    )}
+  >
+    <Icon
+      size={20}
+      strokeWidth={2}
+      className={cn(
+        active
+          ? "text-[var(--dock-active-text)]"
+          : `
+              text-[var(--dock-icon)]
 
-                              transition-colors
-                              duration-300
+              transition-colors
+              duration-300
 
-                              group-hover:text-[var(--dock-icon-hover)]
-                            `,
-                      )}
-                    />
-                  </Link>
-                )}
+              group-hover:text-[var(--dock-icon-hover)]
+            `,
+      )}
+    />
+  </button>
+)}
               </Tooltip>
             );
           },

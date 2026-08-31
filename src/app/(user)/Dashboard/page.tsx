@@ -163,7 +163,8 @@ prisma.cart.findUnique({
       },
     }),
 
-      prisma.product.findMany({
+prisma.product.findMany({
+  take: 10,
       where: {
         featured: true,
         status: "ACTIVE",

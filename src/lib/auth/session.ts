@@ -42,26 +42,27 @@ export async function createSession({
   const tokenHash = hashToken(token);
   const expiresAt = getSessionExpiration(rememberMe);
 
-  const session = await prisma.session.create({
-    data: {
-      userId,
-      tokenHash,
-      userAgent,
-      ipAddress,
-      rememberMe,
-      expiresAt,
-    },
-  });
+await prisma.session.create({
+  data: {
+    userId,
+    tokenHash,
+    userAgent,
+    ipAddress,
+    rememberMe,
+    expiresAt,
+  },
+  select: {
+    id: true,
+  },
+});
 
-  const cookieStore = await cookies();
+const cookieStore = await cookies();
 
-  cookieStore.set(
-    AUTH_CONSTANTS.SESSION_COOKIE_NAME,
-    token,
-    getCookieOptions(expiresAt),
-  );
-
-  return session;
+cookieStore.set(
+  AUTH_CONSTANTS.SESSION_COOKIE_NAME,
+  token,
+  getCookieOptions(expiresAt),
+);
 }
 
 export async function getCurrentSession() {
@@ -78,14 +79,31 @@ export async function getCurrentSession() {
   const tokenHash = hashToken(token);
   const now = new Date();
 
-  const session = await prisma.session.findUnique({
-    where: {
-      tokenHash,
-    },
-    include: {
-      user: true,
-    },
-  });
+const session = await prisma.session.findUnique({
+  where: {
+    tokenHash,
+  },
+
+  select: {
+    id: true,
+    revokedAt: true,
+    expiresAt: true,
+    lastActivityAt: true,
+
+user: {
+  select: {
+    id: true,
+    firstName: true,
+    lastName: true,
+    email: true,
+    role: true,
+    status: true,
+    emailVerifiedAt: true,
+    avatarKey: true,
+  },
+},
+  },
+});
 
   if (!session) {
     return null;

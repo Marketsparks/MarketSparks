@@ -49,42 +49,39 @@ export function AuthProvider({
   const [loading, setLoading] =
     useState(true);
 
-  const refresh = useCallback(
-    async () => {
-      try {
-        setLoading(true);
+const refresh = useCallback(
+  async () => {
+    try {
+      const response = await fetch(
+        "/api/auth/me",
+        {
+          credentials: "include",
+          cache: "no-store",
+        },
+      );
 
-        const response = await fetch(
-          "/api/auth/me",
-          {
-            credentials: "include",
-          },
-        );
-
-        if (!response.ok) {
-          setUser(null);
-
-          return;
-        }
-
-        const data =
-          await response.json();
-
-        if (!data.success) {
-          setUser(null);
-
-          return;
-        }
-
-        setUser(data.user);
-      } catch {
+      if (!response.ok) {
         setUser(null);
-      } finally {
-        setLoading(false);
+
+        return;
       }
-    },
-    [],
-  );
+
+      const data =
+        await response.json();
+
+      if (!data.success) {
+        setUser(null);
+
+        return;
+      }
+
+      setUser(data.user);
+    } catch {
+      setUser(null);
+    }
+  },
+  [],
+);
 
   const logout = useCallback(
     async () => {
@@ -103,9 +100,17 @@ export function AuthProvider({
     [],
   );
 
-  useEffect(() => {
-    void refresh();
-  }, [refresh]);
+useEffect(() => {
+  async function initializeAuth() {
+    try {
+      await refresh();
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  void initializeAuth();
+}, [refresh]);
 
   const value = useMemo(
     () => ({

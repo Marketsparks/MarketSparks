@@ -6,7 +6,7 @@ export const STORE_IMAGE_RADIUS = 0;
 
 export const STORE_IMAGE_ASPECT_RATIO = "5 / 6";
 
-export const STORE_BADGE_RADIUS = 3;
+export const STORE_BADGE_RADIUS = 8;
 
 export const STORE_ACTION_BUTTON_SIZE = 42;
 

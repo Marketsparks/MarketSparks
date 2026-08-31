@@ -136,12 +136,17 @@ data: {
       verificationUrl: verificationUrl.toString(),
     });
 
-    await sendMail({
-      to: user.email,
-      subject: verificationEmail.subject,
-      text: verificationEmail.text,
-      html: verificationEmail.html,
-    });
+void sendMail({
+  to: user.email,
+  subject: verificationEmail.subject,
+  text: verificationEmail.text,
+  html: verificationEmail.html,
+}).catch((error) => {
+  console.error(
+    "[REGISTER] Background verification email failed",
+    error,
+  );
+});
 
     return NextResponse.json(
       {

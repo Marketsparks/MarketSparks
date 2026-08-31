@@ -63,7 +63,7 @@ export default function TawkChat() {
     script.async = true;
 
     script.src =
-      "https://embed.tawk.to/6a90f2d57cee9e3443310144/1k13395em";
+      "https://embed.tawk.to/6a956a936c07cd3443eb15e2/1k1bqgkt9";
 
     script.charset = "UTF-8";
 

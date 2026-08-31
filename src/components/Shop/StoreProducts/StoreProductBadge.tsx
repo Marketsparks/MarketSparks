@@ -26,21 +26,25 @@ export default function StoreProductBadge({
       variant
     ];
 
-  const hasDiscount =
-    product.compareAtPrice !== null &&
-    product.compareAtPrice >
-      product.price;
+console.log({
+  price: product.price,
+  compareAtPrice: product.compareAtPrice,
+});
+
+const hasDiscount =
+  product.compareAtPrice !== null &&
+  product.compareAtPrice > 0;
 
   if (!hasDiscount) {
     return null;
   }
 
-  const discount = Math.round(
-    ((product.compareAtPrice! -
-      product.price) /
-      product.compareAtPrice!) *
-      100,
-  );
+const discount = Math.round(
+  (product.compareAtPrice! /
+    (product.price +
+      product.compareAtPrice!)) *
+    100,
+);
 
   return (
     <span
@@ -76,10 +80,10 @@ export default function StoreProductBadge({
         borderRadius:
           STORE_BADGE_RADIUS,
 
-        background: "#FB4647",
+        background: "#ea1414",
       }}
     >
-      -{discount}%
+     🔥 -{discount}%
     </span>
   );
 }

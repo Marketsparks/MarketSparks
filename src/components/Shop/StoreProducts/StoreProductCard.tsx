@@ -2,6 +2,14 @@
 
 import Link from "next/link";
 
+import {
+  useEffect,
+} from "react";
+
+import {
+  useRouter,
+} from "next/navigation";
+
 import { motion } from "framer-motion";
 
 import type {
@@ -44,6 +52,9 @@ export default function StoreProductCard({
 
   variant = "default",
 }: StoreProductCardProps) {
+  const router =
+    useRouter();
+
   const styles =
     STORE_PRODUCT_VARIANTS[
       variant
@@ -62,9 +73,19 @@ export default function StoreProductCard({
       ? `/Market-Place/${product.slug}`
       : `/Product/${product.slug}`;
 
+  useEffect(() => {
+    router.prefetch(
+      productHref,
+    );
+  }, [
+    router,
+    productHref,
+  ]);
+
   return (
     <Link
       href={productHref}
+      prefetch
       className="
         block
 
@@ -120,11 +141,11 @@ export default function StoreProductCard({
           ease: [0.22, 1, 0.36, 1],
         }}
       >
-<StoreProductImage
-  product={product}
-  environment={environment}
-  variant={variant}
-/>
+        <StoreProductImage
+          product={product}
+          environment={environment}
+          variant={variant}
+        />
 
         <motion.div
           variants={{

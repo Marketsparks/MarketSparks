@@ -17,7 +17,7 @@ import type {
 } from "@/lib/products/product.types";
 
 import {
-  getPublishedProducts,
+  getRelatedProducts,
 } from "@/lib/products/product.service";
 
 import type {
@@ -35,13 +35,9 @@ export default async function ProductPage({
   environment = "public",
 }: ProductPageProps) {
 const relatedProducts =
-  (
-    await getPublishedProducts()
-  ).filter(
-    (item) =>
-      item.id !== product.id &&
-      item.category.id ===
-        product.category.id,
+  await getRelatedProducts(
+    product.id,
+    product.category.id,
   );
 
   return (

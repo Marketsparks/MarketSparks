@@ -100,11 +100,6 @@ const administrationItems = {
 const financeItems = {
   user: [
     {
-      href: "/Wallet",
-      label: "Wallet",
-      icon: Wallet,
-    },
-    {
       href: "/Deposit",
       label: "Deposit",
       icon: ArrowDownLeft,

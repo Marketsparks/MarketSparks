@@ -169,9 +169,9 @@ const {
         "You need an active subscription plan to become an affiliate.",
       );
 
-      router.push(
-        "/plans",
-      );
+router.replace(
+  "/plans",
+);
 
       return false;
     }
@@ -184,9 +184,9 @@ const {
       "Product submitted for admin review.",
     );
 
-    router.push(
-      "/affiliate",
-    );
+router.replace(
+  "/affiliate",
+);
 
     return true;
   }
@@ -233,11 +233,11 @@ const {
             "EMAIL_NOT_VERIFIED"
         ) {
           if (data.email) {
-            router.push(
-              `/verify-email?email=${encodeURIComponent(
-                data.email,
-              )}`,
-            );
+router.replace(
+  `/verify-email?email=${encodeURIComponent(
+    data.email,
+  )}`,
+);
           }
 
           return;
@@ -266,7 +266,12 @@ const {
         return;
       }
 
-      await refreshAuth();
+      void refreshAuth();
+
+      router.prefetch("/Dashboard");
+      router.prefetch("/admin");
+      router.prefetch("/checkout");
+      router.prefetch("/wishlist");
 
 if (
   buyNowProduct &&
@@ -285,9 +290,9 @@ if (
         buyNowQuantity,
     });
 
-    router.push(
-      "/checkout",
-    );
+router.replace(
+  "/checkout",
+);
   } catch (error) {
     toast.error(
       error instanceof Error
@@ -306,9 +311,9 @@ if (
       if (wantsCart) {
         openCart();
 
-        router.push(
-          "/Dashboard",
-        );
+router.replace(
+  "/Dashboard",
+);
 
         return;
       }
@@ -341,39 +346,32 @@ if (
         return;
       }
 
-      if (
-        wishlistProduct &&
-        data.user.role !==
-          "ADMIN"
-      ) {
-        try {
-await addToWishlist(
-  wishlistProduct,
-);
+if (
+  wishlistProduct &&
+  data.user.role !==
+    "ADMIN"
+) {
+  try {
+    await addToWishlist(
+      wishlistProduct,
+    );
 
-          toast.success(
-            "Product saved to wishlist.",
-          );
-        } catch (
-          error
-        ) {
-          console.error(
-            "Wishlist save after login failed:",
-            error,
-          );
+    toast.success(
+      "Product saved to wishlist.",
+    );
+  } catch (error) {
+    console.error(
+      "Wishlist save after login failed:",
+      error,
+    );
 
-          toast.error(
-            error instanceof
-              Error
-              ? error.message
-              : "Unable to save product to wishlist.",
-          );
-        }
-      } else {
-        toast.success(
-          "Signed in successfully",
-        );
-      }
+    toast.error(
+      error instanceof Error
+        ? error.message
+        : "Unable to save product to wishlist.",
+    );
+  }
+}
 
       const destination =
         data.user.role ===
@@ -384,7 +382,11 @@ await addToWishlist(
             : redirect ??
               "/Dashboard";
 
-      router.push(
+      toast.success(
+        "Signed in successfully",
+      );
+
+      router.replace(
         destination,
       );
     } catch (
@@ -491,7 +493,13 @@ await addToWishlist(
         "Account created successfully. Please check your email to verify your account.",
       );
 
-      router.push(
+      router.prefetch(
+        `/verify-email?email=${encodeURIComponent(
+          values.email,
+        )}`,
+      );
+
+      router.replace(
         `/verify-email?email=${encodeURIComponent(
           values.email,
         )}`,
