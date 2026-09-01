@@ -1,31 +1,46 @@
 import Link from "next/link";
 
+import {
+  Home,
+  ShoppingBag,
+  BriefcaseBusiness,
+  Bookmark,
+  FileText,
+  Phone,
+} from "lucide-react";
+
 import { cn } from "@/lib/utils";
 
 const navigation = [
   {
     label: "Home",
     href: "/",
+    icon: Home,
   },
   {
     label: "Shop",
     href: "/Shop",
+    icon: ShoppingBag,
   },
   {
     label: "Services",
     href: "/Services",
+    icon: BriefcaseBusiness,
   },
   {
     label: "Plans",
     href: "/Plans",
+    icon: Bookmark,
   },
   {
     label: "Blog",
     href: "/Blog",
+    icon: FileText,
   },
   {
     label: "Contact",
     href: "/Contact",
+    icon: Phone,
   },
 ];
 
@@ -40,7 +55,8 @@ export default function NavLinks({
   orientation = "horizontal",
   onNavigate,
 }: NavLinksProps) {
-  const isVertical = orientation === "vertical";
+  const isVertical =
+    orientation === "vertical";
 
   return (
     <ul
@@ -49,31 +65,81 @@ export default function NavLinks({
         isVertical
           ? "flex-col"
           : "items-center gap-7",
-        className
+        className,
       )}
     >
-      {navigation.map((item) => (
-        <li
-          key={item.href}
-          className={cn(
-            isVertical &&
-              "border-b border-[var(--border)] last:border-b-0"
-          )}
-        >
-          <Link
-            href={item.href}
-            onClick={onNavigate}
-            className={cn(
-              "font-medium transition-all duration-200 hover:text-[var(--primary)]",
-              isVertical
-                ? "flex min-h-12 items-center py-1 text-[15px]"
-                : "text-[14px] font-bold uppercase tracking-[0.04em] text-[var(--foreground)]"
-            )}
-          >
-            {item.label}
-          </Link>
-        </li>
-      ))}
+      {navigation.map(
+        (item, index) => {
+          const Icon =
+            item.icon;
+
+          const active =
+            index === 0;
+
+          return (
+            <li
+              key={item.href}
+              className={cn(
+                isVertical &&
+                  "border-b border-[var(--border)] last:border-b-0",
+              )}
+            >
+              <Link
+                href={item.href}
+                onClick={onNavigate}
+                className={cn(
+                  "font-medium transition-all duration-200 hover:text-[var(--primary)]",
+                  isVertical
+                    ? `
+                      relative
+                      flex
+                      min-h-[52px]
+                      items-center
+                      gap-3
+                      py-1
+                      pl-4
+                      text-[15px]
+                    `
+                    : "text-[14px] font-bold uppercase tracking-[0.04em] text-[var(--foreground)]",
+                  active &&
+                    "text-[var(--primary)]",
+                )}
+              >
+                {isVertical && (
+                  <>
+                    {active && (
+                      <span
+                        className="
+                          absolute
+                          left-0
+                          top-1/2
+                          h-8
+                          w-1
+                          -translate-y-1/2
+                          rounded-full
+                          bg-[var(--primary)]
+                        "
+                      />
+                    )}
+
+                    <Icon
+                      size={20}
+                      strokeWidth={
+                        2.1
+                      }
+                      className="shrink-0"
+                    />
+                  </>
+                )}
+
+                <span>
+                  {item.label}
+                </span>
+              </Link>
+            </li>
+          );
+        },
+      )}
     </ul>
   );
 }

@@ -1,50 +1,88 @@
-import { NextRequest, NextResponse } from "next/server";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
+
+import { prisma } from "@/lib/prisma";
 
 import {
-  searchProductsService,
-} from "@/services/search.service";
+  productInclude,
+} from "@/lib/products/product.select";
+
+import {
+  toProductCard,
+} from "@/lib/products/product.mapper";
 
 export async function GET(
-  request: NextRequest
+  request: NextRequest,
 ) {
-  try {
-    const {
-      searchParams,
-    } = new URL(request.url);
+  const query =
+    request.nextUrl.searchParams
+      .get("q")
+      ?.trim();
 
-    const query =
-      searchParams
-        .get("q")
-        ?.trim() ?? "";
+  const limit = Math.min(
+    Number(
+      request.nextUrl.searchParams.get(
+        "limit",
+      ) ?? "8",
+    ),
+    20,
+  );
 
-    if (!query) {
-      return NextResponse.json({
-        success: true,
-        data: [],
-      });
-    }
-
-    const products =
-      await searchProductsService(
-        query
-      );
-
-    return NextResponse.json({
-      success: true,
-      data: products,
-    });
-  } catch (error) {
-    console.error(error);
-
-    return NextResponse.json(
-      {
-        success: false,
-        error:
-          "Search failed.",
-      },
-      {
-        status: 500,
-      }
-    );
+  if (!query) {
+    return NextResponse.json([]);
   }
+
+  const products =
+    await prisma.product.findMany({
+      where: {
+        status: "ACTIVE",
+
+        OR: [
+          {
+            name: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+
+          {
+            description: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+
+          {
+            category: {
+              name: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+          },
+        ],
+      },
+
+      include: productInclude,
+
+      orderBy: [
+        {
+          featured: "desc",
+        },
+
+        {
+          createdAt: "desc",
+        },
+      ],
+
+      take: limit,
+    });
+
+  return NextResponse.json(
+    products.map(
+      toProductCard,
+    ),
+  );
 }

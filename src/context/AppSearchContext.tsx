@@ -12,12 +12,23 @@ import {
 type SearchContextValue = {
   searchOpen: boolean;
 
+  popularSearches: string[];
+
   openSearch: () => void;
 
   closeSearch: () => void;
 
   toggleSearch: () => void;
 };
+
+const DEFAULT_POPULAR_SEARCHES = [
+  "iPhone",
+  "Samsung",
+  "MacBook",
+  "AirPods",
+  "Smart Watch",
+  "PlayStation",
+];
 
 const SearchContext =
   createContext<
@@ -50,13 +61,16 @@ export function SearchProvider({
     useCallback(() => {
       setSearchOpen(
         (previous) =>
-          !previous
+          !previous,
       );
     }, []);
 
   const value = useMemo(
     () => ({
       searchOpen,
+
+      popularSearches:
+        DEFAULT_POPULAR_SEARCHES,
 
       openSearch,
 
@@ -69,7 +83,7 @@ export function SearchProvider({
       openSearch,
       closeSearch,
       toggleSearch,
-    ]
+    ],
   );
 
   return (
@@ -84,12 +98,12 @@ export function SearchProvider({
 export function useSearchContext() {
   const context =
     useContext(
-      SearchContext
+      SearchContext,
     );
 
   if (!context) {
     throw new Error(
-      "useSearchContext must be used within a SearchProvider."
+      "useSearchContext must be used within a SearchProvider.",
     );
   }
 

@@ -5,8 +5,6 @@ export { default as PageHeader } from "./PageHeader";
 
 export { default as NotificationBell } from "./NotificationBell";
 
-export { default as SearchBar } from "./SearchBar";
-
 export { default as UserChip } from "./UserChip";
 
 export { default as DashboardStatCard } from "./DashboardStatCard";

@@ -18,7 +18,7 @@ import {
 
 import {
   SearchProvider,
-} from "@/context/SearchContext";
+} from "@/context/AppSearchContext";
 
 import {
   WishlistProvider,

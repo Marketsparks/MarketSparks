@@ -28,8 +28,10 @@ export default function MobileMenuButton({
         shadow-sm
         transition-all
         duration-200
-        hover:bg-[var(--primary)]
-        hover:text-white
+        hover:border-[var(--primary)]
+        hover:bg-[var(--muted)]
+        hover:text-[var(--primary)]
+        active:scale-95
         lg:hidden
       "
     >

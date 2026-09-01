@@ -1,16 +1,25 @@
 import type { Metadata } from "next";
-import { Poppins, Geist } from "next/font/google";
+import {
+  Geist,
+  Poppins,
+} from "next/font/google";
 
 import "./globals.css";
 
+import {
+  AppSearch,
+} from "@/components/AppSearch";
 import AppProvider from "@/components/providers/AppProvider";
-import { SITE } from "@/constants/site";
-
 import { AppPreloader } from "@/components/ui/Preloader";
 import AppToaster from "@/components/ui/AppToaster";
+
+import { SITE } from "@/constants/site";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,29 +31,34 @@ const poppins = Poppins({
     "700",
     "800",
   ],
-  variable: "--font-poppins",
+  variable:
+    "--font-poppins",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://marketsparks.top"),
+  metadataBase: new URL(
+    "https://marketsparks.top",
+  ),
 
   title: {
     default: "MarketSparks",
-    template: "%s | MarketSparks",
+    template:
+      "%s | MarketSparks",
   },
 
-  description: SITE.description,
+  description:
+    SITE.description,
 
   openGraph: {
     type: "website",
     url: "https://marketsparks.top",
-    siteName: "MarketSparks",
-
-    title: "MarketSparks",
-
-    description: SITE.description,
-
+    siteName:
+      "MarketSparks",
+    title:
+      "MarketSparks",
+    description:
+      SITE.description,
     images: [
       {
         url: "/assets/images/og-image.png",
@@ -56,13 +70,15 @@ export const metadata: Metadata = {
   },
 
   twitter: {
-    card: "summary_large_image",
-
-    title: "MarketSparks",
-
-    description: SITE.description,
-
-    images: ["/assets/images/og-image.png"],
+    card:
+      "summary_large_image",
+    title:
+      "MarketSparks",
+    description:
+      SITE.description,
+    images: [
+      "/assets/images/og-image.png",
+    ],
   },
 };
 
@@ -74,17 +90,21 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning className={cn("font-sans", geist.variable)}
+      suppressHydrationWarning
+      className={cn(
+        "font-sans",
+        geist.variable,
+      )}
     >
       <body
         className={`${poppins.variable} antialiased`}
       >
         <AppProvider>
+          <AppSearch />
+
           <AppPreloader>
             {children}
           </AppPreloader>
-
-
 
           <AppToaster />
         </AppProvider>

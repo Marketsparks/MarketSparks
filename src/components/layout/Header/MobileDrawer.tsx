@@ -2,10 +2,17 @@
 
 import { useRouter } from "next/navigation";
 
+import {
+  Search,
+  User,
+  X,
+} from "lucide-react";
+
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
-import { X } from "lucide-react";
-import SearchBar from "@/components/search/SearchBar";
+import {
+  useSearchContext,
+} from "@/context/AppSearchContext";
 
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
@@ -19,11 +26,16 @@ export default function MobileDrawer({
   isOpen,
   onClose,
 }: MobileDrawerProps) {
-  const router = useRouter();
+  const router =
+    useRouter();
+
+  const {
+    openSearch,
+  } =
+    useSearchContext();
 
   return (
     <>
-      {/* Backdrop */}
       <div
         onClick={onClose}
         className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 lg:hidden ${
@@ -33,39 +45,85 @@ export default function MobileDrawer({
         }`}
       />
 
-      {/* Drawer */}
       <aside
         className={`fixed left-0 top-0 z-50 flex h-screen w-[85%] max-w-sm flex-col bg-[var(--background)] shadow-2xl transition-transform duration-300 ease-in-out lg:hidden ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
+          isOpen
+            ? "translate-x-0"
+            : "-translate-x-full"
         }`}
       >
-        {/* Header */}
         <div className="flex items-center justify-between border-b border-[var(--border)] pl-4 pr-5 pt-6 pb-4">
           <Logo className="-ml-1" />
 
+<button
+  type="button"
+  onClick={onClose}
+  aria-label="Close menu"
+  className="
+    flex
+    h-10
+    w-10
+    items-center
+    justify-center
+    rounded-full
+    text-[var(--foreground)]
+    transition-all
+    duration-200
+    hover:bg-[color-mix(in_srgb,var(--primary)_12%,transparent)]
+    hover:text-[var(--primary)]
+    active:scale-95
+  "
+>
+  <X
+    size={22}
+    strokeWidth={2.3}
+  />
+</button>
+        </div>
+
+        <div className="border-b border-[var(--border)] px-5 py-4">
           <button
             type="button"
-            onClick={onClose}
-            aria-label="Close menu"
-            className="rounded-full p-2 transition-colors hover:bg-[var(--muted)]"
+            onClick={() => {
+              onClose();
+              openSearch();
+            }}
+            className="
+              flex
+              h-11
+              w-full
+              items-center
+              gap-3
+              rounded-xl
+              border
+              border-[var(--border)]
+              bg-[var(--surface)]
+              px-4
+              text-sm
+              text-[var(--foreground-muted)]
+              transition-all
+              duration-200
+              hover:border-[var(--primary)]
+              hover:bg-[var(--muted)]
+              hover:text-[var(--primary)]
+            "
           >
-            <X size={22} />
+            <Search
+              size={18}
+            />
+
+            <span>
+              Search products...
+            </span>
           </button>
         </div>
 
-{/* Search */}
-<div className="border-b border-[var(--border)] px-5 py-4">
-  <SearchBar />
-</div>
-
-        {/* Navigation */}
         <nav className="flex-1 overflow-y-auto px-5 py-4">
           <NavLinks
             orientation="vertical"
             onNavigate={onClose}
           />
 
-          {/* Authentication */}
           <div className="mt-6">
             <button
               type="button"
@@ -75,35 +133,40 @@ export default function MobileDrawer({
               }}
               className="
                 flex
-                h-11
+                h-10
                 w-full
                 items-center
                 justify-center
-
-                rounded-xl
-
-                bg-[#5B5EF7]
-
-                text-sm
+                gap-3
+                rounded-full
+                bg-gradient-to-r
+                from-[#6366F1]
+                via-[#6D63FF]
+                to-[#7C5CFF]
+                text-[15px]
                 font-semibold
                 text-white
-
+                shadow-[0_8px_24px_rgba(99,102,241,0.35)]
                 transition-all
                 duration-200
-
-                hover:-translate-y-0.5
+                hover:scale-[1.01]
                 hover:brightness-110
-
                 active:scale-[0.98]
               "
             >
-              Register / Login
+              <User
+                size={18}
+                strokeWidth={2.2}
+              />
+
+              <span>
+                Register / Login
+              </span>
             </button>
           </div>
         </nav>
 
-        {/* Appearance */}
-        <div className="border-t border-[var(--border)] px-5 py-5">
+        <div className="border-t border-[var(--border)] px-5 pt-5 pb-10">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-[15px] font-medium">

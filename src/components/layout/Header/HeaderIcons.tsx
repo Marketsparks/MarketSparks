@@ -1,25 +1,36 @@
 "use client";
 
-
-
 import {
   Heart,
   Search,
   ShoppingCart,
 } from "lucide-react";
 
+import {
+  useRouter,
+} from "next/navigation";
+
 import CartDrawer from "@/components/Cart/CartDrawer";
-import { useCartContext } from "@/context/CartContext";
-import { cn } from "@/lib/utils";
 
-import { useRouter } from "next/navigation";
+import {
+  useAuth,
+} from "@/context/AuthContext";
 
-import { useAuth } from "@/context/AuthContext";
-import { toast } from "sonner";
+import {
+  useCartContext,
+} from "@/context/CartContext";
 
-import { useSearch } from "@/hooks/useSearch";
+import {
+  useSearchContext,
+} from "@/context/AppSearchContext";
 
-import SearchOverlay from "@/components/search/SearchOverlay";
+import {
+  cn,
+} from "@/lib/utils";
+
+import {
+  toast,
+} from "sonner";
 
 type HeaderIconsProps = {
   className?: string;
@@ -31,23 +42,24 @@ const buttonClass =
 export default function HeaderIcons({
   className,
 }: HeaderIconsProps) {
+  const router =
+    useRouter();
 
-const router = useRouter();
+  const { user } =
+    useAuth();
 
-const { user } = useAuth();
+  const {
+    itemCount,
+    cartOpen,
+    openCart,
+    closeCart,
+  } =
+    useCartContext();
 
-const {
-  itemCount,
-  cartOpen,
-  openCart,
-  closeCart,
-} = useCartContext();
-
-const {
-  searchOpen,
-  openSearch,
-  closeSearch,
-} = useSearch();
+  const {
+    openSearch,
+  } =
+    useSearchContext();
 
   return (
     <>
@@ -57,17 +69,17 @@ const {
           className,
         )}
       >
-<button
-  type="button"
-  aria-label="Search"
-  className={buttonClass}
-  onClick={openSearch}
->
-  <Search
-    size={22}
-    strokeWidth={2.75}
-  />
-</button>
+        <button
+          type="button"
+          aria-label="Search"
+          className={buttonClass}
+          onClick={openSearch}
+        >
+          <Search
+            size={22}
+            strokeWidth={2.75}
+          />
+        </button>
 
         <button
           type="button"
@@ -80,77 +92,74 @@ const {
             strokeWidth={2.6}
           />
 
-{itemCount > 0 && (
-  <span
-    className="
-      absolute
-      -right-2
-      -top-2
-      flex
-      min-h-[20px]
-      min-w-[20px]
-      items-center
-      justify-center
-      rounded-full
-      bg-[var(--cart-badge-bg)]
-      px-1.5
-      text-[10px]
-      font-bold
-      leading-none
-      text-[var(--cart-badge-text)]
-      shadow-sm
-      transition-colors
-      duration-300
-    "
-    style={{
-      border:
-        "1px solid var(--cart-badge-border)",
-    }}
-  >
-    {itemCount > 99
-      ? "99+"
-      : itemCount}
-  </span>
-)}
+          {itemCount > 0 && (
+            <span
+              className="
+                absolute
+                -right-2
+                -top-2
+                flex
+                min-h-[20px]
+                min-w-[20px]
+                items-center
+                justify-center
+                rounded-full
+                bg-[var(--cart-badge-bg)]
+                px-1.5
+                text-[10px]
+                font-bold
+                leading-none
+                text-[var(--cart-badge-text)]
+                shadow-sm
+                transition-colors
+                duration-300
+              "
+              style={{
+                border:
+                  "1px solid var(--cart-badge-border)",
+              }}
+            >
+              {itemCount > 99
+                ? "99+"
+                : itemCount}
+            </span>
+          )}
         </button>
 
-<button
-  type="button"
-  aria-label="Wishlist"
-  className={buttonClass}
-  onClick={() => {
-    if (user) {
-      router.push("/wishlist");
+        <button
+          type="button"
+          aria-label="Wishlist"
+          className={buttonClass}
+          onClick={() => {
+            if (user) {
+              router.push(
+                "/wishlist",
+              );
 
-      return;
-    }
+              return;
+            }
 
-toast.info(
-  "Sign in to save products and access your wishlist.",
-);
+            toast.info(
+              "Sign in to save products and access your wishlist.",
+            );
 
-router.push(
-  "/Auth?redirect=/wishlist",
-);
-  }}
->
-  <Heart
-    size={19}
-    strokeWidth={2.6}
-  />
-</button>
+            router.push(
+              "/Auth?redirect=/wishlist",
+            );
+          }}
+        >
+          <Heart
+            size={19}
+            strokeWidth={2.6}
+          />
+        </button>
       </div>
 
-<CartDrawer
-  open={cartOpen}
-  onClose={closeCart}
-  environment="public"
-/>
-
-<SearchOverlay
-  open={searchOpen}
-  onClose={closeSearch}
-/>
+      <CartDrawer
+        open={cartOpen}
+        onClose={closeCart}
+        environment="public"
+      />
     </>
   );
 }

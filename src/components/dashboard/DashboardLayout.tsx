@@ -5,6 +5,10 @@ import {
   useState,
 } from "react";
 
+import {
+  Search,
+} from "lucide-react";
+
 import Logo from "@/components/layout/Header/Logo";
 import PublicTopBar from "@/components/layout/Header/TopBar";
 
@@ -15,16 +19,23 @@ import DashboardContent from "./DashboardContent";
 import DashboardFooter from "./DashboardFooter";
 
 import NotificationDropdown from "../user/NotificationDropdown";
-import SearchBar from "../user/SearchBar";
 import UserChip from "../user/UserChip";
 
 import {
   getCloudinaryImageUrl,
 } from "@/lib/cloudinary";
 
-import { CartDrawer } from "@/components/Cart";
+import {
+  CartDrawer,
+} from "@/components/Cart";
 
-import { useCartContext } from "@/context/CartContext";
+import {
+  useCartContext,
+} from "@/context/CartContext";
+
+import {
+  useSearchContext,
+} from "@/context/AppSearchContext";
 
 type DashboardUser = {
   firstName: string;
@@ -66,6 +77,11 @@ export default function DashboardLayout({
     closeCart,
   } = useCartContext();
 
+  const {
+    openSearch,
+  } =
+    useSearchContext();
+
   return (
     <div
       className="
@@ -86,9 +102,42 @@ export default function DashboardLayout({
         }
         center={
           topBarCenter ?? (
-            <SearchBar
-              placeholder="Search products..."
-            />
+<button
+  type="button"
+  onClick={openSearch}
+  className="
+    group
+    flex
+    h-11
+    w-full
+    max-w-[360px]
+    items-center
+    gap-3
+    rounded-xl
+    border
+    border-[var(--border)]
+    bg-[var(--surface)]
+    px-4
+    text-sm
+    text-[var(--foreground-muted)]
+    transition-all
+    duration-200
+    hover:border-[var(--primary)]
+    hover:bg-[var(--muted)]
+    hover:text-[var(--primary)]
+  "
+>
+  <Search
+    size={18}
+    className="
+      transition-colors
+      duration-200
+      group-hover:text-[var(--primary)]
+    "
+  />
+
+  <span>Search products...</span>
+</button>
           )
         }
         right={
@@ -143,7 +192,8 @@ export default function DashboardLayout({
         }
       />
 
-      {environment === "user" && (
+      {environment ===
+        "user" && (
         <CartDrawer
           open={
             cartOpen
