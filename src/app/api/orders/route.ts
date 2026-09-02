@@ -367,13 +367,16 @@ variantSize: {
 
 product: {
   id:
-    item.product.id,
+    item.product?.id ??
+    null,
 
   name:
-    item.product.name,
+    item.product?.name ??
+    "Deleted Product",
 
   slug:
-    item.product.slug,
+    item.product?.slug ??
+    null,
 
   primaryImage:
     (
@@ -392,7 +395,7 @@ product: {
             item.variantSize?.variant.images[0]
           )!.imageKey,
         )
-      : item.product.images[0]
+      : item.product?.images[0]
         ? getCloudinaryImageUrl(
             item.product.images[0]
               .imageKey,

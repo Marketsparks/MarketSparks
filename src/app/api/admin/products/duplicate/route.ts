@@ -17,7 +17,11 @@ const duplicateSchema = z.object({
 });
 
 const include = {
-  category: true,
+  categories: {
+    include: {
+      category: true,
+    },
+  },
 
   images: {
     orderBy: {
@@ -91,10 +95,16 @@ export async function POST(
           id: productId,
         },
 
-        include: {
-          images: true,
+include: {
+  categories: {
+    include: {
+      category: true,
+    },
+  },
 
-          variants: {
+  images: true,
+
+  variants: {
             include: {
               sizes: true,
             },
@@ -154,12 +164,17 @@ export async function POST(
           metaDescription:
             product.metaDescription,
 
-          category: {
-            connect: {
-              id:
-                product.categoryId,
-            },
-          },
+categories: {
+  create: product.categories.map(
+    ({ category }) => ({
+      category: {
+        connect: {
+          id: category.id,
+        },
+      },
+    }),
+  ),
+},
 
           images: {
             create:

@@ -59,16 +59,21 @@ export function toProductCard(
     publishedAt:
       product.publishedAt,
 
-    category: {
-      id:
-        product.category.id,
+    categories:
+      product.categories.map(
+        (assignment) => ({
+          category: {
+            id:
+              assignment.category.id,
 
-      name:
-        product.category.name,
+            name:
+              assignment.category.name,
 
-      slug:
-        product.category.slug,
-    },
+            slug:
+              assignment.category.slug,
+          },
+        }),
+      ),
 
     images:
       product.images.map(

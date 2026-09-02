@@ -54,13 +54,15 @@ product: {
 
   publishedAt: Date | null;
 
-category: {
-  id: string;
+  categories: {
+    category: {
+      id: string;
 
-  name: string;
+      name: string;
 
-  slug: string;
-};
+      slug: string;
+    };
+  }[];
 
   images: {
     id: string;
@@ -125,7 +127,11 @@ const primaryVariantImage =
         item.variantSize.variant.images[0] ??
         null
       )
-    : null;  
+    : null;
+
+  const primaryCategory =
+  item.product.categories[0]
+    ?.category ?? null;
 
   return {
     id: item.id,
@@ -176,16 +182,19 @@ product: {
   publishedAt:
     item.product.publishedAt,
 
-  category: {
-    id:
-      item.product.category.id,
+category:
+  primaryCategory
+    ? {
+        id:
+          primaryCategory.id,
 
-    name:
-      item.product.category.name,
+        name:
+          primaryCategory.name,
 
-    slug:
-      item.product.category.slug,
-  },
+        slug:
+          primaryCategory.slug,
+      }
+    : null,
 
   images:
     item.product.images.map(

@@ -121,6 +121,7 @@ type ApiProduct = {
     | string
     | null;
 
+categories: {
   category: {
     id: string;
 
@@ -128,6 +129,7 @@ type ApiProduct = {
 
     slug: string;
   };
+}[];
 
   images: {
     id: string;
@@ -290,6 +292,9 @@ function getGuestItemId(
 function toProductCard(
   product: ApiProduct,
 ): ProductCard {
+const primaryCategory =
+  product.categories[0]
+    ?.category ?? null;
   return {
     id:
       product.id,
@@ -342,16 +347,22 @@ function toProductCard(
           )
         : null,
 
-    category: {
-      id:
-        product.category.id,
+categories: primaryCategory
+  ? [
+      {
+        category: {
+          id:
+            primaryCategory.id,
 
-      name:
-        product.category.name,
+          name:
+            primaryCategory.name,
 
-      slug:
-        product.category.slug,
-    },
+          slug:
+            primaryCategory.slug,
+        },
+      },
+    ]
+  : [],
 
     images:
       product.images.map(

@@ -3,7 +3,11 @@ import type {
 } from "../../../generated/prisma/client";
 
 export const productInclude = {
-  category: true,
+  categories: {
+    include: {
+      category: true,
+    },
+  },
 
   images: {
     orderBy: {
@@ -14,7 +18,11 @@ export const productInclude = {
 } satisfies Prisma.ProductInclude;
 
 export const productDetailsInclude = {
-  category: true,
+  categories: {
+    include: {
+      category: true,
+    },
+  },
 
   images: {
     orderBy: {

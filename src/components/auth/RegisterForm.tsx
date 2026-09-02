@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import {
+  useRef,
+  useState,
+} from "react";
 
 import {
   AnimatePresence,
@@ -64,71 +67,80 @@ const [heardFrom, setHeardFrom] =
 const [country, setCountry] =
   useState<Country | "">("");
 
+const hasSubmitted =
+  useRef(false);
 
-  function handleSubmit(
-    event: React.FormEvent<HTMLFormElement>,
+
+function handleSubmit(
+  event: React.FormEvent<HTMLFormElement>,
+) {
+  event.preventDefault();
+
+  if (
+    loading ||
+    hasSubmitted.current
   ) {
-    event.preventDefault();
-
-    if (loading) {
-      return;
-    }
-
-    const form =
-      new FormData(event.currentTarget);
-
-    const values: RegisterFormValues = {
-      firstName: String(
-        form.get("firstName") ?? "",
-      ).trim(),
-
-      lastName: String(
-        form.get("lastName") ?? "",
-      ).trim(),
-
-      email: String(
-        form.get("email") ?? "",
-      ).trim(),
-
-phoneNumber: String(
-  form.get("phoneNumber") ?? ""
-).trim(),
-
-country,
-
-      password: String(
-        form.get("password") ?? "",
-      ),
-
-      confirmPassword: String(
-        form.get("confirmPassword") ?? "",
-      ),
-
-      heardFrom: String(
-        form.get("heardFrom") ?? "",
-      ),
-
-      referralCode: String(
-        form.get("referralCode") ?? "",
-      ),
-
-      acceptedTerms:
-        form.get("terms") === "on",
-    };
-
-    const validation =
-      validateRegister(values);
-
-    if (!validation.success) {
-      toast.error(
-        validation.message,
-      );
-
-      return;
-    }
-
-    onSubmit?.(values);
+    return;
   }
+
+  const form =
+    new FormData(event.currentTarget);
+
+  const values: RegisterFormValues = {
+    firstName: String(
+      form.get("firstName") ?? "",
+    ).trim(),
+
+    lastName: String(
+      form.get("lastName") ?? "",
+    ).trim(),
+
+    email: String(
+      form.get("email") ?? "",
+    ).trim(),
+
+    phoneNumber: String(
+      form.get("phoneNumber") ?? "",
+    ).trim(),
+
+    country,
+
+    password: String(
+      form.get("password") ?? "",
+    ),
+
+    confirmPassword: String(
+      form.get("confirmPassword") ?? "",
+    ),
+
+    heardFrom: String(
+      form.get("heardFrom") ?? "",
+    ),
+
+    referralCode: String(
+      form.get("referralCode") ?? "",
+    ),
+
+    acceptedTerms:
+      form.get("terms") === "on",
+  };
+
+  const validation =
+    validateRegister(values);
+
+  if (!validation.success) {
+    toast.error(
+      validation.message,
+    );
+
+    return;
+  }
+
+  hasSubmitted.current =
+    true;
+
+  onSubmit?.(values);
+}
 
   return (
     <AuthForm
@@ -150,7 +162,10 @@ country,
           <button
             type="button"
             onClick={onSignIn}
-            disabled={loading}
+disabled={
+  loading ||
+  hasSubmitted.current
+}
             className="
               font-semibold
               text-[var(--primary)]
@@ -171,17 +186,23 @@ country,
     mb-6
   "
 >
-  <AuthTabs
-    value="register"
-    onChange={(value) => {
-      if (
-        value ===
-        "login"
-      ) {
-        onSignIn?.();
-      }
-    }}
-  />
+<AuthTabs
+  value="register"
+  onChange={(value) => {
+    if (
+      hasSubmitted.current
+    ) {
+      return;
+    }
+
+    if (
+      value ===
+      "login"
+    ) {
+      onSignIn?.();
+    }
+  }}
+/>
 </div>
       <form
         onSubmit={handleSubmit}
@@ -496,14 +517,17 @@ country,
           </span>
         </label>
 
-        <AuthButton
-          type="submit"
-          loading={loading}
-          loadingText="Creating Account..."
-          rightIcon={
-            <ArrowRight size={17} />
-          }
-        >
+<AuthButton
+  type="submit"
+  loading={loading}
+  disabled={
+    hasSubmitted.current
+  }
+  loadingText="Creating Account..."
+  rightIcon={
+    <ArrowRight size={17} />
+  }
+>
           Create Account
         </AuthButton>
       </form>

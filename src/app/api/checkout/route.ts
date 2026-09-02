@@ -333,23 +333,23 @@ export async function POST(
 
         deliveryAddress,
 
-        items:
-          createdOrder.items.map(
-            (item) => ({
-              name:
-                item.product
-                  .name,
+items:
+  createdOrder.items.map(
+    (item) => ({
+      name:
+        item.product?.name ??
+        "Deleted Product",
 
-              quantity:
-                item.quantity,
+      quantity:
+        item.quantity,
 
-              unitPrice:
-                item.unitPrice.toString(),
+      unitPrice:
+        item.unitPrice.toString(),
 
-              totalPrice:
-                item.totalPrice.toString(),
-            }),
-          ),
+      totalPrice:
+        item.totalPrice.toString(),
+    }),
+  ),
 
         orderUrl:
           new URL(

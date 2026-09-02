@@ -95,12 +95,6 @@ export type ProductReview = {
   createdAt: Date;
 };
 
-export type ProductReviewSummary = {
-  averageRating: number;
-
-  totalRatings: number;
-};
-
 export type Product = {
   id: string;
 
@@ -126,15 +120,15 @@ export type Product = {
 
   status: ProductStatus;
 
-  metaTitle: string | null;
+  metaTitle: string |null;
 
   metaDescription: string | null;
 
   publishedAt: Date | null;
 
-  categoryId: string;
-
-  category: ProductCategory;
+  categories: {
+    category: ProductCategory;
+  }[];
 
   images: ProductImage[];
 

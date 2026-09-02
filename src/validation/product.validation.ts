@@ -328,12 +328,14 @@ export const createProductSchema =
       .optional()
       .or(z.literal("")),
 
-    categoryId: z
-      .string()
-      .min(
-        1,
-        "Category is required.",
-      ),
+categoryIds: z
+  .array(
+    z.string().min(1),
+  )
+  .min(
+    1,
+    "Select at least one category.",
+  ),
 
     images: z
       .array(productImageSchema)

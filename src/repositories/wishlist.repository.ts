@@ -21,19 +21,25 @@ export async function getWishlistByUserId(
     include: {
       items: {
         include: {
-          product: {
-            include: {
-              category: true,
+product: {
+  include: {
+    categories: {
+      take: 1,
 
-              images: {
-                where: {
-                  isPrimary: true,
-                },
+      include: {
+        category: true,
+      },
+    },
 
-                take: 1,
-              },
-            },
-          },
+    images: {
+      where: {
+        isPrimary: true,
+      },
+
+      take: 1,
+    },
+  },
+},
 
           variantSize: {
             include: {

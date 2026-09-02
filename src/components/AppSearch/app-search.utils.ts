@@ -40,11 +40,19 @@ export function filterSearchResults(
           .includes(
             normalizedQuery,
           ) ||
-        product.category.name
-          .toLowerCase()
-          .includes(
-            normalizedQuery,
-          ),
+        (
+          product.categories ??
+          []
+        ).some(
+          ({
+            category,
+          }) =>
+            category.name
+              .toLowerCase()
+              .includes(
+                normalizedQuery,
+              ),
+        ),
     )
     .slice(
       0,

@@ -9,7 +9,11 @@ import {
 } from "@/validation/product.validation";
 
 const include = {
-  category: true,
+  categories: {
+    include: {
+      category: true,
+    },
+  },
 
   images: {
     orderBy: {
@@ -178,12 +182,17 @@ export async function POST(
             data.metaDescription ||
             null,
 
-          category: {
-            connect: {
-              id:
-                data.categoryId,
-            },
-          },
+categories: {
+  create: data.categoryIds.map(
+    (categoryId) => ({
+      category: {
+        connect: {
+          id: categoryId,
+        },
+      },
+    }),
+  ),
+},
 
           images: {
             create:
@@ -367,8 +376,8 @@ export async function POST(
           {
             success: false,
 
-            error:
-              "The selected category no longer exists.",
+error:
+  "One or more selected categories no longer exist.",
           },
           {
             status: 404,

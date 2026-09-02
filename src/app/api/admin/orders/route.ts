@@ -273,8 +273,9 @@ function mapOrder(
           productId:
             item.productId,
 
-          productName:
-            item.product.name,
+productName:
+  item.product?.name ??
+  "Deleted Product",
 
           variantSizeId:
             item.variantSizeId,
@@ -295,7 +296,7 @@ function mapOrder(
             item.selectedSize,
 
 primaryImage:
-  item.product.images[0]
+  item.product?.images[0]
     ? getCloudinaryImageUrl(
         item.product.images[0]
           .imageKey,

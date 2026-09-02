@@ -35,6 +35,7 @@ export async function searchProducts(
           mode: "insensitive",
         },
       },
+
       orderBy: [
         {
           sortOrder: "asc",
@@ -43,7 +44,9 @@ export async function searchProducts(
           name: "asc",
         },
       ],
+
       take: MAX_CATEGORY_RESULTS,
+
       select: {
         id: true,
         name: true,
@@ -60,6 +63,7 @@ export async function searchProducts(
           mode: "insensitive",
         },
       },
+
       orderBy: [
         {
           featured: "desc",
@@ -68,21 +72,35 @@ export async function searchProducts(
           createdAt: "desc",
         },
       ],
+
       take: MAX_PRODUCT_RESULTS,
+
       select: {
         id: true,
-        name: true,
-        slug: true,
-        price: true,
-        compareAtPrice: true,
-        averageRating: true,
-        featured: true,
-        status: true,
-        categoryId: true,
 
-        category: {
+        name: true,
+
+        slug: true,
+
+        price: true,
+
+        compareAtPrice: true,
+
+        averageRating: true,
+
+        featured: true,
+
+        status: true,
+
+        categories: {
           select: {
-            name: true,
+            category: {
+              select: {
+                id: true,
+                name: true,
+                slug: true,
+              },
+            },
           },
         },
 
@@ -90,7 +108,9 @@ export async function searchProducts(
           where: {
             isPrimary: true,
           },
+
           take: 1,
+
           select: {
             imageKey: true,
           },
@@ -105,45 +125,55 @@ export async function searchProducts(
     categories,
 
     products: products.map(
-      (product) => ({
-        id: product.id,
+      (product) => {
+        const primaryCategory =
+          product.categories[0]
+            ?.category;
 
-        name: product.name,
+        return {
+          id: product.id,
 
-        slug: product.slug,
+          name: product.name,
 
-        price: Number(
-          product.price,
-        ),
+          slug: product.slug,
 
-        compareAtPrice:
-          product.compareAtPrice === null
-            ? null
-            : Number(
-                product.compareAtPrice,
-              ),
+          price: Number(
+            product.price,
+          ),
 
-        averageRating: Number(
-          product.averageRating,
-        ),
+          compareAtPrice:
+            product.compareAtPrice ===
+            null
+              ? null
+              : Number(
+                  product.compareAtPrice,
+                ),
 
-        featured:
-          product.featured,
+          averageRating: Number(
+            product.averageRating,
+          ),
 
-        status: product.status,
+          featured:
+            product.featured,
 
-        categoryId:
-          product.categoryId,
+          status:
+            product.status,
 
-        categoryName:
-          product.category.name,
+          categoryId:
+            primaryCategory?.id ??
+            null,
 
-primaryImageUrl:
-  getCloudinaryImageUrl(
-    product.images[0]
-      ?.imageKey ?? null,
-  ),
-      }),
+          categoryName:
+            primaryCategory?.name ??
+            "Uncategorized",
+
+          primaryImageUrl:
+            getCloudinaryImageUrl(
+              product.images[0]
+                ?.imageKey ?? null,
+            ),
+        };
+      },
     ),
   };
 }

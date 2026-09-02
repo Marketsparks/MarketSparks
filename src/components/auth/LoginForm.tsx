@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import Link from "next/link";
 
 import { toast } from "sonner";
@@ -40,10 +42,17 @@ export default function LoginForm({
 
   onRegister,
 }: LoginFormProps) {
+  const [locked, setLocked] =
+    useState(false);
+
   function handleSubmit(
     event: React.FormEvent<HTMLFormElement>
   ) {
     event.preventDefault();
+
+    if (locked) {
+      return;
+    }
 
     const form =
       new FormData(event.currentTarget);
@@ -72,6 +81,8 @@ export default function LoginForm({
 
       return;
     }
+
+    setLocked(true);
 
     onSubmit?.(values);
   }
@@ -140,7 +151,7 @@ Sign in to continue building your business with MarketSparks.
           placeholder="Enter your email"
           autoComplete="email"
           required
-          leftIcon={
+        leftIcon={
             <Mail size={17} />
           }
         />
@@ -205,6 +216,7 @@ Sign in to continue building your business with MarketSparks.
         <AuthButton
           type="submit"
           loading={loading}
+          disabled={locked}
           loadingText="Signing In..."
           rightIcon={
             <ArrowRight
@@ -222,6 +234,7 @@ Sign in to continue building your business with MarketSparks.
         <AuthButton
           type="button"
           variant="secondary"
+          disabled={locked}
         >
           Continue with Google
         </AuthButton>

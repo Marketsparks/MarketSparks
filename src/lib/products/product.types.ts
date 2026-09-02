@@ -71,6 +71,10 @@ export type ProductCategory = {
   slug: string;
 };
 
+export type ProductCategoryAssignment = {
+  category: ProductCategory;
+};
+
 export type ProductSpecification = {
   id: string;
 
@@ -122,7 +126,7 @@ export type ProductCard = {
 
   publishedAt: Date | null;
 
-  category: ProductCategory;
+  categories: ProductCategoryAssignment[];
 
   images: ProductImage[];
 };

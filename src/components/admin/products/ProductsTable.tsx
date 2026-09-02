@@ -241,16 +241,22 @@ export default function ProductsTable({
                     </div>
                   </td>
 
-                  <td
-                    className="
-                      px-5
-                      py-4
-                      text-sm
-                    "
-                  >
-                    {product.category?.name ??
-                      "Uncategorized"}
-                  </td>
+<td
+  className="
+    px-5
+    py-4
+    text-sm
+  "
+>
+  {product.categories.length > 0
+    ? product.categories
+        .map(
+          (item) =>
+            item.category.name,
+        )
+        .join(", ")
+    : "Uncategorized"}
+</td>
 
                   <td
                     className="

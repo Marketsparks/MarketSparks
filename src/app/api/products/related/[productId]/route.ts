@@ -37,11 +37,21 @@ export async function GET(
       );
     }
 
-    const related =
-      await listRelatedProductsService(
-        product.categoryId,
-        product.id
-      );
+const primaryCategory =
+  product.categories[0]?.categoryId;
+
+if (!primaryCategory) {
+  return NextResponse.json({
+    success: true,
+    data: [],
+  });
+}
+
+const related =
+  await listRelatedProductsService(
+    primaryCategory,
+    product.id
+  );
 
     return NextResponse.json({
       success: true,

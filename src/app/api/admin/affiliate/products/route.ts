@@ -40,17 +40,21 @@ const affiliateListingInclude =
       },
     },
 
-    product: {
+product: {
+  include: {
+    categories: {
       include: {
         category: true,
-
-        images: {
-          orderBy: {
-            sortOrder: "asc" as const,
-          },
-        },
       },
     },
+
+    images: {
+      orderBy: {
+        sortOrder: "asc" as const,
+      },
+    },
+  },
+},
 
     interests: {
       orderBy: {
@@ -289,19 +293,19 @@ function serializeAffiliateListing(
             .publishedAt,
         ),
 
-      category: {
-        id:
-          listing.product
-            .category.id,
+categories:
+  listing.product.categories.map(
+    (productCategory) => ({
+      id:
+        productCategory.category.id,
 
-        name:
-          listing.product
-            .category.name,
+      name:
+        productCategory.category.name,
 
-        slug:
-          listing.product
-            .category.slug,
-      },
+      slug:
+        productCategory.category.slug,
+    }),
+  ),
 
       images:
         listing.product.images.map(

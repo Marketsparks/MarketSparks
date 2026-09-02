@@ -241,39 +241,46 @@ export default function DepositReceiptModal({
             Cancel
           </button>
 
-          <button
-            type="button"
-            onClick={onSubmit}
-            disabled={!file || submitting}
-            className="
-              rounded-xl
+<button
+  type="button"
+  onClick={onSubmit}
+  disabled={!file || submitting}
+  className="
+    rounded-xl
 
-              bg-[var(--deposit-modal-submit-bg)]
+    border
 
-              px-6
+    border-white
 
-              py-3
+    bg-[#0B3B91]
 
-              font-semibold
+    px-6
 
-              text-[var(--deposit-modal-submit-text)]
+    py-3
 
-              transition-all
-              duration-300
+    font-semibold
 
-              hover:bg-[var(--deposit-modal-submit-hover)]
+    text-white
 
-              disabled:cursor-not-allowed
+    transition-all
 
-              disabled:bg-[var(--deposit-modal-submit-disabled-bg)]
+    duration-300
 
-              disabled:text-[var(--deposit-modal-submit-disabled-text)]
-            "
-          >
-{submitting
-  ? "Submitting..."
-  : "Submit Deposit"}
-          </button>
+    hover:bg-[#082d6d]
+
+    disabled:cursor-not-allowed
+
+    disabled:border-white/50
+
+    disabled:bg-[#0B3B91]/50
+
+    disabled:text-white/70
+  "
+>
+  {submitting
+    ? "Submitting..."
+    : "Submit Deposit"}
+</button>
         </div>
       </div>
     </div>

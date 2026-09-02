@@ -25,7 +25,11 @@ export async function getPublishedProducts(
 
         ...(categoryId
           ? {
-              categoryId,
+              categories: {
+                some: {
+                  categoryId,
+                },
+              },
             }
           : {}),
       },
@@ -49,14 +53,22 @@ export async function getPublishedProducts(
 
 export async function getRelatedProducts(
   productId: string,
-  categoryId: string,
+  categoryId?: string | null,
 ): Promise<ProductCard[]> {
+  if (!categoryId) {
+    return [];
+  }
+
   const products =
     await prisma.product.findMany({
       where: {
         status: "ACTIVE",
 
-        categoryId,
+        categories: {
+          some: {
+            categoryId,
+          },
+        },
 
         NOT: {
           id: productId,

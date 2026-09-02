@@ -34,6 +34,7 @@ import ProductImages from "./ProductImages";
 import ProductVariants from "./ProductVariants";
 import ProductSpecifications from "./ProductSpecifications";
 import ProductReviews from "./ProductReviews";
+import CategoryMultiSelect from "@/components/ui/CategoryMultiSelect";
 
 type FormValues =
   CreateProductInput;
@@ -120,7 +121,7 @@ export default function ProductForm({
         metaDescription:
           "",
 
-        categoryId: "",
+        categoryIds: [],
 
         images: [],
 
@@ -157,15 +158,19 @@ export default function ProductForm({
   const slug =
     watch("slug");
 
-  const categoryId =
-    watch("categoryId");
+const categoryIds =
+  watch("categoryIds") ?? [];
 
-  const selectedCategory =
-    categories.find(
-      (category) =>
-        category.id ===
-        categoryId,
-    );
+useEffect(() => {
+  register("categoryIds");
+}, [
+  register,
+]);
+
+const selectedCategory =
+  categories.find((category) =>
+    categoryIds.includes(category.id),
+  );
 
   const selectedCategorySlug =
     selectedCategory?.slug ??
@@ -252,9 +257,9 @@ initialRating:
         initialValues.metaDescription ??
         "",
 
-      categoryId:
-        initialValues.categoryId ??
-        "",
+categoryIds:
+  initialValues.categoryIds ??
+  [],
 
       images:
         initialValues.images ??
@@ -426,7 +431,7 @@ initialRating:
 
           <div className="space-y-2">
             <label
-              htmlFor="categoryId"
+              htmlFor="categoryIds"
               className="
                 text-sm
                 font-medium
@@ -436,63 +441,31 @@ initialRating:
               Category
             </label>
 
-            <select
-              id="categoryId"
-              {...register(
-                "categoryId",
-              )}
-              className="
-                h-11
-                w-full
-                rounded-[var(--admin-input-radius)]
-                border
-                border-[var(--admin-input-border)]
-                bg-[var(--admin-input-bg)]
-                px-4
-                text-sm
-                text-[var(--admin-input-text)]
-                outline-none
-                transition
-                focus:border-[var(--admin-input-focus)]
-              "
-            >
-              <option value="">
-                Select category
-              </option>
+<CategoryMultiSelect
+  options={categories}
+  value={categoryIds}
+  onChange={(value) =>
+    setValue(
+      "categoryIds",
+      value,
+      {
+        shouldDirty: true,
+        shouldValidate: true,
+      },
+    )
+  }
+/>
 
-              {categories.map(
-                (
-                  category,
-                ) => (
-                  <option
-                    key={
-                      category.id
-                    }
-                    value={
-                      category.id
-                    }
-                  >
-                    {
-                      category.name
-                    }
-                  </option>
-                ),
-              )}
-            </select>
-
-            {errors.categoryId && (
-              <p
-                className="
-                  text-xs
-                  text-[var(--user-danger)]
-                "
-              >
-                {
-                  errors.categoryId
-                    .message
-                }
-              </p>
-            )}
+{errors.categoryIds && (
+  <p
+    className="
+      text-xs
+      text-[var(--user-danger)]
+    "
+  >
+    {errors.categoryIds.message}
+  </p>
+)}
           </div>
 
           <div className="space-y-2">
@@ -514,7 +487,7 @@ initialRating:
                 "sku",
               )}
               className="
-                h-11
+                min-h-40
                 w-full
                 rounded-[var(--admin-input-radius)]
                 border

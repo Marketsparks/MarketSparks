@@ -192,31 +192,37 @@ export default function DepositReceiptUploader({
               MB
             </p>
 
-            <span
-              className="
-                mt-5
+<span
+  className="
+    mt-5
 
-                rounded-full
+    rounded-full
 
-                border
+    border
 
-                border-[var(--deposit-uploader-file-border)]
+    border-white
 
-                bg-[var(--deposit-uploader-replace-bg)]
+    bg-[#0B3B91]
 
-                px-4
+    px-4
 
-                py-2
+    py-2
 
-                text-sm
+    text-sm
 
-                font-medium
+    font-medium
 
-                text-[var(--deposit-uploader-replace-text)]
-              "
-            >
-              Replace File
-            </span>
+    text-white
+
+    transition-colors
+
+    duration-200
+
+    hover:bg-[#082d6d]
+  "
+>
+  Replace File
+</span>
           </>
         ) : (
           <>

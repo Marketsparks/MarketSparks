@@ -12,7 +12,7 @@ export function getProductInitialValues(
   const averageRating =
     Number(
       product.averageRating ??
-      0,
+        0,
     );
 
   return {
@@ -52,8 +52,14 @@ export function getProductInitialValues(
       product.metaDescription ??
       "",
 
-    categoryId:
-      product.categoryId,
+    categoryIds:
+      (
+        product.categories ??
+        []
+      ).map(
+        (item) =>
+          item.category.id,
+      ),
 
     images:
       (

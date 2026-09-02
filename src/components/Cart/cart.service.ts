@@ -113,123 +113,70 @@ function validateInventoryQuantity(
   );
 }
 
-type PrismaCartItem = {
-  id: string;
+type PrismaCartItem =
+  Prisma.CartItemGetPayload<{
+    include: {
+      product: {
+        select: {
+          id: true;
+          name: true;
+          slug: true;
+          description: true;
+          price: true;
+          compareAtPrice: true;
+          averageRating: true;
+          totalRatings: true;
+          featured: true;
+          status: true;
+          createdAt: true;
+          publishedAt: true;
 
-  productId: string;
+          categories: {
+            take: 1;
 
-  variantSizeId:
-    | string
-    | null;
+            select: {
+              category: {
+                select: {
+                  id: true;
+                  name: true;
+                  slug: true;
+                };
+              };
+            };
+          };
 
-  quantity: number;
+          images: {
+            select: {
+              id: true;
+              imageKey: true;
+              altText: true;
+              isPrimary: true;
+              sortOrder: true;
+            };
+          };
+        };
+      };
 
-  status: CartItemStatus;
+      variantSize: {
+        include: {
+          variant: {
+            select: {
+              id: true;
+              type: true;
+              label: true;
 
-  createdAt: Date;
-
-  updatedAt: Date;
-
-  product: {
-    id: string;
-
-    name: string;
-
-    slug: string;
-
-    description: string;
-
-    price: Prisma.Decimal;
-
-    compareAtPrice:
-      | Prisma.Decimal
-      | null;
-
-    averageRating:
-      Prisma.Decimal;
-
-    totalRatings: number;
-
-    featured: boolean;
-
-    status: string;
-
-    createdAt: Date;
-
-    publishedAt:
-      | Date
-      | null;
-
-    category: {
-      id: string;
-
-      name: string;
-
-      slug: string;
+              images: {
+                select: {
+                  imageKey: true;
+                  isPrimary: true;
+                };
+              };
+            };
+          };
+        };
+      };
     };
-
-    images: {
-      id: string;
-
-      imageKey: string;
-
-      altText:
-        | string
-        | null;
-
-      isPrimary: boolean;
-
-      sortOrder: number;
-    }[];
-  };
-
-  variantSize: {
-    id: string;
-
-    size:
-      | string
-      | null;
-
-    sku:
-      | string
-      | null;
-
-    price:
-      | Prisma.Decimal
-      | null;
-
-    stock: number;
-
-    reservedStock: number;
-
-    incomingStock: number;
-
-    allowPreorder: boolean;
-
-variant: {
-  id: string;
-
-  type:
-    | "DEFAULT"
-    | "COLOR"
-    | "STORAGE"
-    | "MATERIAL"
-    | "PACK_SIZE"
-    | "STYLE"
-    | "OTHER";
-
-  label:
-    | string
-    | null;
-
-  images: {
-    imageKey: string;
-
-    isPrimary: boolean;
-  }[];
-};
-  } | null;
-};
+  }>;
 
 function mapCartItem(
   item: PrismaCartItem,
@@ -240,6 +187,11 @@ function mapCartItem(
       "Cart item inventory record is missing.",
     );
   }
+
+const primaryCategory =
+  item.product.categories[0]
+    ?.category ?? null;
+
   const product = {
     id:
       item.product.id,
@@ -289,19 +241,17 @@ function mapCartItem(
     publishedAt:
       item.product.publishedAt,
 
-    category: {
-      id:
-        item.product
-          .category.id,
-
-      name:
-        item.product
-          .category.name,
-
-      slug:
-        item.product
-          .category.slug,
-    },
+categories: primaryCategory
+  ? [
+      {
+        category: {
+          id: primaryCategory.id,
+          name: primaryCategory.name,
+          slug: primaryCategory.slug,
+        },
+      },
+    ]
+  : [],
 
     images:
       item.product.images.map(
@@ -522,15 +472,19 @@ async function fetchCartItems(
 
             publishedAt: true,
 
-            category: {
-              select: {
-                id: true,
+categories: {
+  take: 1,
 
-                name: true,
-
-                slug: true,
-              },
-            },
+  select: {
+    category: {
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+      },
+    },
+  },
+},
 
             images: {
               orderBy: {

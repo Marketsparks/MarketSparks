@@ -179,20 +179,26 @@ export async function getCategoryWithProducts(
 
     include: {
       products: {
-        select: {
-          id: true,
+        include: {
+          product: {
+            select: {
+              id: true,
 
-          name: true,
+              name: true,
 
-          slug: true,
+              slug: true,
 
-          status: true,
+              status: true,
 
-          featured: true,
+              featured: true,
+            },
+          },
         },
 
         orderBy: {
-          createdAt: "desc",
+          product: {
+            createdAt: "desc",
+          },
         },
       },
     },
@@ -210,13 +216,21 @@ export async function getCategoryProductCounts(
   ] = await Promise.all([
     prisma.product.count({
       where: {
-        categoryId,
+        categories: {
+          some: {
+            categoryId,
+          },
+        },
       },
     }),
 
     prisma.product.count({
       where: {
-        categoryId,
+        categories: {
+          some: {
+            categoryId,
+          },
+        },
 
         status:
           ProductStatus.DRAFT,
@@ -225,7 +239,11 @@ export async function getCategoryProductCounts(
 
     prisma.product.count({
       where: {
-        categoryId,
+        categories: {
+          some: {
+            categoryId,
+          },
+        },
 
         status:
           ProductStatus.ACTIVE,
@@ -234,7 +252,11 @@ export async function getCategoryProductCounts(
 
     prisma.product.count({
       where: {
-        categoryId,
+        categories: {
+          some: {
+            categoryId,
+          },
+        },
 
         status:
           ProductStatus.ARCHIVED,
@@ -260,8 +282,10 @@ export async function getStorefrontCategories() {
 
       products: {
         some: {
-          status:
-            ProductStatus.ACTIVE,
+          product: {
+            status:
+              ProductStatus.ACTIVE,
+          },
         },
       },
     },
@@ -277,8 +301,10 @@ export async function getStorefrontCategories() {
         select: {
           products: {
             where: {
-              status:
-                ProductStatus.ACTIVE,
+              product: {
+                status:
+                  ProductStatus.ACTIVE,
+              },
             },
           },
         },

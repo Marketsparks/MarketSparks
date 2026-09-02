@@ -54,14 +54,18 @@ export async function GET(
             },
           },
 
-          {
-            category: {
-              name: {
-                contains: query,
-                mode: "insensitive",
-              },
-            },
-          },
+{
+  categories: {
+    some: {
+      category: {
+        name: {
+          contains: query,
+          mode: "insensitive",
+        },
+      },
+    },
+  },
+},
         ],
       },
 

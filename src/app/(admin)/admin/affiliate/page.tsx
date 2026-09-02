@@ -53,18 +53,21 @@ export default async function AdminAffiliatePage() {
           },
         },
 
-        product: {
-          include: {
-            category: true,
+product: {
+  include: {
+    categories: {
+      include: {
+        category: true,
+      },
+    },
 
-            images: {
-              orderBy: {
-                sortOrder:
-                  "asc",
-              },
-            },
-          },
-        },
+images: {
+  orderBy: {
+    sortOrder: "asc",
+  },
+},
+  },
+},
 
         interests: {
           orderBy: {
@@ -334,24 +337,25 @@ export default async function AdminAffiliatePage() {
                   .publishedAt,
               ),
 
-            category: {
-              id:
-                listing
-                  .product
-                  .category.id,
+category: {
+  id:
+    listing
+      .product
+      .categories[0]
+      .category.id,
 
-              name:
-                listing
-                  .product
-                  .category
-                  .name,
+  name:
+    listing
+      .product
+      .categories[0]
+      .category.name,
 
-              slug:
-                listing
-                  .product
-                  .category
-                  .slug,
-            },
+  slug:
+    listing
+      .product
+      .categories[0]
+      .category.slug,
+},
 
             images:
               listing.product.images.map(

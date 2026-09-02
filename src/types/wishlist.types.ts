@@ -34,11 +34,15 @@ export type WishlistProduct = {
   status: string;
   createdAt: Date;
   publishedAt: Date | null;
-  category: {
-    id: string;
-    name: string;
-    slug: string;
-  };
+category:
+  | {
+      id: string;
+
+      name: string;
+
+      slug: string;
+    }
+  | null;
   images: {
     id: string;
     imageKey: string;

@@ -37,7 +37,8 @@ export default async function ProductPage({
 const relatedProducts =
   await getRelatedProducts(
     product.id,
-    product.category.id,
+    product.categories[0]?.category.id ??
+      null,
   );
 
   return (

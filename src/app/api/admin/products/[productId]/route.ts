@@ -26,7 +26,11 @@ type RouteContext = {
 };
 
 const include = {
-  category: true,
+  categories: {
+    include: {
+      category: true,
+    },
+  },
 
   images: {
     orderBy: {
@@ -156,8 +160,14 @@ export async function PATCH(
               productId,
           },
 
-          include: {
-            variants: {
+include: {
+  categories: {
+    include: {
+      category: true,
+    },
+  },
+
+  variants: {
               include: {
                 images: true,
 
@@ -300,17 +310,26 @@ export async function PATCH(
                 }
               : {}),
 
-            ...(data.categoryId !==
-            undefined
-              ? {
-                  category: {
-                    connect: {
-                      id:
-                        data.categoryId,
-                    },
-                  },
-                }
-              : {}),
+...(data.categoryIds !==
+undefined
+  ? {
+      categories: {
+        deleteMany: {},
+
+        create:
+          data.categoryIds.map(
+            (categoryId) => ({
+              category: {
+                connect: {
+                  id:
+                    categoryId,
+                },
+              },
+            }),
+          ),
+      },
+    }
+  : {}),
           };
 if (
   data.initialRating !==
@@ -958,8 +977,7 @@ export async function DELETE(
       await prisma.product.findUnique(
         {
           where: {
-            id:
-              productId,
+            id: productId,
           },
         },
       );
@@ -968,7 +986,6 @@ export async function DELETE(
       return NextResponse.json(
         {
           success: false,
-
           error:
             "Product not found.",
         },
@@ -978,56 +995,15 @@ export async function DELETE(
       );
     }
 
-try {
-  await prisma.product.delete({
-    where: {
-      id: productId,
-    },
-  });
-} catch (error) {
-  if (
-    error instanceof
-      Prisma.PrismaClientKnownRequestError &&
-    error.code === "P2003"
-  ) {
-    const archivedProduct =
-      await prisma.product.update({
-        where: {
-          id: productId,
-        },
-        data: {
-          status:
-            "ARCHIVED",
-          featured:
-            false,
-          publishedAt:
-            null,
-        },
-      });
-
-    return NextResponse.json({
-      success: true,
-
-      data: {
-        ...archivedProduct,
-
-        archivedInsteadOfDeleted:
-          true,
+    await prisma.product.delete({
+      where: {
+        id: productId,
       },
-
-      message:
-        "Product was archived because it is referenced by existing orders.",
     });
-  }
-
-  throw error;
-}
 
     return NextResponse.json({
       success: true,
-
-      data:
-        null,
+      data: null,
     });
   } catch (error) {
     console.error(error);
@@ -1035,7 +1011,6 @@ try {
     return NextResponse.json(
       {
         success: false,
-
         error:
           "Failed to delete product.",
       },

@@ -10,7 +10,11 @@ import type {
 } from "@/types/product.types";
 
 const productDetailsInclude = {
-  category: true,
+  categories: {
+    include: {
+      category: true,
+    },
+  },
 
   images: {
     orderBy: {
@@ -52,7 +56,11 @@ const productDetailsInclude = {
 } satisfies Prisma.ProductInclude;
 
 const productCardInclude = {
-  category: true,
+  categories: {
+    include: {
+      category: true,
+    },
+  },
 
   images: {
     orderBy: {
@@ -162,8 +170,12 @@ export async function listProducts(
   }
 
   if (filters?.categoryId) {
-    where.categoryId =
-      filters.categoryId;
+    where.categories = {
+      some: {
+        categoryId:
+          filters.categoryId,
+      },
+    };
   }
 
   if (
@@ -203,6 +215,12 @@ export async function listFeaturedProducts() {
     },
 
     include: {
+      categories: {
+        include: {
+          category: true,
+        },
+      },
+
       images: {
         orderBy: {
           sortOrder:
@@ -224,7 +242,11 @@ export async function listRelatedProducts(
 ) {
   return prisma.product.findMany({
     where: {
-      categoryId,
+      categories: {
+        some: {
+          categoryId,
+        },
+      },
 
       status:
         ProductStatus.ACTIVE,
@@ -236,6 +258,12 @@ export async function listRelatedProducts(
     },
 
     include: {
+      categories: {
+        include: {
+          category: true,
+        },
+      },
+
       images: {
         orderBy: {
           sortOrder:

@@ -256,16 +256,16 @@ function ActionButton({
   let border =
     "var(--border)";
 
-  if (primary) {
-    background =
-      "var(--primary)";
+if (primary) {
+  background =
+    "#FFFFFF";
 
-    color =
-      "var(--primary-foreground)";
+  color =
+    "#9409be";
 
-    border =
-      "var(--primary)";
-  }
+  border =
+    "#9409be";
+}
 
   if (success) {
     background =
