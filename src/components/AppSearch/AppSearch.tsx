@@ -41,15 +41,22 @@ export default function AppSearch() {
     setQuery,
     loading,
     results,
+    clearSearch,
   } =
     useAppSearch();
+
+  function handleClose() {
+    clearSearch();
+
+    closeSearch();
+  }
 
   return (
     <AnimatePresence>
       {searchOpen && (
         <>
           <AppSearchBackdrop
-            onClose={closeSearch}
+            onClose={handleClose}
           />
 
           <motion.div
@@ -93,7 +100,7 @@ export default function AppSearch() {
             }}
           >
             <AppSearchHeader
-              onClose={closeSearch}
+              onClose={handleClose}
             />
 
             <AppSearchInput
@@ -110,27 +117,32 @@ export default function AppSearch() {
                 pb-5
               "
             >
-{query.trim() ? (
-  loading ? (
-    <AppSearchLoading />
-  ) : results.length > 0 ? (
-    <AppSearchResults
-      loading={false}
-      query={query}
-      results={results}
-      onSelect={closeSearch}
-    />
-  ) : (
-    <AppSearchEmpty
-      query={query}
-    />
-  )
-) : (
-  <AppSearchPopular
-    searches={popularSearches}
-    onSelect={setQuery}
-  />
-)}
+              {query.trim() ? (
+                loading ? (
+                  <AppSearchLoading />
+                ) : results.length >
+                  0 ? (
+                  <AppSearchResults
+                    loading={false}
+                    query={query}
+                    results={results}
+                    onSelect={
+                      handleClose
+                    }
+                  />
+                ) : (
+                  <AppSearchEmpty
+                    query={query}
+                  />
+                )
+              ) : (
+                <AppSearchPopular
+                  searches={
+                    popularSearches
+                  }
+                  onSelect={setQuery}
+                />
+              )}
             </div>
           </motion.div>
         </>

@@ -31,12 +31,21 @@ export function useAppSearch() {
     [],
   );
 
+  function clearSearch() {
+    setQuery("");
+
+    setResults([]);
+
+    setLoading(false);
+  }
+
   useEffect(() => {
     const trimmedQuery =
       query.trim();
 
     if (!trimmedQuery) {
       setResults([]);
+
       setLoading(false);
 
       return;
@@ -118,5 +127,6 @@ export function useAppSearch() {
     setQuery,
     loading,
     results,
+    clearSearch,
   };
 }
