@@ -22,6 +22,8 @@ import PasswordField from "./PasswordField";
 type LoginFormProps = {
   loading?: boolean;
 
+  loadingText?: string;
+
   onSubmit?: (
     values: {
       email: string;
@@ -29,7 +31,7 @@ type LoginFormProps = {
       password: string;
 
       rememberMe: boolean;
-    }
+    },
   ) => void;
 
   onRegister?: () => void;
@@ -37,6 +39,8 @@ type LoginFormProps = {
 
 export default function LoginForm({
   loading = false,
+
+  loadingText,
 
   onSubmit,
 
@@ -46,24 +50,29 @@ export default function LoginForm({
     useState(false);
 
   function handleSubmit(
-    event: React.FormEvent<HTMLFormElement>
+    event: React.FormEvent<HTMLFormElement>,
   ) {
     event.preventDefault();
 
-    if (locked) {
+    if (
+      loading ||
+      locked
+    ) {
       return;
     }
 
     const form =
-      new FormData(event.currentTarget);
+      new FormData(
+        event.currentTarget,
+      );
 
     const values = {
       email: String(
-        form.get("email")
+        form.get("email"),
       ),
 
       password: String(
-        form.get("password")
+        form.get("password"),
       ),
 
       rememberMe:
@@ -76,7 +85,7 @@ export default function LoginForm({
 
     if (!validation.success) {
       toast.error(
-        validation.message
+        validation.message,
       );
 
       return;
@@ -106,12 +115,18 @@ Sign in to continue building your business with MarketSparks.
           <button
             type="button"
             onClick={onRegister}
+            disabled={
+              loading ||
+              locked
+            }
             className="
               font-semibold
               text-[var(--primary)]
               transition-colors
               duration-300
               hover:opacity-80
+              disabled:cursor-not-allowed
+              disabled:opacity-50
             "
           >
             Create one
@@ -127,6 +142,13 @@ Sign in to continue building your business with MarketSparks.
         <AuthTabs
           value="login"
           onChange={(value) => {
+            if (
+              loading ||
+              locked
+            ) {
+              return;
+            }
+
             if (
               value ===
               "register"
@@ -151,7 +173,8 @@ Sign in to continue building your business with MarketSparks.
           placeholder="Enter your email"
           autoComplete="email"
           required
-        leftIcon={
+          disabled={loading}
+          leftIcon={
             <Mail size={17} />
           }
         />
@@ -163,6 +186,7 @@ Sign in to continue building your business with MarketSparks.
           placeholder="Enter your password"
           autoComplete="current-password"
           required
+          disabled={loading}
         />
 
         <div
@@ -186,6 +210,7 @@ Sign in to continue building your business with MarketSparks.
             <input
               type="checkbox"
               name="rememberMe"
+              disabled={loading}
               className="
                 h-4
                 w-4
@@ -216,8 +241,13 @@ Sign in to continue building your business with MarketSparks.
         <AuthButton
           type="submit"
           loading={loading}
-          disabled={locked}
-          loadingText="Signing In..."
+disabled={
+  loading ||
+  locked
+}
+          loadingText={
+            loadingText
+          }
           rightIcon={
             <ArrowRight
               size={17}
@@ -234,7 +264,10 @@ Sign in to continue building your business with MarketSparks.
         <AuthButton
           type="button"
           variant="secondary"
-          disabled={locked}
+          disabled={
+            loading ||
+            locked
+          }
         >
           Continue with Google
         </AuthButton>

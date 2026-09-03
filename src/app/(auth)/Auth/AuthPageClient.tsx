@@ -188,6 +188,13 @@ router.replace(
         true,
       );
 
+setLoadingText(
+  "Signing in...",
+);
+
+keepLoadingRef.current =
+  false;
+
       const response =
         await fetch(
           "/api/auth/login",
@@ -367,29 +374,42 @@ if (
             : redirect ??
               "/Dashboard";
 
-      toast.success(
-        "Signed in successfully",
-      );
+setLoadingText(
+  "Please wait...",
+);
 
-      router.replace(
-        destination,
-      );
-    } catch (
-      error
-    ) {
-      console.error(
-        "Login request error:",
-        error,
-      );
+keepLoadingRef.current =
+  true;
 
-      toast.error(
-        "Unable to sign in. Please try again.",
-      );
-    } finally {
-      setLoading(
-        false,
-      );
-    }
+toast.success(
+  "Signed in successfully",
+);
+
+router.replace(
+  destination,
+);
+
+return;
+} catch (
+  error
+) {
+  console.error(
+    "Login request error:",
+    error,
+  );
+
+  toast.error(
+    "Unable to sign in. Please try again.",
+  );
+} finally {
+  if (
+    !keepLoadingRef.current
+  ) {
+    setLoading(
+      false,
+    );
+  }
+}
   }
 
 async function handleRegister(
@@ -543,7 +563,6 @@ setLoadingText(
 
 keepLoadingRef.current =
   true;
-
 showExperience({
   title: `Welcome, ${values.firstName}!`,
   description:
@@ -622,10 +641,13 @@ return (
       >
         {mode ===
         "login" ? (
-          <LoginForm
-            loading={
-              loading
-            }
+<LoginForm
+  loading={
+    loading
+  }
+  loadingText={
+    loadingText
+  }
             onSubmit={
               handleLogin
             }
