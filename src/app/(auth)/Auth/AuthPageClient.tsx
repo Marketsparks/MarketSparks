@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "sonner";
@@ -103,10 +103,20 @@ const {
     "login" | "register"
   >("login");
 
-  const [
-    loading,
-    setLoading,
-  ] = useState(false);
+const [
+  loading,
+  setLoading,
+] = useState(false);
+
+const [
+  loadingText,
+  setLoadingText,
+] = useState(
+  "Creating account...",
+);
+
+const keepLoadingRef =
+  useRef(false);
 
   async function submitAffiliateProductAfterLogin(
     productId: string,
@@ -390,6 +400,13 @@ async function handleRegister(
       true,
     );
 
+    setLoadingText(
+      "Creating account...",
+    );
+
+    keepLoadingRef.current =
+      false;
+
     const registerResponse =
       await fetch(
         "/api/auth/register",
@@ -520,18 +537,30 @@ router.prefetch(
   destination,
 );
 
+setLoadingText(
+  "Preparing your dashboard...",
+);
+
+keepLoadingRef.current =
+  true;
+
 showExperience({
   title: `Welcome, ${values.firstName}!`,
   description:
     "Your account is ready. Enjoy a seamless experience on MarketSparks.",
   status:
     "Preparing your experience...",
-  onComplete: () => {
-    router.replace(
-      destination,
-    );
-  },
+onComplete: () => {
+  keepLoadingRef.current =
+    false;
+
+  router.replace(
+    destination,
+  );
+},
 });
+
+return;
   } catch (
     error
   ) {
@@ -543,11 +572,15 @@ showExperience({
     toast.error(
       "Unable to create your account. Please try again.",
     );
-  } finally {
+} finally {
+  if (
+    !keepLoadingRef.current
+  ) {
     setLoading(
       false,
     );
   }
+}
 }
 
   function handleModeChange(
@@ -603,10 +636,13 @@ return (
             }
           />
         ) : (
-          <RegisterForm
-            loading={
-              loading
-            }
+<RegisterForm
+  loading={
+    loading
+  }
+  loadingText={
+    loadingText
+  }
             onSubmit={
               handleRegister
             }

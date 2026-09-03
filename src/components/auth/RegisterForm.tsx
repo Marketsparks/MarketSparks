@@ -48,6 +48,8 @@ export type RegisterFormValues = {
 type RegisterFormProps = {
   loading?: boolean;
 
+  loadingText?: string;
+
   onSubmit?: (
     values: RegisterFormValues,
   ) => void;
@@ -56,7 +58,8 @@ type RegisterFormProps = {
 };
 
 export default function RegisterForm({
-  loading = false,
+  loading,
+  loadingText,
   onSubmit,
   onSignIn,
 }: RegisterFormProps) {
@@ -523,7 +526,7 @@ disabled={
   disabled={
     hasSubmitted.current
   }
-  loadingText="Creating Account..."
+  loadingText={loadingText}
   rightIcon={
     <ArrowRight size={17} />
   }
