@@ -1,6 +1,8 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type {
+  ReactNode,
+} from "react";
 
 import ThemeProvider from "./ThemeProvider";
 
@@ -28,6 +30,14 @@ import {
   SubscriptionProvider,
 } from "@/context/SubscriptionContext";
 
+import {
+  PremiumToastProvider,
+} from "@/components/ui/PremiumToast";
+
+import {
+  ExperienceProvider,
+} from "@/components/ui/ExperienceOverlay";
+
 type AppProviderProps = {
   children: ReactNode;
 };
@@ -37,19 +47,23 @@ export default function AppProvider({
 }: AppProviderProps) {
   return (
     <ThemeProvider>
-      <AuthProvider>
-        <WishlistProvider>
-          <SubscriptionProvider>
-            <CartProvider>
-              <CheckoutProvider>
-                <SearchProvider>
-                  {children}
-                </SearchProvider>
-              </CheckoutProvider>
-            </CartProvider>
-          </SubscriptionProvider>
-        </WishlistProvider>
-      </AuthProvider>
+      <ExperienceProvider>
+        <PremiumToastProvider>
+          <AuthProvider>
+            <WishlistProvider>
+              <SubscriptionProvider>
+                <CartProvider>
+                  <CheckoutProvider>
+                    <SearchProvider>
+                      {children}
+                    </SearchProvider>
+                  </CheckoutProvider>
+                </CartProvider>
+              </SubscriptionProvider>
+            </WishlistProvider>
+          </AuthProvider>
+        </PremiumToastProvider>
+      </ExperienceProvider>
     </ThemeProvider>
   );
 }

@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-
 import { DashboardPage } from "@/components/dashboard";
-
 import WithdrawBalance from "./WithdrawBalance";
 import WithdrawMethod from "./WithdrawMethod";
 import WithdrawDetails from "./WithdrawDetails";
@@ -11,21 +9,15 @@ import WithdrawSummary from "./WithdrawSummary";
 import WithdrawAction from "./WithdrawAction";
 import WithdrawHistory from "./WithdrawHistory";
 import WithdrawConfirmationModal from "./WithdrawConfirmationModal";
-
 import { WITHDRAW_NETWORK_FEE } from "./withdraw.constants";
-
 import { calculateReceiveAmount } from "./withdraw.utils";
-
-import type {
-  WithdrawMethod as WithdrawMethodType,
-  WithdrawHistoryItem,
-  WithdrawBalanceType,
-} from "./withdraw.types";
-
+import type { WithdrawMethod as WithdrawMethodType, WithdrawHistoryItem, WithdrawBalanceType } from "./withdraw.types";
 import { toast } from "sonner";
-
+import useExperience from "@/components/ui/ExperienceOverlay/useExperience";
 
 export default function WithdrawPage() {
+  const { showExperience } = useExperience();
+  
   const [methods, setMethods] = useState<WithdrawMethodType[]>([]);
 
   const [walletBalance, setWalletBalance] = useState(0);
@@ -350,9 +342,12 @@ setWithdrawals(
   ]
 );
 
-    toast.success(
-      result.message
-    );
+showExperience({
+  status: "Withdrawal Submitted",
+  title: "Request received",
+  description:
+    "Your withdrawal request has been submitted successfully and is now awaiting review by our team.",
+});
 
     setConfirmationOpen(
       false

@@ -151,15 +151,21 @@ export async function PATCH(
         where: {
           id: session.user.id,
         },
-        data: {
-          firstName,
-          lastName,
-          phoneNumber,
-          secondaryPhoneNumber:
-            secondaryPhoneNumber || null,
-          country,
-          avatarKey: avatarKey ?? null,
-        },
+data: {
+  firstName,
+  lastName,
+  phoneNumber,
+  secondaryPhoneNumber:
+    secondaryPhoneNumber || null,
+  country,
+
+  ...(avatarKey !== undefined
+    ? {
+        avatarKey:
+          avatarKey || null,
+      }
+    : {}),
+},
         select: {
           id: true,
           firstName: true,

@@ -1,27 +1,12 @@
 "use client";
 
-import {
-  useCallback,
-  useState,
-} from "react";
-
-import {
-  useRouter,
-} from "next/navigation";
-
+import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-
-import {
-  useAuth,
-} from "@/context/AuthContext";
-
-import {
-  useCurrentSubscription,
-} from "@/hooks/useCurrentSubscription";
-
-import {
-  submitAffiliateProduct,
-} from "@/services/affiliate-api.service";
+import useExperience from "@/components/ui/ExperienceOverlay/useExperience";
+import { useAuth } from "@/context/AuthContext";
+import { useCurrentSubscription } from "@/hooks/useCurrentSubscription";
+import { submitAffiliateProduct } from "@/services/affiliate-api.service";
 
 type UseAffiliateActionResult = {
   execute: (
@@ -34,8 +19,12 @@ type UseAffiliateActionResult = {
 };
 
 export function useAffiliateAction(): UseAffiliateActionResult {
-  const router =
-    useRouter();
+const router =
+  useRouter();
+
+const {
+  showExperience,
+} = useExperience();
 
   const {
     user,
@@ -132,13 +121,18 @@ export function useAffiliateAction(): UseAffiliateActionResult {
             productId,
           );
 
-          toast.success(
-            "Product submitted for admin review.",
-          );
-
-          router.push(
-            "/affiliate",
-          );
+showExperience({
+  title:
+    "Affiliate Request Submitted",
+  description:
+    "Your product has been submitted successfully and is now awaiting admin review. You'll be notified once a decision has been made.",
+  status: "success",
+  onComplete: () => {
+    router.push(
+      "/affiliate",
+    );
+  },
+});
         } catch (error) {
           toast.error(
             error instanceof Error

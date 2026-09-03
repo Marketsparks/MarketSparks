@@ -1,48 +1,16 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-
-import {
-  useRouter,
-} from "next/navigation";
-
-import {
-  Loader2,
-} from "lucide-react";
-
-import {
-  toast,
-} from "sonner";
-
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import useExperience from "@/components/ui/ExperienceOverlay/useExperience";
 import DashboardPageLayout from "@/components/dashboard/DashboardPage";
-
-import {
-  useCartContext,
-} from "@/context/CartContext";
-
-import {
-  useCheckout,
-} from "@/context/CheckoutContext";
-
-import type {
-  Address,
-} from "@/types/address.types";
-
-import type {
-  DepositMethod,
-} from "@/components/Deposit/deposit.types";
-
-import type {
-  CheckoutInitialData,
-  CheckoutDeliveryDetails,
-  CheckoutPaymentMethod as CheckoutPaymentMethodType,
-} from "@/types/checkout.types";
-
+import { useCartContext } from "@/context/CartContext";
+import { useCheckout } from "@/context/CheckoutContext";
+import type { Address } from "@/types/address.types";
+import type { DepositMethod } from "@/components/Deposit/deposit.types";
+import type { CheckoutInitialData, CheckoutDeliveryDetails, CheckoutPaymentMethod as CheckoutPaymentMethodType } from "@/types/checkout.types";
 import CheckoutDeliveryForm from "./CheckoutDeliveryForm";
 import CheckoutPaymentMethod from "./CheckoutPaymentMethod";
 import CheckoutWalletPayment from "./CheckoutWalletPayment";
@@ -70,8 +38,12 @@ export default function CheckoutPage({
   initialData,
 }: CheckoutPageProps) {
 
-  const router =
-    useRouter();
+const router =
+  useRouter();
+
+const {
+  showExperience,
+} = useExperience();
 
   const {
     cart,
@@ -786,18 +758,30 @@ if (!isDirectCheckout) {
   await refreshCart();
 }
 
-toast.success(
-  paymentMethod ===
-    "WALLET"
-    ? "Order placed successfully."
-    : "Payment submitted for review.",
-);
-
 if (isDirectCheckout) {
   clearCheckout();
 }
 
-router.push("/orders");
+showExperience({
+  title:
+    "Order Confirmed",
+
+  description:
+    paymentMethod === "WALLET"
+      ? "Your order has been placed successfully. We'll keep you updated as it progresses."
+      : "Your payment has been submitted successfully and is awaiting review before your order is processed.",
+
+  status:
+    paymentMethod === "WALLET"
+      ? "Preparing your orders..."
+      : "Reviewing your payment...",
+
+  onComplete: () => {
+    router.push(
+      "/orders",
+    );
+  },
+});
     } catch (error) {
       console.error(
         "Checkout submission error:",

@@ -1570,6 +1570,37 @@
 
 
 
+/* ==========================================================================
+   PREMIUM TOAST
+   ========================================================================== */
+--premium-toast-overlay: rgba(3, 7, 18, 0.72);
+
+--premium-toast-surface:
+  rgba(17, 24, 39, 0.82);
+
+--premium-toast-border:
+  rgba(255, 255, 255, 0.08);
+
+--premium-toast-accent:
+  var(--primary);
+
+--premium-toast-accent-soft:
+  color-mix(
+    in srgb,
+    var(--primary) 18%,
+    transparent
+  );
+
+--premium-toast-glow:
+  color-mix(
+    in srgb,
+    var(--primary) 22%,
+    transparent
+  );
+
+--premium-toast-progress-track:
+  rgba(255, 255, 255, 0.08);
+
 
 
 
@@ -1841,21 +1872,6 @@
 --admin-product-option-gap: .5rem;
 
 --admin-product-preview-bg: var(--admin-surface-bg);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3700,6 +3716,42 @@
 
 
 
+/* ==========================================================================
+   PREMIUM TOAST
+   ========================================================================== */
+--premium-toast-overlay: rgba(3, 7, 18, 0.72);
+
+--premium-toast-surface:
+  rgba(17, 24, 39, 0.82);
+
+--premium-toast-border:
+  rgba(255, 255, 255, 0.08);
+
+--premium-toast-accent:
+  var(--primary);
+
+--premium-toast-accent-soft:
+  color-mix(
+    in srgb,
+    var(--primary) 18%,
+    transparent
+  );
+
+--premium-toast-glow:
+  color-mix(
+    in srgb,
+    var(--primary) 22%,
+    transparent
+  );
+
+--premium-toast-progress-track:
+  rgba(255, 255, 255, 0.08);
+
+
+
+
+
+
 /* ========================================================================================================================================================================================================
    WHOLE/ENTIRE ADMIN LAYOUT CONTROL
    ======================================================================================================================================================================================================== */
@@ -3844,13 +3896,6 @@
 
 --admin-plan-disabled-bg: rgba(239,68,68,.12);
 --admin-plan-disabled-border: rgba(239,68,68,.25);
-
-
-
-
-
-
-
 
 
 

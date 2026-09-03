@@ -109,51 +109,66 @@ export default function RejectDepositDialog({
     }
   }
 
-  return (
-    <>
-      <div
+return (
+  <div
+    className="
+      fixed
+      inset-0
+      z-[100]
+      flex
+      items-center
+      justify-center
+      bg-black/60
+      p-4
+      backdrop-blur-sm
+    "
+  >
+    <div
+      className="
+        w-full
+        max-w-lg
+        rounded-2xl
+        border
+        border-[var(--admin-border)]
+        bg-[var(--admin-card-bg)]
+        p-6
+        shadow-2xl
+      "
+    >
+      <h2
         className="
-          fixed
-          inset-0
-          z-50
-          bg-black/50
-        "
-      />
-
-      <div
-        className="
-          fixed
-          left-1/2
-          top-1/2
-          z-[60]
-          w-full
-          max-w-lg
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-3xl
-          bg-[var(--card)]
-          p-6
-          shadow-2xl
+          text-xl
+          font-semibold
+          text-[var(--admin-foreground)]
         "
       >
-        <h2
-          className="
-            text-xl
-            font-semibold
-          "
-        >
-          Reject Deposit
-        </h2>
+        Reject Deposit
+      </h2>
 
-        <p
+      <p
+        className="
+          mt-2
+          text-sm
+          leading-6
+          text-[var(--admin-muted-foreground)]
+        "
+      >
+        This action cannot be undone. Tell the user why this
+        deposit was rejected.
+      </p>
+
+      <div className="mt-6">
+        <label
           className="
-            mt-2
+            mb-2
+            block
             text-sm
-            text-[var(--foreground-muted)]
+            font-medium
+            text-[var(--admin-foreground)]
           "
         >
-          This action cannot be undone. Tell the user why this deposit was rejected.
-        </p>
+          Reason for rejection
+        </label>
 
         <textarea
           value={adminNote}
@@ -163,63 +178,75 @@ export default function RejectDepositDialog({
             )
           }
           rows={5}
-          placeholder="Reason for rejection..."
+          placeholder="Explain why this deposit was rejected..."
           className="
-            mt-6
             w-full
-            rounded-2xl
+            rounded-xl
             border
-            border-[var(--border)]
-            bg-[var(--surface)]
-            p-4
+            border-[var(--admin-border)]
+            bg-[var(--admin-background)]
+            px-4
+            py-3
+            text-[var(--admin-foreground)]
+            placeholder:text-[var(--admin-muted-foreground)]
             outline-none
-            focus:border-[var(--primary)]
+            transition-colors
+            focus:border-[var(--admin-primary)]
+            focus:ring-2
+            focus:ring-[var(--admin-primary)]/20
           "
         />
+      </div>
 
-        {error && (
-          <p
-            className="
-              mt-3
-              text-sm
-              text-red-500
-            "
-          >
-            {error}
-          </p>
-        )}
-
+      {error && (
         <div
           className="
-            mt-6
-            flex
-            justify-end
-            gap-3
+            mt-4
+            rounded-xl
+            border
+            border-red-500/20
+            bg-red-500/10
+            px-4
+            py-3
+            text-sm
+            text-red-400
           "
         >
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={onClose}
-            disabled={loading}
-          >
-            Cancel
-          </Button>
-
-          <Button
-            type="button"
-            variant="primary"
-            onClick={
-              handleReject
-            }
-            disabled={loading}
-          >
-            {loading
-              ? "Rejecting..."
-              : "Reject Deposit"}
-          </Button>
+          {error}
         </div>
+      )}
+
+      <div
+        className="
+          mt-8
+          flex
+          justify-end
+          gap-3
+        "
+      >
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={onClose}
+          disabled={loading}
+        >
+          Cancel
+        </Button>
+
+        <Button
+          type="button"
+          variant="primary"
+          onClick={
+            handleReject
+          }
+          disabled={loading}
+        >
+          {loading
+            ? "Rejecting..."
+            : "Reject Deposit"}
+        </Button>
       </div>
-    </>
-  );
+    </div>
+  </div>
+);
 }

@@ -1,45 +1,18 @@
 "use client";
 
-import {
-  useState,
-} from "react";
-
-import { toast } from "sonner";
-
-import {
-  PlanCard,
-} from "@/components/Plans/PlanCard";
-
-import {
-  CurrentPlanCard,
-} from "@/components/Plans/CurrentPlanCard";
-
+import { useState } from "react";
+import useExperience from "@/components/ui/ExperienceOverlay/useExperience";
+import { PlanCard } from "@/components/Plans/PlanCard";
+import { CurrentPlanCard } from "@/components/Plans/CurrentPlanCard";
 import SubscribeDialog from "@/components/Plans/SubscribeDialog";
-
-import {
-  useCurrentSubscription,
-} from "@/hooks/useCurrentSubscription";
-
-import {
-  getPlans,
-} from "@/services/plan.service";
-
-import {
-  subscribeToPlan,
-} from "@/services/subscription.client";
-
-import type {
-  SubscriptionPlan,
-} from "@/types/plan.types";
-
-import {
-  useEffect,
-} from "react";
-
+import { useCurrentSubscription } from "@/hooks/useCurrentSubscription";
+import { getPlans } from "@/services/plan.service";
+import { subscribeToPlan } from "@/services/subscription.client";
+import type { SubscriptionPlan } from "@/types/plan.types";
+import { useEffect } from "react";
+import { toast } from "sonner";
 import DashboardPageLayout from "@/components/dashboard/DashboardPage";
 import { PageHeader } from "@/components/dashboard";
-
-
 
 export default function PlansPage() {
   const {
@@ -47,6 +20,10 @@ export default function PlansPage() {
     loading: subscriptionLoading,
     refresh,
   } = useCurrentSubscription();
+
+const {
+  showExperience,
+} = useExperience();
 
 const currentPriority =
   subscription?.priority ?? 0;
@@ -111,9 +88,12 @@ await subscribeToPlan(
   selectedPlan.id,
 );
 
-      toast.success(
-        "Subscription activated.",
-      );
+showExperience({
+  title: "Subscription Active",
+  description:
+    "Your subscription has been activated successfully. You now have access to all the features included in your selected plan.",
+  status: "WELCOME TO YOUR NEW PLAN",
+});
 
       setSelectedPlan(
         null,

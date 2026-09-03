@@ -1,22 +1,10 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
-
-import {
-  getCloudinaryImageUrl,
-} from "@/lib/cloudinary";
-
-import {
-  DashboardPage,
-} from "@/components/dashboard";
-
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
+import { DashboardPage } from "@/components/dashboard";
+import type { DepositHistoryItem, DepositMethod as DepositMethodType } from "./deposit.types";
 import DepositBalance from "./DepositBalance";
 import DepositMethod from "./DepositMethod";
 import DepositMethodCard from "./DepositMethodCard";
@@ -25,11 +13,7 @@ import DepositSummary from "./DepositSummary";
 import DepositAction from "./DepositAction";
 import DepositHistory from "./DepositHistory";
 import DepositReceiptModal from "./DepositReceiptModal";
-
-import type {
-  DepositHistoryItem,
-  DepositMethod as DepositMethodType,
-} from "./deposit.types";
+import useExperience from "@/components/ui/ExperienceOverlay/useExperience";
 
 export default function DepositPage() {
 const [
@@ -39,6 +23,10 @@ const [
   useState<DepositMethodType | null>(
     null,
   );
+
+const {
+  showExperience,
+} = useExperience();
 
 const [
   methods,
@@ -375,22 +363,25 @@ const handleDepositSubmit = useCallback(async () => {
       },
     );
 
-    await createDeposit(receiptUrl);
+await createDeposit(receiptUrl);
 
-    await loadDeposits();
+await loadDeposits();
 
-    setReceipt(null);
-    setAmount(0);
-    setSelectedMethod(null);
-    setReceiptModalOpen(false);
+setReceipt(null);
+setAmount(0);
+setSelectedMethod(null);
+setReceiptModalOpen(false);
 
-    toast.success(
-      "Deposit submitted successfully.",
-      {
-        id: "deposit",
-      },
-    );
+toast.dismiss("deposit");
+
+showExperience({
+  title: "Deposit Submitted",
+  description:
+    "Your deposit request has been submitted successfully and is now awaiting verification by our team.",
+  status: "success",
+});
   } catch (error) {
+    toast.dismiss("deposit");
     toast.error(
       error instanceof Error
         ? error.message

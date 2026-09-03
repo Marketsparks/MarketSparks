@@ -3,170 +3,81 @@ export default function LoadingSkeleton() {
     <div
       className="
         overflow-hidden
-
-        rounded-[var(--admin-deposit-skeleton-radius)]
-
+        rounded-xl
         border
-
-        border-[var(--admin-deposit-skeleton-border)]
-
-        bg-[var(--admin-deposit-skeleton-bg)]
-
-        shadow-[var(--admin-deposit-skeleton-shadow)]
-
-        transition-all
-        duration-300
+        border-[var(--admin-card-border)]
+        bg-[var(--admin-card-bg)]
+        shadow-[var(--admin-card-shadow)]
       "
     >
-      <div
-        className="
-          animate-pulse
-
-          p-4
-
-          sm:p-5
-
-          lg:p-6
-        "
-      >
-        <div
-          className="
-            mb-5
-
-            hidden
-
-            h-12
-
-            rounded-xl
-
-            bg-[var(--admin-deposit-skeleton-block)]
-
-            lg:block
-          "
-        />
-
-        <div className="space-y-3">
-          {Array.from({
-            length: 8,
-          }).map((_, index) => (
-            <div
-              key={index}
+      <div className="overflow-x-auto">
+        <table className="min-w-[1200px] w-full border-collapse">
+          <thead>
+            <tr
               className="
-                flex
-
-                items-center
-
-                gap-3
-
-                rounded-[var(--admin-deposit-skeleton-item-radius)]
-
-                border
-
-                border-[var(--admin-deposit-skeleton-item-border)]
-
-                bg-[var(--admin-deposit-skeleton-item-bg)]
-
-                p-3
-
-                transition-colors
-
-                sm:gap-4
-
-                sm:p-4
+                border-b
+                border-[var(--admin-table-border)]
+                bg-[var(--admin-table-header-bg)]
               "
             >
-              <div
-                className="
-                  h-10
-
-                  w-10
-
-                  shrink-0
-
-                  rounded-full
-
-                  bg-[var(--admin-deposit-skeleton-block)]
-
-                  sm:h-12
-
-                  sm:w-12
-                "
-              />
-
-              <div className="flex-1 space-y-2">
-                <div
+              {[
+                "Reference",
+                "User",
+                "Method",
+                "Amount",
+                "Status",
+                "Created",
+                "Actions",
+              ].map((label) => (
+                <th
+                  key={label}
                   className="
-                    h-4
-
-                    w-2/5
-
-                    rounded-md
-
-                    bg-[var(--admin-deposit-skeleton-block)]
+                    px-4
+                    py-3.5
+                    text-left
+                    text-[10px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.08em]
+                    text-[var(--admin-table-header-text)]
                   "
-                />
+                >
+                  {label}
+                </th>
+              ))}
+            </tr>
+          </thead>
 
-                <div
-                  className="
-                    h-3
-
-                    w-3/5
-
-                    rounded-md
-
-                    bg-[var(--admin-deposit-skeleton-block)]
-                  "
-                />
-              </div>
-
-              <div
+          <tbody>
+            {Array.from({ length: 8 }).map((_, row) => (
+              <tr
+                key={row}
                 className="
-                  hidden
-
-                  h-8
-
-                  w-24
-
-                  rounded-lg
-
-                  bg-[var(--admin-deposit-skeleton-block)]
-
-                  md:block
+                  border-b
+                  border-[var(--admin-table-border)]
                 "
-              />
-
-              <div
-                className="
-                  hidden
-
-                  h-8
-
-                  w-20
-
-                  rounded-lg
-
-                  bg-[var(--admin-deposit-skeleton-block)]
-
-                  lg:block
-                "
-              />
-
-              <div
-                className="
-                  h-9
-
-                  w-20
-
-                  rounded-lg
-
-                  bg-[var(--admin-deposit-skeleton-block)]
-
-                  sm:w-24
-                "
-              />
-            </div>
-          ))}
-        </div>
+              >
+                {Array.from({ length: 7 }).map((_, cell) => (
+                  <td
+                    key={cell}
+                    className="px-4 py-4"
+                  >
+                    <div
+                      className="
+                        h-3
+                        w-full
+                        max-w-[140px]
+                        animate-pulse
+                        rounded
+                        bg-[var(--admin-table-header-bg)]
+                      "
+                    />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

@@ -78,18 +78,6 @@ export async function POST(request: Request) {
       );
     }
 
-    if (user.status === "PENDING_VERIFICATION") {
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Please verify your email address before signing in",
-          code: "EMAIL_NOT_VERIFIED",
-          email: user.email,
-        },
-        { status: 403 },
-      );
-    }
-
     if (user.status === "SUSPENDED") {
       return NextResponse.json(
         {

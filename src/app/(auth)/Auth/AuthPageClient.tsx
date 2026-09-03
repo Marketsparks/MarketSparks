@@ -2,44 +2,16 @@
 
 import { useState } from "react";
 
-import {
-  AnimatePresence,
-  motion,
-} from "framer-motion";
-
+import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "sonner";
-
-import {
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
-
-import {
-  AuthLayout,
-  AuthTabs,
-  LoginForm,
-  RegisterForm,
-} from "@/components/auth";
-
-import type {
-  RegisterFormValues,
-} from "@/components/auth/RegisterForm";
-
-import {
-  useAuth,
-} from "@/context/AuthContext";
-
-import {
-  useCartContext,
-} from "@/context/CartContext";
-
-import {
-  useWishlist,
-} from "@/context/WishlistContext";
-
-import {
-  submitAffiliateProduct,
-} from "@/services/affiliate-api.service";
+import { useRouter, useSearchParams } from "next/navigation";
+import { AuthLayout, AuthTabs, LoginForm, RegisterForm } from "@/components/auth";
+import type { RegisterFormValues } from "@/components/auth/RegisterForm";
+import { useAuth } from "@/context/AuthContext";
+import { useCartContext } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
+import { submitAffiliateProduct } from "@/services/affiliate-api.service";
+import useExperience from "@/components/ui/ExperienceOverlay/useExperience";
 
 type LoginSuccessResponse = {
   success: true;
@@ -72,10 +44,13 @@ export default function AuthPageClient() {
   const router =
     useRouter();
 
-  const {
-    refresh:
-      refreshAuth,
-  } = useAuth();
+const {
+  refresh: refreshAuth,
+} = useAuth();
+
+const {
+  showExperience,
+} = useExperience();
 
 const {
   addToWishlist,
@@ -407,120 +382,173 @@ if (
     }
   }
 
-  async function handleRegister(
-    values: RegisterFormValues,
-  ) {
-    try {
-      setLoading(
-        true,
-      );
+async function handleRegister(
+  values: RegisterFormValues,
+) {
+  try {
+    setLoading(
+      true,
+    );
 
-      const response =
-        await fetch(
-          "/api/auth/register",
-          {
-            method:
-              "POST",
+    const registerResponse =
+      await fetch(
+        "/api/auth/register",
+        {
+          method:
+            "POST",
 
-            headers: {
-              "Content-Type":
-                "application/json",
-            },
-
-            body:
-              JSON.stringify({
-                firstName:
-                  values.firstName,
-
-                lastName:
-                  values.lastName,
-
-                email:
-                  values.email,
-
-                phoneNumber:
-                  values.phoneNumber,
-
-                country:
-                  values.country,
-
-                password:
-                  values.password,
-
-                confirmPassword:
-                  values.confirmPassword,
-
-                heardFrom:
-                  values.heardFrom,
-
-                acceptedTerms:
-                  values.acceptedTerms,
-              }),
+          headers: {
+            "Content-Type":
+              "application/json",
           },
-        );
 
-      const data: unknown =
-        await response.json();
+          body:
+            JSON.stringify({
+              firstName:
+                values.firstName,
 
-      if (
-        typeof data !==
-          "object" ||
-        data === null
-      ) {
-        toast.error(
-          "Unable to create your account. Please try again.",
-        );
+              lastName:
+                values.lastName,
 
-        return;
-      }
+              email:
+                values.email,
 
-      if (!response.ok) {
-        const errorMessage =
-          "error" in data &&
-          typeof data.error ===
-            "string"
-            ? data.error
-            : "Unable to create your account. Please try again.";
+              phoneNumber:
+                values.phoneNumber,
 
-        toast.error(
-          errorMessage,
-        );
+              country:
+                values.country,
 
-        return;
-      }
+              password:
+                values.password,
 
-      toast.success(
-        "Account created successfully. Please check your email to verify your account.",
+              confirmPassword:
+                values.confirmPassword,
+
+              heardFrom:
+                values.heardFrom,
+
+              acceptedTerms:
+                values.acceptedTerms,
+            }),
+        },
       );
 
-      router.prefetch(
-        `/verify-email?email=${encodeURIComponent(
-          values.email,
-        )}`,
-      );
+    const registerData: unknown =
+      await registerResponse.json();
 
-      router.replace(
-        `/verify-email?email=${encodeURIComponent(
-          values.email,
-        )}`,
-      );
-    } catch (
-      error
+    if (
+      typeof registerData !==
+        "object" ||
+      registerData === null
     ) {
-      console.error(
-        "Registration request error:",
-        error,
-      );
-
       toast.error(
         "Unable to create your account. Please try again.",
       );
-    } finally {
-      setLoading(
-        false,
-      );
+
+      return;
     }
+
+    if (!registerResponse.ok) {
+      const errorMessage =
+        "error" in registerData &&
+        typeof registerData.error ===
+          "string"
+          ? registerData.error
+          : "Unable to create your account. Please try again.";
+
+      toast.error(
+        errorMessage,
+      );
+
+      return;
+    }
+
+    const loginResponse =
+      await fetch(
+        "/api/auth/login",
+        {
+          method:
+            "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+
+          body:
+            JSON.stringify({
+              email:
+                values.email,
+
+              password:
+                values.password,
+
+              rememberMe: true,
+            }),
+        },
+      );
+
+    const loginData =
+      (await loginResponse.json()) as LoginResponse;
+
+    if (
+      !loginResponse.ok ||
+      loginData.success !==
+        true
+    ) {
+      toast.success(
+        "Account created successfully. Please sign in.",
+      );
+
+      setMode(
+        "login",
+      );
+
+      return;
+    }
+
+void refreshAuth();
+
+const destination =
+  loginData.user.role ===
+  "ADMIN"
+    ? "/admin"
+    : "/Dashboard";
+
+router.prefetch(
+  destination,
+);
+
+showExperience({
+  title: `Welcome, ${values.firstName}!`,
+  description:
+    "Your account is ready. Enjoy a seamless experience on MarketSparks.",
+  status:
+    "Preparing your experience...",
+  onComplete: () => {
+    router.replace(
+      destination,
+    );
+  },
+});
+  } catch (
+    error
+  ) {
+    console.error(
+      "Registration request error:",
+      error,
+    );
+
+    toast.error(
+      "Unable to create your account. Please try again.",
+    );
+  } finally {
+    setLoading(
+      false,
+    );
   }
+}
 
   function handleModeChange(
     nextMode:
