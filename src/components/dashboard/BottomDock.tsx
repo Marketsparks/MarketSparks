@@ -362,9 +362,11 @@ const isNavigating =
                     }
                     onClick={() => {
 if (user) {
-  setNavigatingTo("/wishlist");
+  if (pathname !== "/wishlist") {
+    setNavigatingTo("/wishlist");
 
-  router.push("/wishlist");
+    router.push("/wishlist");
+  }
 
   return;
 }
@@ -513,7 +515,7 @@ onClick={() => {
   if (pathname !== href) {
     setNavigatingTo(href);
 
-    router.replace(href);
+    router.push(href);
   }
 }}
     className={cn(

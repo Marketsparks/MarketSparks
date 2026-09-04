@@ -154,9 +154,7 @@ const keepLoadingRef =
         "You need an active subscription plan to become an affiliate.",
       );
 
-router.replace(
-  "/plans",
-);
+router.push("/plans");
 
       return false;
     }
@@ -169,9 +167,7 @@ router.replace(
       "Product submitted for admin review.",
     );
 
-router.replace(
-  "/affiliate",
-);
+router.push("/affiliate");
 
     return true;
   }
@@ -282,9 +278,7 @@ if (
         buyNowQuantity,
     });
 
-router.replace(
-  "/checkout",
-);
+router.push("/checkout");
   } catch (error) {
     toast.error(
       error instanceof Error
@@ -303,9 +297,7 @@ router.replace(
       if (wantsCart) {
         openCart();
 
-router.replace(
-  "/Dashboard",
-);
+router.push("/Dashboard");
 
         return;
       }
@@ -385,9 +377,7 @@ toast.success(
   "Signed in successfully",
 );
 
-router.replace(
-  destination,
-);
+router.push(destination);
 
 return;
 } catch (

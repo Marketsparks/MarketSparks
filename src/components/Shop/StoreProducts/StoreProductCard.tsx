@@ -105,9 +105,9 @@ export default function StoreProductCard({
           true,
         );
 
-        router.replace(
-          productHref,
-        );
+router.push(
+  productHref,
+);
       }}
       className="
         block
