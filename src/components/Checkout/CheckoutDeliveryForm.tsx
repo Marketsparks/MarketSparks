@@ -1,16 +1,9 @@
 "use client";
 
-import {
-  useState,
-} from "react";
-
-import type {
-  Address,
-} from "@/types/address.types";
-
-import type {
-  CheckoutDeliveryDetails,
-} from "@/types/checkout.types";
+import { useState } from "react";
+import type { Address } from "@/types/address.types";
+import type { CheckoutDeliveryDetails } from "@/types/checkout.types";
+import { CountrySelect } from "@/components/ui/CountrySelect";
 
 type CheckoutDeliveryFormProps = {
   addresses: Address[];
@@ -69,18 +62,28 @@ export default function CheckoutDeliveryForm({
     ),
   );
 
-  function updateField(
-    field: keyof CheckoutDeliveryDetails,
-    value: string,
-  ) {
-    onDeliveryChange({
-      ...delivery,
-      [field]:
-        value.trim() === ""
-          ? null
-          : value,
-    });
-  }
+function updateField(
+ field: keyof CheckoutDeliveryDetails,
+ value: string,
+) {
+  const nullableFields: Array<
+    keyof CheckoutDeliveryDetails
+  > = [
+    "alternatePhoneNumber",
+    "addressLine2",
+    "state",
+    "postalCode",
+  ];
+
+  onDeliveryChange({
+    ...delivery,
+    [field]: nullableFields.includes(field)
+      ? value.trim() === ""
+        ? null
+        : value
+      : value,
+  });
+}
 
   return (
     <section
@@ -361,19 +364,17 @@ export default function CheckoutDeliveryForm({
             }
           />
 
-          <Field
-            label="Country"
-            value={
-              delivery.country
-            }
-            placeholder="Country"
-            onChange={(value) =>
-              updateField(
-                "country",
-                value,
-              )
-            }
-          />
+<CountrySelect
+  compact
+  label="Country"
+  value={delivery.country as any}
+  onChange={(country) =>
+    updateField(
+      "country",
+      country,
+    )
+  }
+/>
 
           {delivery.state !==
             null && (
@@ -589,7 +590,7 @@ export default function CheckoutDeliveryForm({
 type FieldProps = {
   label: string;
 
-  value: string;
+  value: string | null;
 
   placeholder: string;
 
@@ -621,7 +622,7 @@ function Field({
       </span>
 
       <input
-        value={value}
+        value={value ?? ""}
         placeholder={
           placeholder
         }

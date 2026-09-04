@@ -4,13 +4,16 @@ import Link from "next/link";
 
 import {
   useEffect,
+  useState,
 } from "react";
 
 import {
   useRouter,
 } from "next/navigation";
 
-import { motion } from "framer-motion";
+import {
+  motion,
+} from "framer-motion";
 
 import type {
   ProductCard,
@@ -55,6 +58,11 @@ export default function StoreProductCard({
   const router =
     useRouter();
 
+  const [
+    loading,
+    setLoading,
+  ] = useState(false);
+
   const styles =
     STORE_PRODUCT_VARIANTS[
       variant
@@ -86,6 +94,21 @@ export default function StoreProductCard({
     <Link
       href={productHref}
       prefetch
+      onClick={(event) => {
+        event.preventDefault();
+
+        if (loading) {
+          return;
+        }
+
+        setLoading(
+          true,
+        );
+
+        router.replace(
+          productHref,
+        );
+      }}
       className="
         block
 
@@ -104,6 +127,8 @@ export default function StoreProductCard({
         whileHover="hover"
         className="
           group
+
+          relative
 
           cursor-pointer
 
@@ -138,7 +163,12 @@ export default function StoreProductCard({
           duration:
             STORE_CARD_TRANSITION,
 
-          ease: [0.22, 1, 0.36, 1],
+          ease: [
+            0.22,
+            1,
+            0.36,
+            1,
+          ],
         }}
       >
         <StoreProductImage
@@ -146,6 +176,77 @@ export default function StoreProductCard({
           environment={environment}
           variant={variant}
         />
+
+{loading && (
+  <motion.div
+    initial={{
+      opacity: 0,
+    }}
+    animate={{
+      opacity: 1,
+    }}
+    className="
+      absolute
+      inset-0
+      z-20
+      flex
+      items-center
+      justify-center
+      bg-black/45
+      backdrop-blur-md
+    "
+  >
+    <div
+      className="
+        w-[78%]
+        max-w-[220px]
+      "
+    >
+      <p
+        className="
+          mb-3
+          text-center
+          text-xs
+          font-semibold
+          tracking-wide
+          text-white
+        "
+      >
+        Please wait
+      </p>
+
+      <div
+        className="
+          h-1.5
+          overflow-hidden
+          rounded-full
+          bg-white/10
+        "
+      >
+        <motion.div
+          className="
+            h-full
+            w-1/2
+            rounded-full
+            bg-[var(--primary)]
+            shadow-[0_0_12px_var(--primary)]
+          "
+          initial={{
+            x: "-120%",
+          }}
+          animate={{
+            x: "220%",
+          }}
+          transition={{
+            duration: 0.8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
+    </div>
+  </motion.div>
+)}
 
         <motion.div
           variants={{

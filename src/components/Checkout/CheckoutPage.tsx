@@ -431,19 +431,19 @@ const walletCanPay =
   walletBalance >=
   checkoutTotal;
 
-  const hasDeliveryDetails =
-    useNewAddress
-      ? Boolean(
-          delivery.fullName.trim() &&
-            delivery.phoneNumber.trim() &&
-            delivery.addressLine1.trim() &&
-            delivery.city.trim() &&
-            delivery.country.trim(),
-        )
-      : Boolean(
-          selectedAddressId &&
-            selectedAddress,
-        );
+const hasDeliveryDetails =
+  useNewAddress
+    ? Boolean(
+        delivery.fullName?.trim() &&
+          delivery.phoneNumber?.trim() &&
+          delivery.addressLine1?.trim() &&
+          delivery.city?.trim() &&
+          delivery.country?.trim(),
+      )
+    : Boolean(
+        selectedAddressId &&
+          selectedAddress,
+      );
 
   const canSubmit =
     hasDeliveryDetails &&

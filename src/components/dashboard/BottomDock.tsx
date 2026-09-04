@@ -1,34 +1,11 @@
 "use client";
 
-import {
-  ReactNode,
-  useEffect,
-  useState,
-} from "react";
-
-import {
-  usePathname,
-  useRouter,
-} from "next/navigation";
-
-import {
-  useAuth,
-} from "@/context/AuthContext";
-
+import { ReactNode, useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 import { useCartContext } from "@/context/CartContext";
-
-import {
-  useWishlist,
-} from "@/context/WishlistContext";
-
-import {
-  CreditCard,
-  Heart,
-  Home,
-  Landmark,
-  ShoppingCart,
-  Store,
-} from "lucide-react";
+import { useWishlist } from "@/context/WishlistContext";
+import { CreditCard, Heart, Home, Landmark, Loader2, ShoppingCart, Store } from "lucide-react";
 
 import Tooltip from "@/components/ui/Tooltip";
 
@@ -97,14 +74,15 @@ export default function BottomDock({
   moreButton,
   className,
 }: BottomDockProps) {
-  const pathname =
-    usePathname();
+const pathname = usePathname();
 
-const router =
-  useRouter();
+useEffect(() => {
+  setNavigatingTo(null);
+}, [pathname]);
 
-const [navigating, setNavigating] =
-  useState(false);
+const router = useRouter();
+
+const [navigatingTo, setNavigatingTo] = useState<string | null>(null);
 
 useEffect(() => {
   if (environment === "user") {
@@ -232,6 +210,9 @@ const isCheckoutPage =
                 pathname.startsWith(
                   `${href}/`,
                 ));
+
+const isNavigating =
+  navigatingTo === href;
 
             return (
               <Tooltip
@@ -380,15 +361,13 @@ const isCheckoutPage =
                       label
                     }
                     onClick={() => {
-                      if (
-                        user
-                      ) {
-                        router.push(
-                          "/wishlist",
-                        );
+if (user) {
+  setNavigatingTo("/wishlist");
 
-                        return;
-                      }
+  router.push("/wishlist");
+
+  return;
+}
 
                       toast.info(
                         "Sign in to save products and access your wishlist.",
@@ -450,26 +429,29 @@ const isCheckoutPage =
                           `,
                     )}
                   >
-                    <Icon
-                      size={
-                        20
-                      }
-                      strokeWidth={
-                        2
-                      }
-                      className={cn(
-                        active
-                          ? "text-[var(--dock-active-text)]"
-                          : `
-                              text-[var(--dock-icon)]
+{isNavigating ? (
+  <Loader2
+    size={20}
+    className="animate-spin"
+  />
+) : (
+  <Icon
+    size={20}
+    strokeWidth={2}
+    className={cn(
+      active
+        ? "text-[var(--dock-active-text)]"
+        : `
+            text-[var(--dock-icon)]
 
-                              transition-colors
-                              duration-300
+            transition-colors
+            duration-300
 
-                              group-hover:text-[var(--dock-icon-hover)]
-                            `,
-                      )}
-                    />
+            group-hover:text-[var(--dock-icon-hover)]
+          `,
+    )}
+  />
+)}
 
                     {user &&
                       wishlistCount >
@@ -527,11 +509,13 @@ const isCheckoutPage =
   <button
     type="button"
     aria-label={label}
-    onClick={() => {
-      if (pathname !== href) {
-        router.replace(href);
-      }
-    }}
+onClick={() => {
+  if (pathname !== href) {
+    setNavigatingTo(href);
+
+    router.replace(href);
+  }
+}}
     className={cn(
       `
         group
@@ -582,22 +566,29 @@ const isCheckoutPage =
           `,
     )}
   >
-    <Icon
-      size={20}
-      strokeWidth={2}
-      className={cn(
-        active
-          ? "text-[var(--dock-active-text)]"
-          : `
-              text-[var(--dock-icon)]
+{isNavigating ? (
+  <Loader2
+    size={20}
+    className="animate-spin"
+  />
+) : (
+  <Icon
+    size={20}
+    strokeWidth={2}
+    className={cn(
+      active
+        ? "text-[var(--dock-active-text)]"
+        : `
+            text-[var(--dock-icon)]
 
-              transition-colors
-              duration-300
+            transition-colors
+            duration-300
 
-              group-hover:text-[var(--dock-icon-hover)]
-            `,
-      )}
-    />
+            group-hover:text-[var(--dock-icon-hover)]
+          `,
+    )}
+  />
+)}
   </button>
 )}
               </Tooltip>

@@ -68,31 +68,38 @@ export default function AddressEmptyState({
         reuse it during future checkouts.
       </p>
 
-      <button
-        type="button"
-        onClick={onAdd}
-        className="
-          mt-4
-          inline-flex
-          h-9
-          items-center
-          gap-2
-          rounded-lg
-          bg-[var(--primary)]
-          px-3.5
-          text-xs
-          font-semibold
-          text-[var(--primary-foreground)]
-          transition
-          hover:opacity-90
-        "
-      >
-        <Plus
-          size={14}
-        />
+<button
+  type="button"
+  onClick={onAdd}
+  className="
+    mt-5
+    inline-flex
+    h-11
+    items-center
+    justify-center
+    gap-2
+    rounded-xl
+    bg-[#5658EC]
+    px-5
+    text-sm
+    font-semibold
+    text-white
+    shadow-[0_8px_24px_rgba(86,88,236,0.35)]
+    transition-all
+    duration-300
+    hover:scale-[1.02]
+    hover:bg-[#4b4de0]
+    hover:shadow-[0_12px_30px_rgba(86,88,236,0.45)]
+    active:scale-[0.98]
+  "
+>
+  <Plus
+    size={16}
+    strokeWidth={2.5}
+  />
 
-        Add address
-      </button>
+  Add address
+</button>
     </section>
   );
 }

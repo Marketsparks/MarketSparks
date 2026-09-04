@@ -19,13 +19,14 @@ import {
 } from "@/lib/countries";
 
 type Props = {
-  label: string;
+  label?: string;
   value: Country | "";
   onChange: (
     country: Country,
   ) => void;
   error?: string;
   placeholder?: string;
+  compact?: boolean;
 };
 
 export function CountrySelect({
@@ -34,6 +35,7 @@ export function CountrySelect({
   onChange,
   error,
   placeholder = "Select a country",
+  compact = false,
 }: Props) {
   const containerRef =
     useRef<HTMLDivElement>(null);
@@ -117,16 +119,37 @@ export function CountrySelect({
       ref={containerRef}
       className="relative"
     >
-      <label className="mb-2 block text-sm font-medium text-[var(--user-text)]">
-        {label}
-      </label>
+{label && (
+  <label
+    className={
+      compact
+        ? "mb-1.5 block text-[10px] font-medium uppercase tracking-[0.08em] text-[var(--user-text-muted)]"
+        : "mb-2 block text-sm font-medium text-[var(--user-text)]"
+    }
+  >
+    {label}
+  </label>
+)}
 
       <button
         type="button"
         onClick={() =>
           setOpen((prev) => !prev)
         }
-        className="flex h-12 w-full items-center justify-between rounded-[var(--user-radius-md)] border bg-[var(--user-input-bg)] px-4 text-left transition"
+className={`
+  flex
+  w-full
+  items-center
+  justify-between
+  border
+  text-left
+  transition
+  ${
+    compact
+      ? "h-10 rounded-lg bg-[var(--user-card-bg)] px-3 text-sm text-[var(--user-title)]"
+      : "h-12 rounded-[var(--user-radius-md)] bg-[var(--user-input-bg)] px-4"
+  }
+`}
         style={{
           borderColor: error
             ? "var(--user-danger)"

@@ -485,45 +485,82 @@ export default function AddressForm({
           </button>
         )}
 
-        <button
-          type="submit"
-          disabled={
-            submitting ||
-            !canSubmit
-          }
-          className="
-            inline-flex
-            h-9
-            items-center
-            justify-center
-            gap-2
-            rounded-lg
-            bg-[var(--primary)]
-            px-3.5
-            text-xs
-            font-semibold
-            text-[var(--primary-foreground)]
-            transition
-            hover:opacity-90
-            disabled:cursor-not-allowed
-            disabled:opacity-50
-          "
-        >
-          {submitting ? (
-            <>
-              <Loader2
-                size={14}
-                className="animate-spin"
-              />
+<button
+  type="submit"
+  disabled={
+    submitting ||
+    !canSubmit
+  }
+  className="
+    relative
+    inline-flex
+    h-9
+    items-center
+    justify-center
+    overflow-hidden
+    rounded-lg
+    border
+    border-[rgba(255,255,255,0.08)]
+    bg-gradient-to-r
+    from-[#6D63FF]
+    to-[#5A4FFF]
+    px-5
+    text-xs
+    font-medium
+    text-white
+    shadow-[0_8px_24px_rgba(90,79,255,0.35)]
+    transition-all
+    duration-300
+    hover:-translate-y-0.5
+    hover:shadow-[0_12px_30px_rgba(90,79,255,0.45)]
+    active:translate-y-0
+    active:scale-[0.98]
+    disabled:cursor-not-allowed
+    disabled:opacity-50
+    disabled:hover:translate-y-0
+    disabled:hover:shadow-[0_8px_24px_rgba(90,79,255,0.35)]
+  "
+>
+  <span
+    className="
+      absolute
+      inset-0
+      bg-gradient-to-r
+      from-transparent
+      via-white/15
+      to-transparent
+      -translate-x-full
+      transition-transform
+      duration-700
+      group-hover:translate-x-full
+    "
+  />
 
-              Saving
-            </>
-          ) : isEditing ? (
-            "Save changes"
-          ) : (
-            "Add address"
-          )}
-        </button>
+  <span
+    className="
+      relative
+      z-10
+      inline-flex
+      items-center
+      gap-2
+    "
+  >
+    {submitting ? (
+      <>
+        <Loader2
+          size={14}
+          className="animate-spin"
+        />
+
+        Saving...
+      </>
+    ) : isEditing ? (
+      "Save changes"
+    ) : (
+      "Add address"
+    )}
+  </span>
+</button>
       </div>
     </form>
   );

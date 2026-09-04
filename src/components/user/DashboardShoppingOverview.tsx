@@ -1,11 +1,6 @@
 import Link from "next/link";
 
-import {
-  Bookmark,
-  Clock3,
-  PackageCheck,
-  ShoppingBag,
-} from "lucide-react";
+import { Banknote, Bookmark, PackageCheck, Truck } from "lucide-react";
 
 type DashboardShoppingOverviewProps = {
   activeOrders: number;
@@ -29,20 +24,20 @@ export default function DashboardShoppingOverview({
   deliveredOrders,
 }: DashboardShoppingOverviewProps) {
   const metrics: ShoppingMetricProps[] = [
-    {
-      icon: ShoppingBag,
-      value: activeOrders,
-      label: "Active Orders",
-      description: "In progress",
-      tone: "var(--primary)",
-    },
-    {
-      icon: Clock3,
-      value: pendingPayments,
-      label: "Pending Payment",
-      description: "Action required",
-      tone: "#f59e0b",
-    },
+{
+  icon: Truck,
+  value: activeOrders,
+  label: "Active Orders",
+  description: "In progress",
+  tone: "var(--primary)",
+},
+{
+  icon: Banknote,
+  value: pendingPayments,
+  label: "Pending Payment",
+  description: "Action required",
+  tone: "#f59e0b",
+},
     {
       icon: Bookmark,
       value: savedForLater,

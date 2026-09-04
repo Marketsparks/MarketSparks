@@ -156,22 +156,24 @@ export default function StoreProducts({
       )}
 
       <div
-        className={
-          gridClassName ??
-          `
-            grid
+className={
+  gridClassName ??
+  `
+    grid
 
-            content-start
+    grid-cols-2
 
-            gap-6
+    content-start
 
-            sm:grid-cols-2
+    gap-3
 
-            lg:grid-cols-3
+    sm:gap-5
 
-            2xl:grid-cols-4
-          `
-        }
+    lg:grid-cols-3
+
+    2xl:grid-cols-4
+  `
+}
       >
         {products.map((product) => (
           <StoreProductCard
