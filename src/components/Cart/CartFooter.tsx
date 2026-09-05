@@ -28,7 +28,7 @@ className="
   border-t
   px-4
   pt-4
-  pb-[max(32px,calc(env(safe-area-inset-bottom)+24px))]
+  pb-[max(48px,calc(env(safe-area-inset-bottom)+40px))]
   sm:pb-4
   backdrop-blur-xl
 "
