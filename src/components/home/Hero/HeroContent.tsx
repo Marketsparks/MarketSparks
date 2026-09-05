@@ -1,5 +1,12 @@
+"use client";
+
 import Link from "next/link";
+
+import { useRouter } from "next/navigation";
+
 import { ArrowRight } from "lucide-react";
+
+import { useNavigationLoader } from "@/components/ui/Preloader";
 
 import {
   HERO_CTA_HEIGHT,
@@ -9,6 +16,13 @@ import { heroData } from "./hero.data";
 import HeroVideoButton from "./HeroVideoButton";
 
 export default function HeroContent() {
+  const router =
+    useRouter();
+
+  const {
+    startNavigation,
+  } = useNavigationLoader();
+
   return (
     <div className="flex flex-col">
       {/* Badge */}
@@ -68,39 +82,48 @@ export default function HeroContent() {
         {heroData.description}
       </p>
 
-{/* Actions */}
-<div className="flex flex-wrap items-center gap-5">
-<Link
-  href={heroData.primaryButton.href}
-  className="
-    inline-flex
-    items-center
-    justify-center
-    gap-2
-    px-7
-    text-[17px]
-    font-bold
-    transition-colors
-    duration-300
-    hover:opacity-90
-  "
-  style={{
-    height: HERO_CTA_HEIGHT,
-    borderRadius: HERO_CTA_RADIUS,
-    backgroundColor: "var(--hero-cta-bg)",
-    color: "var(--hero-cta-text)",
-  }}
->
-  {heroData.primaryButton.label}
+      {/* Actions */}
+      <div className="flex flex-wrap items-center gap-5">
+        <Link
+          href={heroData.primaryButton.href}
+          onClick={(event) => {
+            event.preventDefault();
 
-  <ArrowRight
-    size={18}
-    strokeWidth={2.2}
-  />
-</Link>
+            startNavigation();
 
-  <HeroVideoButton />
-</div>
+            router.push(
+              heroData.primaryButton.href,
+            );
+          }}
+          className="
+            inline-flex
+            items-center
+            justify-center
+            gap-2
+            px-7
+            text-[17px]
+            font-bold
+            transition-colors
+            duration-300
+            hover:opacity-90
+          "
+          style={{
+            height: HERO_CTA_HEIGHT,
+            borderRadius: HERO_CTA_RADIUS,
+            backgroundColor: "var(--hero-cta-bg)",
+            color: "var(--hero-cta-text)",
+          }}
+        >
+          {heroData.primaryButton.label}
+
+          <ArrowRight
+            size={18}
+            strokeWidth={2.2}
+          />
+        </Link>
+
+        <HeroVideoButton />
+      </div>
     </div>
   );
 }

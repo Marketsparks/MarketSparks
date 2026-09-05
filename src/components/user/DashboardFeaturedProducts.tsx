@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import NavigationLink from "@/components/ui/Preloader/NavigationLink";
 
 import {
   useEffect,
@@ -329,30 +329,30 @@ export default function DashboardFeaturedProducts({
           </p>
         </div>
 
-        <Link
-          href="/Market-Place"
-          className="
-            inline-flex
-            shrink-0
-            items-center
-            gap-1.5
-            rounded-lg
-            px-2.5
-            py-1.5
-            text-[10px]
-            font-medium
-            text-[var(--primary)]
-            transition
-            hover:opacity-80
-            sm:text-[11px]
-          "
-        >
-          Explore Store
+<NavigationLink
+  href="/Market-Place"
+  className="
+    inline-flex
+    shrink-0
+    items-center
+    gap-1.5
+    rounded-lg
+    px-2.5
+    py-1.5
+    text-[10px]
+    font-medium
+    text-[var(--primary)]
+    transition
+    hover:opacity-80
+    sm:text-[11px]
+  "
+>
+  Explore Store
 
-          <ArrowRight
-            size={13}
-          />
-        </Link>
+  <ArrowRight
+    size={13}
+  />
+</NavigationLink>
       </div>
 
       <div
@@ -396,24 +396,24 @@ export default function DashboardFeaturedProducts({
           >
             {visibleProducts.map(
               (product) => (
-                <Link
-                  key={product.id}
-                  href={`/Market-Place/${encodeURIComponent(
-                    product.slug,
-                  )}`}
-                  className="
-                    group
-                    min-w-0
-                    overflow-hidden
-                    rounded-lg
-                    border
-                    border-[var(--user-card-border)]
-                    bg-[var(--user-stat-bg)]
-                    transition
-                    duration-200
-                    hover:border-[var(--primary)]
-                  "
-                >
+<NavigationLink
+  key={product.id}
+  href={`/Market-Place/${encodeURIComponent(
+    product.slug,
+  )}`}
+  className="
+    group
+    min-w-0
+    overflow-hidden
+    rounded-lg
+    border
+    border-[var(--user-card-border)]
+    bg-[var(--user-stat-bg)]
+    transition
+    duration-200
+    hover:border-[var(--primary)]
+  "
+>
                   <div
                     className="
                       relative
@@ -532,7 +532,7 @@ export default function DashboardFeaturedProducts({
                         )}
                     </div>
                   </div>
-                </Link>
+                </NavigationLink>
               ),
             )}
           </div>

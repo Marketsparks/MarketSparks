@@ -1,7 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import {
+  NavigationLink,
+} from "@/components/ui/Preloader";
 
 import { cn } from "@/lib/utils";
 
@@ -14,6 +18,8 @@ export default function Logo({
   className,
   size = "md",
 }: LogoProps) {
+  const pathname = usePathname();
+
   const sizeClasses = {
     sm: "w-[120px] h-auto",
     md: "w-[120px] h-auto lg:w-[160px]",
@@ -21,12 +27,17 @@ export default function Logo({
   };
 
   return (
-    <Link
+    <NavigationLink
       href="/"
       aria-label="MarketSparks"
+      onClick={(event) => {
+        if (pathname === "/") {
+          event.preventDefault();
+        }
+      }}
       className={cn(
         "inline-flex shrink-0 items-center justify-center",
-        className
+        className,
       )}
     >
       <Image
@@ -35,11 +46,12 @@ export default function Logo({
         width={160}
         height={48}
         priority
+        draggable={false}
         className={cn(
           "object-contain",
-          sizeClasses[size]
+          sizeClasses[size],
         )}
       />
-    </Link>
+    </NavigationLink>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import NavigationLink from "@/components/ui/Preloader/NavigationLink";
 
 import { Heart, Loader2, Minus, Plus, Trash2 } from "lucide-react";
 
@@ -262,7 +262,7 @@ const primaryImage =
   }}
 >
 <div className="flex gap-2.5">
-<Link
+<NavigationLink
   href={
     environment === "user"
       ? `/Market-Place/${encodeURIComponent(
@@ -272,19 +272,17 @@ const primaryImage =
           item.product.slug,
         )}`
   }
-  onClick={
-    onClose
-  }
-className="
-  group
-  relative
-  block
-  h-[56px]
-  w-[56px]
-  shrink-0
-  overflow-hidden
-  rounded-[10px]
-"
+  onClick={onClose}
+  className="
+    group
+    relative
+    block
+    h-[56px]
+    w-[56px]
+    shrink-0
+    overflow-hidden
+    rounded-[10px]
+  "
 >
           <div
             className="absolute inset-0"
@@ -314,11 +312,11 @@ src={
               />
             )}
           </div>
-        </Link>
+        </NavigationLink>
 
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
-<Link
+<NavigationLink
   href={
     environment === "user"
       ? `/Market-Place/${encodeURIComponent(
@@ -342,7 +340,7 @@ src={
   "
 >
   {item.product.name}
-</Link>
+</NavigationLink>
 
             <div className="shrink-0 text-right">
               {item.product.compareAtPrice !==

@@ -3,6 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { useRouter } from "next/navigation";
+
+import { useNavigationLoader } from "@/components/ui/Preloader";
+
 import {
   useAuth,
 } from "@/context/AuthContext";
@@ -30,6 +34,13 @@ export default function AppSearchResults({
   const {
     user,
   } = useAuth();
+
+  const router =
+    useRouter();
+
+  const {
+    startNavigation,
+  } = useNavigationLoader();
 
   if (loading) {
     return (
@@ -92,8 +103,7 @@ export default function AppSearchResults({
             product.images.find(
               (
                 image,
-              ) =>
-                image.isPrimary,
+              ) => image.isPrimary,
             ) ??
             product.images[0];
 
@@ -103,13 +113,17 @@ export default function AppSearchResults({
 
           return (
             <Link
-              key={
-                product.id
-              }
+              key={product.id}
               href={href}
-              onClick={
-                onSelect
-              }
+              onClick={(event) => {
+                event.preventDefault();
+
+                startNavigation();
+
+                onSelect();
+
+                router.push(href);
+              }}
               className="
                 relative
                 flex

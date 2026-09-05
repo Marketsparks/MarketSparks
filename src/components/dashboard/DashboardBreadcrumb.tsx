@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import NavigationLink from "@/components/ui/Preloader/NavigationLink";
 
 import {
   ChevronRight,
@@ -87,28 +87,24 @@ export default function DashboardBreadcrumb({
               sm:text-[var(--dashboard-breadcrumb-font-size-desktop)]
             "
           >
-            <Link
-              href={root.href}
-              className="
-                flex
+<NavigationLink
+  href={root.href}
+  className="
+    flex
+    items-center
+    gap-1.5
+    transition-colors
+    duration-300
+    hover:text-[var(--dashboard-breadcrumb-hover)]
+  "
+>
+  <House
+    size={15}
+    strokeWidth={2}
+  />
 
-                items-center
-
-                gap-1.5
-
-                transition-colors
-                duration-300
-
-                hover:text-[var(--dashboard-breadcrumb-hover)]
-              "
-            >
-              <House
-                size={15}
-                strokeWidth={2}
-              />
-
-              {root.label}
-            </Link>
+  {root.label}
+</NavigationLink>
 
             {items.map((item, index) => (
               <div
@@ -132,17 +128,16 @@ export default function DashboardBreadcrumb({
                 />
 
                 {item.href ? (
-                  <Link
-                    href={item.href}
-                    className="
-                      transition-colors
-                      duration-300
-
-                      hover:text-[var(--dashboard-breadcrumb-hover)]
-                    "
-                  >
-                    {item.label}
-                  </Link>
+<NavigationLink
+  href={item.href}
+  className="
+    transition-colors
+    duration-300
+    hover:text-[var(--dashboard-breadcrumb-hover)]
+  "
+>
+  {item.label}
+</NavigationLink>
                 ) : (
                   <span
                     className="

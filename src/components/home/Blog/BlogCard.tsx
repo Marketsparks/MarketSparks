@@ -2,11 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
+
+import { useRouter } from "next/navigation";
+
 import {
   ArrowRight,
   CalendarDays,
   User,
 } from "lucide-react";
+
+import { useNavigationLoader } from "@/components/ui/Preloader";
 
 import {
   BLOG_ARROW_SIZE,
@@ -25,9 +30,25 @@ type BlogCardProps = {
 export default function BlogCard({
   post,
 }: BlogCardProps) {
+  const router =
+    useRouter();
+
+  const {
+    startNavigation,
+  } = useNavigationLoader();
+
+  const href = `/Blog/${post.slug}`;
+
   return (
     <Link
-      href={`/Blog/${post.slug}`}
+      href={href}
+      onClick={(event) => {
+        event.preventDefault();
+
+        startNavigation();
+
+        router.push(href);
+      }}
       className="
         group
         block
@@ -58,7 +79,6 @@ export default function BlogCard({
       }}
     >
       {/* Image */}
-
       <div
         className={`
           relative
@@ -85,10 +105,8 @@ export default function BlogCard({
       </div>
 
       {/* Content */}
-
       <div className={BLOG_CARD_CONTENT_PADDING}>
         {/* Meta */}
-
         <div
           className="
             flex
@@ -135,7 +153,6 @@ export default function BlogCard({
         </div>
 
         {/* Divider */}
-
         <div
           className="
             my-5
@@ -146,28 +163,26 @@ export default function BlogCard({
         />
 
         {/* Title */}
+        <h3
+          className="
+            text-[17px]
+            font-bold
+            leading-[1.45]
 
-<h3
-  className="
-    text-[17px]
-    font-bold
-    leading-[1.45]
+            text-[var(--foreground)]
 
-    text-[var(--foreground)]
+            transition-colors
+            duration-300
 
-    transition-colors
-    duration-300
+            group-hover:text-[#5658EC]
 
-    group-hover:text-[#5658EC]
-
-    lg:text-[19px]
-  "
->
-  {post.title}
-</h3>
+            lg:text-[19px]
+          "
+        >
+          {post.title}
+        </h3>
 
         {/* Read More */}
-
         <div
           className="
             mt-6

@@ -1,4 +1,10 @@
+"use client";
+
 import Link from "next/link";
+
+import { useRouter } from "next/navigation";
+
+import { useNavigationLoader } from "@/components/ui/Preloader";
 
 import { Container } from "@/components/layout";
 
@@ -18,6 +24,11 @@ const legalLinks = [
 ];
 
 export default function FooterBottom() {
+  const router = useRouter();
+
+  const { startNavigation } =
+    useNavigationLoader();
+
   return (
     <div className="border-t border-[var(--border)] bg-[var(--surface-footer-bottom)]">
       <Container className="py-5">
@@ -44,6 +55,13 @@ export default function FooterBottom() {
 
                   <Link
                     href={link.href}
+                    onClick={(event) => {
+                      event.preventDefault();
+
+                      startNavigation();
+
+                      router.push(link.href);
+                    }}
                     className="text-sm text-[var(--foreground-muted)] transition-colors duration-200 hover:text-[var(--foreground)]"
                   >
                     {link.label}

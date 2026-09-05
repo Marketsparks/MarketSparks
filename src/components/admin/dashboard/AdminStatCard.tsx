@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import NavigationLink from "@/components/ui/Preloader/NavigationLink";
 
 import { ChevronRight } from "lucide-react";
 
@@ -121,12 +121,12 @@ export default function AdminStatCard({
 
   if (href) {
     return (
-      <Link
-        href={href}
-        className="block"
-      >
-        {content}
-      </Link>
+<NavigationLink
+  href={href}
+  className="block"
+>
+  {content}
+</NavigationLink>
     );
   }
 

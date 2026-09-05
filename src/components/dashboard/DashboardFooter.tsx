@@ -2,6 +2,10 @@
 
 import Link from "next/link";
 
+import { useRouter } from "next/navigation";
+
+import { useNavigationLoader } from "@/components/ui/Preloader";
+
 import { cn } from "@/lib/utils";
 
 import UserContainer from "./DashboardContainer";
@@ -16,6 +20,20 @@ export default function UserFooter({
   const year =
     new Date().getFullYear();
 
+  const router =
+    useRouter();
+
+  const { startNavigation } =
+    useNavigationLoader();
+
+  const navigate = (
+    href: string,
+  ) => {
+    startNavigation();
+
+    router.push(href);
+  };
+
   return (
     <footer
       className={cn(
@@ -29,41 +47,41 @@ export default function UserFooter({
           transition-colors
           duration-300
         `,
-        className
+        className,
       )}
     >
       <UserContainer>
-<div
-  className="
-    flex
+        <div
+          className="
+            flex
 
-    flex-col
+            flex-col
 
-    items-center
+            items-center
 
-    justify-between
+            justify-between
 
-    gap-1
+            gap-1
 
-    py-2
+            py-2
 
-    text-center
+            text-center
 
-    text-[12px]
+            text-[12px]
 
-    text-[var(--foreground-muted)]
+            text-[var(--foreground-muted)]
 
-    sm:flex-row
+            sm:flex-row
 
-    sm:text-left
+            sm:text-left
 
-    sm:text-[13px]
+            sm:text-[13px]
 
-    lg:gap-3
+            lg:gap-3
 
-    lg:py-5
-  "
->
+            lg:py-5
+          "
+        >
           <p>
             © {year} MarketSparks
           </p>
@@ -85,6 +103,11 @@ export default function UserFooter({
           >
             <Link
               href="/terms"
+              onClick={(event) => {
+                event.preventDefault();
+
+                navigate("/terms");
+              }}
               className="
                 transition-colors
                 duration-300
@@ -99,6 +122,11 @@ export default function UserFooter({
 
             <Link
               href="/Privacy"
+              onClick={(event) => {
+                event.preventDefault();
+
+                navigate("/Privacy");
+              }}
               className="
                 transition-colors
                 duration-300
@@ -113,6 +141,11 @@ export default function UserFooter({
 
             <Link
               href="/support"
+              onClick={(event) => {
+                event.preventDefault();
+
+                navigate("/support");
+              }}
               className="
                 transition-colors
                 duration-300

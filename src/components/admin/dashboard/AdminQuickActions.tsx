@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 import {
   ArrowRight,
   CreditCard,
@@ -9,6 +7,8 @@ import {
   ShoppingBag,
   Users,
 } from "lucide-react";
+
+import { NavigationLink } from "@/components/ui/Preloader";
 
 const actions = [
   {
@@ -82,7 +82,7 @@ export default function AdminQuickActions() {
           const Icon = action.icon;
 
           return (
-            <Link
+            <NavigationLink
               key={action.href}
               href={action.href}
               className="
@@ -129,7 +129,7 @@ export default function AdminQuickActions() {
               >
                 {action.label}
               </span>
-            </Link>
+            </NavigationLink>
           );
         })}
       </div>

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 
 import { useRouter } from "next/navigation";
+import { useNavigationLoader } from "@/components/ui/Preloader/NavigationLoaderProvider";
 
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { Container } from "@/components/layout";
@@ -19,7 +20,10 @@ type NavbarProps = {
 export default function Navbar({
   sticky = false,
 }: NavbarProps) {
-  const router = useRouter();
+const router = useRouter();
+
+const { startNavigation } =
+  useNavigationLoader();
 
   const content = (
     <nav
@@ -38,7 +42,9 @@ export default function Navbar({
 
         {/* Navigation */}
         <div className="col-span-6 flex justify-end pr-8">
-          <NavLinks />
+<NavLinks
+  onNavigate={startNavigation}
+/>
         </div>
 
         {/* Actions */}
@@ -49,7 +55,11 @@ export default function Navbar({
 
           <button
             type="button"
-            onClick={() => router.push("/Auth")}
+onClick={() => {
+  startNavigation();
+
+  router.push("/Auth");
+}}
             className="rounded-full border-[1.5px] border-[var(--foreground)] bg-transparent px-4 py-1 text-[14px] font-extrabold text-[var(--foreground)] transition-all duration-200 hover:bg-[var(--foreground)] hover:text-[var(--background)]"
           >
             Register/Login

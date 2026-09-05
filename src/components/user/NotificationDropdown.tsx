@@ -10,6 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 import NotificationBell from "./NotificationBell";
 import NotificationItem from "./NotificationItem";
+import NotificationSkeleton from "./NotificationSkeleton";
 import useNotifications from "./useNotifications";
 
 export default function NotificationDropdown() {
@@ -28,12 +29,12 @@ export default function NotificationDropdown() {
       open={open}
       onOpenChange={toggle}
     >
-<DropdownMenuTrigger>
-  <NotificationBell
-    unreadCount={unreadCount}
-    renderAs="div"
-  />
-</DropdownMenuTrigger>
+      <DropdownMenuTrigger>
+        <NotificationBell
+          unreadCount={unreadCount}
+          renderAs="div"
+        />
+      </DropdownMenuTrigger>
 
       <DropdownMenuContent
         align="end"
@@ -84,11 +85,16 @@ export default function NotificationDropdown() {
 
         <ScrollArea className="max-h-[420px]">
           {loading ? (
-            <div className="p-6 text-center text-sm text-[var(--foreground-muted)]">
-              Loading...
-            </div>
+            <NotificationSkeleton />
           ) : notifications.length === 0 ? (
-            <div className="p-8 text-center text-sm text-[var(--foreground-muted)]">
+            <div
+              className="
+                p-8
+                text-center
+                text-sm
+                text-[var(--foreground-muted)]
+              "
+            >
               No notifications yet.
             </div>
           ) : (

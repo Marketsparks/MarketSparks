@@ -16,6 +16,7 @@ import {
 
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
+import { useNavigationLoader } from "@/components/ui/Preloader/NavigationLoaderProvider";
 
 type MobileDrawerProps = {
   isOpen: boolean;
@@ -28,6 +29,10 @@ export default function MobileDrawer({
 }: MobileDrawerProps) {
   const router =
     useRouter();
+
+const {
+  startNavigation,
+} = useNavigationLoader();
 
   const {
     openSearch,
@@ -119,18 +124,22 @@ export default function MobileDrawer({
         </div>
 
         <nav className="flex-1 overflow-y-auto px-5 py-4">
-          <NavLinks
-            orientation="vertical"
-            onNavigate={onClose}
-          />
+<NavLinks
+  orientation="vertical"
+  onNavigate={() => {
+    startNavigation();
+    onClose();
+  }}
+/>
 
           <div className="mt-6">
             <button
               type="button"
-              onClick={() => {
-                onClose();
-                router.push("/Auth");
-              }}
+onClick={() => {
+  startNavigation();
+  onClose();
+  router.push("/Auth");
+}}
               className="
                 flex
                 h-9

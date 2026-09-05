@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useCartContext } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { CreditCard, Heart, Home, Landmark, Loader2, ShoppingCart, Store } from "lucide-react";
-
+import { useNavigationLoader } from "@/components/ui/Preloader/NavigationLoaderProvider";
 import Tooltip from "@/components/ui/Tooltip";
 
 import { cn } from "@/lib/utils";
@@ -81,6 +81,10 @@ useEffect(() => {
 }, [pathname]);
 
 const router = useRouter();
+
+const {
+  startNavigation,
+} = useNavigationLoader();
 
 const [navigatingTo, setNavigatingTo] = useState<string | null>(null);
 
@@ -362,11 +366,13 @@ const isNavigating =
                     }
                     onClick={() => {
 if (user) {
-  if (pathname !== "/wishlist") {
-    setNavigatingTo("/wishlist");
+if (pathname !== "/wishlist") {
+  startNavigation();
 
-    router.push("/wishlist");
-  }
+  setNavigatingTo("/wishlist");
+
+  router.push("/wishlist");
+}
 
   return;
 }
@@ -375,9 +381,11 @@ if (user) {
                         "Sign in to save products and access your wishlist.",
                       );
 
-                      router.push(
-                        "/Auth?redirect=/wishlist",
-                      );
+startNavigation();
+
+router.push(
+  "/Auth?redirect=/wishlist",
+);
                     }}
                     className={cn(
                       `
@@ -512,11 +520,13 @@ if (user) {
     type="button"
     aria-label={label}
 onClick={() => {
-  if (pathname !== href) {
-    setNavigatingTo(href);
+if (pathname !== href) {
+  startNavigation();
 
-    router.push(href);
-  }
+  setNavigatingTo(href);
+
+  router.push(href);
+}
 }}
     className={cn(
       `

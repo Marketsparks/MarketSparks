@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import NavigationLink from "@/components/ui/Preloader/NavigationLink";
 
 import { Heart } from "lucide-react";
 
@@ -91,7 +91,7 @@ export default function EmptyWishlist() {
         ready.
       </p>
 
-<Link
+<NavigationLink
   href="/Market-Place"
   className="
     mt-6
@@ -124,7 +124,7 @@ export default function EmptyWishlist() {
   "
 >
   Browse Products
-</Link>
+</NavigationLink>
     </section>
   );
 }

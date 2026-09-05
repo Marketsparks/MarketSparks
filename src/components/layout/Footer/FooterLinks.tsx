@@ -1,5 +1,10 @@
-import Link from "next/link";
+"use client";
+
 import { HiChevronDoubleRight } from "react-icons/hi2";
+
+import {
+  NavigationLink,
+} from "@/components/ui/Preloader";
 
 import { cn } from "@/lib/utils";
 
@@ -27,7 +32,7 @@ export default function FooterLinks({
         <span
           className={cn(
             "absolute bottom-0 left-0 h-[2px] rounded-full bg-[var(--accent-divider)]",
-            underlineWidth
+            underlineWidth,
           )}
         />
       </h3>
@@ -35,7 +40,7 @@ export default function FooterLinks({
       <ul className="space-y-4">
         {links.map((link) => (
           <li key={link.href}>
-            <Link
+            <NavigationLink
               href={link.href}
               className="group inline-flex items-center gap-2 text-[17px] font-medium text-[var(--foreground-muted)] transition-colors duration-200 hover:text-[var(--foreground)]"
             >
@@ -45,7 +50,7 @@ export default function FooterLinks({
               />
 
               <span>{link.label}</span>
-            </Link>
+            </NavigationLink>
           </li>
         ))}
       </ul>

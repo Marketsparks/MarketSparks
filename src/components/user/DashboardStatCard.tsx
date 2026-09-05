@@ -1,4 +1,4 @@
-import Link from "next/link";
+import NavigationLink from "@/components/ui/Preloader/NavigationLink";
 
 import { LucideIcon } from "lucide-react";
 
@@ -155,12 +155,12 @@ export default function DashboardStatCard({
 
   if (href) {
     return (
-      <Link
-        href={href}
-        className={className}
-      >
-        {content}
-      </Link>
+<NavigationLink
+  href={href}
+  className={className}
+>
+  {content}
+</NavigationLink>
     );
   }
 

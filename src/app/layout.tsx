@@ -12,9 +12,9 @@ import {
 import AppProvider from "@/components/providers/AppProvider";
 import { AppPreloader } from "@/components/ui/Preloader";
 import AppToaster from "@/components/ui/AppToaster";
-
 import { SITE } from "@/constants/site";
 import { cn } from "@/lib/utils";
+import NavigationLoaderProvider from "@/components/ui/Preloader/NavigationLoaderProvider";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -99,15 +99,17 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} antialiased`}
       >
-        <AppProvider>
-          <AppSearch />
+<AppProvider>
+  <NavigationLoaderProvider>
+    <AppSearch />
 
-          <AppPreloader>
-            {children}
-          </AppPreloader>
+    <AppPreloader>
+      {children}
+    </AppPreloader>
 
-          <AppToaster />
-        </AppProvider>
+    <AppToaster />
+  </NavigationLoaderProvider>
+</AppProvider>
       </body>
     </html>
   );

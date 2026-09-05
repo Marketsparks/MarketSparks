@@ -37,6 +37,8 @@ import {
   FolderTree,
 } from "lucide-react";
 
+import { useNavigationLoader } from "@/components/ui/Preloader";
+
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
 import { toast } from "sonner";
@@ -187,7 +189,10 @@ export default function MoreMenu({
 
   console.log("MoreMenu user:", user);
   
-  const router = useRouter();
+const router = useRouter();
+
+const { startNavigation } =
+  useNavigationLoader();
 
 const {
   subscription,
@@ -364,7 +369,15 @@ function MenuLink({
   return (
     <Link
       href={href}
-      onClick={closeMenu}
+      onClick={(event) => {
+        event.preventDefault();
+
+        closeMenu();
+
+        startNavigation();
+
+        router.push(href);
+      }}
       className="
         flex
 
@@ -395,10 +408,10 @@ function MenuLink({
         hover:bg-[var(--profile-menu-hover)]
       "
     >
-<Icon
-  size={14}
-  className="sm:h-4 sm:w-4"
-/>
+      <Icon
+        size={14}
+        className="sm:h-4 sm:w-4"
+      />
 
       <span>{label}</span>
     </Link>

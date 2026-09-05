@@ -1,4 +1,10 @@
+"use client";
+
 import Link from "next/link";
+
+import { useRouter } from "next/navigation";
+
+import { useNavigationLoader } from "@/components/ui/Preloader";
 
 import {
   FaFacebookF,
@@ -31,12 +37,24 @@ const socials = [
 ];
 
 export default function SocialLinks() {
+  const router = useRouter();
+
+  const { startNavigation } =
+    useNavigationLoader();
+
   return (
     <div className="flex items-center gap-2.5">
       {socials.map(({ label, href, icon: Icon }) => (
         <Link
           key={label}
           href={href}
+          onClick={(event) => {
+            event.preventDefault();
+
+            startNavigation();
+
+            router.push(href);
+          }}
           aria-label={label}
           className="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--foreground)] text-[var(--icon-color)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)]"
         >

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import NavigationLink from "@/components/ui/Preloader/NavigationLink";
 
 import { ArrowLeft, Search } from "lucide-react";
 
@@ -114,7 +114,7 @@ export default function NotFoundHero() {
             sm:justify-center
           "
         >
-          <Link
+          <NavigationLink
             href="/"
             style={{
               backgroundColor:
@@ -157,9 +157,9 @@ export default function NotFoundHero() {
             />
 
             {NOT_FOUND_HERO.primaryButton}
-          </Link>
+          </NavigationLink>
 
-          <Link
+          <NavigationLink
             href="/shop"
             className="
               inline-flex
@@ -204,7 +204,7 @@ export default function NotFoundHero() {
             />
 
             {NOT_FOUND_HERO.secondaryButton}
-          </Link>
+          </NavigationLink>
         </div>
       </div>
     </section>

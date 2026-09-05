@@ -1,4 +1,4 @@
-import Link from "next/link";
+import NavigationLink from "@/components/ui/Preloader/NavigationLink";
 
 import { Banknote, Bookmark, PackageCheck, Truck } from "lucide-react";
 
@@ -112,39 +112,39 @@ export default function DashboardShoppingOverview({
             </p>
           </div>
 
-          <Link
-            href="/orders"
-            className="
-              inline-flex
-              w-fit
-              shrink-0
-              items-center
-              gap-2
-              rounded-xl
-              border
-              border-[var(--user-card-border)]
-              bg-[var(--user-stat-bg)]
-              px-3
-              py-2
-              text-[11px]
-              font-medium
-              text-[var(--user-title)]
-              transition-all
-              hover:border-[var(--primary)]
-              hover:text-[var(--primary)]
-              sm:px-3.5
-              sm:text-xs
-            "
-          >
-            View All Orders
+<NavigationLink
+  href="/orders"
+  className="
+    inline-flex
+    w-fit
+    shrink-0
+    items-center
+    gap-2
+    rounded-xl
+    border
+    border-[var(--user-card-border)]
+    bg-[var(--user-stat-bg)]
+    px-3
+    py-2
+    text-[11px]
+    font-medium
+    text-[var(--user-title)]
+    transition-all
+    hover:border-[var(--primary)]
+    hover:text-[var(--primary)]
+    sm:px-3.5
+    sm:text-xs
+  "
+>
+  View All Orders
 
-            <span
-              aria-hidden="true"
-              className="text-sm"
-            >
-              →
-            </span>
-          </Link>
+  <span
+    aria-hidden="true"
+    className="text-sm"
+  >
+    →
+  </span>
+</NavigationLink>
         </div>
 
         <div

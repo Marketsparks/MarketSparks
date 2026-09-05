@@ -1,4 +1,4 @@
-import Link from "next/link";
+"use client";
 
 import {
   ArrowRight,
@@ -7,6 +7,8 @@ import {
   ShoppingBag,
   Wallet,
 } from "lucide-react";
+
+import { NavigationLink } from "@/components/ui/Preloader";
 
 type AdminOverviewProps = {
   pendingUsers: number;
@@ -107,7 +109,7 @@ export default function AdminOverview({
           const Icon = item.icon;
 
           return (
-            <Link
+            <NavigationLink
               key={item.title}
               href={item.href}
               className="
@@ -172,16 +174,16 @@ export default function AdminOverview({
                 </div>
               </div>
 
-              <ArrowRight
-                size={16}
-                className="
-                  text-[var(--admin-muted)]
-                  transition-transform
-                  duration-[var(--admin-transition)]
-                  group-hover:translate-x-1
-                "
-              />
-            </Link>
+<ArrowRight
+  size={16}
+  className="
+    text-[var(--admin-muted)]
+    transition-transform
+    duration-[var(--admin-transition)]
+    group-hover:translate-x-1
+  "
+/>
+            </NavigationLink>
           );
         })}
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import NavigationLink from "@/components/ui/Preloader/NavigationLink";
 
 import {
   ChevronRight,
@@ -47,28 +47,24 @@ export default function PageBreadcrumb({
         sm:text-[14px]
       "
     >
-      <Link
-        href={homeHref}
-        className="
-          flex
+<NavigationLink
+  href={homeHref}
+  className="
+    flex
+    items-center
+    gap-1.5
+    transition-colors
+    duration-300
+    hover:text-[var(--primary)]
+  "
+>
+  <House
+    size={15}
+    strokeWidth={2}
+  />
 
-          items-center
-
-          gap-1.5
-
-          transition-colors
-          duration-300
-
-          hover:text-[var(--primary)]
-        "
-      >
-        <House
-          size={15}
-          strokeWidth={2}
-        />
-
-        Home
-      </Link>
+  Home
+</NavigationLink>
 
       {items.map(
         (
@@ -96,17 +92,16 @@ export default function PageBreadcrumb({
             />
 
             {item.href ? (
-              <Link
-                href={item.href}
-                className="
-                  transition-colors
-                  duration-300
-
-                  hover:text-[var(--primary)]
-                "
-              >
-                {item.label}
-              </Link>
+<NavigationLink
+  href={item.href}
+  className="
+    transition-colors
+    duration-300
+    hover:text-[var(--primary)]
+  "
+>
+  {item.label}
+</NavigationLink>
             ) : (
               <span
                 className="

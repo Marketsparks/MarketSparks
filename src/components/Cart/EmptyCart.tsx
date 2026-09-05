@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import NavigationLink from "@/components/ui/Preloader/NavigationLink";
 
 import {
   ArrowRight,
@@ -49,22 +49,22 @@ export default function EmptyCart({
         Browse our latest collection and add pieces you love. They'll appear here when you're ready to check out.
       </p>
 
-<Link
+<NavigationLink
   href={continueShoppingHref}
   onClick={onContinueShopping}
-        className="mt-8 inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all hover:scale-[1.02]"
-        style={{
-          background:
-            "var(--cart-button-primary-bg)",
+  className="mt-8 inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all hover:scale-[1.02]"
+  style={{
+    background:
+      "var(--cart-button-primary-bg)",
 
-          color:
-            "var(--button-primary-foreground)",
-        }}
-      >
-        Continue Shopping
+    color:
+      "var(--button-primary-foreground)",
+  }}
+>
+  Continue Shopping
 
-        <ArrowRight size={16} />
-      </Link>
+  <ArrowRight size={16} />
+</NavigationLink>
 
       {hasSavedItems && (
         <div

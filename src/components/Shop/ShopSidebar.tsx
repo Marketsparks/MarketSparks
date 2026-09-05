@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { NavigationLink } from "@/components/ui/Preloader";
 
 import {
   getStorefrontCategoriesService,
@@ -54,7 +54,7 @@ export default async function ShopSidebar({
             space-y-1
           "
         >
-          <Link
+          <NavigationLink
             href="?"
             className={`
               flex
@@ -109,11 +109,11 @@ export default async function ShopSidebar({
             <span>
               All Products
             </span>
-          </Link>
+          </NavigationLink>
 
           {categories.map(
             (category) => (
-              <Link
+              <NavigationLink
                 key={
                   category.id
                 }
@@ -172,7 +172,7 @@ export default async function ShopSidebar({
                 <span>
                   {category.name}
                 </span>
-              </Link>
+              </NavigationLink>
             ),
           )}
         </div>

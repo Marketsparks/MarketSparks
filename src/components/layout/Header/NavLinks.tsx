@@ -1,4 +1,4 @@
-import Link from "next/link";
+"use client";
 
 import {
   Home,
@@ -8,6 +8,12 @@ import {
   FileText,
   Phone,
 } from "lucide-react";
+
+import { usePathname } from "next/navigation";
+
+import {
+  NavigationLink,
+} from "@/components/ui/Preloader";
 
 import { cn } from "@/lib/utils";
 
@@ -55,6 +61,8 @@ export default function NavLinks({
   orientation = "horizontal",
   onNavigate,
 }: NavLinksProps) {
+  const pathname = usePathname();
+
   const isVertical =
     orientation === "vertical";
 
@@ -74,7 +82,7 @@ export default function NavLinks({
             item.icon;
 
           const active =
-            index === 0;
+            pathname === item.href;
 
           return (
             <li
@@ -84,9 +92,17 @@ export default function NavLinks({
                   "border-b border-[var(--border)] last:border-b-0",
               )}
             >
-              <Link
+              <NavigationLink
                 href={item.href}
-                onClick={onNavigate}
+                onClick={(event) => {
+                  if (pathname === item.href) {
+                    event.preventDefault();
+
+                    return;
+                  }
+
+                  onNavigate?.();
+                }}
                 className={cn(
                   "font-medium transition-all duration-200 hover:text-[var(--primary)]",
                   isVertical
@@ -133,7 +149,7 @@ export default function NavLinks({
                 <span>
                   {item.label}
                 </span>
-              </Link>
+              </NavigationLink>
             </li>
           );
         },

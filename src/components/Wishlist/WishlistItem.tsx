@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import Link from "next/link";
+import NavigationLink from "@/components/ui/Preloader/NavigationLink";
 
 import { useState } from "react";
 
@@ -149,14 +149,13 @@ async function handleRemove() {
           bg-[var(--user-surface-secondary)]
         "
       >
-        <Link
-          href={`/Market-Place/${product.slug}`}
-          className="
-            absolute
-
-            inset-0
-          "
-        >
+<NavigationLink
+  href={`/Market-Place/${product.slug}`}
+  className="
+    absolute
+    inset-0
+  "
+>
           {primaryImage ? (
             <Image
               src={
@@ -205,7 +204,7 @@ async function handleRemove() {
               No image available
             </div>
           )}
-        </Link>
+        </NavigationLink>
 
         <button
           type="button"
@@ -352,9 +351,9 @@ className="
           p-2
         "
       >
-        <Link
-          href={`/Market-Place/${product.slug}`}
-        >
+<NavigationLink
+  href={`/Market-Place/${product.slug}`}
+>
           <h3
             className="
               line-clamp-2
@@ -376,7 +375,7 @@ className="
           >
             {product.name}
           </h3>
-        </Link>
+        </NavigationLink>
 
         <div
           className="
