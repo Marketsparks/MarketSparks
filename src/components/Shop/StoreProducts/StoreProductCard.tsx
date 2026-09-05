@@ -105,19 +105,15 @@ export default function StoreProductCard({
           true,
         );
 
-router.push(
-  productHref,
-);
+        router.push(
+          productHref,
+        );
       }}
       className="
         block
-
         rounded-[20px]
-
         focus:outline-none
-
         focus-visible:ring-2
-
         focus-visible:ring-[var(--primary)]
       "
     >
@@ -127,17 +123,11 @@ router.push(
         whileHover="hover"
         className="
           group
-
           relative
-
           cursor-pointer
-
           overflow-hidden
-
           border
-
           border-[#5658EC]
-
           bg-[var(--surface-card)]
         "
         style={{
@@ -147,14 +137,11 @@ router.push(
         variants={{
           rest: {
             y: 0,
-
             boxShadow:
               STORE_CARD_REST_SHADOW,
           },
-
           hover: {
             y: STORE_CARD_HOVER_Y,
-
             boxShadow:
               STORE_CARD_HOVER_SHADOW,
           },
@@ -162,7 +149,6 @@ router.push(
         transition={{
           duration:
             STORE_CARD_TRANSITION,
-
           ease: [
             0.22,
             1,
@@ -177,83 +163,82 @@ router.push(
           variant={variant}
         />
 
-{loading && (
-  <motion.div
-    initial={{
-      opacity: 0,
-    }}
-    animate={{
-      opacity: 1,
-    }}
-    className="
-      absolute
-      inset-0
-      z-20
-      flex
-      items-center
-      justify-center
-      bg-black/45
-      backdrop-blur-md
-    "
-  >
-    <div
-      className="
-        w-[78%]
-        max-w-[220px]
-      "
-    >
-      <p
-        className="
-          mb-3
-          text-center
-          text-xs
-          font-semibold
-          tracking-wide
-          text-white
-        "
-      >
-        Please wait
-      </p>
+        {loading && (
+          <motion.div
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            className="
+              absolute
+              inset-0
+              z-20
+              flex
+              items-center
+              justify-center
+              bg-black/45
+              backdrop-blur-md
+            "
+          >
+            <div
+              className="
+                w-[78%]
+                max-w-[220px]
+              "
+            >
+              <p
+                className="
+                  mb-3
+                  text-center
+                  text-xs
+                  font-semibold
+                  tracking-wide
+                  text-white
+                "
+              >
+                Please wait
+              </p>
 
-      <div
-        className="
-          h-1.5
-          overflow-hidden
-          rounded-full
-          bg-white/10
-        "
-      >
-        <motion.div
-          className="
-            h-full
-            w-1/2
-            rounded-full
-            bg-[var(--primary)]
-            shadow-[0_0_12px_var(--primary)]
-          "
-          initial={{
-            x: "-120%",
-          }}
-          animate={{
-            x: "220%",
-          }}
-          transition={{
-            duration: 0.8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
-    </div>
-  </motion.div>
-)}
+              <div
+                className="
+                  h-1.5
+                  overflow-hidden
+                  rounded-full
+                  bg-white/10
+                "
+              >
+                <motion.div
+                  className="
+                    h-full
+                    w-1/2
+                    rounded-full
+                    bg-[var(--primary)]
+                    shadow-[0_0_12px_var(--primary)]
+                  "
+                  initial={{
+                    x: "-120%",
+                  }}
+                  animate={{
+                    x: "220%",
+                  }}
+                  transition={{
+                    duration: 0.8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+              </div>
+            </div>
+          </motion.div>
+        )}
 
         <motion.div
           variants={{
             rest: {
               y: 0,
             },
-
             hover: {
               y:
                 STORE_CONTENT_HOVER_Y,
@@ -264,16 +249,13 @@ router.push(
           }}
           className={`
             rounded-b-[20px]
-
             bg-[var(--surface-card)]
-
             ${
               variant ===
               "compact"
-                ? "min-h-[100px]"
-                : "min-h-[140px]"
+                ? "min-h-[82px]"
+                : "min-h-[116px]"
             }
-
             ${styles.contentPadding}
           `}
         >
@@ -288,7 +270,6 @@ router.push(
                 color:
                   "var(--foreground)",
               },
-
               hover: {
                 color:
                   "var(--primary)",
@@ -299,13 +280,9 @@ router.push(
             }}
             className={`
               mt-1
-
               overflow-hidden
-
               whitespace-nowrap
-
               leading-[1.3]
-
               ${styles.title}
             `}
           >

@@ -55,30 +55,30 @@ export default function MobileDrawer({
         <div className="flex items-center justify-between border-b border-[var(--border)] pl-4 pr-5 pt-6 pb-4">
           <Logo className="-ml-1" />
 
-<button
-  type="button"
-  onClick={onClose}
-  aria-label="Close menu"
-  className="
-    flex
-    h-10
-    w-10
-    items-center
-    justify-center
-    rounded-full
-    text-[var(--foreground)]
-    transition-all
-    duration-200
-    hover:bg-[color-mix(in_srgb,var(--primary)_12%,transparent)]
-    hover:text-[var(--primary)]
-    active:scale-95
-  "
->
-  <X
-    size={22}
-    strokeWidth={2.3}
-  />
-</button>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close menu"
+            className="
+              flex
+              h-10
+              w-10
+              items-center
+              justify-center
+              rounded-full
+              text-[var(--foreground)]
+              transition-all
+              duration-200
+              hover:bg-[color-mix(in_srgb,var(--primary)_12%,transparent)]
+              hover:text-[var(--primary)]
+              active:scale-95
+            "
+          >
+            <X
+              size={22}
+              strokeWidth={2.3}
+            />
+          </button>
         </div>
 
         <div className="border-b border-[var(--border)] px-5 py-4">
@@ -133,7 +133,7 @@ export default function MobileDrawer({
               }}
               className="
                 flex
-                h-10
+                h-9
                 w-full
                 items-center
                 justify-center
@@ -143,7 +143,7 @@ export default function MobileDrawer({
                 from-[#6366F1]
                 via-[#6D63FF]
                 to-[#7C5CFF]
-                text-[15px]
+                text-[14px]
                 font-semibold
                 text-white
                 shadow-[0_8px_24px_rgba(99,102,241,0.35)]
@@ -155,7 +155,7 @@ export default function MobileDrawer({
               "
             >
               <User
-                size={18}
+                size={17}
                 strokeWidth={2.2}
               />
 
@@ -166,7 +166,7 @@ export default function MobileDrawer({
           </div>
         </nav>
 
-        <div className="border-t border-[var(--border)] px-5 pt-5 pb-10">
+        <div className="border-t border-[var(--border)] px-5 pt-5 pb-16">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-[15px] font-medium">

@@ -46,48 +46,48 @@ export const STORE_PRODUCT_VARIANTS: Record<
   StoreProductVariant,
   StoreProductVariantStyles
 > = {
-  default: {
-    imageAspectRatio: "5 / 6",
+default: {
+  imageAspectRatio: "5 / 6",
 
-    imageSizes:
-      "(max-width:768px) 100vw, (max-width:1200px) 50vw, 25vw",
+  imageSizes:
+    "(max-width:768px) 100vw, (max-width:1200px) 50vw, 25vw",
 
-    contentPadding:
-      "px-5 pt-2 pb-2",
+  contentPadding:
+    "px-5 pt-0.6 pb-1",
 
-    title:
-      "text-[16px] lg:text-[17px]",
+  title:
+    "text-[16px] lg:text-[17px]",
 
-    titleMarginTop: "mt-1",
+  titleMarginTop: "mt-1",
 
-    ratingMarginTop: "mt-5",
+  ratingMarginTop: "mt-5",
 
-    price: "text-[17px]",
+  price: "text-[17px]",
 
-    oldPrice: "text-[14px]",
+  oldPrice: "text-[14px]",
 
-    review: "text-[14px]",
+  review: "text-[14px]",
 
-    badge: {
-      minWidth: 40,
+  badge: {
+    minWidth: 40,
 
-      height: 26,
+    height: 26,
 
-      fontSize: 12,
+    fontSize: 12,
 
-      top: 16,
+    top: 16,
 
-      right: 16,
-    },
-
-    actions: {
-      buttonSize: 42,
-
-      iconSize: 20,
-
-      right: 16,
-    },
+    right: 16,
   },
+
+  actions: {
+    buttonSize: 42,
+
+    iconSize: 20,
+
+    right: 16,
+  },
+},
 
 compact: {
   imageAspectRatio: "4 / 5",
@@ -96,7 +96,7 @@ compact: {
     "(max-width:768px) 48vw, (max-width:1200px) 28vw, 18vw",
 
   contentPadding:
-    "px-3 pt-3.5 pb-3",
+    "px-3 py-2",
 
   title:
     "text-[11px] lg:text-[12px] font-semibold leading-[1.3]",

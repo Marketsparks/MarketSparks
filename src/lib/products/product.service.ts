@@ -15,6 +15,8 @@ import type {
   ProductDetails,
 } from "./product.types";
 
+import { shuffleProducts } from "./product-shuffle";
+
 export async function getPublishedProducts(
   categoryId?: string | null,
 ): Promise<ProductCard[]> {
@@ -46,9 +48,11 @@ export async function getPublishedProducts(
       ],
     });
 
-  return products.map(
+return shuffleProducts(
+  products.map(
     toProductCard,
-  );
+  ),
+);
 }
 
 export async function getRelatedProducts(

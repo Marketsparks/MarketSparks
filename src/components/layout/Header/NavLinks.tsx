@@ -93,12 +93,12 @@ export default function NavLinks({
                     ? `
                       relative
                       flex
-                      min-h-[52px]
+                      min-h-[46px]
                       items-center
-                      gap-3
-                      py-1
-                      pl-4
-                      text-[15px]
+                      gap-2.5
+                      py-0.5
+                      pl-3
+                      text-[14px]
                     `
                     : "text-[14px] font-bold uppercase tracking-[0.04em] text-[var(--foreground)]",
                   active &&
@@ -113,7 +113,7 @@ export default function NavLinks({
                           absolute
                           left-0
                           top-1/2
-                          h-8
+                          h-7
                           w-1
                           -translate-y-1/2
                           rounded-full
@@ -123,10 +123,8 @@ export default function NavLinks({
                     )}
 
                     <Icon
-                      size={20}
-                      strokeWidth={
-                        2.1
-                      }
+                      size={18}
+                      strokeWidth={2.1}
                       className="shrink-0"
                     />
                   </>
