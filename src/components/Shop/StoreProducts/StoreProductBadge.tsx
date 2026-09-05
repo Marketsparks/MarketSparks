@@ -39,12 +39,19 @@ const hasDiscount =
     return null;
   }
 
-const discount = Math.round(
-  (product.compareAtPrice! /
-    (product.price +
-      product.compareAtPrice!)) *
-    100,
-);
+const originalPrice =
+  product.price +
+  product.compareAtPrice!;
+
+const discount =
+  (
+    (product.compareAtPrice! /
+      originalPrice) *
+    100
+  )
+    .toFixed(2)
+    .replace(/\.00$/, "")
+    .replace(/(\.\d)0$/, "$1");
 
   return (
     <span
