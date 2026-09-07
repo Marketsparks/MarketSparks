@@ -472,9 +472,10 @@ const [
 
   return (
     <div
-      className="
-        space-y-5
-      "
+className="
+  space-y-3
+  lg:space-y-5
+"
     >
       {variantGroups.map(
         (group) => {
@@ -521,9 +522,10 @@ const [
               key={
                 group.type
               }
-              className="
-                space-y-2.5
-              "
+className="
+  space-y-1.5
+  lg:space-y-2.5
+"
             >
               <div
                 className="
@@ -535,8 +537,9 @@ const [
               >
                 <span
                   className="
-                    text-sm
-                    font-medium
+text-[13px]
+font-medium
+lg:text-sm
                     text-[var(--foreground)]
                   "
                 >
@@ -563,7 +566,8 @@ const [
                 className="
                   flex
                   flex-wrap
-                  gap-2
+                  gap-1.5
+                  lg:gap-2
                 "
               >
                 {group.variants.map(
@@ -612,12 +616,17 @@ const [
                           )
                         }
                         className={`
-                          rounded-lg
-                          border
-                          px-4
-                          py-2.5
-                          text-sm
-                          transition
+rounded-lg
+border
+px-3
+py-1.5
+min-h-9
+text-[13px]
+transition
+lg:min-h-10
+lg:px-4
+lg:py-2.5
+lg:text-sm
 
                           ${
                             selected
@@ -653,10 +662,11 @@ const [
 
               {showInventory && (
                 <div
-                  className="
-                    space-y-2.5
-                    pt-1
-                  "
+className="
+  space-y-1.5
+  lg:space-y-2.5
+  pt-1
+"
                 >
                   <div
                     className="
@@ -668,8 +678,9 @@ const [
                   >
                     <span
                       className="
-                        text-sm
-                        font-medium
+text-[13px]
+font-medium
+lg:text-sm
                         text-[var(--foreground)]
                       "
                     >
@@ -733,12 +744,17 @@ const [
                               )
                             }
                             className={`
-                              rounded-lg
-                              border
-                              px-4
-                              py-2.5
-                              text-sm
-                              transition
+rounded-lg
+border
+px-3
+py-1.5
+min-h-9
+text-[13px]
+transition
+lg:min-h-10
+lg:px-4
+lg:py-2.5
+lg:text-sm
 
                               ${
                                 selected

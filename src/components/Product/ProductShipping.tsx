@@ -23,21 +23,20 @@ export default function ProductShipping({
     <div
       className="
         mt-6
-
-        rounded-xl
-
+        rounded-lg
         border
-
         border-[var(--border)]
-
         bg-[var(--surface)]
-
-        p-4
+        p-3
+        sm:rounded-xl
+        sm:p-3.5
+        lg:p-3
       "
     >
       <div
         className="
-          space-y-4
+          space-y-3
+          sm:space-y-3.5
         "
       >
         {/* Shipping */}
@@ -45,35 +44,28 @@ export default function ProductShipping({
         <div
           className="
             flex
-
             items-start
-
-            gap-3
+            gap-2.5
+            sm:gap-3
           "
         >
           <div
             className="
               flex
-
-              h-9
-
-              w-9
-
+              h-7
+              w-7
               shrink-0
-
               items-center
-
               justify-center
-
-              rounded-lg
-
+              rounded-md
               bg-[var(--primary)]/10
-
               text-[var(--primary)]
+              sm:h-8
+              sm:w-8
             "
           >
             <Truck
-              size={17}
+              size={15}
               strokeWidth={2.2}
             />
           </div>
@@ -81,11 +73,10 @@ export default function ProductShipping({
           <div>
             <h3
               className="
-                text-[14px]
-
+                text-[12px]
                 font-semibold
-
                 text-[var(--foreground)]
+                sm:text-[13px]
               "
             >
               Shipping
@@ -94,12 +85,10 @@ export default function ProductShipping({
             <p
               className="
                 mt-0.5
-
-                text-[13px]
-
-                leading-6
-
+                text-[11px]
+                leading-5
                 text-[var(--foreground-muted)]
+                sm:text-[12px]
               "
             >
               {shippingMethod}
@@ -108,17 +97,13 @@ export default function ProductShipping({
             <p
               className="
                 mt-0.5
-
-                text-[12px]
-
+                text-[10px]
                 font-medium
-
                 text-[var(--primary)]
+                sm:text-[11px]
               "
             >
-              Estimated delivery:
-              {" "}
-              {estimatedDelivery}
+              Estimated delivery: {estimatedDelivery}
             </p>
           </div>
         </div>
@@ -128,35 +113,28 @@ export default function ProductShipping({
         <div
           className="
             flex
-
             items-start
-
-            gap-3
+            gap-2.5
+            sm:gap-3
           "
         >
           <div
             className="
               flex
-
-              h-9
-
-              w-9
-
+              h-7
+              w-7
               shrink-0
-
               items-center
-
               justify-center
-
-              rounded-lg
-
+              rounded-md
               bg-[var(--primary)]/10
-
               text-[var(--primary)]
+              sm:h-8
+              sm:w-8
             "
           >
             <RotateCcw
-              size={17}
+              size={15}
               strokeWidth={2.2}
             />
           </div>
@@ -164,11 +142,10 @@ export default function ProductShipping({
           <div>
             <h3
               className="
-                text-[14px]
-
+                text-[12px]
                 font-semibold
-
                 text-[var(--foreground)]
+                sm:text-[13px]
               "
             >
               Returns
@@ -177,12 +154,10 @@ export default function ProductShipping({
             <p
               className="
                 mt-0.5
-
-                text-[13px]
-
-                leading-6
-
+                text-[11px]
+                leading-5
                 text-[var(--foreground-muted)]
+                sm:text-[12px]
               "
             >
               {returnPolicy}
@@ -195,35 +170,28 @@ export default function ProductShipping({
         <div
           className="
             flex
-
             items-start
-
-            gap-3
+            gap-2.5
+            sm:gap-3
           "
         >
           <div
             className="
               flex
-
-              h-9
-
-              w-9
-
+              h-7
+              w-7
               shrink-0
-
               items-center
-
               justify-center
-
-              rounded-lg
-
+              rounded-md
               bg-[var(--primary)]/10
-
               text-[var(--primary)]
+              sm:h-8
+              sm:w-8
             "
           >
             <ShieldCheck
-              size={17}
+              size={15}
               strokeWidth={2.2}
             />
           </div>
@@ -231,11 +199,10 @@ export default function ProductShipping({
           <div>
             <h3
               className="
-                text-[14px]
-
+                text-[12px]
                 font-semibold
-
                 text-[var(--foreground)]
+                sm:text-[13px]
               "
             >
               Buyer Protection
@@ -244,12 +211,10 @@ export default function ProductShipping({
             <p
               className="
                 mt-0.5
-
-                text-[13px]
-
-                leading-6
-
+                text-[11px]
+                leading-5
                 text-[var(--foreground-muted)]
+                sm:text-[12px]
               "
             >
               Every purchase is protected through our secure checkout process

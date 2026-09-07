@@ -3,16 +3,18 @@
 import { useState } from "react";
 
 import {
+  Loader2,
   Star,
 } from "lucide-react";
+
+import { toast } from "sonner";
 
 type ProductReviewFormProps = {
   onSubmit?: (
     review: {
       rating: number;
-
       comment: string;
-    }
+    },
   ) => void;
 };
 
@@ -22,23 +24,45 @@ export default function ProductReviewForm({
   const [rating, setRating] =
     useState(0);
 
-  const [hoveredRating, setHoveredRating] =
-    useState(0);
+  const [
+    hoveredRating,
+    setHoveredRating,
+  ] = useState(0);
 
   const [comment, setComment] =
     useState("");
 
-  function handleSubmit(
-    e: React.FormEvent
+  const [
+    submitting,
+    setSubmitting,
+  ] = useState(false);
+
+  async function handleSubmit(
+    e: React.FormEvent,
   ) {
     e.preventDefault();
 
-    if (
-      rating === 0 ||
-      comment.trim() === ""
-    ) {
+    if (rating === 0) {
+      toast.error(
+        "Please select a star rating.",
+      );
+
       return;
     }
+
+    if (comment.trim() === "") {
+      toast.error(
+        "Please write your review.",
+      );
+
+      return;
+    }
+
+    setSubmitting(true);
+
+    await new Promise((resolve) =>
+      setTimeout(resolve, 1200),
+    );
 
     onSubmit?.({
       rating,
@@ -46,40 +70,37 @@ export default function ProductReviewForm({
     });
 
     setRating(0);
-
+    setHoveredRating(0);
     setComment("");
+
+    toast.success(
+      "Thank you! Your review has been submitted successfully.",
+    );
+
+    setSubmitting(false);
   }
 
   return (
     <section
       className="
-        mt-6
-
-        rounded-2xl
-
+        mt-5
+        rounded-xl
         border
-
         border-[var(--border)]
-
         bg-[var(--surface)]
-
-        p-5
-
+        p-3
         transition-colors
         duration-300
-
-        lg:p-6
+        lg:p-4
       "
     >
       <h2
         className="
-          text-[18px]
-
-          font-bold
-
+          text-[15px]
+          font-semibold
           tracking-[-0.02em]
-
           text-[var(--foreground)]
+          lg:text-[16px]
         "
       >
         Write a Review
@@ -87,11 +108,11 @@ export default function ProductReviewForm({
 
       <p
         className="
-          mt-1.5
-
-          text-[14px]
-
+          mt-1
+          text-[12px]
+          leading-5
           text-[var(--foreground-muted)]
+          lg:text-[13px]
         "
       >
         Share your experience to help other shoppers.
@@ -100,25 +121,19 @@ export default function ProductReviewForm({
       <form
         onSubmit={handleSubmit}
         className="
-          mt-6
-
-          space-y-5
+          mt-4
+          space-y-4
         "
       >
-        {/* Rating */}
-
         <div>
           <label
             className="
-              mb-2
-
+              mb-1.5
               block
-
-              text-[14px]
-
+              text-[12px]
               font-semibold
-
               text-[var(--foreground)]
+              lg:text-[13px]
             "
           >
             Your Rating
@@ -127,8 +142,7 @@ export default function ProductReviewForm({
           <div
             className="
               flex
-
-              gap-1.5
+              gap-1
             "
           >
             {Array.from({
@@ -141,12 +155,13 @@ export default function ProductReviewForm({
                 <button
                   key={value}
                   type="button"
+                  disabled={submitting}
                   onClick={() =>
                     setRating(value)
                   }
                   onMouseEnter={() =>
                     setHoveredRating(
-                      value
+                      value,
                     )
                   }
                   onMouseLeave={() =>
@@ -155,12 +170,12 @@ export default function ProductReviewForm({
                   className="
                     transition-transform
                     duration-200
-
                     hover:scale-110
+                    disabled:cursor-not-allowed
                   "
                 >
                   <Star
-                    size={22}
+                    size={18}
                     strokeWidth={2}
                     fill={
                       value <=
@@ -183,21 +198,16 @@ export default function ProductReviewForm({
           </div>
         </div>
 
-        {/* Review */}
-
         <div>
           <label
             htmlFor="review"
             className="
-              mb-2
-
+              mb-1.5
               block
-
-              text-[14px]
-
+              text-[12px]
               font-semibold
-
               text-[var(--foreground)]
+              lg:text-[13px]
             "
           >
             Your Review
@@ -205,101 +215,74 @@ export default function ProductReviewForm({
 
           <textarea
             id="review"
-            rows={4}
+            rows={3}
             value={comment}
+            disabled={submitting}
             onChange={(e) =>
               setComment(
-                e.target.value
+                e.target.value,
               )
             }
             placeholder="Tell others what you liked or disliked about this product..."
             className="
               w-full
-
-              rounded-xl
-
+              rounded-lg
               border
-
               border-[var(--border)]
-
               bg-[var(--background)]
-
-              px-4
-
-              py-3
-
-              text-[14px]
-
-              leading-6
-
+              px-3
+              py-2.5
+              text-[13px]
+              leading-5
               text-[var(--foreground)]
-
               outline-none
-
               transition-all
               duration-300
-
               placeholder:text-[var(--foreground-muted)]
-
               focus:border-[var(--primary)]
-
               focus:ring-2
-
               focus:ring-[var(--primary)]/20
+              disabled:opacity-60
             "
           />
-        </div>
 
-        {/* Submit */}
+        </div>
 
         <button
           type="submit"
-          disabled={
-            rating === 0 ||
-            comment.trim() === ""
-          }
+          disabled={submitting}
           className="
             flex
-
-            h-11
-
+            h-9
             items-center
-
             justify-center
-
             rounded-lg
-
             border
-
             border-[var(--services-cta-primary-bg)]
-
             bg-[var(--services-cta-primary-bg)]
-
-            px-6
-
-            text-[14px]
-
+            px-4
+            text-[13px]
             font-semibold
-
             text-[var(--services-cta-primary-text)]
-
-            shadow-md
-
+            shadow-sm
             transition-all
             duration-300
-
-            enabled:hover:scale-[1.02]
-
             enabled:hover:opacity-90
-
-            enabled:hover:shadow-lg
-
             disabled:cursor-not-allowed
-
-            disabled:opacity-50
+            disabled:opacity-60
           "
         >
-          Submit Review
+          {submitting ? (
+            <>
+              <Loader2
+                size={15}
+                className="mr-2 animate-spin"
+              />
+              Submitting...
+            </>
+          ) : (
+            "Submit Review"
+          )}
         </button>
       </form>
     </section>

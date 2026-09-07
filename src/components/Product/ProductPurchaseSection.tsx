@@ -198,9 +198,9 @@ export default function ProductPurchaseSection({
 
         shippingMethod="Free Worldwide Shipping"
 
-        estimatedDelivery="3 to 7 Business Days"
+        estimatedDelivery="5 to 8 Business Days"
 
-        returnPolicy="30 Day Money Back Guarantee"
+        returnPolicy="30 Days Money Back Guarantee"
 
         productUrl={`https://marketsparks.top/Product/${product.slug}`}
       />

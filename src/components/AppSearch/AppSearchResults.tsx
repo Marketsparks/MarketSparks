@@ -111,6 +111,13 @@ export default function AppSearchResults({
             ? `/Market-Place/${product.slug}`
             : `/Product/${product.slug}`;
 
+const compareAtPrice =
+  product.compareAtPrice;
+
+const hasDiscount =
+  compareAtPrice !== null &&
+  compareAtPrice !== undefined;
+
           return (
             <Link
               key={product.id}
@@ -158,7 +165,9 @@ export default function AppSearchResults({
                     }
                     fill
                     sizes="56px"
-                    className="object-cover"
+                    className="
+                      object-cover
+                    "
                   />
                 )}
               </div>
@@ -180,19 +189,38 @@ export default function AppSearchResults({
                   {product.name}
                 </h3>
 
-                <p
-                  className="
-                    mt-1
-                    text-sm
-                    font-medium
-                    text-[var(--primary)]
-                  "
-                >
-                  $
-                  {product.price.toFixed(
-                    2,
-                  )}
-                </p>
+<div
+  className="
+    mt-1
+    flex
+    flex-wrap
+    items-end
+    gap-2
+  "
+>
+  {hasDiscount && (
+    <span
+      className="
+        text-[12px]
+        font-medium
+        text-[var(--foreground-muted)]
+        line-through
+      "
+    >
+      ${compareAtPrice.toFixed(2)}
+    </span>
+  )}
+
+  <span
+    className="
+      text-[15px]
+      font-semibold
+      text-[var(--primary)]
+    "
+  >
+    ${product.price.toFixed(2)}
+  </span>
+</div>
               </div>
 
               {index !==

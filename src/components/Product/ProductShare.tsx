@@ -13,6 +13,8 @@ import {
   Check,
 } from "lucide-react";
 
+import { toast } from "sonner";
+
 type ProductShareProps = {
   productUrl: string;
 };
@@ -23,48 +25,48 @@ export default function ProductShare({
   const [copied, setCopied] =
     useState(false);
 
-  async function copyLink() {
-    try {
-      await navigator.clipboard.writeText(
-        productUrl
-      );
+async function copyLink() {
+  try {
+    await navigator.clipboard.writeText(
+      productUrl,
+    );
 
-      setCopied(true);
+    setCopied(true);
 
-      setTimeout(() => {
-        setCopied(false);
-      }, 2000);
-    } catch {}
+    toast.success(
+      "Product link copied.",
+    );
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  } catch {
+    toast.error(
+      "Failed to copy link.",
+    );
   }
+}
 
   const shareLinks = [
     {
       label: "Facebook",
-
       icon: FaFacebookF,
-
       href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-        productUrl
+        productUrl,
       )}`,
     },
-
     {
       label: "Twitter",
-
       icon: FaXTwitter,
-
       href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-        productUrl
+        productUrl,
       )}`,
     },
-
     {
       label: "LinkedIn",
-
       icon: FaLinkedinIn,
-
       href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-        productUrl
+        productUrl,
       )}`,
     },
   ];
@@ -72,26 +74,22 @@ export default function ProductShare({
   return (
     <div
       className="
-        mt-6
-
+        mt-4
         flex
-
         flex-wrap
-
         items-center
-
-        gap-2.5
+        gap-1.5
+        lg:mt-5
+        lg:gap-2
       "
     >
       <span
         className="
           mr-1
-
-          text-[14px]
-
+          text-[12px]
           font-semibold
-
           text-[var(--foreground)]
+          lg:text-[13px]
         "
       >
         Share:
@@ -111,40 +109,29 @@ export default function ProductShare({
             aria-label={label}
             className="
               flex
-
-              h-9
-
-              w-9
-
+              h-8
+              w-8
               items-center
-
               justify-center
-
-              rounded-lg
-
+              rounded-md
               border
-
               border-[var(--border)]
-
               bg-[var(--surface)]
-
               text-[var(--foreground-muted)]
-
               transition-all
               duration-300
-
               hover:border-[var(--primary)]
-
               hover:bg-[var(--primary)]/10
-
               hover:text-[var(--primary)]
+              lg:h-9
+              lg:w-9
             "
           >
             <Icon
-              size={16}
+              size={14}
             />
           </a>
-        )
+        ),
       )}
 
       <button
@@ -152,55 +139,42 @@ export default function ProductShare({
         onClick={copyLink}
         className="
           flex
-
-          h-9
-
+          h-8
           items-center
-
-          gap-1.5
-
-          rounded-lg
-
+          gap-1
+          rounded-md
           border
-
           border-[var(--border)]
-
           bg-[var(--surface)]
-
-          px-3.5
-
-          text-[13px]
-
+          px-3
+          text-[12px]
           font-medium
-
           text-[var(--foreground)]
-
           transition-all
           duration-300
-
           hover:border-[var(--primary)]
-
           hover:bg-[var(--primary)]/10
-
           hover:text-[var(--primary)]
+          lg:h-9
+          lg:gap-1.5
+          lg:px-3.5
+          lg:text-[13px]
         "
       >
         {copied ? (
           <>
             <Check
-              size={15}
+              size={13}
               strokeWidth={2.3}
             />
-
             Copied
           </>
         ) : (
           <>
             <Link2
-              size={15}
+              size={13}
               strokeWidth={2.3}
             />
-
             Copy Link
           </>
         )}

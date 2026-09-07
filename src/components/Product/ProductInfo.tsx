@@ -457,14 +457,14 @@ async function handleAffiliate() {
       "
     >
       <h1
-        className="
-          text-[24px]
-          font-bold
-          leading-[1.2]
-          tracking-[-0.02em]
-          text-[var(--foreground)]
-          lg:text-[30px]
-        "
+className="
+  text-[21px]
+  font-bold
+  leading-[1.25]
+  tracking-[-0.02em]
+  text-[var(--foreground)]
+  lg:text-[30px]
+"
       >
         {name}
       </h1>
@@ -486,17 +486,21 @@ async function handleAffiliate() {
         />
       </div>
 
-      <p
-        className="
-          mt-4
-          max-w-[560px]
-          text-[14px]
-          leading-7
-          text-[var(--foreground-muted)]
-        "
-      >
-        {description}
-      </p>
+<p
+  className="
+    mt-4
+    hidden
+    max-w-[560px]
+text-[12px]
+leading-5
+lg:text-[14px]
+lg:leading-7
+    text-[var(--foreground-muted)]
+    lg:block
+  "
+>
+  {description}
+</p>
 
       <div
         className="
@@ -547,6 +551,21 @@ async function handleAffiliate() {
           />
         </div>
       )}
+
+<p
+  className="
+    mt-6
+    max-w-[560px]
+text-[12px]
+leading-5
+lg:text-[14px]
+lg:leading-7
+    text-[var(--foreground-muted)]
+    lg:hidden
+  "
+>
+  {description}
+</p>
 
       <div
         className="

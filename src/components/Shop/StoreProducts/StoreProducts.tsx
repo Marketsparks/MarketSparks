@@ -34,23 +34,14 @@ type StoreProductsProps = {
 
 export default function StoreProducts({
   products,
-
   environment = "public",
-
   variant = "default",
-
   showHeading = true,
-
   useContainer = true,
-
   gridClassName,
-
   sectionClassName,
-
   eyebrow = "Store Products",
-
   title = "Our Store Products",
-
   subtitle =
     "Discover our most popular products, carefully selected for their quality, performance, and exceptional value.",
 }: StoreProductsProps) {
@@ -58,17 +49,13 @@ export default function StoreProducts({
     environment === "user"
       ? `
           pt-0
-
-          pb-8
-
-          lg:pb-12
+          pb-6
+          lg:pb-8
         `
       : `
-          py-16
-
-          md:py-20
-
-          lg:py-24
+          py-10
+          md:py-12
+          lg:py-14
         `;
 
   const content = (
@@ -77,31 +64,21 @@ export default function StoreProducts({
         <div
           className="
             mx-auto
-
-            mb-12
-
-            max-w-[700px]
-
+            mb-7
+            max-w-[560px]
             px-4
-
             text-center
-
-            md:mb-14
+            md:mb-8
           "
         >
           <span
             className="
-              text-[18px]
-
-              font-extrabold
-
-              leading-none
-
+              text-[13px]
+              font-bold
+              uppercase
+              tracking-[0.08em]
               text-[#5658EC]
-
-              sm:text-[19px]
-
-              lg:text-[20px]
+              sm:text-[14px]
             "
           >
             {eyebrow}
@@ -109,21 +86,13 @@ export default function StoreProducts({
 
           <h2
             className="
-              mt-3
-
-              text-[30px]
-
+              mt-2
+              text-[20px]
               font-extrabold
-
-              leading-[1.1]
-
+              leading-tight
               text-[var(--foreground)]
-
-              sm:text-[36px]
-
-              md:text-[44px]
-
-              lg:text-[40px]
+              sm:text-[24px]
+              lg:text-[28px]
             "
           >
             {title}
@@ -132,22 +101,13 @@ export default function StoreProducts({
           <p
             className="
               mx-auto
-
-              mt-5
-
-              max-w-[640px]
-
-              text-[15px]
-
-              leading-7
-
+              mt-2
+              max-w-[500px]
+              text-[12px]
+              leading-6
               text-[var(--foreground-muted)]
-
-              sm:text-[16px]
-
-              md:text-[17px]
-
-              lg:text-[18px]
+              sm:text-[13px]
+              lg:text-[14px]
             "
           >
             {subtitle}
@@ -156,24 +116,18 @@ export default function StoreProducts({
       )}
 
       <div
-className={
-  gridClassName ??
-  `
-    grid
-
-    grid-cols-2
-
-    content-start
-
-    gap-3
-
-    sm:gap-5
-
-    lg:grid-cols-3
-
-    2xl:grid-cols-4
-  `
-}
+        className={
+          gridClassName ??
+          `
+            grid
+            grid-cols-2
+            content-start
+            gap-3
+            sm:gap-4
+            lg:grid-cols-3
+            2xl:grid-cols-4
+          `
+        }
       >
         {products.map((product) => (
           <StoreProductCard
@@ -189,22 +143,17 @@ className={
 
   if (!showHeading) {
     return useContainer ? (
-      <Container>
-        {content}
-      </Container>
+      <Container>{content}</Container>
     ) : (
       content
     );
   }
 
-  const wrappedContent =
-    useContainer ? (
-      <Container>
-        {content}
-      </Container>
-    ) : (
-      content
-    );
+  const wrappedContent = useContainer ? (
+    <Container>{content}</Container>
+  ) : (
+    content
+  );
 
   return (
     <section

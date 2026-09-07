@@ -49,29 +49,31 @@ const hasDiscount =
         "
       >
         {hasDiscount && (
-          <span
-            className="
-              text-[20px]
-              font-semibold
-              text-[var(--foreground-muted)]
-              line-through
-              lg:text-[22px]
-            "
-          >
+<span
+className="
+text-[17px]
+font-semibold
+text-[var(--foreground-muted)]
+line-through
+sm:text-[19px]
+lg:text-[22px]
+"
+>
             ${oldPrice.toFixed(2)}
           </span>
         )}
 
-        <span
-          className="
-            text-[30px]
-            font-extrabold
-            leading-none
-            tracking-[-0.02em]
-            text-[var(--foreground)]
-            lg:text-[36px]
-          "
-        >
+<span
+className="
+text-[26px]
+font-extrabold
+leading-none
+tracking-[-0.02em]
+text-[var(--foreground)]
+sm:text-[30px]
+lg:text-[36px]
+"
+>
           ${activePrice.toFixed(2)}
         </span>
 
@@ -80,9 +82,11 @@ const hasDiscount =
             className="
               rounded-full
               bg-[var(--primary)]/10
-              px-3
-              py-1
-              text-[13px]
+px-2.5
+py-1
+text-[11px]
+sm:px-3
+sm:text-[13px]
               font-semibold
               text-[var(--primary)]
             "
@@ -106,9 +110,12 @@ Save $
           <span
             className={`
               rounded-lg
-              px-3
-              py-1.5
-              text-[13px]
+px-2.5
+py-1
+text-[11px]
+sm:px-3
+sm:py-1.5
+sm:text-[13px]
               font-semibold
               ${
                 activeStock > 20
@@ -137,8 +144,9 @@ Save $
             activeStock <= 20 && (
               <span
                 className="
-                  text-[14px]
-                  font-medium
+text-[12px]
+font-medium
+sm:text-[14px]
                   text-[var(--foreground-muted)]
                 "
               >

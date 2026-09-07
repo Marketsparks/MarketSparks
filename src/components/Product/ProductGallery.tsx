@@ -327,8 +327,10 @@ await addToWishlist(
                   }
                   className={`
                     relative
-                    h-[68px]
-                    w-[68px]
+h-[58px]
+w-[58px]
+sm:h-[68px]
+sm:w-[68px]
                     shrink-0
                     overflow-hidden
                     rounded-lg
@@ -372,19 +374,23 @@ await addToWishlist(
         </div>
 
         <div
-          className="
-            group
-            relative
-            w-full
-            max-w-[520px]
-            aspect-[4/5]
-            overflow-hidden
-            rounded-3xl
-            border
-            border-[var(--border)]
-            bg-[var(--surface)]
-            shadow-sm
-          "
+className="
+  group
+  relative
+  w-full
+  max-w-[440px]
+  aspect-[1/1]
+  overflow-hidden
+  rounded-2xl
+  border
+  border-[var(--border)]
+  bg-[var(--surface)]
+  shadow-sm
+  sm:max-w-[480px]
+  sm:aspect-[4/5]
+  sm:rounded-3xl
+  lg:max-w-[520px]
+"
         >
           <Image
             src={

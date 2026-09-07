@@ -20,19 +20,21 @@ export default function ProductReviews({
     return (
       <div
         className="
-          rounded-2xl
+          rounded-xl
           border
           border-[var(--border)]
           bg-[var(--surface)]
-          p-6
+          p-3
           text-center
+          lg:p-4
         "
       >
         <h3
           className="
-            text-[18px]
-            font-bold
+            text-[15px]
+            font-semibold
             text-[var(--foreground)]
+            lg:text-[16px]
           "
         >
           No Reviews Yet
@@ -40,9 +42,11 @@ export default function ProductReviews({
 
         <p
           className="
-            mt-2
-            text-[14px]
+            mt-1
+            text-[12px]
+            leading-5
             text-[var(--foreground-muted)]
+            lg:text-[13px]
           "
         >
           Be the first person to review this product.
@@ -54,20 +58,22 @@ export default function ProductReviews({
   return (
     <div
       className="
-        space-y-4
+        space-y-3
+        lg:space-y-4
       "
     >
       {reviews.map((review) => (
         <article
           key={review.id}
           className="
-            rounded-2xl
+            rounded-xl
             border
             border-[var(--border)]
             bg-[var(--surface)]
-            p-5
+            p-3
             transition-colors
             duration-300
+            lg:p-4
           "
         >
           <div
@@ -75,34 +81,36 @@ export default function ProductReviews({
               flex
               items-start
               justify-between
-              gap-3
+              gap-2
             "
           >
             <div
               className="
                 flex
                 items-center
-                gap-3
+                gap-2.5
               "
             >
               <div
                 className="
                   flex
-                  h-10
-                  w-10
+                  h-8
+                  w-8
                   shrink-0
                   items-center
                   justify-center
                   rounded-full
                   bg-[var(--primary)]/10
-                  text-[15px]
+                  text-[12px]
                   font-bold
                   uppercase
                   text-[var(--primary)]
+                  lg:h-9
+                  lg:w-9
+                  lg:text-[13px]
                 "
               >
-                {review.customerName
-                  .charAt(0)}
+                {review.customerName.charAt(0)}
               </div>
 
               <div>
@@ -111,19 +119,18 @@ export default function ProductReviews({
                     flex
                     flex-wrap
                     items-center
-                    gap-2
+                    gap-1.5
                   "
                 >
                   <h3
                     className="
-                      text-[15px]
+                      text-[13px]
                       font-semibold
                       text-[var(--foreground)]
+                      lg:text-[14px]
                     "
                   >
-                    {
-                      review.customerName
-                    }
+                    {review.customerName}
                   </h3>
 
                   {review.verifiedPurchase && (
@@ -134,18 +141,16 @@ export default function ProductReviews({
                         gap-1
                         rounded-full
                         bg-emerald-500/10
-                        px-2
+                        px-1.5
                         py-0.5
-                        text-[10px]
+                        text-[9px]
                         font-semibold
                         text-emerald-500
+                        lg:text-[10px]
                       "
                     >
-                      <BadgeCheck
-                        size={11}
-                      />
-
-                      Verified Purchase
+                      <BadgeCheck size={10} />
+                      Verified
                     </span>
                   )}
                 </div>
@@ -153,8 +158,9 @@ export default function ProductReviews({
                 <p
                   className="
                     mt-0.5
-                    text-[12px]
+                    text-[10px]
                     text-[var(--foreground-muted)]
+                    lg:text-[11px]
                   "
                 >
                   {review.createdAt.toLocaleDateString()}
@@ -175,7 +181,7 @@ export default function ProductReviews({
               }).map((_, index) => (
                 <Star
                   key={index}
-                  size={14}
+                  size={12}
                   strokeWidth={2}
                   fill={
                     index < review.rating
@@ -195,10 +201,11 @@ export default function ProductReviews({
           {review.title && (
             <h4
               className="
-                mt-4
-                text-[15px]
+                mt-3
+                text-[13px]
                 font-semibold
                 text-[var(--foreground)]
+                lg:text-[14px]
               "
             >
               {review.title}
@@ -207,10 +214,12 @@ export default function ProductReviews({
 
           <p
             className="
-              mt-2
-              text-[14px]
-              leading-7
+              mt-1.5
+              text-[12px]
+              leading-5
               text-[var(--foreground-muted)]
+              lg:text-[13px]
+              lg:leading-6
             "
           >
             {review.comment}

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { ArrowDown, ArrowUp, DollarSign, Gift, HandCoins, ShoppingCart, Wallet } from "lucide-react";
+import { ArrowUpRight, ArrowDownLeft, DollarSign, BadgeCheck, BadgePlus, HandCoins, ShoppingCart, Wallet } from "lucide-react";
 
 import DashboardPageLayout from "@/components/dashboard/DashboardPage";
 import PageHeader from "@/components/dashboard/PageHeader";
@@ -325,12 +325,16 @@ const savedForLaterCount =
     xl:grid-cols-3
   "
 >
-        <DashboardStatCard
-          href="/plans"
-          title={planTitle}
-          value={planValue}
-          icon={Gift}
-        />
+<DashboardStatCard
+  href="/plans"
+  title={planTitle}
+  value={planValue}
+  icon={
+    subscription
+      ? BadgeCheck
+      : BadgePlus
+  }
+/>
 
         <DashboardStatCard
           title="Wallet Balance"
@@ -361,7 +365,7 @@ const savedForLaterCount =
           value={currency(
             totalDeposits,
           )}
-          icon={ArrowDown}
+          icon={ArrowDownLeft}
         />
 
         {subscription ? (
@@ -380,7 +384,7 @@ const savedForLaterCount =
             value={currency(
               totalWithdrawals,
             )}
-            icon={ArrowUp}
+            icon={ArrowUpRight}
           />
         )}
       </section>

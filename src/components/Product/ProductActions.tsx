@@ -74,13 +74,16 @@ const affiliateDisabled =
         className="
           flex
 
-          h-11
+          h-10
+
+          sm:h-11
 
           items-center
 
           justify-center
 
-          gap-2
+          gap-1.5
+          sm:gap-2
 
           rounded-lg
 
@@ -90,9 +93,11 @@ const affiliateDisabled =
 
           bg-[color-mix(in_srgb,var(--primary)_10%,transparent)]
 
-          px-5
+          px-4
+          sm:px-5
 
-          text-[14px]
+          text-[13px]
+          sm:text-[14px]
 
           font-semibold
 
@@ -114,7 +119,7 @@ const affiliateDisabled =
         {affiliateLoading ? (
           <>
             <Loader2
-              size={17}
+              size={16}
               strokeWidth={2.2}
               className="animate-spin"
             />
@@ -124,7 +129,7 @@ const affiliateDisabled =
         ) : (
           <>
             <HandCoins
-              size={17}
+              size={16}
               strokeWidth={2.2}
             />
 
@@ -153,13 +158,15 @@ disabled={
           className="
             flex
 
-            h-11
+            h-10
+            sm:h-11
 
             items-center
 
             justify-center
 
-            gap-2
+            gap-1.5
+            sm:gap-2
 
             rounded-lg
 
@@ -169,9 +176,11 @@ disabled={
 
             bg-[var(--surface)]
 
-            px-4
+            px-3.5
+            sm:px-4
 
-            text-[14px]
+            text-[13px]
+            sm:text-[14px]
 
             font-semibold
 
@@ -195,7 +204,7 @@ disabled={
           {addingToCart ? (
             <>
               <Loader2
-                size={16}
+                size={15}
                 strokeWidth={2.2}
                 className="animate-spin"
               />
@@ -205,7 +214,7 @@ disabled={
           ) : (
             <>
               <ShoppingCart
-                size={16}
+                size={15}
                 strokeWidth={2.2}
               />
 
@@ -223,13 +232,15 @@ disabled={
           className="
             flex
 
-            h-11
+            h-10
+            sm:h-11
 
             items-center
 
             justify-center
 
-            gap-2
+            gap-1.5
+            sm:gap-2
 
             rounded-lg
 
@@ -239,9 +250,11 @@ disabled={
 
             bg-[var(--services-cta-primary-bg)]
 
-            px-4
+            px-3.5
+            sm:px-4
 
-            text-[14px]
+            text-[13px]
+            sm:text-[14px]
 
             font-semibold
 
@@ -267,7 +280,7 @@ disabled={
           {buyingNow ? (
             <>
               <Loader2
-                size={16}
+                size={15}
                 strokeWidth={2.2}
                 className="animate-spin"
               />
@@ -277,7 +290,7 @@ disabled={
           ) : (
             <>
               <ShoppingBag
-                size={16}
+                size={15}
                 strokeWidth={2.2}
               />
 

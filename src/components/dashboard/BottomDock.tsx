@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { useCartContext } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
-import { CreditCard, Heart, Home, Landmark, Loader2, ShoppingCart, Store } from "lucide-react";
+import { Heart, Home, Loader2, ShoppingCart, Store, Plus, ArrowUpRight, ArrowDownLeft } from "lucide-react";
 import { useNavigationLoader } from "@/components/ui/Preloader/NavigationLoaderProvider";
 import Tooltip from "@/components/ui/Tooltip";
 
@@ -49,13 +49,19 @@ const adminItems = [
   {
     href: "/admin/deposits",
     label: "Deposits",
-    icon: CreditCard,
+    icon: ArrowDownLeft,
   },
+
+  {
+  href: "/admin/products",
+  label: "Add products",
+  icon: Plus,
+},
 
   {
     href: "/admin/withdrawals",
     label: "Withdrawals",
-    icon: Landmark,
+    icon: ArrowUpRight,
   },
 ];
 

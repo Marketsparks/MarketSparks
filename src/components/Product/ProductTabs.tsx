@@ -46,17 +46,20 @@ export default function ProductTabs({
   return (
     <section
       className="
-        mt-12
+        mt-6
+        lg:mt-12
       "
     >
       <div
         className="
           flex
           flex-wrap
-          gap-2.5
+          gap-1.5
           border-b
           border-[var(--border)]
-          pb-3
+          pb-2
+          lg:gap-2.5
+          lg:pb-3
         "
       >
         <button
@@ -67,13 +70,17 @@ export default function ProductTabs({
             )
           }
           className={`
-            rounded-lg
-            px-4
-            py-2
-            text-[14px]
-            font-semibold
+            rounded-md
+            px-2.5
+            py-1
+            text-[12px]
+            font-medium
             transition-all
             duration-300
+            lg:rounded-lg
+            lg:px-4
+            lg:py-2
+            lg:text-[14px]
             ${
               activeTab ===
               "description"
@@ -88,18 +95,25 @@ export default function ProductTabs({
         <button
           type="button"
           onClick={() =>
-            setActiveTab("reviews")
+            setActiveTab(
+              "reviews",
+            )
           }
           className={`
-            rounded-lg
-            px-4
-            py-2
-            text-[14px]
-            font-semibold
+            rounded-md
+            px-2.5
+            py-1
+            text-[12px]
+            font-medium
             transition-all
             duration-300
+            lg:rounded-lg
+            lg:px-4
+            lg:py-2
+            lg:text-[14px]
             ${
-              activeTab === "reviews"
+              activeTab ===
+              "reviews"
                 ? activeButtonClasses
                 : inactiveButtonClasses
             }
@@ -111,13 +125,16 @@ export default function ProductTabs({
 
       <div
         className="
-          mt-6
+          mt-3
+          lg:mt-6
         "
       >
         {activeTab ===
         "description" ? (
           <ProductDescription
-            description={description}
+            description={
+              description
+            }
           />
         ) : (
           <>

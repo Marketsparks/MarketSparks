@@ -38,7 +38,8 @@ export default function ProductQuantity({
 
         overflow-hidden
 
-        rounded-xl
+        rounded-lg
+        sm:rounded-xl
 
         border
 
@@ -58,9 +59,10 @@ export default function ProductQuantity({
         className="
           flex
 
-          h-10
-
-          w-10
+h-9
+w-9
+sm:h-10
+sm:w-10
 
           items-center
 
@@ -81,31 +83,39 @@ export default function ProductQuantity({
           disabled:opacity-40
         "
       >
-        <Minus
-          size={16}
-          strokeWidth={2.4}
-        />
+<Minus
+  size={15}
+  strokeWidth={2.4}
+/>
       </button>
 
       <div
         className="
           flex
 
-          h-10
+          h-9
 
-          min-w-[58px]
+          min-w-[50px]
 
           items-center
 
           justify-center
 
-          px-4
+          px-3
 
-          text-[15px]
+          text-[14px]
 
           font-semibold
 
           text-[var(--foreground)]
+
+          sm:h-10
+
+          sm:min-w-[58px]
+
+          sm:px-4
+          
+          sm:text-[15px]
         "
       >
         {quantity}
@@ -122,9 +132,10 @@ export default function ProductQuantity({
         className="
           flex
 
-          h-10
-
-          w-10
+h-9
+w-9
+sm:h-10
+sm:w-10
 
           items-center
 
@@ -145,10 +156,10 @@ export default function ProductQuantity({
           disabled:opacity-40
         "
       >
-        <Plus
-          size={16}
-          strokeWidth={2.4}
-        />
+<Plus
+  size={15}
+  strokeWidth={2.4}
+/>
       </button>
     </div>
   );

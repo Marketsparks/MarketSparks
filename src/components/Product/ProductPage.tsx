@@ -79,18 +79,19 @@ const relatedProducts =
               ]}
             />
 
-            <h1
-              className="
-                mt-4
-                text-center
-                text-[28px]
-                font-extrabold
-                leading-tight
-                text-[var(--services-hero-title)]
-                md:text-[40px]
-                lg:text-[44px]
-              "
-            >
+<h1
+  className="
+    mt-4
+    text-center
+    text-[22px]
+    font-extrabold
+    leading-tight
+    text-[var(--services-hero-title)]
+    sm:text-[26px]
+    md:text-[40px]
+    lg:text-[44px]
+  "
+>
               {product.name}
             </h1>
           </div>

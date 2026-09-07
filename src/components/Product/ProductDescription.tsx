@@ -10,31 +10,24 @@ export default function ProductDescription({
   return (
     <section
       className="
-        rounded-2xl
-
+        rounded-lg
         border
-
         border-[var(--border)]
-
         bg-[var(--surface)]
-
-        p-5
-
+        p-3
         transition-colors
         duration-300
-
-        lg:p-6
+        lg:rounded-xl
+        lg:p-4
       "
     >
       <h2
         className="
-          text-[18px]
-
-          font-bold
-
+          text-[14px]
+          font-semibold
           tracking-[-0.02em]
-
           text-[var(--foreground)]
+          lg:text-[16px]
         "
       >
         Product Description
@@ -42,15 +35,15 @@ export default function ProductDescription({
 
       <div
         className="
-          mt-4
-
-          space-y-4
-
-          text-[14px]
-
-          leading-7
-
+          mt-2
+          space-y-2
+          text-[12px]
+          leading-5
           text-[var(--foreground-muted)]
+          lg:mt-3
+          lg:space-y-3
+          lg:text-[13px]
+          lg:leading-6
         "
       >
         {description

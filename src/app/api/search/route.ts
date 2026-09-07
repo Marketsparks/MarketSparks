@@ -3,6 +3,8 @@ import {
   NextResponse,
 } from "next/server";
 
+import Fuse from "fuse.js";
+
 import { prisma } from "@/lib/prisma";
 
 import {
@@ -13,136 +15,11 @@ import {
   toProductCard,
 } from "@/lib/products/product.mapper";
 
-const synonymMap: Record<
-  string,
-  string[]
-> = {
-  iwatch: [
-    "apple watch",
-  ],
-
-  "smart watch": [
-    "apple watch",
-  ],
-
-  smartwatch: [
-    "apple watch",
-  ],
-
-  wearable: [
-    "apple watch",
-    "galaxy watch",
-  ],
-
-  watch: [
-    "apple watch",
-    "galaxy watch",
-  ],
-
-  earbuds: [
-    "airpods",
-    "galaxy buds",
-  ],
-
-  "wireless earbuds": [
-    "airpods",
-    "galaxy buds",
-  ],
-
-  earphones: [
-    "airpods",
-    "galaxy buds",
-  ],
-
-  headphones: [
-    "airpods",
-    "galaxy buds",
-  ],
-
-  laptop: [
-    "macbook",
-  ],
-
-  notebook: [
-    "macbook",
-  ],
-
-  ultrabook: [
-    "macbook",
-  ],
-
-  smartphone: [
-    "iphone",
-    "galaxy",
-  ],
-
-  "mobile phone": [
-    "iphone",
-    "galaxy",
-  ],
-
-  cellphone: [
-    "iphone",
-    "galaxy",
-  ],
-
-  "cell phone": [
-    "iphone",
-    "galaxy",
-  ],
-
-  android: [
-    "galaxy",
-    "pixel",
-  ],
-
-  charger: [
-    "charging cable",
-    "usb c",
-    "lightning",
-  ],
-
-  cable: [
-    "usb c",
-    "lightning",
-  ],
-
-  powerbank: [
-    "power bank",
-  ],
-
-  "power bank": [
-    "powerbank",
-  ],
-
-  television: [
-    "tv",
-  ],
-
-  tv: [
-    "television",
-  ],
-
-  console: [
-    "playstation",
-    "xbox",
-  ],
-
-  gaming: [
-    "playstation",
-    "xbox",
-    "gaming laptop",
-  ],
-
-  printer: [
-    "wireless printer",
-  ],
-
-  camera: [
-    "dslr",
-    "mirrorless",
-  ],
-};
+import {
+  buildProductSearchWhere,
+  buildSearchTerms,
+  calculateSearchScore,
+} from "@/lib/search/product-search.util";
 
 export async function GET(
   request: NextRequest,
@@ -165,71 +42,145 @@ export async function GET(
     return NextResponse.json([]);
   }
 
-  const normalizedQuery =
-    query.toLowerCase();
-
-  const searchTerms = [
-    query,
-    ...(synonymMap[
-      normalizedQuery
-    ] ?? []),
-  ];
+  const searchTerms =
+    buildSearchTerms(query);
 
   const products =
     await prisma.product.findMany({
       where: {
         status: "ACTIVE",
 
-        OR: searchTerms.flatMap(
-          (term) => [
-            {
-              name: {
-                contains: term,
-                mode: "insensitive",
-              },
-            },
-
-            {
-              description: {
-                contains: term,
-                mode: "insensitive",
-              },
-            },
-
-            {
-              categories: {
-                some: {
-                  category: {
-                    name: {
-                      contains: term,
-                      mode: "insensitive",
-                    },
-                  },
-                },
-              },
-            },
-          ],
+        OR: buildProductSearchWhere(
+          searchTerms,
         ),
       },
 
       include: productInclude,
 
-      orderBy: [
-        {
-          featured: "desc",
-        },
-
-        {
-          createdAt: "desc",
-        },
-      ],
-
-      take: limit,
+      take: 150,
     });
 
-  return NextResponse.json(
-    products.map(
-      toProductCard,
+  const scoredProducts =
+    products
+      .map((product) => ({
+        product,
+
+        score:
+          calculateSearchScore(
+            product,
+            searchTerms,
+          ),
+      }))
+      .sort(
+        (a, b) =>
+          b.score - a.score,
+      );
+
+  const fuse = new Fuse(
+    scoredProducts,
+    {
+      includeScore: true,
+
+      threshold: 0.35,
+
+      ignoreLocation: true,
+
+      minMatchCharLength: 2,
+
+      keys: [
+        {
+          name: "product.name",
+          weight: 0.55,
+        },
+
+        {
+          name: "product.slug",
+          weight: 0.15,
+        },
+
+        {
+          name: "product.description",
+          weight: 0.1,
+        },
+
+        {
+          name:
+            "product.categories.category.name",
+          weight: 0.2,
+        },
+      ],
+    },
+  );
+
+  const fuzzyMatches =
+    fuse.search(query);
+
+  const fuzzyIds =
+    new Set(
+      fuzzyMatches.map(
+        (match) =>
+          match.item.product.id,
+      ),
+    );
+
+  const merged = [
+    ...scoredProducts.map(
+      (item) => item.product,
     ),
+
+    ...fuzzyMatches.map(
+      (match) =>
+        match.item.product,
+    ),
+  ];
+
+  const uniqueProducts =
+    Array.from(
+      new Map(
+        merged.map(
+          (product) => [
+            product.id,
+            product,
+          ],
+        ),
+      ).values(),
+    );
+
+  uniqueProducts.sort(
+    (a, b) => {
+      const aFuzzy =
+        fuzzyIds.has(a.id);
+
+      const bFuzzy =
+        fuzzyIds.has(b.id);
+
+      if (
+        aFuzzy !== bFuzzy
+      ) {
+        return aFuzzy
+          ? -1
+          : 1;
+      }
+
+      const scoreA =
+        calculateSearchScore(
+          a,
+          searchTerms,
+        );
+
+      const scoreB =
+        calculateSearchScore(
+          b,
+          searchTerms,
+        );
+
+      return scoreB - scoreA;
+    },
+  );
+
+  return NextResponse.json(
+    uniqueProducts
+      .slice(0, limit)
+      .map(toProductCard),
   );
 }
