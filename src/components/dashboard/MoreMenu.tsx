@@ -1068,7 +1068,7 @@ className="
 
 <div
   className="
-    mt-12
+    mt-8
     sm:mt-8
 
     border-t
