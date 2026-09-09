@@ -73,16 +73,14 @@ export default function ProfileClient({
   }
 
   return (
-    <div
-      className="
-        mx-auto
-        flex
-        w-full
-        max-w-7xl
-        flex-col
-        gap-8
-      "
-    >
+<div
+  className="
+    flex
+    w-full
+    flex-col
+    gap-8
+  "
+>
       <ProfileHeader
         user={profile}
         onEdit={() =>

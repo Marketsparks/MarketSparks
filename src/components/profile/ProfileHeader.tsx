@@ -3,8 +3,6 @@
 import Image from "next/image";
 
 import {
-  BadgeCheck,
-  Clock3,
   Mail,
   MapPin,
   Phone,
@@ -19,66 +17,6 @@ import type {
   ProfileHeaderProps,
 } from "./profile.types";
 
-function formatDate(date: string) {
-  return new Intl.DateTimeFormat(
-    "en-US",
-    {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    },
-  ).format(new Date(date));
-}
-
-function getStatusBadge(status: string) {
-  switch (status) {
-    case "ACTIVE":
-      return {
-        label: "Active",
-        background:
-          "var(--user-badge-success-bg)",
-        color:
-          "var(--user-badge-success-text)",
-      };
-
-    case "PENDING_VERIFICATION":
-      return {
-        label: "Pending Verification",
-        background:
-          "var(--user-badge-warning-bg)",
-        color:
-          "var(--user-badge-warning-text)",
-      };
-
-    case "SUSPENDED":
-      return {
-        label: "Suspended",
-        background:
-          "var(--user-badge-danger-bg)",
-        color:
-          "var(--user-badge-danger-text)",
-      };
-
-    case "DEACTIVATED":
-      return {
-        label: "Deleted",
-        background:
-          "var(--user-badge-danger-bg)",
-        color:
-          "var(--user-badge-danger-text)",
-      };
-
-    default:
-      return {
-        label: status,
-        background:
-          "var(--user-badge-warning-bg)",
-        color:
-          "var(--user-badge-warning-text)",
-      };
-  }
-}
-
 export default function ProfileHeader({
   user,
   onEdit,
@@ -89,69 +27,74 @@ export default function ProfileHeader({
       "c_fill,w_320,h_320,f_auto,q_auto",
     );
 
-  const badge =
-    getStatusBadge(user.status);
-
   return (
     <section
-className="
-  rounded-[var(--user-radius-lg)]
-  border
-  bg-[var(--user-card-bg)]
-  p-4
-  sm:p-6
-  shadow-[var(--user-card-shadow)]
-"
+      className="
+        relative
+        overflow-hidden
+        rounded-[var(--user-radius-lg)]
+        border
+        bg-[var(--user-card-bg)]
+        p-4
+        shadow-[var(--user-card-shadow)]
+        sm:p-6
+      "
       style={{
         borderColor:
           "var(--user-card-border)",
       }}
     >
       <div
-className="
-  flex
-  flex-col
-  gap-4
-  sm:gap-6
-  lg:flex-row
-  lg:items-center
-  lg:justify-between
-"
+        className="
+          pointer-events-none
+          absolute
+          inset-0
+        "
+        style={{
+          background:
+            "radial-gradient(circle at top right, rgba(99,102,241,.10), transparent 36%), radial-gradient(circle at bottom left, rgba(59,130,246,.07), transparent 42%)",
+        }}
+      />
+
+      <div
+        className="
+          relative
+          flex
+          flex-col
+          gap-5
+          lg:flex-row
+          lg:items-center
+          lg:justify-between
+        "
       >
         <div
-className="
-  flex
-  flex-col
-  items-center
-  gap-3
-  sm:gap-5
-  sm:flex-row
-  sm:items-start
-"
+          className="
+            flex
+            items-start
+            gap-4
+          "
         >
           <div
-className="
-  relative
-  flex
-  h-[88px]
-  w-[88px]
-  shrink-0
-  items-center
-  justify-center
-  overflow-hidden
-  rounded-full
-  border
-  sm:h-[var(--profile-avatar-size-desktop)]
-  sm:w-[var(--profile-avatar-size-desktop)]
-"
-style={{
-  width: "88px",
-  height: "88px",
-  background:
-    "var(--user-avatar-bg)",
-  borderColor:
-    "var(--user-avatar-border)",
-}}
+            className="
+              relative
+              flex
+              h-[88px]
+              w-[88px]
+              shrink-0
+              items-center
+              justify-center
+              overflow-hidden
+              rounded-full
+              border
+              sm:h-[var(--profile-avatar-size-desktop)]
+              sm:w-[var(--profile-avatar-size-desktop)]
+            "
+            style={{
+              background:
+                "var(--user-avatar-bg)",
+              borderColor:
+                "var(--user-avatar-border)",
+            }}
           >
             {avatar ? (
               <Image
@@ -168,88 +111,106 @@ style={{
             )}
           </div>
 
-          <div className="space-y-3 sm:space-y-4">
-            <div>
-              <h1
-className="
-  text-xl
-  sm:text-2xl
-  font-bold
-  text-[var(--user-title)]
-"
-              >
-                {user.firstName}{" "}
-                {user.lastName}
-              </h1>
+          <div className="min-w-0">
+            <p
+              className="
+                text-xs
+                font-semibold
+                uppercase
+                tracking-[0.16em]
+                text-[var(--user-text-muted)]
+              "
+            >
+              Account Overview
+            </p>
 
-              <div
-className="
-  mt-2
-  sm:mt-3
-  inline-flex
-                  items-center
-                  rounded-full
-                  px-3
-                  py-1
-                  text-sm
-                  font-semibold
-                "
-                style={{
-                  background:
-                    badge.background,
-                  color: badge.color,
-                }}
-              >
-                <BadgeCheck
-                  size={15}
-                  className="mr-2"
-                />
-
-                {badge.label}
-              </div>
-            </div>
+            <h2
+              className="
+                mt-1
+                text-xl
+                font-bold
+                text-[var(--user-title)]
+                sm:text-2xl
+              "
+            >
+              {user.firstName} {user.lastName}
+            </h2>
 
             <div
-className="
-  grid
-  gap-2
-  sm:gap-3
-  text-sm
-  text-[var(--user-text-muted)]
-"
+              className="
+                mt-5
+                grid
+                gap-3
+                text-sm
+              "
             >
-              <div className="flex items-center gap-3">
-                <Mail size={17} />
-                <span>{user.email}</span>
-              </div>
+              <div className="flex items-start gap-3">
+                <Mail
+                  size={17}
+                  className="mt-0.5 text-[var(--user-icon-muted)]"
+                />
 
-              <div className="flex items-center gap-3">
-                <Phone size={17} />
-                <span>{user.phoneNumber}</span>
-              </div>
+                <div>
+                  <p className="text-xs text-[var(--user-text-muted)]">
+                    Email
+                  </p>
 
-              {user.secondaryPhoneNumber && (
-                <div className="flex items-center gap-3">
-                  <Phone size={17} />
-                  <span>
-                    {user.secondaryPhoneNumber}
-                  </span>
+                  <p className="break-all font-medium text-[var(--user-title)]">
+                    {user.email}
+                  </p>
                 </div>
-              )}
-
-              <div className="flex items-center gap-3">
-                <MapPin size={17} />
-                <span>{user.country}</span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <Clock3 size={17} />
-                <span>
-                  Member since{" "}
-                  {formatDate(
-                    user.createdAt,
-                  )}
-                </span>
+              <div className="flex items-start gap-3">
+                <Phone
+                  size={17}
+                  className="mt-0.5 text-[var(--user-icon-muted)]"
+                />
+
+                <div>
+                  <p className="text-xs text-[var(--user-text-muted)]">
+                    Primary Phone
+                  </p>
+
+                  <p className="font-medium text-[var(--user-title)]">
+                    {user.phoneNumber}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Phone
+                  size={17}
+                  className="mt-0.5 text-[var(--user-icon-muted)]"
+                />
+
+                <div>
+                  <p className="text-xs text-[var(--user-text-muted)]">
+                    Secondary Phone
+                  </p>
+
+                  <p className="font-medium text-[var(--user-title)]">
+                    {user.secondaryPhoneNumber ??
+                      "Not added"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <MapPin
+                  size={17}
+                  className="mt-0.5 text-[var(--user-icon-muted)]"
+                />
+
+                <div>
+                  <p className="text-xs text-[var(--user-text-muted)]">
+                    Country
+                  </p>
+
+                  <p className="font-medium text-[var(--user-title)]">
+                    {user.country}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -259,19 +220,23 @@ className="
           type="button"
           onClick={onEdit}
 className="
-  h-10
-  sm:h-12
-  rounded-[var(--user-radius-md)]
-  bg-[var(--user-button-bg)]
-  px-4
-  sm:px-6
+  h-9
+  rounded-full
+  border
+  border-[var(--user-card-border)]
+  bg-[color:rgba(255,255,255,.06)]
+  px-5
   text-sm
-  sm:text-base
   font-medium
-            text-[var(--user-button-text)]
-            transition
-            hover:bg-[var(--user-button-hover)]
-          "
+  text-[var(--user-title)]
+  backdrop-blur-sm
+  transition-all
+  duration-300
+  hover:border-[var(--user-primary)]
+  hover:bg-[color:rgba(255,255,255,.10)]
+  sm:h-10
+  sm:px-6
+"
         >
           Edit Profile
         </button>

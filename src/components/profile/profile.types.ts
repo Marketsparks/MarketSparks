@@ -8,16 +8,37 @@ export type ProfileFormValues = {
 
 export type ProfileUser = {
   id: string;
+
   firstName: string;
   lastName: string;
+
   email: string;
+
   phoneNumber: string;
   secondaryPhoneNumber: string | null;
+
   country: string;
+
   avatarKey: string | null;
   avatarUrl?: string | null;
+
   status: string;
+
   createdAt: string;
+
+  /*
+   * Optional fields used by the premium profile header.
+   * They don't require database changes and gracefully
+   * fall back when unavailable.
+   */
+
+  emailVerified?: boolean;
+
+  phoneVerified?: boolean;
+
+  profileCompletion?: number;
+
+  lastUpdatedAt?: string;
 };
 
 export type UpdateProfilePayload =
@@ -25,21 +46,17 @@ export type UpdateProfilePayload =
 
 export type UpdateProfileResponse = {
   success: boolean;
-
   user: ProfileUser;
 };
 
 export type DeleteProfileResponse = {
   success: boolean;
-
   message: string;
 };
 
 export type AvatarUploadResponse = {
   success: boolean;
-
   avatarKey: string;
-
   avatarUrl: string;
 };
 
@@ -56,13 +73,11 @@ export type AvatarUploaderProps = {
 
 export type ProfileHeaderProps = {
   user: ProfileUser;
-
   onEdit: () => void;
 };
 
 export type EditProfileDialogProps = {
   open: boolean;
-
   onClose: () => void;
 
   initialValues: ProfileFormValues;
@@ -84,6 +99,5 @@ export type EditProfileFormProps = {
 
 export type DeleteAccountDialogProps = {
   open: boolean;
-
   onClose: () => void;
 };
