@@ -59,7 +59,7 @@ export default function NavigationLoaderProvider({
 
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 400);
+    }, 250);
 
     return () =>
       clearTimeout(timer);

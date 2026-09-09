@@ -1,6 +1,7 @@
 "use client";
 
-import { ChevronDown, Mail, Phone } from "lucide-react";
+import { CircleHelp, ChevronDown, Mail, Phone } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 import {
   FaFacebookF,
   FaInstagram,
@@ -23,8 +24,16 @@ const languages = [
   { code: "zh", label: "🇨🇳 中文" },
 ];
 
-export default function TopBar() {
-  const { cartOpen } = useCartContext();
+type TopBarProps = {
+  environment?: "guest" | "user" | "admin";
+};
+
+export default function TopBar({
+  environment = "guest",
+}: TopBarProps) {
+const { cartOpen } = useCartContext();
+const router = useRouter();
+const pathname = usePathname();
   return (
 <div
   className={[
@@ -55,43 +64,86 @@ export default function TopBar() {
         </div>
 
         <div className="flex items-center gap-5 text-[13px] text-[var(--foreground)]">
-          <div className="relative">
-            <select
-              defaultValue="en"
-              className="cursor-pointer appearance-none bg-transparent pr-5 text-[13px] font-medium text-[var(--foreground)] outline-none transition-colors duration-200 hover:text-[var(--primary)]"
-            >
-              {languages.map((language) => (
-                <option
-                  key={language.code}
-                  value={language.code}
-                >
-                  {language.label}
-                </option>
-              ))}
-            </select>
+{/*
+<div className="relative">
+  <select
+    defaultValue="en"
+    className="cursor-pointer appearance-none bg-transparent pr-5 text-[13px] font-medium text-[var(--foreground)] outline-none transition-colors duration-200 hover:text-[var(--primary)]"
+  >
+    {languages.map((language) => (
+      <option
+        key={language.code}
+        value={language.code}
+      >
+        {language.label}
+      </option>
+    ))}
+  </select>
 
-            <ChevronDown
-              size={13}
-              strokeWidth={2.2}
-              className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-[var(--foreground)]"
-            />
-          </div>
+  <ChevronDown
+    size={13}
+    strokeWidth={2.2}
+    className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-[var(--foreground)]"
+  />
+</div>
+*/}
 
-          <a
-            href="tel:+2348000000000"
-            className="flex items-center gap-2 transition-colors duration-200 hover:text-[var(--primary)]"
-          >
-            <Phone size={14} />
-            <span>+1 (753) 689 1030</span>
-          </a>
+<button
+  type="button"
+  onClick={() => {
+    const href =
+      environment === "guest"
+        ? "/Contact"
+        : "/help-center";
 
-          <a
-            href="mailto:contact@marketsparks.top"
-            className="flex items-center gap-2 transition-colors duration-200 hover:text-[var(--primary)]"
-          >
-            <Mail size={14} />
-            <span>contact@marketsparks.top</span>
-          </a>
+    if (pathname === href) {
+      return;
+    }
+
+    router.push(href);
+  }}
+  className="
+    flex
+    items-center
+    gap-2
+    transition-colors
+    duration-200
+    hover:text-[var(--primary)]
+  "
+>
+  <CircleHelp size={14} />
+  <span>Need Help?</span>
+</button>
+
+<a
+  href="tel:+2348000000000"
+  className="
+    flex
+    items-center
+    gap-2
+    transition-colors
+    duration-200
+    hover:text-[var(--primary)]
+  "
+>
+  <Phone size={14} />
+  <span>+1 (753) 689 1030</span>
+</a>
+
+<a
+  href="mailto:contact@marketsparks.top"
+  className="
+    flex
+    items-center
+    gap-2
+    transition-colors
+    duration-200
+    hover:text-[var(--primary)]
+  "
+>
+  <Mail size={14} />
+  <span>contact@marketsparks.top</span>
+</a>
         </div>
       </Container>
     </div>

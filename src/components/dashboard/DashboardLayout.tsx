@@ -2,6 +2,7 @@
 
 import {
   ReactNode,
+  useCallback,
   useState,
 } from "react";
 
@@ -65,12 +66,25 @@ export default function DashboardLayout({
   topBarCenter,
   topBarRight,
 }: DashboardLayoutProps) {
-  const [
-    avatarKey,
-    setAvatarKey,
-  ] = useState(
-    user?.avatarKey ?? null,
-  );
+const [
+  avatarKey,
+  setAvatarKey,
+] = useState(
+  user?.avatarKey ?? null,
+);
+
+const [
+  moreMenuOpen,
+  setMoreMenuOpen,
+] = useState(false);
+
+const openMoreMenu = useCallback(() => {
+  setMoreMenuOpen(true);
+}, []);
+
+const closeMoreMenu = useCallback(() => {
+  setMoreMenuOpen(false);
+}, []);
 
   const {
     cartOpen,
@@ -94,7 +108,9 @@ export default function DashboardLayout({
         duration-300
       "
     >
-      <PublicTopBar />
+<PublicTopBar
+  environment={environment}
+/>
 
       <TopBar
         left={
@@ -145,18 +161,15 @@ export default function DashboardLayout({
             <>
               <NotificationDropdown />
 
-              <UserChip
-                image={getCloudinaryImageUrl(
-                  avatarKey,
-                  "c_fill,w_160,h_160,f_auto,q_auto",
-                )}
-                firstName={
-                  user?.firstName
-                }
-                lastName={
-                  user?.lastName
-                }
-              />
+<UserChip
+  image={getCloudinaryImageUrl(
+    avatarKey,
+    "c_fill,w_160,h_160,f_auto,q_auto",
+  )}
+  firstName={user?.firstName}
+  lastName={user?.lastName}
+  onClick={openMoreMenu}
+/>
             </>
           )
         }
@@ -172,25 +185,31 @@ export default function DashboardLayout({
 
       <DashboardFooter />
 
-      <BottomDock
-        environment={
-          environment
-        }
-        moreButton={
-          <MoreMenu
-            user={{
-              ...user!,
-              avatarKey,
-            }}
-            environment={
-              environment
-            }
-            onAvatarChanged={
-              setAvatarKey
-            }
-          />
-        }
-      />
+<BottomDock
+  environment={environment}
+  moreButton={
+    <UserChip
+      image={getCloudinaryImageUrl(
+        avatarKey,
+        "c_fill,w_160,h_160,f_auto,q_auto",
+      )}
+      firstName={user?.firstName}
+      lastName={user?.lastName}
+      onClick={openMoreMenu}
+    />
+  }
+/>
+
+<MoreMenu
+  open={moreMenuOpen}
+  onClose={closeMoreMenu}
+  user={{
+    ...user!,
+    avatarKey,
+  }}
+  environment={environment}
+  onAvatarChanged={setAvatarKey}
+/>
 
       {environment ===
         "user" && (

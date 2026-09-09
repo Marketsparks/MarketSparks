@@ -3,6 +3,32 @@ export type SubscriptionStatus =
   | "EXPIRED"
   | "CANCELLED";
 
+export type SubscriptionPlan = {
+  id: string;
+
+  name: string;
+
+  slug: string;
+
+  description: string | null;
+
+  price: number;
+
+  commissionRate: number;
+
+  maxPublishedProducts: number;
+
+  badgeName: string;
+
+  badgeColor: string;
+
+  durationInDays: number;
+
+  priorityLevel: number;
+
+  isActive: boolean;
+};
+
 export type UserSubscription = {
   id: string;
 
@@ -33,6 +59,8 @@ export type UserSubscription = {
   createdAt: string;
 
   updatedAt: string;
+
+  plan: SubscriptionPlan;
 };
 
 export type CurrentSubscriptionResponse = {

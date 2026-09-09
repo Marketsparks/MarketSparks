@@ -3,8 +3,10 @@
 import Image from "next/image";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-
+import {
+  usePathname,
+  useRouter,
+} from "next/navigation";
 import {
   useEffect,
   useRef,
@@ -15,6 +17,8 @@ import {
   AnimatePresence,
   motion,
 } from "framer-motion";
+
+import SubscriptionCard from "@/components/profile/SubscriptionCard";
 
 import {
   ArrowDownLeft,
@@ -62,11 +66,15 @@ type MenuItem = {
 };
 
 type MoreMenuProps = {
+  open: boolean;
+
+  onClose: () => void;
+
   user?: {
     firstName: string;
     lastName: string;
     email: string;
-    avatarKey: string |null;
+    avatarKey: string | null;
   };
 
   environment: "user" | "admin";
@@ -182,6 +190,8 @@ const operationsItems = {
 };
 
 export default function MoreMenu({
+  open,
+  onClose,
   user,
   environment,
   onAvatarChanged,
@@ -190,6 +200,8 @@ export default function MoreMenu({
   console.log("MoreMenu user:", user);
   
 const router = useRouter();
+
+const pathname = usePathname();
 
 const { startNavigation } =
   useNavigationLoader();
@@ -207,9 +219,6 @@ const hasActiveSubscription =
       subscription.status ===
         "ACTIVE",
   );
-
-  const [open, setOpen] =
-    useState(false);
 
   const [loggingOut, setLoggingOut] =
     useState(false);
@@ -250,8 +259,8 @@ const fullName = user
     useRef<HTMLInputElement>(null);
 
 function closeMenu() {
-  setOpen(false);
   setExpanded(null);
+  onClose();
 }
 
 async function handleAvatarChange(
@@ -361,6 +370,48 @@ if (
       );
   }, []);
 
+useEffect(() => {
+  if (!open) {
+    return;
+  }
+
+  function handleKeyDown(
+    event: KeyboardEvent,
+  ) {
+    if (event.key === "Escape") {
+      closeMenu();
+    }
+  }
+
+  document.addEventListener(
+    "keydown",
+    handleKeyDown,
+  );
+
+  return () =>
+    document.removeEventListener(
+      "keydown",
+      handleKeyDown,
+    );
+}, [open]);
+
+useEffect(() => {
+  if (!open) {
+    return;
+  }
+
+  const previous =
+    document.body.style.overflow;
+
+  document.body.style.overflow =
+    "hidden";
+
+  return () => {
+    document.body.style.overflow =
+      previous;
+  };
+}, [open]);
+
 function MenuLink({
   href,
   label,
@@ -369,15 +420,17 @@ function MenuLink({
   return (
     <Link
       href={href}
-      onClick={(event) => {
-        event.preventDefault();
+onClick={(event) => {
+  event.preventDefault();
 
-        closeMenu();
+  startNavigation();
 
-        startNavigation();
+  router.push(href);
 
-        router.push(href);
-      }}
+  requestAnimationFrame(() => {
+    closeMenu();
+  });
+}}
       className="
         flex
 
@@ -565,147 +618,97 @@ function Accordion({
   );
 }
 
-  return (
-    <div
-      ref={ref}
-      className="
-        relative
-      "
-    >
-<button
-  type="button"
-  aria-label="Profile menu"
-  onClick={() => {
-    if (open) {
-      closeMenu();
-      return;
-    }
+return (
+  <AnimatePresence>
+    {open && (
+      <>
+  <motion.div
+    className="fixed inset-0 z-[80] bg-black/35 backdrop-blur-[2px]"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    onClick={closeMenu}
+  />
 
-    setOpen(true);
-  }}
+  <motion.div
+    ref={ref}
+    initial={{
+      x: "100%",
+    }}
+    animate={{
+      x: 0,
+    }}
+    exit={{
+      x: "100%",
+    }}
+    transition={{
+      type: "spring",
+      stiffness: 320,
+      damping: 34,
+    }}
 className="
-  group
-  relative
-  h-8
-  w-8
+  fixed
 
-  sm:h-11
-  sm:w-11
+  top-0
+  right-0
+  bottom-0
 
-  overflow-hidden
-  rounded-full
-  border-2
-  border-[var(--profile-menu-avatar-border)]
-  bg-[var(--profile-menu-avatar-bg)]
-  transition-all
-  duration-300
-  hover:border-[#5b5cf0]
-  focus-visible:outline-none
-  focus-visible:ring-2
-  focus-visible:ring-[#5b5cf0]/30
-"
->
-  {avatarUrl ? (
-    <Image
-      src={avatarUrl}
-      alt={fullName}
-      fill
-      className="object-cover"
-    />
-  ) : (
-    <div
-      className="
-        flex
-        h-full
-        w-full
-        items-center
-        justify-center
-      "
-    >
-      <User
-        size={20}
-        className="
-          text-[var(--profile-menu-muted)]
-        "
-      />
-    </div>
-  )}
-</button>
+  z-[90]
 
-      <AnimatePresence>
-        {open && (
-            <motion.div
-  initial={{
-    opacity: 0,
-    y: 12,
-    scale: 0.96,
-  }}
-  animate={{
-    opacity: 1,
-    y: 0,
-    scale: 1,
-  }}
-  exit={{
-    opacity: 0,
-    y: 12,
-    scale: 0.96,
-  }}
-  transition={{
-    duration: 0.18,
-  }}
-className="
-  absolute
+  flex
 
-  bottom-16
+  w-[82vw]
+  max-w-[270px]
 
-  right-[-8px]
-
-  w-[240px]
+  flex-col
 
   overflow-hidden
 
-  rounded-[20px]
+  rounded-l-[36px]
 
   border
+  border-r-0
 
   border-[var(--profile-menu-border)]
 
   bg-[var(--profile-menu-bg)]
 
-  shadow-[0_20px_45px_var(--profile-menu-glow)]
+  shadow-[0_24px_70px_var(--profile-menu-glow)]
 
-  sm:right-[-12px]
+  sm:w-[285px]
+  sm:max-w-[285px]
 
-  sm:w-[280px]
-
-  sm:rounded-[28px]
-
-  sm:shadow-[0_24px_60px_var(--profile-menu-glow)]
+  lg:w-[300px]
+  lg:max-w-[300px]
 "
 >
 <div
   className="
-    max-h-[70vh]
-
-    overflow-y-auto
-
-    p-2
-
-    sm:max-h-[75vh]
-
-    sm:p-3
+    relative
+    flex
+    h-full
+    flex-col
   "
 >
 <div
-className="
-  flex
-  flex-col
-  items-center
-  pb-3
-
-  sm:pb-4
-"
+  className="
+    flex-1
+    overflow-y-auto
+    px-4
+    pt-5
+    pb-6
+  "
 >
+  <div
+    className="
+      flex
+      flex-col
+      items-center
+      pb-3
+
+      sm:pb-4
+    "
+  >
       <button
         type="button"
         onClick={() =>
@@ -852,15 +855,14 @@ className="
       </p>
     </div>
 
-    <div
-      className="
-        border-t
-
-        border-[var(--profile-menu-divider)]
-
-        pt-4
-      "
-    >
+<div
+  className="
+    mt-4
+    border-t
+    border-[var(--profile-menu-divider)]
+    pt-4
+  "
+>
 {environment === "admin" ? (
   <>
     <Accordion
@@ -971,6 +973,7 @@ className="
   }
   icon={BadgeCheck}
 />
+</div>
 
 {environment === "user" &&
   !subscriptionLoading &&
@@ -1002,99 +1005,151 @@ className="
   icon={Shield}
 />
 
-        <MenuLink
-          href="/help-center"
-          label="Help Center"
-          icon={CircleHelp}
-        />
+<MenuLink
+  href={
+    environment === "admin"
+      ? "/admin/help-center"
+      : "/help-center"
+  }
+  label="Help Center"
+  icon={CircleHelp}
+/>
+
       </div>
+{environment === "user" && (
+  <section
+    className="
+      shrink-0
+      px-4
+      py-4
+    "
+  >
+    <div
+      className="
+        mb-4
+        flex
+        items-center
+        gap-3
+      "
+    >
+      <div
+        className="
+          h-px
+          flex-1
+          bg-[var(--profile-menu-divider)]
+        "
+      />
+
+      <span
+        className="
+          text-[10px]
+          font-semibold
+          uppercase
+          tracking-[0.18em]
+          text-[var(--profile-menu-muted)]
+        "
+      >
+        Membership
+      </span>
 
       <div
         className="
-          mt-5
-
-          border-t
-
-          border-[var(--profile-menu-divider)]
-
-          pt-4
+          h-px
+          flex-1
+          bg-[var(--profile-menu-divider)]
         "
-      >
-        <div
-          className="
-            flex
+      />
+    </div>
 
-            items-center
+    <SubscriptionCard />
+  </section>
+)}      
 
-            justify-between
 
-            rounded-2xl
-
-            px-2.5
-
-            py-1.5
-
-            sm:px-3
-
-            sm:py-2
-          "
-        >
-          <span
-            className="
-              text-[12px]
-
-              sm:text-[14px]
-
-              font-medium
-            "
-          >
-            Theme
-          </span>
-
-          <ThemeToggle />
-        </div>
-
-<button
-  type="button"
-  onClick={handleLogout}
-  disabled={loggingOut}
+<div
   className="
-    mt-2
-    flex
-    w-full
-    items-center
-    gap-3
-    rounded-2xl
-    px-2.5
-    py-2
-    text-[12px]
+    mt-12
+    sm:mt-8
 
-    sm:px-3
-    sm:py-2.5
-    sm:text-[14px]
-    text-[var(--profile-menu-danger)]
-    transition-colors
-    duration-300
-    hover:bg-[var(--profile-menu-danger-hover)]
-    disabled:cursor-not-allowed
-    disabled:opacity-60
+    border-t
+    border-[var(--profile-menu-divider)]
+
+    pt-4
   "
 >
-<LogOut
-  size={16}
-  className="sm:h-[18px] sm:w-[18px]"
-/>
+  <div
+    className="
+      flex
+      items-center
+      justify-between
 
-  {loggingOut
-    ? "Signing out..."
-    : "Logout"}
-</button>
-      </div>
-    </div>
+      rounded-2xl
+
+      px-2.5
+      py-1.5
+
+      transition-colors
+      duration-300
+
+      hover:bg-[var(--profile-menu-hover)]
+    "
+  >
+    <span
+      className="
+        text-[12px]
+        sm:text-[13px]
+        font-medium
+      "
+    >
+      Theme
+    </span>
+
+    <ThemeToggle />
   </div>
-</motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
+
+  <button
+    type="button"
+    onClick={handleLogout}
+    disabled={loggingOut}
+    className="
+      mt-1
+
+      flex
+      w-full
+      items-center
+      gap-2.5
+
+      rounded-2xl
+
+      px-2.5
+      py-2
+
+      text-[12px]
+      sm:text-[13px]
+
+      text-[var(--profile-menu-danger)]
+
+      transition-colors
+      duration-300
+
+      hover:bg-[var(--profile-menu-danger-hover)]
+
+      disabled:cursor-not-allowed
+      disabled:opacity-60
+    "
+  >
+    <LogOut size={16} />
+
+    {loggingOut
+      ? "Signing out..."
+      : "Logout"}
+  </button>
+</div>
+</div>
+</div>  
+  </motion.div>
+      </>
+    )}
+  </AnimatePresence>
+);
 }
