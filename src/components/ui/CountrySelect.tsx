@@ -124,7 +124,7 @@ export function CountrySelect({
     className={
       compact
         ? "mb-1.5 block text-[10px] font-medium uppercase tracking-[0.08em] text-[var(--user-text-muted)]"
-        : "mb-2 block text-sm font-medium text-[var(--user-text)]"
+        : "mb-1.5 block text-[12px] sm:text-[13px] font-semibold text-[var(--user-text)]"
     }
   >
     {label}
@@ -147,7 +147,7 @@ className={`
   ${
     compact
       ? "h-10 rounded-lg bg-[var(--user-card-bg)] px-3 text-sm text-[var(--user-title)]"
-      : "h-12 rounded-[var(--user-radius-md)] bg-[var(--user-input-bg)] px-4"
+      : "h-10 sm:h-11 rounded-xl bg-[var(--user-input-bg)] px-3 sm:px-3.5 text-[13px] sm:text-[14px]"
   }
 `}
         style={{
@@ -156,18 +156,18 @@ className={`
             : "var(--user-input-border)",
         }}
       >
-        <span
-          className={
-            value
-              ? "text-[var(--user-input-text)]"
-              : "text-[var(--user-input-placeholder)]"
-          }
-        >
+<span
+  className={`text-[13px] sm:text-[14px] ${
+    value
+      ? "text-[var(--user-input-text)]"
+      : "text-[var(--user-input-placeholder)]"
+  }`}
+>
           {value || placeholder}
         </span>
 
         <ChevronDown
-          size={18}
+          size={16}
           className={`transition ${
             open ? "rotate-180" : ""
           }`}
@@ -175,7 +175,7 @@ className={`
       </button>
 
       {error && (
-        <p className="mt-2 text-sm text-[var(--user-danger)]">
+        <p className="mt-1.5 text-[12px] text-[var(--user-danger)]">
           {error}
         </p>
       )}
@@ -188,10 +188,10 @@ className={`
               "var(--user-card-border)",
           }}
         >
-          <div className="border-b p-3">
+          <div className="border-b p-2.5">
             <div className="relative">
               <Search
-                size={16}
+                size={15}
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--user-text-muted)]"
               />
 
@@ -204,7 +204,7 @@ className={`
                   )
                 }
                 placeholder="Search country..."
-                className="h-10 w-full rounded-[var(--user-radius-sm)] border bg-[var(--user-input-bg)] pl-10 pr-3 text-sm text-[var(--user-input-text)] outline-none"
+                className="h-9 sm:h-10 w-full rounded-lg border bg-[var(--user-input-bg)] pl-9 pr-3 text-[13px] sm:text-[14px] text-[var(--user-input-text)] outline-none"
                 style={{
                   borderColor:
                     "var(--user-input-border)",
@@ -215,7 +215,7 @@ className={`
 
           <div className="max-h-72 overflow-y-auto">
             {filtered.length === 0 && (
-              <div className="p-4 text-center text-sm text-[var(--user-text-muted)]">
+              <div className="p-3 text-center text-[13px] text-[var(--user-text-muted)]">
                 No country found.
               </div>
             )}
@@ -231,15 +231,15 @@ onClick={() => {
 
   setOpen(false);
 }}
-                className="flex w-full items-center justify-between px-4 py-3 text-left transition hover:bg-[var(--user-card-hover)]"
+                className="flex w-full items-center justify-between px-3 py-2.5 text-left transition hover:bg-[var(--user-card-hover)]"
               >
-                <span className="text-[var(--user-text)]">
+                <span className="text-[13px] sm:text-[14px] text-[var(--user-text)]">
                   {country}
                 </span>
 
                 {value === country && (
                   <Check
-                    size={18}
+                    size={16}
                     className="text-[var(--user-success)]"
                   />
                 )}

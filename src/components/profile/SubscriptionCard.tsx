@@ -30,7 +30,13 @@ function formatPrice(price: number) {
   }).format(price);
 }
 
-export default function SubscriptionCard() {
+type SubscriptionCardProps = {
+  onNavigate?: () => void;
+};
+
+export default function SubscriptionCard({
+  onNavigate,
+}: SubscriptionCardProps) {
   const {
     subscription,
     loading,
@@ -182,9 +188,10 @@ if (!hasActiveSubscription || !subscription) {
         ))}
       </div>
 
-      <Link
-        href="/plans"
-        className="
+<Link
+  href="/plans"
+  onClick={onNavigate}
+  className="
           group
           mt-2.5
           flex
@@ -429,6 +436,7 @@ return (
 
 <Link
   href="/plans"
+  onClick={onNavigate}
   className="
     mt-2
     flex

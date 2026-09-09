@@ -30,50 +30,39 @@ const AuthInput = forwardRef<
   (
     {
       label,
-
       helperText,
-
       error,
-
       success,
-
       leftIcon,
-
       rightIcon,
-
       className = "",
-
       required,
-
       id,
-
       ...props
     },
-    ref
+    ref,
   ) => {
-    const hasError =
-      Boolean(error);
+    const hasError = Boolean(error);
 
-    const hasSuccess =
-      Boolean(success);
+    const hasSuccess = Boolean(success);
 
     return (
-      <div
-        className="
-          w-full
-        "
-      >
+      <div className="w-full">
         {label && (
           <label
             htmlFor={id}
             className="
-              mb-2
+              mb-1.5
 
-              text-[13px]
+              text-[12px]
 
               font-semibold
 
               text-[var(--foreground)]
+
+              sm:mb-2
+
+              sm:text-[13px]
             "
           >
             {label}
@@ -84,11 +73,11 @@ const AuthInput = forwardRef<
           className={`
             flex
 
-            h-11
+            h-10
 
             items-center
 
-            gap-3
+            gap-2.5
 
             rounded-xl
 
@@ -96,10 +85,16 @@ const AuthInput = forwardRef<
 
             bg-[var(--surface)]
 
-            px-3.5
+            px-3
 
             transition-all
             duration-300
+
+            sm:h-11
+
+            sm:gap-3
+
+            sm:px-3.5
 
             ${
               hasError
@@ -111,14 +106,14 @@ const AuthInput = forwardRef<
                   focus-within:ring-red-500/20
                 `
                 : hasSuccess
-                ? `
+                  ? `
                   border-emerald-500
 
                   focus-within:ring-2
 
                   focus-within:ring-emerald-500/20
                 `
-                : `
+                  : `
                   border-[var(--border)]
 
                   focus-within:border-[var(--primary)]
@@ -156,19 +151,23 @@ const AuthInput = forwardRef<
 
               bg-transparent
 
-              text-[14px]
+              text-[13px]
 
               text-[var(--foreground)]
 
               outline-none
 
-              placeholder:text-[13px]
+              placeholder:text-[12px]
 
               placeholder:text-[var(--foreground-muted)]
 
               disabled:cursor-not-allowed
 
               disabled:opacity-60
+
+              sm:text-[14px]
+
+              sm:placeholder:text-[13px]
 
               ${className}
             `}
@@ -192,16 +191,20 @@ const AuthInput = forwardRef<
           success) && (
           <p
             className={`
-              mt-2
+              mt-1.5
 
-              text-[12px]
+              text-[11px]
+
+              sm:mt-2
+
+              sm:text-[12px]
 
               ${
                 hasError
                   ? "text-red-500"
                   : hasSuccess
-                  ? "text-emerald-500"
-                  : "text-[var(--foreground-muted)]"
+                    ? "text-emerald-500"
+                    : "text-[var(--foreground-muted)]"
               }
             `}
           >
@@ -212,7 +215,7 @@ const AuthInput = forwardRef<
         )}
       </div>
     );
-  }
+  },
 );
 
 AuthInput.displayName =

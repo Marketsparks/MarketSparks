@@ -132,11 +132,11 @@ export default function PasswordStrength({
               duration: 0.25,
             }}
             className="
-              mt-3
+              mt-2.5
 
               overflow-hidden
 
-              rounded-2xl
+              rounded-xl
 
               border
 
@@ -144,34 +144,46 @@ export default function PasswordStrength({
 
               bg-[var(--surface)]
 
-              p-4
+              p-3
 
               transition-colors
               duration-300
+
+              sm:mt-3
+
+              sm:rounded-2xl
+
+              sm:p-4
             "
           >
             <div
               className="
-                mb-3
+                mb-2.5
 
                 flex
 
                 items-center
 
                 justify-between
+
+                sm:mb-3
               "
             >
               <span
                 className="
-                  text-[12px]
+                  text-[10px]
 
                   font-semibold
 
                   uppercase
 
-                  tracking-[0.08em]
+                  tracking-[0.06em]
 
                   text-[var(--foreground-muted)]
+
+                  sm:text-[12px]
+
+                  sm:tracking-[0.08em]
                 "
               >
                 Password Strength
@@ -179,11 +191,13 @@ export default function PasswordStrength({
 
               <span
                 className="
-                  text-[13px]
+                  text-[11px]
 
                   font-semibold
 
                   text-[var(--foreground)]
+
+                  sm:text-[13px]
                 "
               >
                 {current.label}
@@ -192,13 +206,15 @@ export default function PasswordStrength({
 
             <div
               className="
-                h-2
+                h-1.5
 
                 overflow-hidden
 
                 rounded-full
 
                 bg-[var(--border)]
+
+                sm:h-2
               "
             >
               <div
@@ -221,34 +237,38 @@ export default function PasswordStrength({
 
             <div
               className="
-                mt-4
+                mt-3
 
                 grid
 
-                gap-2
+                gap-1.5
+
+                sm:mt-4
+
+                sm:gap-2
               "
             >
               {rules.map(
                 (rule) => (
                   <div
-                    key={
-                      rule.label
-                    }
+                    key={rule.label}
                     className="
                       flex
 
                       items-center
 
-                      gap-2.5
+                      gap-2
+
+                      sm:gap-2.5
                     "
                   >
                     <div
                       className={`
                         flex
 
-                        h-5
+                        h-4
 
-                        w-5
+                        w-4
 
                         items-center
 
@@ -261,36 +281,46 @@ export default function PasswordStrength({
                         transition-all
                         duration-300
 
+                        sm:h-5
+
+                        sm:w-5
+
                         ${
                           rule.passed
                             ? `
-                              border-emerald-500
+                                border-emerald-500
 
-                              bg-emerald-500
+                                bg-emerald-500
 
-                              text-white
-                            `
+                                text-white
+                              `
                             : `
-                              border-[var(--border)]
+                                border-[var(--border)]
 
-                              bg-[var(--surface)]
+                                bg-[var(--surface)]
 
-                              text-transparent
-                            `
+                                text-transparent
+                              `
                         }
                       `}
                     >
                       <Check
-                        size={12}
+                        size={10}
+                        className="
+                          sm:h-3
+                          sm:w-3
+                        "
                       />
                     </div>
 
                     <span
                       className={`
-                        text-[13px]
+                        text-[11px]
 
                         transition-colors
                         duration-300
+
+                        sm:text-[13px]
 
                         ${
                           rule.passed

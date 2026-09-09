@@ -18,13 +18,9 @@ type AuthFormProps = {
 
 export default function AuthForm({
   title,
-
   description,
-
   children,
-
   footer,
-
   className = "",
 }: AuthFormProps) {
   return (
@@ -36,7 +32,7 @@ export default function AuthForm({
       >
         <h1
           className="
-            text-[26px]
+            text-[22px]
 
             font-extrabold
 
@@ -45,6 +41,8 @@ export default function AuthForm({
             tracking-[-0.02em]
 
             text-[var(--foreground)]
+
+            sm:text-[26px]
           "
         >
           {title}
@@ -55,15 +53,23 @@ export default function AuthForm({
             className="
               mx-auto
 
-              mt-2
+              mt-1.5
 
-              max-w-[320px]
+              max-w-[300px]
 
-              text-[14px]
+              text-[13px]
 
-              leading-6
+              leading-5
 
               text-[var(--foreground-muted)]
+
+              sm:mt-2
+
+              sm:max-w-[320px]
+
+              sm:text-[14px]
+
+              sm:leading-6
             "
           >
             {description}
@@ -73,9 +79,13 @@ export default function AuthForm({
 
       <div
         className="
-          mt-8
+          mt-6
 
-          space-y-5
+          space-y-4
+
+          sm:mt-8
+
+          sm:space-y-5
         "
       >
         {children}
@@ -84,13 +94,17 @@ export default function AuthForm({
       {footer && (
         <footer
           className="
-            mt-8
+            mt-6
 
             border-t
 
             border-[var(--border)]
 
-            pt-5
+            pt-4
+
+            sm:mt-8
+
+            sm:pt-5
           "
         >
           {footer}

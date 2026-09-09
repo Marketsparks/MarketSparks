@@ -153,13 +153,14 @@ function handleSubmit(
         Join MarketSparks and start building your online business today.
       "
       footer={
-        <p
-          className="
-            text-center
-            text-[13px]
-            text-[var(--foreground-muted)]
-          "
-        >
+<p
+  className="
+    text-center
+    text-[12px]
+    sm:text-[13px]
+    text-[var(--foreground-muted)]
+  "
+>
           Already have an account?{" "}
 
           <button
@@ -185,9 +186,10 @@ disabled={
       }
     >
       <div
-  className="
-    mb-6
-  "
+className="
+  mb-4
+  sm:mb-6
+"
 >
 <AuthTabs
   value="register"
@@ -209,16 +211,18 @@ disabled={
 </div>
       <form
         onSubmit={handleSubmit}
-        className="
-          space-y-5
-        "
+className="
+  space-y-4
+  sm:space-y-5
+"
       >
         <div
-          className="
-            grid
-            gap-4
-            sm:grid-cols-2
-          "
+className="
+  grid
+  gap-3
+  sm:gap-4
+  sm:grid-cols-2
+"
         >
           <AuthInput
             id="firstName"
@@ -312,28 +316,31 @@ disabled={
         <div>
           <label
             htmlFor="heardFrom"
-            className="
-              mb-2
-              block
-              text-[13px]
-              font-semibold
-              text-[var(--foreground)]
-            "
+className="
+  mb-1.5
+  block
+  text-[12px]
+  sm:text-[13px]
+  font-semibold
+  text-[var(--foreground)]
+"
           >
             How did you hear about MarketSparks?
           </label>
 
           <div
-            className="
-              flex
-              h-11
-              items-center
-              gap-3
-              rounded-xl
-              border
-              border-[var(--border)]
-              bg-[var(--surface)]
-              px-3.5
+className="
+  flex
+  h-10
+  sm:h-11
+  items-center
+  gap-2.5
+  rounded-xl
+  border
+  border-[var(--border)]
+  bg-[var(--surface)]
+  px-3
+  sm:px-3.5
               transition-all
               duration-300
               focus-within:border-[var(--primary)]
@@ -368,12 +375,13 @@ disabled={
                   }
                 }
               }}
-              className="
-                h-full
-                w-full
-                border-0
-                bg-transparent
-                text-[14px]
+className="
+  h-full
+  w-full
+  border-0
+  bg-transparent
+  text-[13px]
+  sm:text-[14px]
                 text-[var(--foreground)]
                 outline-none
                 disabled:cursor-not-allowed
@@ -467,25 +475,31 @@ disabled={
         </AnimatePresence>
 
         <label
-          className="
-            flex
-            cursor-pointer
-            items-start
-            gap-3
-            text-[13px]
-            leading-6
-            text-[var(--foreground-muted)]
-          "
+className="
+  flex
+  cursor-pointer
+  items-start
+  gap-2.5
+  sm:gap-3
+  text-[12px]
+  sm:text-[13px]
+  leading-5
+  sm:leading-6
+  text-[var(--foreground-muted)]
+"
         >
           <input
             type="checkbox"
             name="terms"
             required
             disabled={loading}
-            className="
-              mt-1
-              h-4
-              w-4
+className="
+  mt-0.5
+  h-3.5
+  w-3.5
+  sm:mt-1
+  sm:h-4
+  sm:w-4
               rounded
               border-[var(--border)]
               accent-[var(--primary)]

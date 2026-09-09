@@ -46,9 +46,9 @@ export default function AvatarMenu({
 
           flex
 
-          h-11
+          h-10
 
-          w-11
+          w-10
 
           shrink-0
 
@@ -78,6 +78,10 @@ export default function AvatarMenu({
           focus-visible:ring-2
 
           focus-visible:ring-[#5b5cf0]/30
+
+          sm:h-11
+          
+          sm:w-11
         `,
         className
       )}

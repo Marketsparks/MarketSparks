@@ -108,19 +108,19 @@ export default function AuthButton({
             : ""
         }
 
-        h-11
+        h-10
 
         items-center
 
         justify-center
 
-        gap-2.5
+        gap-2
 
         rounded-xl
 
-        px-4
+        px-3.5
 
-        text-[14px]
+        text-[13px]
 
         font-semibold
 
@@ -139,6 +139,14 @@ export default function AuthButton({
 
         disabled:opacity-60
 
+        sm:h-11
+
+        sm:gap-2.5
+
+        sm:px-4
+
+        sm:text-[14px]
+
         ${variantClasses[variant]}
 
         ${className}
@@ -148,13 +156,17 @@ export default function AuthButton({
         <>
           <svg
             className="
-              h-4
+              h-3.5
 
-              w-4
+              w-3.5
 
               animate-spin
 
               shrink-0
+
+              sm:h-4
+
+              sm:w-4
             "
             viewBox="0 0 24 24"
             fill="none"

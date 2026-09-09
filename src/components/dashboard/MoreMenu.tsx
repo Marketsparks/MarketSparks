@@ -1061,14 +1061,16 @@ className="
       />
     </div>
 
-    <SubscriptionCard />
+<SubscriptionCard
+  onNavigate={closeMenu}
+/>
   </section>
 )}      
 
 
 <div
   className="
-    mt-8
+    mt-6
     sm:mt-8
 
     border-t

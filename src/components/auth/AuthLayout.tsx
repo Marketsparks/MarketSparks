@@ -107,11 +107,15 @@ export default function AuthLayout({
 
           items-center
 
-          gap-16
+          gap-10
 
-          px-5
+          px-4
 
-          py-8
+          py-5
+
+          sm:gap-14
+          sm:px-5
+          sm:py-8
 
           lg:px-8
 
@@ -159,18 +163,24 @@ export default function AuthLayout({
             className="
               w-full
 
-              max-w-[460px]
+              max-w-[360px]
+
+              sm:max-w-[420px]
+
+              lg:max-w-[460px]
             "
           >
             {/* Mobile Logo */}
 
             <div
               className="
-                mb-8
+                mb-5
 
                 flex
 
                 justify-center
+
+                sm:mb-8
 
                 xl:hidden
               "

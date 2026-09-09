@@ -119,76 +119,121 @@ export default function VerifyEmailContent({
   if (verified) {
     return (
       <AuthCard>
-        <div
-          className="
-            mx-auto
-            flex
-            h-16
-            w-16
-            items-center
-            justify-center
-            rounded-full
-            bg-[var(--primary)]/10
-            text-[var(--primary)]
-          "
-        >
-          <CheckCircle2
-            size={30}
-          />
-        </div>
+        <div className="text-center">
+          <div
+            className="
+              mx-auto
 
-        <h1
-          className="
-            mt-6
-            text-[26px]
-            font-extrabold
-            text-[var(--foreground)]
-          "
-        >
-          Email Verified
-        </h1>
+              flex
 
-        <p
-          className="
-            mt-3
-            text-[14px]
-            leading-7
-            text-[var(--foreground-muted)]
-          "
-        >
-          Your MarketSparks account
-          has been successfully
-          verified.
-        </p>
+              h-14
+              w-14
 
-        {email && (
+              sm:h-16
+              sm:w-16
+
+              items-center
+
+              justify-center
+
+              rounded-full
+
+              bg-[var(--primary)]/10
+
+              text-[var(--primary)]
+            "
+          >
+            <CheckCircle2
+              size={28}
+            />
+          </div>
+
+          <h1
+            className="
+              mt-5
+
+              text-[22px]
+
+              font-extrabold
+
+              leading-tight
+
+              text-[var(--foreground)]
+
+              sm:mt-6
+
+              sm:text-[26px]
+            "
+          >
+            Email Verified
+          </h1>
+
           <p
             className="
               mt-2
-              font-semibold
-              text-[var(--foreground)]
-            "
-          >
-            {email}
-          </p>
-        )}
 
-        <div className="mt-8">
-          <Link
-            href="/Auth"
-            className="
-              block
-              text-center
-              text-[14px]
-              font-semibold
-              text-[var(--primary)]
-              transition-opacity
-              duration-300
-              hover:opacity-80
+              text-[13px]
+
+              leading-6
+
+              text-[var(--foreground-muted)]
+
+              sm:mt-3
+
+              sm:text-[14px]
+
+              sm:leading-7
             "
           >
-            Continue to Sign In
-          </Link>
+            Your MarketSparks account
+            has been successfully
+            verified.
+          </p>
+
+          {email && (
+            <p
+              className="
+                mt-2
+
+                text-[14px]
+
+                font-semibold
+
+                text-[var(--foreground)]
+
+                sm:text-[15px]
+              "
+            >
+              {email}
+            </p>
+          )}
+
+          <div className="mt-6 sm:mt-8">
+            <Link
+              href="/Auth"
+              className="
+                block
+
+                text-center
+
+                text-[13px]
+
+                font-semibold
+
+                text-[var(--primary)]
+
+                transition-opacity
+
+                duration-300
+
+                hover:opacity-80
+
+                sm:text-[14px]
+              "
+            >
+              Continue to Sign In
+            </Link>
+          </div>
         </div>
       </AuthCard>
     );
@@ -196,180 +241,261 @@ export default function VerifyEmailContent({
 
   return (
     <AuthCard>
-      <div
-        className="
-          mx-auto
-          flex
-          h-16
-          w-16
-          items-center
-          justify-center
-          rounded-full
-          bg-[var(--primary)]/10
-          text-[var(--primary)]
-        "
-      >
-        <MailCheck
-          size={30}
-        />
-      </div>
-
-      <h1
-        className="
-          mt-6
-          text-[26px]
-          font-extrabold
-          text-[var(--foreground)]
-        "
-      >
-        Verify Your Email
-      </h1>
-
-      {loading ? (
-        <p
+      <div className="text-center">
+        <div
           className="
-            mt-3
-            text-[14px]
-            leading-7
-            text-[var(--foreground-muted)]
+            mx-auto
+
+            flex
+
+            h-14
+            w-14
+
+            sm:h-16
+            sm:w-16
+
+            items-center
+
+            justify-center
+
+            rounded-full
+
+            bg-[var(--primary)]/10
+
+            text-[var(--primary)]
           "
         >
-          Verifying your email
-          address...
-        </p>
-      ) : error ? (
-        <>
+          <MailCheck
+            size={28}
+          />
+        </div>
+
+        <h1
+          className="
+            mt-5
+
+            text-[22px]
+
+            font-extrabold
+
+            leading-tight
+
+            text-[var(--foreground)]
+
+            sm:mt-6
+
+            sm:text-[26px]
+          "
+        >
+          Verify Your Email
+        </h1>
+
+        {loading ? (
           <p
             className="
-              mt-3
-              text-[14px]
-              leading-7
+              mt-2
+
+              text-[13px]
+
+              leading-6
+
               text-[var(--foreground-muted)]
+
+              sm:mt-3
+
+              sm:text-[14px]
+
+              sm:leading-7
             "
           >
-            {error}
+            Verifying your email
+            address...
           </p>
-
-          <div className="mt-8 space-y-3">
-            <AuthButton
-              loading={
-                externalLoading
-              }
-              disabled={
-                resendDisabled
-              }
-              onClick={
-                onResend
-              }
-              loadingText="Sending Verification Email..."
-              leftIcon={
-                <RotateCw
-                  size={17}
-                />
-              }
-              variant="secondary"
-            >
-              Resend Email
-            </AuthButton>
-
-            <Link
-              href="/Auth"
-              className="
-                block
-                text-center
-                text-[14px]
-                font-medium
-                text-[var(--primary)]
-                transition-opacity
-                duration-300
-                hover:opacity-80
-              "
-            >
-              Back to Sign In
-            </Link>
-          </div>
-        </>
-      ) : (
-        <>
-          <p
-            className="
-              mt-3
-              text-[14px]
-              leading-7
-              text-[var(--foreground-muted)]
-            "
-          >
-            We've sent a verification
-            link to
-          </p>
-
-          {email && (
+        ) : error ? (
+          <>
             <p
               className="
                 mt-2
-                font-semibold
-                text-[var(--foreground)]
+
+                text-[13px]
+
+                leading-6
+
+                text-[var(--foreground-muted)]
+
+                sm:mt-3
+
+                sm:text-[14px]
+
+                sm:leading-7
               "
             >
-              {email}
+              {error}
             </p>
-          )}
 
-          <p
-            className="
-              mt-5
-              text-[14px]
-              leading-7
-              text-[var(--foreground-muted)]
-            "
-          >
-            Click the link in your
-            inbox to activate your
-            account. If you don't see
-            it, check your spam or junk
-            folder.
-          </p>
+            <div className="mt-6 space-y-2.5 sm:mt-8 sm:space-y-3">
+              <AuthButton
+                loading={
+                  externalLoading
+                }
+                disabled={
+                  resendDisabled
+                }
+                onClick={
+                  onResend
+                }
+                loadingText="Sending Verification Email..."
+                leftIcon={
+                  <RotateCw
+                    size={16}
+                  />
+                }
+                variant="secondary"
+              >
+                Resend Email
+              </AuthButton>
 
-          <div className="mt-8 space-y-3">
-            <AuthButton
-              loading={
-                externalLoading
-              }
-              disabled={
-                resendDisabled
-              }
-              onClick={
-                onResend
-              }
-              loadingText="Sending Verification Email..."
-              leftIcon={
-                <RotateCw
-                  size={17}
-                />
-              }
-              variant="secondary"
-            >
-              Resend Email
-            </AuthButton>
+              <Link
+                href="/Auth"
+                className="
+                  block
 
-            <Link
-              href="/Auth"
+                  text-center
+
+                  text-[13px]
+
+                  font-medium
+
+                  text-[var(--primary)]
+
+                  transition-opacity
+
+                  duration-300
+
+                  hover:opacity-80
+
+                  sm:text-[14px]
+                "
+              >
+                Back to Sign In
+              </Link>
+            </div>
+          </>
+        ) : (
+          <>
+            <p
               className="
-                block
-                text-center
-                text-[14px]
-                font-medium
-                text-[var(--primary)]
-                transition-opacity
-                duration-300
-                hover:opacity-80
+                mt-2
+
+                text-[13px]
+
+                leading-6
+
+                text-[var(--foreground-muted)]
+
+                sm:mt-3
+
+                sm:text-[14px]
+
+                sm:leading-7
               "
             >
-              Back to Sign In
-            </Link>
-          </div>
-        </>
-      )}
+              We've sent a verification
+              link to
+            </p>
+
+            {email && (
+              <p
+                className="
+                  mt-2
+
+                  text-[14px]
+
+                  font-semibold
+
+                  text-[var(--foreground)]
+
+                  sm:text-[15px]
+                "
+              >
+                {email}
+              </p>
+            )}
+
+            <p
+              className="
+                mt-4
+
+                text-[13px]
+
+                leading-6
+
+                text-[var(--foreground-muted)]
+
+                sm:mt-5
+
+                sm:text-[14px]
+
+                sm:leading-7
+              "
+            >
+              Click the link in your
+              inbox to activate your
+              account. If you don't see
+              it, check your spam or junk
+              folder.
+            </p>
+
+            <div className="mt-6 space-y-2.5 sm:mt-8 sm:space-y-3">
+              <AuthButton
+                loading={
+                  externalLoading
+                }
+                disabled={
+                  resendDisabled
+                }
+                onClick={
+                  onResend
+                }
+                loadingText="Sending Verification Email..."
+                leftIcon={
+                  <RotateCw
+                    size={16}
+                  />
+                }
+                variant="secondary"
+              >
+                Resend Email
+              </AuthButton>
+
+              <Link
+                href="/Auth"
+                className="
+                  block
+
+                  text-center
+
+                  text-[13px]
+
+                  font-medium
+
+                  text-[var(--primary)]
+
+                  transition-opacity
+
+                  duration-300
+
+                  hover:opacity-80
+
+                  sm:text-[14px]
+                "
+              >
+                Back to Sign In
+              </Link>
+            </div>
+          </>
+        )}
+      </div>
     </AuthCard>
   );
 }

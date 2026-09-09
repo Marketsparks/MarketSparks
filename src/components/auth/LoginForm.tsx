@@ -106,8 +106,12 @@ Sign in to continue building your business with MarketSparks.
         <p
           className="
             text-center
-            text-[13px]
+
+            text-[12px]
+
             text-[var(--foreground-muted)]
+
+            sm:text-[13px]
           "
         >
           Don't have an account?{" "}
@@ -121,11 +125,16 @@ Sign in to continue building your business with MarketSparks.
             }
             className="
               font-semibold
+
               text-[var(--primary)]
+
               transition-colors
               duration-300
+
               hover:opacity-80
+
               disabled:cursor-not-allowed
+
               disabled:opacity-50
             "
           >
@@ -136,7 +145,9 @@ Sign in to continue building your business with MarketSparks.
     >
       <div
         className="
-          mb-6
+          mb-4
+
+          sm:mb-6
         "
       >
         <AuthTabs
@@ -162,7 +173,9 @@ Sign in to continue building your business with MarketSparks.
       <form
         onSubmit={handleSubmit}
         className="
-          space-y-5
+          space-y-4
+
+          sm:space-y-5
         "
       >
         <AuthInput
@@ -175,7 +188,13 @@ Sign in to continue building your business with MarketSparks.
           required
           disabled={loading}
           leftIcon={
-            <Mail size={17} />
+            <Mail
+              size={16}
+              className="
+                sm:h-[17px]
+                sm:w-[17px]
+              "
+            />
           }
         />
 
@@ -192,19 +211,33 @@ Sign in to continue building your business with MarketSparks.
         <div
           className="
             flex
+
             items-center
+
             justify-between
-            gap-4
+
+            gap-3
+
+            sm:gap-4
           "
         >
           <label
             className="
               flex
+
               cursor-pointer
+
               items-center
-              gap-2
-              text-[13px]
+
+              gap-1.5
+
+              text-[12px]
+
               text-[var(--foreground-muted)]
+
+              sm:gap-2
+
+              sm:text-[13px]
             "
           >
             <input
@@ -212,11 +245,19 @@ Sign in to continue building your business with MarketSparks.
               name="rememberMe"
               disabled={loading}
               className="
-                h-4
-                w-4
+                h-3.5
+
+                w-3.5
+
                 rounded
+
                 border-[var(--border)]
+
                 accent-[var(--primary)]
+
+                sm:h-4
+
+                sm:w-4
               "
             />
 
@@ -226,12 +267,18 @@ Sign in to continue building your business with MarketSparks.
           <Link
             href="/forgot-password"
             className="
-              text-[13px]
+              text-[12px]
+
               font-medium
+
               text-[var(--primary)]
+
               transition-opacity
               duration-300
+
               hover:opacity-80
+
+              sm:text-[13px]
             "
           >
             Forgot password?
@@ -241,16 +288,20 @@ Sign in to continue building your business with MarketSparks.
         <AuthButton
           type="submit"
           loading={loading}
-disabled={
-  loading ||
-  locked
-}
+          disabled={
+            loading ||
+            locked
+          }
           loadingText={
             loadingText
           }
           rightIcon={
             <ArrowRight
-              size={17}
+              size={16}
+              className="
+                sm:h-[17px]
+                sm:w-[17px]
+              "
             />
           }
         >
@@ -259,6 +310,11 @@ disabled={
 
         <AuthDivider
           label="or continue with"
+          className="
+            my-1
+
+            sm:my-2
+          "
         />
 
         <AuthButton

@@ -122,7 +122,9 @@ const PasswordField = forwardRef<
 
                 rounded-md
 
-                p-1
+                p-0.5
+
+                sm:p-1
 
                 text-[var(--foreground-muted)]
 
@@ -140,13 +142,21 @@ const PasswordField = forwardRef<
             >
               {showPassword ? (
                 <EyeOff
-                  size={17}
+                  size={16}
                   strokeWidth={2}
+                  className="
+                    sm:h-[17px]
+                    sm:w-[17px]
+                  "
                 />
               ) : (
                 <Eye
-                  size={17}
+                  size={16}
                   strokeWidth={2}
+                  className="
+                    sm:h-[17px]
+                    sm:w-[17px]
+                  "
                 />
               )}
             </button>

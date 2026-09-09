@@ -94,59 +94,64 @@ export default function ProfileHeader({
 
   return (
     <section
-      className="
-        rounded-[var(--user-radius-lg)]
-        border
-        bg-[var(--user-card-bg)]
-        p-6
-        shadow-[var(--user-card-shadow)]
-      "
+className="
+  rounded-[var(--user-radius-lg)]
+  border
+  bg-[var(--user-card-bg)]
+  p-4
+  sm:p-6
+  shadow-[var(--user-card-shadow)]
+"
       style={{
         borderColor:
           "var(--user-card-border)",
       }}
     >
       <div
-        className="
-          flex
-          flex-col
-          gap-6
-          lg:flex-row
-          lg:items-center
-          lg:justify-between
-        "
+className="
+  flex
+  flex-col
+  gap-4
+  sm:gap-6
+  lg:flex-row
+  lg:items-center
+  lg:justify-between
+"
       >
         <div
-          className="
-            flex
-            flex-col
-            items-center
-            gap-5
-            sm:flex-row
-            sm:items-start
-          "
+className="
+  flex
+  flex-col
+  items-center
+  gap-3
+  sm:gap-5
+  sm:flex-row
+  sm:items-start
+"
         >
           <div
-            className="
-              relative
-              flex
-              shrink-0
-              items-center
-              justify-center
-              overflow-hidden
-              rounded-full
-              border
-            "
-            style={{
-              width:
-                "var(--profile-avatar-size-desktop)",
-              height:
-                "var(--profile-avatar-size-desktop)",
-              background:
-                "var(--user-avatar-bg)",
-              borderColor:
-                "var(--user-avatar-border)",
-            }}
+className="
+  relative
+  flex
+  h-[88px]
+  w-[88px]
+  shrink-0
+  items-center
+  justify-center
+  overflow-hidden
+  rounded-full
+  border
+  sm:h-[var(--profile-avatar-size-desktop)]
+  sm:w-[var(--profile-avatar-size-desktop)]
+"
+style={{
+  width: "88px",
+  height: "88px",
+  background:
+    "var(--user-avatar-bg)",
+  borderColor:
+    "var(--user-avatar-border)",
+}}
           >
             {avatar ? (
               <Image
@@ -163,23 +168,25 @@ export default function ProfileHeader({
             )}
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             <div>
               <h1
-                className="
-                  text-2xl
-                  font-bold
-                  text-[var(--user-title)]
-                "
+className="
+  text-xl
+  sm:text-2xl
+  font-bold
+  text-[var(--user-title)]
+"
               >
                 {user.firstName}{" "}
                 {user.lastName}
               </h1>
 
               <div
-                className="
-                  mt-3
-                  inline-flex
+className="
+  mt-2
+  sm:mt-3
+  inline-flex
                   items-center
                   rounded-full
                   px-3
@@ -203,12 +210,13 @@ export default function ProfileHeader({
             </div>
 
             <div
-              className="
-                grid
-                gap-3
-                text-sm
-                text-[var(--user-text-muted)]
-              "
+className="
+  grid
+  gap-2
+  sm:gap-3
+  text-sm
+  text-[var(--user-text-muted)]
+"
             >
               <div className="flex items-center gap-3">
                 <Mail size={17} />
@@ -250,12 +258,16 @@ export default function ProfileHeader({
         <button
           type="button"
           onClick={onEdit}
-          className="
-            h-12
-            rounded-[var(--user-radius-md)]
-            bg-[var(--user-button-bg)]
-            px-6
-            font-medium
+className="
+  h-10
+  sm:h-12
+  rounded-[var(--user-radius-md)]
+  bg-[var(--user-button-bg)]
+  px-4
+  sm:px-6
+  text-sm
+  sm:text-base
+  font-medium
             text-[var(--user-button-text)]
             transition
             hover:bg-[var(--user-button-hover)]

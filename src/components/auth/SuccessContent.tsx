@@ -42,9 +42,11 @@ export default function SuccessContent({
 
             flex
 
-            h-16
+            h-14
+            w-14
 
-            w-16
+            sm:h-16
+            sm:w-16
 
             items-center
 
@@ -58,15 +60,20 @@ export default function SuccessContent({
           "
         >
           <CircleCheckBig
-            size={32}
+            size={28}
+            className="
+              sm:h-8
+              sm:w-8
+            "
           />
         </div>
 
         <h1
           className="
-            mt-6
+            mt-5
 
-            text-[26px]
+            text-[22px]
+            sm:text-[26px]
 
             font-extrabold
 
@@ -82,13 +89,16 @@ export default function SuccessContent({
           className="
             mx-auto
 
-            mt-3
+            mt-2.5
 
-            max-w-[340px]
+            max-w-[320px]
+            sm:max-w-[340px]
 
-            text-[14px]
+            text-[13px]
+            sm:text-[14px]
 
-            leading-7
+            leading-6
+            sm:leading-7
 
             text-[var(--foreground-muted)]
           "
@@ -98,7 +108,8 @@ export default function SuccessContent({
 
         <div
           className="
-            mt-8
+            mt-6
+            sm:mt-8
           "
         >
           <Link
@@ -107,7 +118,7 @@ export default function SuccessContent({
             <AuthButton
               rightIcon={
                 <ArrowRight
-                  size={17}
+                  size={16}
                 />
               }
             >

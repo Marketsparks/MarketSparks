@@ -23,7 +23,7 @@ export default function AuthCard({
 
         overflow-hidden
 
-        rounded-[28px]
+        rounded-[22px]
 
         border
 
@@ -31,14 +31,16 @@ export default function AuthCard({
 
         bg-[var(--auth-card-bg)]
 
-        p-6
+        p-4
 
-        shadow-[0_18px_60px_rgba(0,0,0,0.08)]
+        shadow-[0_14px_40px_rgba(0,0,0,0.07)]
 
         backdrop-blur-2xl
 
         transition-all
         duration-300
+
+        sm:rounded-[28px]
 
         sm:p-8
 

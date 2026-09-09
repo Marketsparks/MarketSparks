@@ -17,6 +17,7 @@ import AuthInput from "./AuthInput";
 
 type ForgotPasswordFormProps = {
   loading?: boolean;
+
   disabled?: boolean;
 
   onSubmit?: (
@@ -76,11 +77,18 @@ export default function ForgotPasswordForm({
           <Link
             href="/Auth"
             className="
+              text-[13px]
+
               font-semibold
+
               text-[var(--primary)]
+
               transition-opacity
               duration-300
+
               hover:opacity-80
+
+              sm:text-[14px]
             "
           >
             Back to Sign In
@@ -91,7 +99,9 @@ export default function ForgotPasswordForm({
       <form
         onSubmit={handleSubmit}
         className="
-          space-y-5
+          space-y-4
+
+          sm:space-y-5
         "
       >
         <AuthInput
@@ -104,7 +114,13 @@ export default function ForgotPasswordForm({
           required
           disabled={disabled || loading}
           leftIcon={
-            <Mail size={17} />
+            <Mail
+              size={16}
+              className="
+                sm:h-[17px]
+                sm:w-[17px]
+              "
+            />
           }
         />
 
@@ -115,7 +131,11 @@ export default function ForgotPasswordForm({
           loadingText="Sending Reset Link..."
           rightIcon={
             <ArrowRight
-              size={17}
+              size={16}
+              className="
+                sm:h-[17px]
+                sm:w-[17px]
+              "
             />
           }
         >

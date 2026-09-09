@@ -12,24 +12,32 @@ export default function AuthFooter({
   return (
     <footer
       className="
-        mt-8
+        mt-5
 
         border-t
 
         border-[var(--border)]
 
-        pt-5
+        pt-3.5
 
         text-center
+
+        sm:mt-8
+
+        sm:pt-5
       "
     >
       <div
         className="
-          text-[13px]
+          text-[12px]
 
-          leading-6
+          leading-5
 
           text-[var(--foreground-muted)]
+
+          sm:text-[13px]
+
+          sm:leading-6
         "
       >
         {children}

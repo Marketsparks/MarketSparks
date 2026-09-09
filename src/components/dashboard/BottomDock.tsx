@@ -148,7 +148,7 @@ const isCheckoutPage =
         `
           fixed
           inset-x-0
-          bottom-[max(0.25rem,env(safe-area-inset-bottom))]
+          bottom-[max(0.1rem,env(safe-area-inset-bottom))]
           z-30
           flex
           justify-center
@@ -170,7 +170,7 @@ const isCheckoutPage =
 
           flex
 
-          h-12
+          h-14
 
           w-full
 
@@ -247,9 +247,9 @@ const isNavigating =
 
                         flex
 
-                        h-8
+                        h-10
 
-                        w-8
+                        w-10
 
                         items-center
 
@@ -257,7 +257,7 @@ const isNavigating =
 
                         rounded-full
 
-                        border
+                        border-2
 
                         border-[var(--dock-item-border)]
 
@@ -401,9 +401,9 @@ router.push(
 
                         flex
 
-                        h-8
+                        h-10
 
-                        w-8
+                        w-10
 
                         items-center
 
@@ -411,7 +411,7 @@ router.push(
 
                         rounded-full
 
-                        border
+                        border-2
 
                         border-[var(--dock-item-border)]
 
@@ -540,9 +540,9 @@ if (pathname !== href) {
 
         flex
 
-        h-8
+        h-10
 
-        w-8
+        w-10
 
         items-center
 
@@ -550,7 +550,7 @@ if (pathname !== href) {
 
         rounded-full
 
-        border
+        border-2
 
         border-[var(--dock-item-border)]
 

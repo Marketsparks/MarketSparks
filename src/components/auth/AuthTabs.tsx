@@ -10,7 +10,7 @@ type AuthTabsProps = {
   value: AuthMode;
 
   onChange: (
-    value: AuthMode
+    value: AuthMode,
   ) => void;
 };
 
@@ -36,7 +36,7 @@ export default function AuthTabs({
 
         flex
 
-        rounded-2xl
+        rounded-xl
 
         border
 
@@ -44,7 +44,11 @@ export default function AuthTabs({
 
         bg-[var(--surface)]
 
-        p-1
+        p-0.5
+
+        sm:rounded-2xl
+
+        sm:p-1
       "
     >
       {tabs.map((tab) => {
@@ -65,18 +69,26 @@ export default function AuthTabs({
 
               flex-1
 
-              rounded-xl
+              rounded-lg
 
-              px-4
+              px-3
 
-              py-2.5
+              py-2
 
-              text-[14px]
+              text-[13px]
 
               font-semibold
 
               transition-colors
               duration-300
+
+              sm:rounded-xl
+
+              sm:px-4
+
+              sm:py-2.5
+
+              sm:text-[14px]
             "
           >
             {active && (
@@ -92,7 +104,7 @@ export default function AuthTabs({
 
                   inset-0
 
-                  rounded-xl
+                  rounded-lg
 
                   border
 
@@ -101,24 +113,22 @@ export default function AuthTabs({
                   bg-[var(--services-cta-primary-bg)]
 
                   shadow-md
+
+                  sm:rounded-xl
                 "
               />
             )}
 
             <span
-              className={`
-                relative
-
-                ${
-                  active
-                    ? "text-[var(--services-cta-primary-text)]"
-                    : `
+              className={
+                active
+                  ? "relative text-[var(--services-cta-primary-text)]"
+                  : `
+                      relative
                       text-[var(--foreground-muted)]
-
                       hover:text-[var(--foreground)]
                     `
-                }
-              `}
+              }
             >
               {tab.label}
             </span>

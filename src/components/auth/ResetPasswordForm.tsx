@@ -93,7 +93,8 @@ export default function ResetPasswordForm({
       <form
         onSubmit={handleSubmit}
         className="
-          space-y-5
+          space-y-4
+          sm:space-y-5
         "
       >
         <PasswordField
@@ -123,7 +124,7 @@ export default function ResetPasswordForm({
           disabled={disabled}
           loadingText="Updating Password..."
           rightIcon={
-            <ArrowRight size={17} />
+            <ArrowRight size={16} />
           }
         >
           {disabled

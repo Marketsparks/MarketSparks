@@ -18,7 +18,9 @@ export default function AuthDivider({
 
         items-center
 
-        gap-4
+        gap-3
+
+        sm:gap-4
 
         ${className}
       `}
@@ -39,15 +41,19 @@ export default function AuthDivider({
         className="
           shrink-0
 
-          text-[12px]
+          text-[11px]
 
           font-medium
 
           uppercase
 
-          tracking-[0.08em]
+          tracking-[0.06em]
 
           text-[var(--foreground-muted)]
+
+          sm:text-[12px]
+
+          sm:tracking-[0.08em]
         "
       >
         {label}
