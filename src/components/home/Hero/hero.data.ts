@@ -20,7 +20,7 @@ export const heroData: HeroData = {
   },
 
   image: {
-    src: "/assets/images/banner/68215f2fd03e41747017519.png",
+    src: "/assets/images/banner/68215f2fd03e4347017519.png",
     alt: "MarketSparks platform dashboard",
   },
 };

@@ -142,6 +142,11 @@ export default function ProductVariantPicker({
       [variants],
     );
 
+const hasOnlyDefaultVariant =
+  selectableVariants.length === 1 &&
+  selectableVariants[0]?.type === "DEFAULT" &&
+  !selectableVariants[0]?.label?.trim();
+
   const variantGroups =
     useMemo(() => {
       const groups =
@@ -427,12 +432,12 @@ const [
     primarySelection,
   ]);
 
-  if (
-    selectableVariants.length ===
-    0
-  ) {
-    return null;
-  }
+if (
+  selectableVariants.length === 0 ||
+  hasOnlyDefaultVariant
+) {
+  return null;
+}
 
   function handleVariantChange(
     type: ProductVariant["type"],

@@ -180,57 +180,98 @@ export default function CloudinaryUploader({
             disabled:opacity-60
           "
         >
-          {uploading ? (
-            <Loader2
-              size={42}
-              className="animate-spin"
-            />
-          ) : imageUrl ? (
-            <Image
-              src={imageUrl}
-              alt="Uploaded icon"
-              width={72}
-              height={72}
-              className="
-                h-[72px]
-                w-[72px]
-                object-contain
-              "
-            />
-          ) : (
-            <ImagePlus
-              size={42}
-              className="
-                text-[var(--admin-muted)]
-              "
-            />
-          )}
+{uploading ? (
+  <Loader2
+    size={42}
+    className="animate-spin"
+  />
+) : imageUrl ? (
+<div
+  className="
+    relative
+    mx-auto
+    h-56
+    w-56
+    overflow-hidden
+    rounded-xl
+    border
+    border-[var(--admin-input-border)]
+    bg-[var(--admin-card-bg)]
+  "
+>
+  <Image
+    src={imageUrl}
+    alt="Uploaded image"
+    fill
+    className="object-contain p-2"
+  />
 
-          <p
-            className="
-              mt-5
-              text-sm
-              font-semibold
-              text-[var(--admin-title)]
-            "
-          >
-            {uploading
-              ? "Uploading..."
-              : imageUrl
-                ? "Replace Icon"
-                : "Upload Icon"}
-          </p>
+    <div
+      className="
+        absolute
+        inset-0
+        flex
+        items-center
+        justify-center
+        bg-black/0
+        opacity-0
+        transition-all
+        duration-300
+        hover:bg-black/40
+        hover:opacity-100
+      "
+    >
+      <span
+        className="
+          rounded-lg
+          bg-white/90
+          px-4
+          py-2
+          text-sm
+          font-medium
+          text-black
+        "
+      >
+        Change Image
+      </span>
+    </div>
+  </div>
+) : (
+  <ImagePlus
+    size={42}
+    className="
+      text-[var(--admin-muted)]
+    "
+  />
+)}
 
-          <p
-            className="
-              mt-2
-              text-xs
-              text-[var(--admin-muted)]
-            "
-          >
-            PNG, JPG, SVG or WebP.
-            Maximum file size 2 MB.
-          </p>
+{(!imageUrl || uploading) && (
+  <>
+    <p
+      className="
+        mt-5
+        text-sm
+        font-semibold
+        text-[var(--admin-title)]
+      "
+    >
+      {uploading
+        ? "Uploading..."
+        : "Upload Image"}
+    </p>
+
+    <p
+      className="
+        mt-2
+        text-xs
+        text-[var(--admin-muted)]
+      "
+    >
+      PNG, JPG, SVG or WebP.
+      Maximum file size 2 MB.
+    </p>
+  </>
+)}
         </button>
 
         {imageUrl && (

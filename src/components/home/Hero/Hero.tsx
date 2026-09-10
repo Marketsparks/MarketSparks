@@ -1,3 +1,10 @@
+import {
+  Globe2,
+  Headphones,
+  ShieldCheck,
+  Truck,
+} from "lucide-react";
+
 import { Col, Container, Row } from "@/components/layout";
 
 import HeroContent from "./HeroContent";
@@ -6,27 +13,27 @@ import HeroDecoration from "./HeroDecoration";
 
 export default function Hero() {
   return (
-<section
-  className="
-    relative
-    overflow-hidden
+    <section
+      className="
+        relative
+        overflow-hidden
 
-pt-[70px]
-pb-[90px]
+        pt-[48px]
+        pb-[32px]
 
-md:pt-[80px]
-md:pb-[120px]
+        md:pt-[60px]
+        md:pb-[120px]
 
-lg:pt-[95px]
-lg:pb-[140px]
+        lg:pt-[78px]
+        lg:pb-[140px]
 
-xl:pt-[110px]
-xl:pb-[180px]
-  "
-  style={{
-    background: "var(--surface-hero)",
-  }}
->
+        xl:pt-[92px]
+        xl:pb-[180px]
+      "
+      style={{
+        background: "var(--surface-hero)",
+      }}
+    >
       {/* Background Overlay */}
       <div className="absolute inset-0 bg-[var(--hero-overlay)]" />
 
@@ -59,7 +66,116 @@ xl:pb-[180px]
             <HeroMedia />
           </Col>
         </Row>
+
+        {/* Hero Features */}
+        <div
+          className="
+            mt-10
+            border-t
+            border-white/10
+            pt-6
+
+            grid
+            grid-cols-4
+
+            lg:mt-16
+            lg:pt-8
+          "
+        >
+          {[
+            {
+              icon: Truck,
+              title: "Fast & Reliable",
+              subtitle: "Delivery",
+            },
+            {
+              icon: ShieldCheck,
+              title: "Secure",
+              subtitle: "Payments",
+            },
+            {
+              icon: Headphones,
+              title: "24/7",
+              subtitle: "Support",
+            },
+            {
+              icon: Globe2,
+              title: "Global",
+              subtitle: "Marketplace",
+            },
+          ].map(({ icon: Icon, title, subtitle }, index) => (
+            <div
+              key={title}
+              className={`
+                flex
+                flex-col
+                items-center
+                text-center
+                px-1
+
+                ${
+                  index !== 3
+                    ? "border-r border-white/10"
+                    : ""
+                }
+
+                lg:px-2
+                lg:border-r-0
+              `}
+            >
+<Icon
+  className="
+    h-5
+    w-5
+    text-[color:var(--hero-badge-bg)]
+
+    md:h-6
+    md:w-6
+
+    lg:h-9
+    lg:w-9
+  "
+/>
+
+              <p
+                className="
+                  mt-2
+                  text-[11px]
+                  font-semibold
+                  leading-tight
+                  tracking-tight
+                  text-white
+
+                  md:text-xs
+
+                  lg:mt-3
+                  lg:text-lg
+                "
+              >
+                {title}
+              </p>
+
+              <p
+                className="
+                  mt-0.5
+                  text-[9px]
+                  leading-tight
+                  text-white/60
+
+                  md:text-[10px]
+
+                  lg:mt-1
+                  lg:text-base
+                  lg:text-white/70
+                "
+              >
+                {subtitle}
+              </p>
+            </div>
+          ))}
+        </div>
       </Container>
+
       <HeroDecoration />
     </section>
   );

@@ -14,7 +14,7 @@ import { Container } from "@/components/layout";
 import { useCartContext } from "@/context/CartContext";
 
 const socialClass =
-  "flex h-7 w-7 items-center justify-center rounded-md border border-[var(--foreground)] text-[var(--icon-color)] transition-all duration-200 hover:border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)]";
+  "flex h-6 w-6 items-center justify-center rounded-md border border-white/20 text-[var(--icon-color)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#5b5ef7]/40 hover:bg-[#5b5ef7]/12 hover:text-[#b8baff]";
 
 const languages = [
   { code: "en", label: "🇬🇧 English" },
@@ -47,19 +47,19 @@ const pathname = usePathname();
       <Container className="flex h-full items-center justify-between">
         <div className="flex items-center gap-2">
           <a href="#" aria-label="Facebook" className={socialClass}>
-            <FaFacebookF size={13} />
+            <FaFacebookF size={12} />
           </a>
 
           <a href="#" aria-label="Twitter" className={socialClass}>
-            <FaXTwitter size={13} />
+            <FaXTwitter size={12} />
           </a>
 
           <a href="#" aria-label="Instagram" className={socialClass}>
-            <FaInstagram size={13} />
+            <FaInstagram size={12} />
           </a>
 
           <a href="#" aria-label="LinkedIn" className={socialClass}>
-            <FaLinkedinIn size={13} />
+            <FaLinkedinIn size={12} />
           </a>
         </div>
 

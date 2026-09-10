@@ -167,7 +167,7 @@ export default function ProductImages({
             text-[var(--admin-title)]
           "
         >
-          Product Images
+          Product's Primary Image
         </h3>
 
         <p
@@ -183,29 +183,16 @@ export default function ProductImages({
         </p>
       </div>
 
-      <CloudinaryUploader
-        value={null}
-        folder="products"
-        disabled={disabled}
-        onChange={addImage}
-      />
-
-      {value.length === 0 && (
-        <div
-          className="
-            rounded-[var(--admin-surface-radius)]
-            border
-            border-dashed
-            border-[var(--admin-card-border)]
-            p-6
-            text-center
-            text-sm
-            text-[var(--admin-muted)]
-          "
-        >
-          No images uploaded yet.
-        </div>
-      )}
+<div className="relative">
+<CloudinaryUploader
+  value={
+    value[0]?.imageKey ?? null
+  }
+  folder="products"
+  disabled={disabled}
+  onChange={addImage}
+/>
+</div>
 
       {value.length > 0 && (
         <div

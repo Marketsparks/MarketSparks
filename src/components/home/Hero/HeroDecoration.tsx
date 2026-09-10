@@ -7,16 +7,24 @@ export default function HeroDecoration() {
     <motion.div
       className="
         absolute
-        bottom-30
+
         left-1/2
+        bottom-[165px]
+
         hidden
         h-6
         w-6
+
         -translate-x-1/2
         rotate-45
+
         rounded-[2px]
         bg-[var(--hero-badge-bg)]
+
         lg:block
+        xl:bottom-[205px]
+
+        z-20
       "
       animate={{
         y: [0, -8, 0],

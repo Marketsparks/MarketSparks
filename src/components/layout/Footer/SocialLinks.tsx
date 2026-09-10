@@ -1,11 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
-import { useRouter } from "next/navigation";
-
-import { useNavigationLoader } from "@/components/ui/Preloader";
-
 import {
   FaFacebookF,
   FaInstagram,
@@ -16,50 +10,50 @@ import {
 const socials = [
   {
     label: "LinkedIn",
-    href: "#",
     icon: FaLinkedinIn,
   },
   {
     label: "X",
-    href: "#",
     icon: FaXTwitter,
   },
   {
     label: "Instagram",
-    href: "#",
     icon: FaInstagram,
   },
   {
     label: "Facebook",
-    href: "#",
     icon: FaFacebookF,
   },
 ];
 
 export default function SocialLinks() {
-  const router = useRouter();
-
-  const { startNavigation } =
-    useNavigationLoader();
-
   return (
     <div className="flex items-center gap-2.5">
-      {socials.map(({ label, href, icon: Icon }) => (
-        <Link
+      {socials.map(({ label, icon: Icon }) => (
+        <button
           key={label}
-          href={href}
-          onClick={(event) => {
-            event.preventDefault();
-
-            startNavigation();
-
-            router.push(href);
-          }}
+          type="button"
           aria-label={label}
-          className="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--foreground)] text-[var(--icon-color)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)]"
+          className="
+            flex
+            h-9
+            w-9
+            items-center
+            justify-center
+            rounded-md
+            border
+            border-[var(--foreground)]
+            text-[var(--icon-color)]
+            transition-all
+            duration-200
+            hover:-translate-y-0.5
+            hover:border-[var(--foreground)]
+            hover:bg-[var(--foreground)]
+            hover:text-[var(--background)]
+          "
         >
           <Icon size={14} />
-        </Link>
+        </button>
       ))}
     </div>
   );

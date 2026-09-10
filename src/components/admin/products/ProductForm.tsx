@@ -32,7 +32,6 @@ import type {
 
 import ProductImages from "./ProductImages";
 import ProductVariants from "./ProductVariants";
-import ProductSpecifications from "./ProductSpecifications";
 import ProductReviews from "./ProductReviews";
 import CategoryMultiSelect from "@/components/ui/CategoryMultiSelect";
 
@@ -586,7 +585,7 @@ categoryIds:
                 text-[var(--admin-title)]
               "
             >
-              Price
+             Product Price
             </label>
 
             <input
@@ -641,7 +640,7 @@ categoryIds:
                 text-[var(--admin-title)]
               "
             >
-              Compare Price
+              Discounted Amount
             </label>
 
             <input
@@ -704,7 +703,7 @@ categoryIds:
                 text-[var(--admin-title)]
               "
             >
-              Initial Product Rating
+              Product Rating
             </label>
 
             <input
@@ -849,113 +848,6 @@ categoryIds:
           Featured Product
         </label>
 
-        <section
-          className="
-            grid
-            gap-[var(--space-lg)]
-          "
-        >
-          <div className="space-y-2">
-            <label
-              htmlFor="metaTitle"
-              className="
-                text-sm
-                font-medium
-                text-[var(--admin-title)]
-              "
-            >
-              SEO Title
-            </label>
-
-            <input
-              id="metaTitle"
-              {...register(
-                "metaTitle",
-              )}
-              placeholder="Optional"
-              className="
-                h-11
-                w-full
-                rounded-[var(--admin-input-radius)]
-                border
-                border-[var(--admin-input-border)]
-                bg-[var(--admin-input-bg)]
-                px-4
-                text-sm
-                text-[var(--admin-input-text)]
-                outline-none
-                transition
-                focus:border-[var(--admin-input-focus)]
-              "
-            />
-
-            {errors.metaTitle && (
-              <p
-                className="
-                  text-xs
-                  text-[var(--user-danger)]
-                "
-              >
-                {
-                  errors.metaTitle
-                    .message
-                }
-              </p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <label
-              htmlFor="metaDescription"
-              className="
-                text-sm
-                font-medium
-                text-[var(--admin-title)]
-              "
-            >
-              SEO Description
-            </label>
-
-            <textarea
-              id="metaDescription"
-              rows={3}
-              {...register(
-                "metaDescription",
-              )}
-              placeholder="Optional"
-              className="
-                w-full
-                resize-none
-                rounded-[var(--admin-input-radius)]
-                border
-                border-[var(--admin-input-border)]
-                bg-[var(--admin-input-bg)]
-                px-4
-                py-3
-                text-sm
-                text-[var(--admin-input-text)]
-                outline-none
-                transition
-                focus:border-[var(--admin-input-focus)]
-              "
-            />
-
-            {errors.metaDescription && (
-              <p
-                className="
-                  text-xs
-                  text-[var(--user-danger)]
-                "
-              >
-                {
-                  errors.metaDescription
-                    .message
-                }
-              </p>
-            )}
-          </div>
-        </section>
-
         <ProductImages
           value={
             watch(
@@ -1000,43 +892,6 @@ categoryIds:
             setValue(
               "variants",
               variants,
-              {
-                shouldDirty:
-                  true,
-
-                shouldValidate:
-                  true,
-              },
-            )
-          }
-        />
-
-        <ProductSpecifications
-          value={(
-            watch(
-              "specifications",
-            ) ?? []
-          ).map(
-            (
-              specification,
-              index,
-            ) => ({
-              ...specification,
-
-              sortOrder:
-                specification.sortOrder ??
-                index,
-            }),
-          )}
-          disabled={
-            loading
-          }
-          onChange={(
-            specifications,
-          ) =>
-            setValue(
-              "specifications",
-              specifications,
               {
                 shouldDirty:
                   true,
