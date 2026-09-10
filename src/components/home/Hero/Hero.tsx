@@ -137,40 +137,39 @@ export default function Hero() {
   "
 />
 
-              <p
-                className="
-                  mt-2
-                  text-[11px]
-                  font-semibold
-                  leading-tight
-                  tracking-tight
-                  text-white
+<p
+  className="
+    mt-2
+    text-[11px]
+    font-semibold
+    leading-tight
+    tracking-tight
+    text-[var(--foreground)]
 
-                  md:text-xs
+    md:text-xs
 
-                  lg:mt-3
-                  lg:text-lg
-                "
-              >
-                {title}
-              </p>
+    lg:mt-3
+    lg:text-lg
+  "
+>
+  {title}
+</p>
 
-              <p
-                className="
-                  mt-0.5
-                  text-[9px]
-                  leading-tight
-                  text-white/60
+<p
+  className="
+    mt-0.5
+    text-[9px]
+    leading-tight
+    text-[var(--foreground-muted)]
 
-                  md:text-[10px]
+    md:text-[10px]
 
-                  lg:mt-1
-                  lg:text-base
-                  lg:text-white/70
-                "
-              >
-                {subtitle}
-              </p>
+    lg:mt-1
+    lg:text-base
+  "
+>
+  {subtitle}
+</p>
             </div>
           ))}
         </div>
