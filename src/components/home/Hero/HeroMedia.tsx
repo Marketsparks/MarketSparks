@@ -33,14 +33,14 @@ export default function HeroMedia() {
     bottom-6
     left-1/2
     -translate-x-1/2
-    h-16
-    w-[54%]
+    h-20
+    w-[60%]
     rounded-full
-    blur-2xl
+    blur-3xl
     -z-10
   "
   style={{
-    background: "rgba(92, 102, 255, 0.95)",
+    background: "rgba(92, 102, 255, 1)",
   }}
 />
 
@@ -48,10 +48,10 @@ export default function HeroMedia() {
 <div
   className="
     absolute
-    bottom-3
+    bottom-0
     left-1/2
     -translate-x-1/2
-    w-[92%]
+    w-[100%]
     h-10
     rounded-full
     border

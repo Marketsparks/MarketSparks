@@ -247,17 +247,16 @@ export default function StoreProductCard({
           transition={{
             duration: 0.25,
           }}
-          className={`
-            rounded-b-[20px]
-            bg-[var(--surface-card)]
-            ${
-              variant ===
-              "compact"
-                ? "min-h-[82px]"
-                : "min-h-[116px]"
-            }
-            ${styles.contentPadding}
-          `}
+className={`
+  rounded-b-[20px]
+  bg-[var(--surface-card)]
+  ${
+variant === "compact"
+  ? "min-h-[72px] sm:min-h-[76px]"
+  : "min-h-[88px] sm:min-h-[96px] lg:min-h-[100px]"
+  }
+  ${styles.contentPadding}
+`}
         >
           <StoreProductRating
             product={product}
@@ -278,13 +277,13 @@ export default function StoreProductCard({
             transition={{
               duration: 0.25,
             }}
-            className={`
-              mt-1
-              overflow-hidden
-              whitespace-nowrap
-              leading-[1.3]
-              ${styles.title}
-            `}
+className={`
+  mt-0.5
+  overflow-hidden
+  whitespace-nowrap
+  leading-[1.3]
+  ${styles.title}
+`}
           >
             {truncateTitle(
               product.name,

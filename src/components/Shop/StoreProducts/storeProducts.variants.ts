@@ -47,45 +47,42 @@ export const STORE_PRODUCT_VARIANTS: Record<
   StoreProductVariantStyles
 > = {
 default: {
-  imageAspectRatio: "5 / 6",
+  imageAspectRatio: "11 / 14",
 
   imageSizes:
     "(max-width:768px) 100vw, (max-width:1200px) 50vw, 25vw",
 
   contentPadding:
-    "px-5 pt-0.6 pb-1",
+    "px-3 py-2 sm:px-4 lg:px-4",
 
   title:
-    "text-[16px] lg:text-[17px]",
+    "text-[14px] sm:text-[15px] lg:text-[16px] font-semibold",
 
-  titleMarginTop: "mt-1",
+  titleMarginTop: "mt-0.5",
 
-  ratingMarginTop: "mt-5",
+  ratingMarginTop: "mt-2 sm:mt-3",
 
-  price: "text-[17px]",
+  price:
+    "text-[15px] sm:text-[16px]",
 
-  oldPrice: "text-[14px]",
+  oldPrice:
+    "text-[12px] sm:text-[13px]",
 
-  review: "text-[14px]",
+  review:
+    "text-[12px] sm:text-[13px]",
 
   badge: {
-    minWidth: 40,
-
-    height: 26,
-
-    fontSize: 12,
-
-    top: 16,
-
-    right: 16,
+    minWidth: 36,
+    height: 24,
+    fontSize: 11,
+    top: 14,
+    right: 14,
   },
 
   actions: {
-    buttonSize: 42,
-
-    iconSize: 20,
-
-    right: 16,
+    buttonSize: 38,
+    iconSize: 18,
+    right: 14,
   },
 },
 
