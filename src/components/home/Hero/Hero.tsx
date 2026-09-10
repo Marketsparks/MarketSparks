@@ -175,6 +175,25 @@ export default function Hero() {
         </div>
       </Container>
 
+{/* Bottom Fade Into Next Section */}
+<div
+  className="
+    pointer-events-none
+    absolute
+    bottom-0
+    left-0
+    right-0
+    h-24
+    md:h-32
+    lg:h-40
+    z-[1]
+  "
+  style={{
+    background:
+      "linear-gradient(to bottom, transparent 0%, #0B1435 100%)",
+  }}
+/>
+
       <HeroDecoration />
     </section>
   );
