@@ -62,18 +62,20 @@ export default function HeroMedia() {
   "
 />
 
-        <Image
-          src={heroData.image.src}
-          alt={heroData.image.alt}
-          width={510}
-          height={580}
-          priority
+<Image
+  src={heroData.image.src}
+  alt={heroData.image.alt}
+  width={510}
+  height={580}
+  priority
+  fetchPriority="high"
+  loading="eager"
   className="
     relative
     z-20
     drop-shadow-[0_35px_45px_rgba(0,0,0,.35)]
   "
-        />
+/>
       </div>
     </div>
   );
