@@ -74,22 +74,49 @@ export default function FeaturedProductContent() {
         {featuredProductData.title}
       </h2>
 
-      {/* Price */}
-      <p
-        className="
-          mb-4
-          text-[26px]
-          font-extrabold
-          leading-none
-          text-[var(--featured-accent)]
+{/* Price */}
+<div
+  className="
+    mb-4
+    flex
+    items-center
+    gap-3
+  "
+>
+  {featuredProductData.discount && (
+    <span
+      className="
+        text-[14px]
+        font-semibold
+        leading-none
+        text-[var(--featured-text)]
+        line-through
+        opacity-60
 
-          md:text-[32px]
+        md:text-[15px]
 
-          xl:text-[40px]
-        "
-      >
-        {featuredProductData.price}
-      </p>
+        xl:text-[16px]
+      "
+    >
+      {featuredProductData.discount}
+    </span>
+  )}
+
+  <span
+    className="
+      text-[26px]
+      font-extrabold
+      leading-none
+      text-[var(--featured-accent)]
+
+      md:text-[32px]
+
+      xl:text-[40px]
+    "
+  >
+    {featuredProductData.price}
+  </span>
+</div>
 
       {/* Description */}
       <p

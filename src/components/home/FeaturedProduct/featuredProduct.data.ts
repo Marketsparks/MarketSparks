@@ -5,7 +5,9 @@ export const featuredProductData: FeaturedProductData = {
 
   title: "KITCHEN GADGETS",
 
-  price: "$ 249.00",
+  price: "$ 189.99",
+
+  discount: "$ 23",
 
   description:
     "Serve the smoothest homemade soups, creamiest smoothies, and expertly emulsified sauces & dressings by preparing foods with the NINJA BLENDER! Enjoy Exclusive Savings + FREE Shipping Every Day!",
