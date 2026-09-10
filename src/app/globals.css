@@ -79,6 +79,8 @@
 --featured-text: rgba(0, 0, 0, 0.72);
 --featured-accent: #5B5EF7;
 
+--hero-fade-bg: #FCFCFD;
+
 /* ==========================================
    Store Products
 ========================================== */
@@ -2235,6 +2237,8 @@
 --featured-title: #ffffff;
 --featured-text: rgba(255, 255, 255, 0.72);
 --featured-accent: #5B5EF7;
+
+--hero-fade-bg: #0A1334;
 
 /* ==========================================
    Store Products

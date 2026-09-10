@@ -190,7 +190,7 @@ export default function Hero() {
   "
   style={{
     background:
-      "linear-gradient(to bottom, transparent 0%, #0B1435 100%)",
+      "linear-gradient(to bottom, transparent 0%, var(--hero-fade-bg) 100%)",
   }}
 />
 
