@@ -7,7 +7,7 @@ import {
   Calendar,
   Coins,
   Package,
-  Sparkles,
+  BadgePlus,
 } from "lucide-react";
 
 import { motion } from "framer-motion";
@@ -82,7 +82,7 @@ if (!hasActiveSubscription || !subscription) {
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
-          <Sparkles
+          <BadgePlus
             size={13}
             className="text-yellow-300"
           />
@@ -124,21 +124,23 @@ if (!hasActiveSubscription || !subscription) {
           font-bold
         "
       >
-        Unlock Premium Selling
+        Unlock Premium Access
       </h3>
 
-      <p
-        className="
-          mt-1
-          text-[9px]
-          sm:text-[10px]
-          leading-4
-          text-white/80
-        "
-      >
-        Upgrade your account to unlock affiliate products,
-        higher commissions, and advanced selling tools.
-      </p>
+<p
+  className="
+    mt-1
+    text-[9px]
+    sm:text-[10px]
+    leading-4
+    text-white/80
+  "
+>
+  Unlock exclusive affiliate benefits,
+  premium marketplace tools, and the
+  ability to publish and earn from your
+  own products.
+</p>
 
       <div
         className="
@@ -147,9 +149,9 @@ if (!hasActiveSubscription || !subscription) {
         "
       >
         {[
-            "Advanced Affiliate Tools",
-            "Earn Commission on Every Sale",
-            "Publish & Sell Products",
+            "Access Affiliate Tools",
+            "Earn Affiliate Commissions",
+            "Publish and Earn From Your Own Products",
         ].map((feature) => (
           <div
             key={feature}
@@ -192,35 +194,36 @@ if (!hasActiveSubscription || !subscription) {
   href="/plans"
   onClick={onNavigate}
   className="
-          group
-          mt-2.5
-          flex
-          items-center
-          justify-center
-          gap-1.5
-          rounded-lg
-          bg-[#5b5cf0]
-          py-1.5
-          text-[9px]
-          sm:text-[10px]
-          font-semibold
-          text-white
-          transition-all
-          duration-300
-          hover:bg-[#6d6ef7]
-        "
-      >
-        Explore Plans
+    group
+    mt-2.5
+    flex
+    items-center
+    justify-center
+    gap-1.5
+    rounded-lg
+    bg-[#5b5cf0]
+    py-2
+    text-[10px]
+    sm:py-1.5
+    sm:text-[10px]
+    font-semibold
+    text-white
+    transition-all
+    duration-300
+    hover:bg-[#6d6ef7]
+  "
+>
+  Explore Plans
 
-        <ArrowRight
-          size={11}
-          className="
-            transition-transform
-            duration-300
-            group-hover:translate-x-0.5
-          "
-        />
-      </Link>
+  <ArrowRight
+    size={12}
+    className="
+      transition-transform
+      duration-300
+      group-hover:translate-x-0.5
+    "
+  />
+</Link>
     </motion.div>
   );
 }
@@ -442,13 +445,15 @@ return (
     flex
     items-center
     justify-center
-    gap-1
+    gap-1.5
     rounded-md
     border
     border-[var(--profile-menu-divider)]
     bg-[var(--background)]
-    py-1
-    text-[8px]
+    py-1.5
+    text-[9px]
+    sm:py-1
+    sm:text-[8px]
     font-semibold
     transition-colors
     hover:border-[#5b5cf0]
@@ -457,7 +462,7 @@ return (
 >
   Manage Plan
 
-  <ArrowRight size={11} />
+  <ArrowRight size={12} />
 </Link>
       </div>
     </motion.div>
