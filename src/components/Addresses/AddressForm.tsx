@@ -123,11 +123,19 @@ export default function AddressForm({
     field: K,
     value: AddressFormValues[K],
   ) {
+    const nextValue =
+      field === "phoneNumber" ||
+      field === "alternatePhoneNumber"
+        ? sanitizePhone(
+            value as string,
+          )
+        : value;
+
     setValues(
       (current) => ({
         ...current,
         [field]:
-          value,
+          nextValue,
       }),
     );
 
@@ -148,6 +156,36 @@ export default function AddressForm({
     if (!canSubmit) {
       setError(
         "Complete all required address details.",
+      );
+
+      return;
+    }
+
+    const phoneDigits =
+      phoneDigitCount(
+        values.phoneNumber,
+      );
+
+    const alternatePhoneDigits =
+      phoneDigitCount(
+        values.alternatePhoneNumber ??
+          "",
+      );
+
+    if (phoneDigits < 7) {
+      setError(
+        "Phone number must contain at least 7 digits.",
+      );
+
+      return;
+    }
+
+    if (
+      values.alternatePhoneNumber?.trim() &&
+      alternatePhoneDigits < 7
+    ) {
+      setError(
+        "Alternate phone number must contain at least 7 digits.",
       );
 
       return;
@@ -217,6 +255,7 @@ export default function AddressForm({
       >
         <Field
           label="Full name"
+          placeholder="Enter your full name"
           required
           value={
             values.fullName
@@ -234,6 +273,7 @@ export default function AddressForm({
 
         <Field
           label="Phone number"
+          placeholder="Enter your phone number"
           required
           type="tel"
           value={
@@ -253,6 +293,7 @@ export default function AddressForm({
 
       <Field
         label="Alternate phone"
+        placeholder="Enter an alternate phone number"
         type="tel"
         value={
           values.alternatePhoneNumber ??
@@ -271,6 +312,7 @@ export default function AddressForm({
 
       <Field
         label="Address line 1"
+        placeholder="Street address"
         required
         value={
           values.addressLine1
@@ -288,6 +330,7 @@ export default function AddressForm({
 
       <Field
         label="Address line 2"
+        placeholder="Apartment, suite, unit, etc. (optional)"
         value={
           values.addressLine2 ??
           ""
@@ -312,6 +355,7 @@ export default function AddressForm({
       >
         <Field
           label="City"
+          placeholder="Enter your city"
           required
           value={
             values.city
@@ -329,6 +373,7 @@ export default function AddressForm({
 
         <Field
           label="State"
+          placeholder="Enter your state (optional)"
           value={
             values.state ??
             ""
@@ -354,6 +399,7 @@ export default function AddressForm({
       >
         <Field
           label="Country"
+          placeholder="Select your country"
           required
           value={
             values.country
@@ -371,6 +417,7 @@ export default function AddressForm({
 
         <Field
           label="Postal code"
+          placeholder="Enter postal code (optional)"
           value={
             values.postalCode ??
             ""
@@ -485,82 +532,82 @@ export default function AddressForm({
           </button>
         )}
 
-<button
-  type="submit"
-  disabled={
-    submitting ||
-    !canSubmit
-  }
-  className="
-    relative
-    inline-flex
-    h-9
-    items-center
-    justify-center
-    overflow-hidden
-    rounded-lg
-    border
-    border-[rgba(255,255,255,0.08)]
-    bg-gradient-to-r
-    from-[#6D63FF]
-    to-[#5A4FFF]
-    px-5
-    text-xs
-    font-medium
-    text-white
-    shadow-[0_8px_24px_rgba(90,79,255,0.35)]
-    transition-all
-    duration-300
-    hover:-translate-y-0.5
-    hover:shadow-[0_12px_30px_rgba(90,79,255,0.45)]
-    active:translate-y-0
-    active:scale-[0.98]
-    disabled:cursor-not-allowed
-    disabled:opacity-50
-    disabled:hover:translate-y-0
-    disabled:hover:shadow-[0_8px_24px_rgba(90,79,255,0.35)]
-  "
->
-  <span
-    className="
-      absolute
-      inset-0
-      bg-gradient-to-r
-      from-transparent
-      via-white/15
-      to-transparent
-      -translate-x-full
-      transition-transform
-      duration-700
-      group-hover:translate-x-full
-    "
-  />
+        <button
+          type="submit"
+          disabled={
+            submitting ||
+            !canSubmit
+          }
+          className="
+            relative
+            inline-flex
+            h-9
+            items-center
+            justify-center
+            overflow-hidden
+            rounded-lg
+            border
+            border-[rgba(255,255,255,0.08)]
+            bg-gradient-to-r
+            from-[#6D63FF]
+            to-[#5A4FFF]
+            px-5
+            text-xs
+            font-medium
+            text-white
+            shadow-[0_8px_24px_rgba(90,79,255,0.35)]
+            transition-all
+            duration-300
+            hover:-translate-y-0.5
+            hover:shadow-[0_12px_30px_rgba(90,79,255,0.45)]
+            active:translate-y-0
+            active:scale-[0.98]
+            disabled:cursor-not-allowed
+            disabled:opacity-50
+            disabled:hover:translate-y-0
+            disabled:hover:shadow-[0_8px_24px_rgba(90,79,255,0.35)]
+          "
+        >
+          <span
+            className="
+              absolute
+              inset-0
+              bg-gradient-to-r
+              from-transparent
+              via-white/15
+              to-transparent
+              -translate-x-full
+              transition-transform
+              duration-700
+              group-hover:translate-x-full
+            "
+          />
 
-  <span
-    className="
-      relative
-      z-10
-      inline-flex
-      items-center
-      gap-2
-    "
-  >
-    {submitting ? (
-      <>
-        <Loader2
-          size={14}
-          className="animate-spin"
-        />
+          <span
+            className="
+              relative
+              z-10
+              inline-flex
+              items-center
+              gap-2
+            "
+          >
+            {submitting ? (
+              <>
+                <Loader2
+                  size={14}
+                  className="animate-spin"
+                />
 
-        Saving...
-      </>
-    ) : isEditing ? (
-      "Save changes"
-    ) : (
-      "Add address"
-    )}
-  </span>
-</button>
+                Saving...
+              </>
+            ) : isEditing ? (
+              "Save changes"
+            ) : (
+              "Add address"
+            )}
+          </span>
+        </button>
       </div>
     </form>
   );
@@ -568,6 +615,8 @@ export default function AddressForm({
 
 type FieldProps = {
   label: string;
+
+  placeholder: string;
 
   value: string;
 
@@ -584,6 +633,7 @@ type FieldProps = {
 
 function Field({
   label,
+  placeholder,
   value,
   onChange,
   required = false,
@@ -613,9 +663,15 @@ function Field({
       <input
         type={type}
         value={value}
+        placeholder={placeholder}
         required={required}
         disabled={
           disabled
+        }
+        inputMode={
+          type === "tel"
+            ? "tel"
+            : undefined
         }
         onChange={(
           event,
@@ -644,4 +700,41 @@ function Field({
       />
     </div>
   );
+}
+
+function sanitizePhone(
+  value: string,
+): string {
+  const filtered =
+    value.replace(
+      /[^\d+()\s]/g,
+      "",
+    );
+
+  if (!filtered.includes("+")) {
+    return filtered;
+  }
+
+  if (filtered.startsWith("+")) {
+    return (
+      "+" +
+      filtered
+        .slice(1)
+        .replace(/\+/g, "")
+    );
+  }
+
+  return filtered.replace(
+    /\+/g,
+    "",
+  );
+}
+
+function phoneDigitCount(
+  value: string,
+): number {
+  return value.replace(
+    /\D/g,
+    "",
+  ).length;
 }

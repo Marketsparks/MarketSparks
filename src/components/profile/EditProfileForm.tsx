@@ -35,9 +35,15 @@ export function EditProfileForm({
     field: keyof ProfileValues,
     value: string,
   ) {
+    const nextValue =
+      field === "phoneNumber" ||
+      field === "secondaryPhoneNumber"
+        ? sanitizePhone(value)
+        : value;
+
     setValues((previous) => ({
       ...previous,
-      [field]: value,
+      [field]: nextValue,
     }));
   }
 
@@ -63,6 +69,35 @@ export function EditProfileForm({
     event: React.FormEvent<HTMLFormElement>,
   ) {
     event.preventDefault();
+
+    const primaryPhoneDigits =
+      phoneDigitCount(
+        values.phoneNumber,
+      );
+
+    const secondaryPhoneDigits =
+      phoneDigitCount(
+        values.secondaryPhoneNumber,
+      );
+
+    if (primaryPhoneDigits < 7) {
+      toast.error(
+        "Primary phone number must contain at least 7 digits.",
+      );
+
+      return;
+    }
+
+    if (
+      values.secondaryPhoneNumber.trim() &&
+      secondaryPhoneDigits < 7
+    ) {
+      toast.error(
+        "Secondary phone number must contain at least 7 digits.",
+      );
+
+      return;
+    }
 
     try {
       setSaving(true);
@@ -138,6 +173,7 @@ export function EditProfileForm({
         <Field
           label="Primary Phone"
           value={values.phoneNumber}
+          type="tel"
           onChange={(value) =>
             updateField(
               "phoneNumber",
@@ -151,6 +187,7 @@ export function EditProfileForm({
           value={
             values.secondaryPhoneNumber
           }
+          type="tel"
           onChange={(value) =>
             updateField(
               "secondaryPhoneNumber",
@@ -159,13 +196,16 @@ export function EditProfileForm({
           }
         />
 
-<CountrySelect
-  label="Country"
-  value={values.country as Country}
-  onChange={(country) =>
-    updateField("country", country)
-  }
-/>
+        <CountrySelect
+          label="Country"
+          value={values.country as Country}
+          onChange={(country) =>
+            updateField(
+              "country",
+              country,
+            )
+          }
+        />
       </div>
 
       <button
@@ -223,6 +263,7 @@ export function EditProfileForm({
 type FieldProps = {
   label: string;
   value: string;
+  type?: "text" | "tel";
   onChange: (
     value: string,
   ) => void;
@@ -231,6 +272,7 @@ type FieldProps = {
 function Field({
   label,
   value,
+  type = "text",
   onChange,
 }: FieldProps) {
   return (
@@ -246,7 +288,13 @@ function Field({
       </span>
 
       <input
+        type={type}
         value={value}
+        inputMode={
+          type === "tel"
+            ? "tel"
+            : undefined
+        }
         onChange={(event) =>
           onChange(
             event.target.value,
@@ -272,4 +320,41 @@ function Field({
       />
     </label>
   );
+}
+
+function sanitizePhone(
+  value: string,
+): string {
+  const filtered =
+    value.replace(
+      /[^\d+()\s]/g,
+      "",
+    );
+
+  if (!filtered.includes("+")) {
+    return filtered;
+  }
+
+  if (filtered.startsWith("+")) {
+    return (
+      "+" +
+      filtered
+        .slice(1)
+        .replace(/\+/g, "")
+    );
+  }
+
+  return filtered.replace(
+    /\+/g,
+    "",
+  );
+}
+
+function phoneDigitCount(
+  value: string,
+): number {
+  return value.replace(
+    /\D/g,
+    "",
+  ).length;
 }

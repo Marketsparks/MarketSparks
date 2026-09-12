@@ -75,13 +75,19 @@ function updateField(
     "postalCode",
   ];
 
+  const nextValue =
+    field === "phoneNumber" ||
+    field === "alternatePhoneNumber"
+      ? sanitizePhone(value)
+      : value;
+
   onDeliveryChange({
     ...delivery,
     [field]: nullableFields.includes(field)
-      ? value.trim() === ""
+      ? nextValue.trim() === ""
         ? null
-        : value
-      : value,
+        : nextValue
+      : nextValue,
   });
 }
 
@@ -326,6 +332,7 @@ function updateField(
               delivery.phoneNumber
             }
             placeholder="Phone number"
+            type="tel"
             onChange={(value) =>
               updateField(
                 "phoneNumber",
@@ -441,6 +448,7 @@ function updateField(
                 ""
               }
               placeholder="Alternative phone"
+              type="tel"
               onChange={(value) =>
                 updateField(
                   "alternatePhoneNumber",
@@ -594,6 +602,8 @@ type FieldProps = {
 
   placeholder: string;
 
+  type?: "text" | "tel";
+
   onChange: (
     value: string,
   ) => void;
@@ -603,6 +613,7 @@ function Field({
   label,
   value,
   placeholder,
+  type = "text",
   onChange,
 }: FieldProps) {
   return (
@@ -622,9 +633,15 @@ function Field({
       </span>
 
       <input
+        type={type}
         value={value ?? ""}
         placeholder={
           placeholder
+        }
+        inputMode={
+          type === "tel"
+            ? "tel"
+            : undefined
         }
         onChange={(event) =>
           onChange(
@@ -686,5 +703,33 @@ function Detail({
         {value || "Not provided"}
       </p>
     </div>
+  );
+}
+
+function sanitizePhone(
+  value: string,
+): string {
+  const filtered =
+    value.replace(
+      /[^\d+()\s]/g,
+      "",
+    );
+
+  if (!filtered.includes("+")) {
+    return filtered;
+  }
+
+  if (filtered.startsWith("+")) {
+    return (
+      "+" +
+      filtered
+        .slice(1)
+        .replace(/\+/g, "")
+    );
+  }
+
+  return filtered.replace(
+    /\+/g,
+    "",
   );
 }
