@@ -130,10 +130,12 @@ export default function StoreProductCard({
           border-[#5658EC]
           bg-[var(--surface-card)]
         "
-        style={{
-          borderRadius:
-            STORE_CARD_RADIUS,
-        }}
+style={{
+  borderRadius:
+    STORE_CARD_RADIUS,
+  borderTopLeftRadius: 22,
+  borderTopRightRadius: 22,
+}}
         variants={{
           rest: {
             y: 0,

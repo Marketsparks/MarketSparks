@@ -36,7 +36,11 @@ export default function AuthTabs({
 
         flex
 
-        rounded-xl
+        h-11
+
+        min-w-0
+
+        rounded-[22px]
 
         border
 
@@ -46,7 +50,9 @@ export default function AuthTabs({
 
         p-0.5
 
-        sm:rounded-2xl
+        sm:h-12
+
+        sm:rounded-[26px]
 
         sm:p-1
       "
@@ -67,26 +73,34 @@ export default function AuthTabs({
 
               z-10
 
+              flex
+
+              min-w-0
+
               flex-1
 
-              rounded-lg
+              items-center
 
-              px-3
+              justify-center
 
-              py-2
+              rounded-[18px]
 
-              text-[13px]
+              px-2
+
+              text-[12px]
 
               font-semibold
+
+              leading-none
+
+              whitespace-nowrap
 
               transition-colors
               duration-300
 
-              sm:rounded-xl
+              sm:rounded-[22px]
 
               sm:px-4
-
-              sm:py-2.5
 
               sm:text-[14px]
             "
@@ -104,7 +118,7 @@ export default function AuthTabs({
 
                   inset-0
 
-                  rounded-lg
+                  rounded-[18px]
 
                   border
 
@@ -114,7 +128,7 @@ export default function AuthTabs({
 
                   shadow-md
 
-                  sm:rounded-xl
+                  sm:rounded-[22px]
                 "
               />
             )}
@@ -122,9 +136,10 @@ export default function AuthTabs({
             <span
               className={
                 active
-                  ? "relative text-[var(--services-cta-primary-text)]"
+                  ? "relative whitespace-nowrap text-[var(--services-cta-primary-text)]"
                   : `
                       relative
+                      whitespace-nowrap
                       text-[var(--foreground-muted)]
                       hover:text-[var(--foreground)]
                     `

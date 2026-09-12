@@ -45,17 +45,21 @@ export default function StoreProductImage({
     hoverImage?.imageUrl;
 
   return (
-    <div
-      className="
-        relative
-        overflow-hidden
-        rounded-t-[20px]
-      "
-      style={{
-        aspectRatio:
-          styles.imageAspectRatio,
-      }}
-    >
+<div
+  className="
+    relative
+    overflow-hidden
+    rounded-t-[20px]
+    aspect-[var(--mobile-image-aspect-ratio)]
+    sm:aspect-[var(--image-aspect-ratio)]
+  "
+  style={{
+    "--mobile-image-aspect-ratio":
+      styles.mobileImageAspectRatio,
+    "--image-aspect-ratio":
+      styles.imageAspectRatio,
+  } as React.CSSProperties}
+>
       <StoreProductBadge
         product={product}
         variant={variant}

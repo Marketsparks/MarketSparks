@@ -93,8 +93,7 @@ export default function ResetPasswordForm({
       <form
         onSubmit={handleSubmit}
         className="
-          space-y-4
-          sm:space-y-5
+          space-y-3
         "
       >
         <PasswordField

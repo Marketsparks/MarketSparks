@@ -22,8 +22,8 @@ export default function ProductTabs({
 }: ProductTabsProps) {
   const [activeTab, setActiveTab] =
     useState<
-      "description" | "reviews"
-    >("description");
+      "reviews" | "description"
+    >("reviews");
 
   const activeButtonClasses = `
     border
@@ -62,36 +62,7 @@ export default function ProductTabs({
           lg:pb-3
         "
       >
-        <button
-          type="button"
-          onClick={() =>
-            setActiveTab(
-              "description",
-            )
-          }
-          className={`
-            rounded-md
-            px-2.5
-            py-1
-            text-[12px]
-            font-medium
-            transition-all
-            duration-300
-            lg:rounded-lg
-            lg:px-4
-            lg:py-2
-            lg:text-[14px]
-            ${
-              activeTab ===
-              "description"
-                ? activeButtonClasses
-                : inactiveButtonClasses
-            }
-          `}
-        >
-          Description
-        </button>
-
+        {/* Reviews */}
         <button
           type="button"
           onClick={() =>
@@ -121,6 +92,37 @@ export default function ProductTabs({
         >
           Reviews ({reviews.length})
         </button>
+
+        {/* Description */}
+        <button
+          type="button"
+          onClick={() =>
+            setActiveTab(
+              "description",
+            )
+          }
+          className={`
+            rounded-md
+            px-2.5
+            py-1
+            text-[12px]
+            font-medium
+            transition-all
+            duration-300
+            lg:rounded-lg
+            lg:px-4
+            lg:py-2
+            lg:text-[14px]
+            ${
+              activeTab ===
+              "description"
+                ? activeButtonClasses
+                : inactiveButtonClasses
+            }
+          `}
+        >
+          Description
+        </button>
       </div>
 
       <div
@@ -130,13 +132,7 @@ export default function ProductTabs({
         "
       >
         {activeTab ===
-        "description" ? (
-          <ProductDescription
-            description={
-              description
-            }
-          />
-        ) : (
+        "reviews" ? (
           <>
             <ProductReviews
               reviews={reviews}
@@ -144,6 +140,12 @@ export default function ProductTabs({
 
             <ProductReviewForm />
           </>
+        ) : (
+          <ProductDescription
+            description={
+              description
+            }
+          />
         )}
       </div>
     </section>

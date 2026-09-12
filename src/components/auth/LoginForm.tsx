@@ -145,9 +145,9 @@ Sign in to continue building your business with MarketSparks.
     >
       <div
         className="
-          mb-4
+          mb-3
 
-          sm:mb-6
+          sm:mb-4
         "
       >
         <AuthTabs
@@ -173,9 +173,9 @@ Sign in to continue building your business with MarketSparks.
       <form
         onSubmit={handleSubmit}
         className="
-          space-y-4
+          space-y-3
 
-          sm:space-y-5
+          sm:space-y-4
         "
       >
         <AuthInput
@@ -217,8 +217,6 @@ Sign in to continue building your business with MarketSparks.
             justify-between
 
             gap-3
-
-            sm:gap-4
           "
         >
           <label
@@ -234,10 +232,6 @@ Sign in to continue building your business with MarketSparks.
               text-[12px]
 
               text-[var(--foreground-muted)]
-
-              sm:gap-2
-
-              sm:text-[13px]
             "
           >
             <input
@@ -254,10 +248,6 @@ Sign in to continue building your business with MarketSparks.
                 border-[var(--border)]
 
                 accent-[var(--primary)]
-
-                sm:h-4
-
-                sm:w-4
               "
             />
 
@@ -277,8 +267,6 @@ Sign in to continue building your business with MarketSparks.
               duration-300
 
               hover:opacity-80
-
-              sm:text-[13px]
             "
           >
             Forgot password?
@@ -312,8 +300,6 @@ Sign in to continue building your business with MarketSparks.
           label="or continue with"
           className="
             my-1
-
-            sm:my-2
           "
         />
 

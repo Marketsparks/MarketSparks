@@ -132,7 +132,7 @@ export default function PasswordStrength({
               duration: 0.25,
             }}
             className="
-              mt-2.5
+              mt-2
 
               overflow-hidden
 
@@ -144,21 +144,21 @@ export default function PasswordStrength({
 
               bg-[var(--surface)]
 
-              p-3
+              p-2.5
 
               transition-colors
               duration-300
 
-              sm:mt-3
+              sm:mt-2.5
 
               sm:rounded-2xl
 
-              sm:p-4
+              sm:p-3
             "
           >
             <div
               className="
-                mb-2.5
+                mb-2
 
                 flex
 
@@ -166,7 +166,7 @@ export default function PasswordStrength({
 
                 justify-between
 
-                sm:mb-3
+                sm:mb-2.5
               "
             >
               <span
@@ -237,13 +237,13 @@ export default function PasswordStrength({
 
             <div
               className="
-                mt-3
+                mt-2.5
 
                 grid
 
                 gap-1.5
 
-                sm:mt-4
+                sm:mt-3
 
                 sm:gap-2
               "

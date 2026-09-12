@@ -139,8 +139,6 @@ export default function AuthButton({
 
         disabled:opacity-60
 
-        sm:h-11
-
         sm:gap-2.5
 
         sm:px-4

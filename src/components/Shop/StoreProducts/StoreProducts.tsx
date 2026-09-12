@@ -45,18 +45,20 @@ export default function StoreProducts({
   subtitle =
     "Discover our most popular products, carefully selected for their quality, performance, and exceptional value.",
 }: StoreProductsProps) {
-  const sectionClasses =
-    environment === "user"
-      ? `
-          pt-0
-          pb-6
-          lg:pb-8
-        `
-      : `
-          py-10
-          md:py-12
-          lg:py-14
-        `;
+const sectionClasses =
+  environment === "user"
+    ? `
+        pt-10
+        pb-6
+        md:pt-12
+        lg:pt-14
+        lg:pb-8
+      `
+    : `
+        py-10
+        md:py-12
+        lg:py-14
+      `;
 
   const content = (
     <>

@@ -42,7 +42,7 @@ export default function AuthCard({
 
         sm:rounded-[28px]
 
-        sm:p-8
+        sm:p-6
 
         ${className}
       `}

@@ -77,39 +77,31 @@ export default function AuthForm({
         )}
       </header>
 
-      <div
-        className="
-          mt-6
+<div
+  className="
+    mt-6
 
-          space-y-4
+    space-y-4
+  "
+>
+  {children}
+</div>
 
-          sm:mt-8
+{footer && (
+  <footer
+    className="
+      mt-6
 
-          sm:space-y-5
-        "
-      >
-        {children}
-      </div>
+      border-t
 
-      {footer && (
-        <footer
-          className="
-            mt-6
+      border-[var(--border)]
 
-            border-t
-
-            border-[var(--border)]
-
-            pt-4
-
-            sm:mt-8
-
-            sm:pt-5
-          "
-        >
-          {footer}
-        </footer>
-      )}
+      pt-4
+    "
+  >
+    {footer}
+  </footer>
+)}
     </AuthCard>
   );
 }

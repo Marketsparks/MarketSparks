@@ -1,7 +1,7 @@
 import type { HeroData } from "./hero.types";
 
 export const heroData: HeroData = {
-  badge: "All on One Platform",
+  badge: "All-in-One Platform",
 
   title:
     "Your Gateway To Global Markets-The Digital Platform Of The Future",
@@ -10,7 +10,7 @@ export const heroData: HeroData = {
     "Award-winning broker. Real-time access. Trusted by traders worldwide.",
 
   primaryButton: {
-    label: "Shop Now",
+    label: "Explore Store",
     href: "/Shop",
   },
 

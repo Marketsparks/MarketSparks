@@ -1,6 +1,6 @@
 export const STORE_SECTION_RADIUS = 20;
 
-export const STORE_CARD_RADIUS = 18;
+export const STORE_CARD_RADIUS = 20;
 
 export const STORE_IMAGE_RADIUS = 0;
 

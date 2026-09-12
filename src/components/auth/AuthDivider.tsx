@@ -18,9 +18,7 @@ export default function AuthDivider({
 
         items-center
 
-        gap-3
-
-        sm:gap-4
+        gap-2.5
 
         ${className}
       `}

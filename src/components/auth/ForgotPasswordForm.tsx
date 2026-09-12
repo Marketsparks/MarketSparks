@@ -99,9 +99,7 @@ export default function ForgotPasswordForm({
       <form
         onSubmit={handleSubmit}
         className="
-          space-y-4
-
-          sm:space-y-5
+          space-y-3
         "
       >
         <AuthInput

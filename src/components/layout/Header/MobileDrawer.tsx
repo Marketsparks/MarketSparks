@@ -155,7 +155,6 @@ onClick={() => {
                 text-[14px]
                 font-semibold
                 text-white
-                shadow-[0_8px_24px_rgba(99,102,241,0.35)]
                 transition-all
                 duration-200
                 hover:scale-[1.01]

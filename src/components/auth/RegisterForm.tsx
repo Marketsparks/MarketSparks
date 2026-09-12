@@ -187,8 +187,7 @@ disabled={
     >
       <div
 className="
-  mb-4
-  sm:mb-6
+  mb-3
 "
 >
 <AuthTabs
@@ -212,8 +211,7 @@ className="
       <form
         onSubmit={handleSubmit}
 className="
-  space-y-4
-  sm:space-y-5
+  space-y-3
 "
       >
         <div

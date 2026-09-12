@@ -24,11 +24,14 @@ export default function Header() {
       <Navbar />
 
       {/* Normal mobile header */}
-      <MobileHeader
-        onMenuClick={() =>
-          setIsMobileMenuOpen(true)
-        }
-      />
+<MobileHeader
+  isOpen={isMobileMenuOpen}
+  onMenuClick={() =>
+    setIsMobileMenuOpen(
+      (current) => !current,
+    )
+  }
+/>
 
       {/* Sticky desktop + mobile headers */}
       <AnimatePresence>
@@ -36,12 +39,15 @@ export default function Header() {
           <>
             <Navbar sticky />
 
-            <MobileHeader
-              sticky
-              onMenuClick={() =>
-                setIsMobileMenuOpen(true)
-              }
-            />
+<MobileHeader
+  sticky
+  isOpen={isMobileMenuOpen}
+  onMenuClick={() =>
+    setIsMobileMenuOpen(
+      (current) => !current,
+    )
+  }
+/>
           </>
         )}
       </AnimatePresence>

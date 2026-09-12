@@ -10,11 +10,13 @@ import MobileMenuButton from "./MobileMenuButton";
 
 type MobileHeaderProps = {
   onMenuClick: () => void;
+  isOpen: boolean;
   sticky?: boolean;
 };
 
 export default function MobileHeader({
   onMenuClick,
+  isOpen,
   sticky = false,
 }: MobileHeaderProps) {
   const content = (
@@ -31,7 +33,10 @@ export default function MobileHeader({
       <div className="flex items-center gap-1.5">
         <HeaderIcons />
 
-        <MobileMenuButton onClick={onMenuClick} />
+<MobileMenuButton
+  onClick={onMenuClick}
+  isOpen={isOpen}
+/>
       </div>
     </div>
   );
