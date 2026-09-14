@@ -38,7 +38,8 @@ export default function DeleteCategoryDialog({
         items-center
         justify-center
         bg-[var(--admin-modal-overlay)]
-        p-[var(--space-lg)]
+        p-2
+        sm:p-[var(--space-lg)]
       "
     >
       <div
@@ -46,48 +47,60 @@ export default function DeleteCategoryDialog({
           w-full
           max-w-md
           overflow-hidden
-          rounded-[var(--admin-modal-radius)]
+          rounded-lg
           border
           border-[var(--admin-modal-border)]
           bg-[var(--admin-modal-bg)]
           shadow-[var(--admin-modal-shadow)]
+          sm:rounded-[var(--admin-modal-radius)]
         "
       >
         <div
           className="
             flex
             items-center
-            gap-[var(--space-md)]
+            gap-2
             border-b
             border-[var(--admin-modal-border)]
             bg-[var(--admin-modal-header-bg)]
-            px-[var(--space-xl)]
-            py-[var(--space-lg)]
+            px-3
+            py-2.5
+            sm:gap-[var(--space-md)]
+            sm:px-[var(--space-xl)]
+            sm:py-[var(--space-lg)]
           "
         >
           <div
             className="
               flex
-              h-10
-              w-10
+              h-7
+              w-7
+              shrink-0
               items-center
               justify-center
               rounded-full
               bg-[var(--admin-plan-disabled-bg)]
               text-[var(--admin-button-danger-bg)]
+              sm:h-10
+              sm:w-10
             "
           >
             <AlertTriangle
-              size={20}
+              size={15}
+              className="
+                sm:h-5
+                sm:w-5
+              "
             />
           </div>
 
           <div>
             <h2
               className="
-                text-base
+                text-[13px]
                 font-semibold
                 text-[var(--admin-title)]
+                sm:text-base
               "
             >
               Delete Category
@@ -95,9 +108,13 @@ export default function DeleteCategoryDialog({
 
             <p
               className="
-                mt-1
-                text-sm
+                mt-0.5
+                text-[9px]
+                leading-3.5
                 text-[var(--admin-muted)]
+                sm:mt-1
+                sm:text-sm
+                sm:leading-normal
               "
             >
               This action cannot be
@@ -108,15 +125,19 @@ export default function DeleteCategoryDialog({
 
         <div
           className="
-            px-[var(--space-xl)]
-            py-[var(--space-lg)]
+            px-3
+            py-3
+            sm:px-[var(--space-xl)]
+            sm:py-[var(--space-lg)]
           "
         >
           <p
             className="
-              text-sm
-              leading-6
+              text-[10px]
+              leading-4
               text-[var(--admin-text)]
+              sm:text-sm
+              sm:leading-6
             "
           >
             Are you sure you want to
@@ -132,13 +153,15 @@ export default function DeleteCategoryDialog({
           className="
             flex
             flex-col-reverse
-            gap-[var(--space-sm)]
+            gap-1.5
             border-t
             border-[var(--admin-modal-border)]
             bg-[var(--admin-modal-footer-bg)]
-            p-[var(--space-lg)]
+            p-3
             sm:flex-row
             sm:justify-end
+            sm:gap-[var(--space-sm)]
+            sm:p-[var(--space-lg)]
           "
         >
           <button
@@ -147,21 +170,25 @@ export default function DeleteCategoryDialog({
             disabled={loading}
             className="
               inline-flex
-              h-10
+              h-7
               items-center
               justify-center
-              rounded-[var(--admin-input-radius)]
+              rounded-md
               border
               border-[var(--admin-button-secondary-border)]
               bg-[var(--admin-button-secondary-bg)]
-              px-4
-              text-sm
+              px-2.5
+              text-[9px]
               font-medium
               text-[var(--admin-button-secondary-text)]
               transition
               hover:bg-[var(--admin-button-secondary-hover)]
               disabled:cursor-not-allowed
               disabled:opacity-60
+              sm:h-10
+              sm:rounded-[var(--admin-input-radius)]
+              sm:px-4
+              sm:text-sm
             "
           >
             Cancel
@@ -173,26 +200,35 @@ export default function DeleteCategoryDialog({
             onClick={onConfirm}
             className="
               inline-flex
-              h-10
+              h-7
               items-center
               justify-center
-              gap-2
-              rounded-[var(--admin-input-radius)]
+              gap-1
+              rounded-md
               bg-[var(--admin-button-danger-bg)]
-              px-4
-              text-sm
+              px-2.5
+              text-[9px]
               font-medium
               text-[var(--admin-button-danger-text)]
               transition
               hover:bg-[var(--admin-button-danger-hover)]
               disabled:cursor-not-allowed
               disabled:opacity-60
+              sm:h-10
+              sm:gap-2
+              sm:rounded-[var(--admin-input-radius)]
+              sm:px-4
+              sm:text-sm
             "
           >
             {loading && (
               <Loader2
-                size={16}
-                className="animate-spin"
+                size={13}
+                className="
+                  animate-spin
+                  sm:h-4
+                  sm:w-4
+                "
               />
             )}
 

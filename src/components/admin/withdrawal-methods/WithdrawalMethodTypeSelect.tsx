@@ -20,14 +20,20 @@ export default function WithdrawalMethodTypeSelect({
   disabled = false,
 }: WithdrawalMethodTypeSelectProps) {
   return (
-    <div className="space-y-2">
+    <div
+      className="
+        space-y-0.5
+        sm:space-y-2
+      "
+    >
       <label
         htmlFor="withdrawal-method-type"
         className="
           block
-          text-sm
+          text-[11px]
           font-medium
           text-[var(--admin-text)]
+          sm:text-sm
         "
       >
         Withdrawal Method Type
@@ -44,14 +50,14 @@ export default function WithdrawalMethodTypeSelect({
           )
         }
         className="
-          h-11
+          h-7
           w-full
-          rounded-[var(--admin-input-radius)]
+          rounded-md
           border
           border-[var(--admin-input-border)]
           bg-[var(--admin-input-bg)]
-          px-3
-          text-sm
+          px-2
+          text-[11px]
           text-[var(--admin-input-text)]
           outline-none
           transition-all
@@ -59,6 +65,10 @@ export default function WithdrawalMethodTypeSelect({
           focus:border-[var(--admin-input-focus)]
           disabled:cursor-not-allowed
           disabled:opacity-60
+          sm:h-11
+          sm:rounded-[var(--admin-input-radius)]
+          sm:px-3
+          sm:text-sm
         "
       >
         <option value="crypto">
@@ -72,9 +82,11 @@ export default function WithdrawalMethodTypeSelect({
 
       <p
         className="
-          text-xs
-          leading-5
+          text-[9px]
+          leading-3.5
           text-[var(--admin-muted)]
+          sm:text-xs
+          sm:leading-5
         "
       >
         Crypto allows users to withdraw to

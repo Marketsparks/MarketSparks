@@ -54,32 +54,38 @@ export default function OrderFilters({
   return (
     <section
       className="
-        rounded-xl
+        rounded-lg
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
-        p-4
+        p-2.5
         shadow-[var(--admin-card-shadow)]
+        sm:rounded-xl
+        sm:p-4
       "
     >
       <div
         className="
           grid
-          gap-3
+          gap-2
           lg:grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(140px,0.75fr))_auto]
           lg:items-end
+          sm:gap-3
         "
       >
         <label className="min-w-0">
           <span
             className="
-              mb-1.5
+              mb-1
               block
-              text-[10px]
+              text-[8px]
               font-semibold
               uppercase
-              tracking-[0.08em]
+              tracking-[0.06em]
               text-[var(--admin-muted)]
+              sm:mb-1.5
+              sm:text-[10px]
+              sm:tracking-[0.08em]
             "
           >
             Search
@@ -101,19 +107,23 @@ export default function OrderFilters({
             }
             placeholder="Order number, reference, customer, email"
             className="
-              h-10
+              h-8
               w-full
-              rounded-lg
+              rounded-md
               border
               border-[var(--admin-input-border)]
               bg-[var(--admin-input-bg)]
-              px-3
-              text-sm
+              px-2.5
+              text-[10px]
               text-[var(--admin-input-text)]
               placeholder:text-[var(--admin-input-placeholder)]
               outline-none
               transition
               focus:border-[var(--admin-input-focus)]
+              sm:h-10
+              sm:rounded-lg
+              sm:px-3
+              sm:text-sm
             "
           />
         </label>
@@ -256,13 +266,13 @@ export default function OrderFilters({
             !hasActiveFilters
           }
           className="
-            h-10
-            rounded-lg
+            h-7
+            rounded-md
             border
             border-[var(--admin-card-border)]
             bg-[var(--admin-card-bg)]
-            px-3
-            text-xs
+            px-2.5
+            text-[9px]
             font-medium
             text-[var(--admin-muted)]
             transition
@@ -270,6 +280,10 @@ export default function OrderFilters({
             hover:text-[var(--admin-title)]
             disabled:cursor-not-allowed
             disabled:opacity-40
+            sm:h-10
+            sm:rounded-lg
+            sm:px-3
+            sm:text-xs
           "
         >
           Clear
@@ -305,13 +319,16 @@ function FilterSelect({
     <label className="min-w-0">
       <span
         className="
-          mb-1.5
+          mb-1
           block
-          text-[10px]
+          text-[8px]
           font-semibold
           uppercase
-          tracking-[0.08em]
+          tracking-[0.06em]
           text-[var(--admin-muted)]
+          sm:mb-1.5
+          sm:text-[10px]
+          sm:tracking-[0.08em]
         "
       >
         {label}
@@ -327,18 +344,22 @@ function FilterSelect({
           )
         }
         className="
-          h-10
+          h-8
           w-full
-          rounded-lg
+          rounded-md
           border
           border-[var(--admin-input-border)]
           bg-[var(--admin-input-bg)]
-          px-3
-          text-xs
+          px-2
+          text-[10px]
           text-[var(--admin-input-text)]
           outline-none
           transition
           focus:border-[var(--admin-input-focus)]
+          sm:h-10
+          sm:rounded-lg
+          sm:px-3
+          sm:text-xs
         "
       >
         {options.map(

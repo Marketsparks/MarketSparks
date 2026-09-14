@@ -1,6 +1,9 @@
 "use client";
 
-import { useFieldArray, useFormContext } from "react-hook-form";
+import {
+  useFieldArray,
+  useFormContext,
+} from "react-hook-form";
 
 import type {
   CreateProductInput,
@@ -32,27 +35,34 @@ export default function ProductReviews({
   return (
     <section
       className="
-        rounded-[var(--admin-surface-radius)]
+        rounded-lg
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
-        p-6
+        p-2.5
+        sm:rounded-[var(--admin-surface-radius)]
+        sm:p-6
       "
     >
       <div
         className="
-          mb-6
+          mb-3
           flex
-          items-center
+          items-start
           justify-between
+          gap-2
+          sm:mb-6
+          sm:items-center
+          sm:gap-4
         "
       >
         <div>
           <h3
             className="
-              text-lg
+              text-[12px]
               font-semibold
               text-[var(--admin-title)]
+              sm:text-lg
             "
           >
             Customer Reviews
@@ -60,9 +70,13 @@ export default function ProductReviews({
 
           <p
             className="
-              mt-1
-              text-sm
+              mt-0.5
+              text-[9px]
+              leading-3.5
               text-[var(--admin-muted)]
+              sm:mt-1
+              sm:text-sm
+              sm:leading-normal
             "
           >
             Add as many reviews as you want.
@@ -83,15 +97,27 @@ export default function ProductReviews({
             })
           }
           className="
-            rounded-[var(--admin-input-radius)]
-            bg-[#4F46E5]
-            px-4
-            py-2
-            text-sm
+            inline-flex
+            h-7
+            shrink-0
+            items-center
+            justify-center
+            rounded-md
+            border
+            border-[var(--admin-card-border)]
+            bg-[var(--admin-table-header-bg)]
+            px-2.5
+            text-[9px]
             font-medium
-            text-white
-            hover:bg-[#4338CA]
+            text-[var(--admin-table-title)]
+            transition
+            hover:opacity-90
+            disabled:pointer-events-none
             disabled:opacity-60
+            sm:h-9
+            sm:rounded-[var(--admin-input-radius)]
+            sm:px-4
+            sm:text-sm
           "
         >
           Add Review
@@ -101,43 +127,60 @@ export default function ProductReviews({
       {fields.length === 0 && (
         <div
           className="
-            rounded-lg
+            rounded-md
             border
             border-dashed
             border-[var(--admin-card-border)]
-            p-8
+            px-3
+            py-6
             text-center
-            text-sm
+            text-[9px]
+            leading-3.5
             text-[var(--admin-muted)]
+            sm:rounded-lg
+            sm:p-8
+            sm:text-sm
+            sm:leading-normal
           "
         >
           No reviews added yet.
         </div>
       )}
 
-      <div className="space-y-6">
+      <div
+        className="
+          space-y-2.5
+          sm:space-y-6
+        "
+      >
         {fields.map((field, index) => (
           <div
             key={field.id}
             className="
-              rounded-xl
+              rounded-lg
               border
               border-[var(--admin-card-border)]
-              p-5
+              p-2.5
+              sm:rounded-xl
+              sm:p-5
             "
           >
             <div
               className="
-                mb-5
+                mb-2.5
                 flex
                 items-center
                 justify-between
+                gap-2
+                sm:mb-5
               "
             >
               <h4
                 className="
+                  text-[10px]
                   font-medium
                   text-[var(--admin-title)]
+                  sm:text-sm
                 "
               >
                 Review {index + 1}
@@ -148,9 +191,14 @@ export default function ProductReviews({
                 disabled={disabled}
                 onClick={() => remove(index)}
                 className="
-                  text-sm
+                  text-[9px]
                   font-medium
                   text-[var(--user-danger)]
+                  transition
+                  hover:opacity-80
+                  disabled:pointer-events-none
+                  disabled:opacity-50
+                  sm:text-sm
                 "
               >
                 Remove
@@ -160,12 +208,25 @@ export default function ProductReviews({
             <div
               className="
                 grid
-                gap-5
+                gap-2.5
+                sm:gap-5
                 md:grid-cols-2
               "
             >
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
+              <div
+                className="
+                  space-y-1
+                  sm:space-y-2
+                "
+              >
+                <label
+                  className="
+                    text-[9px]
+                    font-medium
+                    text-[var(--admin-title)]
+                    sm:text-sm
+                  "
+                >
                   Customer Name
                 </label>
 
@@ -174,17 +235,34 @@ export default function ProductReviews({
                     `reviews.${index}.customerName`
                   )}
                   className="
-                    h-11
+                    h-8
                     w-full
-                    rounded-[var(--admin-input-radius)]
+                    rounded-md
                     border
                     border-[var(--admin-input-border)]
                     bg-[var(--admin-input-bg)]
-                    px-4
+                    px-2.5
+                    text-[10px]
+                    text-[var(--admin-input-text)]
+                    outline-none
+                    transition
+                    focus:border-[var(--admin-input-focus)]
+                    sm:h-11
+                    sm:rounded-[var(--admin-input-radius)]
+                    sm:px-4
+                    sm:text-sm
                   "
                 />
 
-                <p className="text-xs text-[var(--user-danger)]">
+                <p
+                  className="
+                    text-[8px]
+                    leading-3
+                    text-[var(--user-danger)]
+                    sm:text-xs
+                    sm:leading-normal
+                  "
+                >
                   {
                     errors.reviews?.[index]
                       ?.customerName?.message
@@ -192,8 +270,20 @@ export default function ProductReviews({
                 </p>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
+              <div
+                className="
+                  space-y-1
+                  sm:space-y-2
+                "
+              >
+                <label
+                  className="
+                    text-[9px]
+                    font-medium
+                    text-[var(--admin-title)]
+                    sm:text-sm
+                  "
+                >
                   Rating
                 </label>
 
@@ -208,17 +298,34 @@ export default function ProductReviews({
                     }
                   )}
                   className="
-                    h-11
+                    h-8
                     w-full
-                    rounded-[var(--admin-input-radius)]
+                    rounded-md
                     border
                     border-[var(--admin-input-border)]
                     bg-[var(--admin-input-bg)]
-                    px-4
+                    px-2.5
+                    text-[10px]
+                    text-[var(--admin-input-text)]
+                    outline-none
+                    transition
+                    focus:border-[var(--admin-input-focus)]
+                    sm:h-11
+                    sm:rounded-[var(--admin-input-radius)]
+                    sm:px-4
+                    sm:text-sm
                   "
                 />
 
-                <p className="text-xs text-[var(--user-danger)]">
+                <p
+                  className="
+                    text-[8px]
+                    leading-3
+                    text-[var(--user-danger)]
+                    sm:text-xs
+                    sm:leading-normal
+                  "
+                >
                   {
                     errors.reviews?.[index]
                       ?.rating?.message
@@ -226,8 +333,21 @@ export default function ProductReviews({
                 </p>
               </div>
 
-              <div className="space-y-2 md:col-span-2">
-                <label className="text-sm font-medium">
+              <div
+                className="
+                  space-y-1
+                  md:col-span-2
+                  sm:space-y-2
+                "
+              >
+                <label
+                  className="
+                    text-[9px]
+                    font-medium
+                    text-[var(--admin-title)]
+                    sm:text-sm
+                  "
+                >
                   Review Title
                 </label>
 
@@ -236,17 +356,34 @@ export default function ProductReviews({
                     `reviews.${index}.title`
                   )}
                   className="
-                    h-11
+                    h-8
                     w-full
-                    rounded-[var(--admin-input-radius)]
+                    rounded-md
                     border
                     border-[var(--admin-input-border)]
                     bg-[var(--admin-input-bg)]
-                    px-4
+                    px-2.5
+                    text-[10px]
+                    text-[var(--admin-input-text)]
+                    outline-none
+                    transition
+                    focus:border-[var(--admin-input-focus)]
+                    sm:h-11
+                    sm:rounded-[var(--admin-input-radius)]
+                    sm:px-4
+                    sm:text-sm
                   "
                 />
 
-                <p className="text-xs text-[var(--user-danger)]">
+                <p
+                  className="
+                    text-[8px]
+                    leading-3
+                    text-[var(--user-danger)]
+                    sm:text-xs
+                    sm:leading-normal
+                  "
+                >
                   {
                     errors.reviews?.[index]
                       ?.title?.message
@@ -254,8 +391,21 @@ export default function ProductReviews({
                 </p>
               </div>
 
-              <div className="space-y-2 md:col-span-2">
-                <label className="text-sm font-medium">
+              <div
+                className="
+                  space-y-1
+                  md:col-span-2
+                  sm:space-y-2
+                "
+              >
+                <label
+                  className="
+                    text-[9px]
+                    font-medium
+                    text-[var(--admin-title)]
+                    sm:text-sm
+                  "
+                >
                   Comment
                 </label>
 
@@ -265,17 +415,38 @@ export default function ProductReviews({
                     `reviews.${index}.comment`
                   )}
                   className="
+                    min-h-[100px]
                     w-full
-                    rounded-[var(--admin-input-radius)]
+                    rounded-md
                     border
                     border-[var(--admin-input-border)]
                     bg-[var(--admin-input-bg)]
-                    px-4
-                    py-3
+                    px-2.5
+                    py-2
+                    text-[10px]
+                    leading-4
+                    text-[var(--admin-input-text)]
+                    outline-none
+                    transition
+                    focus:border-[var(--admin-input-focus)]
+                    sm:min-h-0
+                    sm:rounded-[var(--admin-input-radius)]
+                    sm:px-4
+                    sm:py-3
+                    sm:text-sm
+                    sm:leading-normal
                   "
                 />
 
-                <p className="text-xs text-[var(--user-danger)]">
+                <p
+                  className="
+                    text-[8px]
+                    leading-3
+                    text-[var(--user-danger)]
+                    sm:text-xs
+                    sm:leading-normal
+                  "
+                >
                   {
                     errors.reviews?.[index]
                       ?.comment?.message
@@ -283,13 +454,20 @@ export default function ProductReviews({
                 </p>
               </div>
 
-              <div className="md:col-span-2">
+              <div
+                className="
+                  md:col-span-2
+                "
+              >
                 <label
                   className="
                     inline-flex
                     items-center
-                    gap-3
-                    text-sm
+                    gap-2
+                    text-[10px]
+                    text-[var(--admin-title)]
+                    sm:gap-3
+                    sm:text-sm
                   "
                 >
                   <input
@@ -297,6 +475,12 @@ export default function ProductReviews({
                     {...register(
                       `reviews.${index}.verifiedPurchase`
                     )}
+                    className="
+                      h-3
+                      w-3
+                      sm:h-4
+                      sm:w-4
+                    "
                   />
 
                   Verified Purchase

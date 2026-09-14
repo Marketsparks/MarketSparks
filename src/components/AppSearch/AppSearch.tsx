@@ -79,15 +79,17 @@ export default function AppSearch() {
             className="
               fixed
               left-1/2
-              top-5
+              top-2.5
               flex
-              w-[calc(100%-24px)]
+              w-[calc(100%-12px)]
               -translate-x-1/2
               flex-col
               border
               border-[var(--border)]
               bg-[var(--background)]
               shadow-2xl
+              sm:top-5
+              sm:w-[calc(100%-24px)]
             "
             style={{
               maxWidth:
@@ -111,10 +113,13 @@ export default function AppSearch() {
 
             <div
               className="
-                max-h-[calc(100vh-150px)]
+                max-h-[calc(100vh-120px)]
                 overflow-y-auto
-                px-5
-                pb-5
+                px-2.5
+                pb-2.5
+                sm:max-h-[calc(100vh-150px)]
+                sm:px-5
+                sm:pb-5
               "
             >
               {query.trim() ? (

@@ -20,29 +20,27 @@ export default function WithdrawalDetails({
   return (
     <div
       className="
-        space-y-6
+        space-y-3
+        sm:space-y-6
       "
     >
       <section
         className="
-          rounded-xl
-
+          rounded-lg
           border
-
           border-[var(--admin-border)]
-
           bg-[var(--admin-card-bg)]
-
-          p-5
+          p-2.5
+          sm:rounded-xl
+          sm:p-5
         "
       >
         <h3
           className="
-            text-base
-
+            text-[11px]
             font-semibold
-
             text-[var(--admin-foreground)]
+            sm:text-base
           "
         >
           Withdrawal Information
@@ -50,12 +48,11 @@ export default function WithdrawalDetails({
 
         <div
           className="
-            mt-5
-
+            mt-2.5
             grid
-
-            gap-4
-
+            gap-2.5
+            sm:mt-5
+            sm:gap-4
             sm:grid-cols-2
           "
         >
@@ -119,24 +116,21 @@ export default function WithdrawalDetails({
 
       <section
         className="
-          rounded-xl
-
+          rounded-lg
           border
-
           border-[var(--admin-border)]
-
           bg-[var(--admin-card-bg)]
-
-          p-5
+          p-2.5
+          sm:rounded-xl
+          sm:p-5
         "
       >
         <h3
           className="
-            text-base
-
+            text-[11px]
             font-semibold
-
             text-[var(--admin-foreground)]
+            sm:text-base
           "
         >
           User Information
@@ -144,12 +138,11 @@ export default function WithdrawalDetails({
 
         <div
           className="
-            mt-5
-
+            mt-2.5
             grid
-
-            gap-4
-
+            gap-2.5
+            sm:mt-5
+            sm:gap-4
             sm:grid-cols-2
           "
         >
@@ -157,11 +150,11 @@ export default function WithdrawalDetails({
             label="Full Name"
             value={
               [
-  withdrawal.user.firstName,
-  withdrawal.user.lastName,
-]
-  .filter(Boolean)
-  .join(" ")
+                withdrawal.user.firstName,
+                withdrawal.user.lastName,
+              ]
+                .filter(Boolean)
+                .join(" ")
             }
           />
 
@@ -176,24 +169,21 @@ export default function WithdrawalDetails({
 
       <section
         className="
-          rounded-xl
-
+          rounded-lg
           border
-
           border-[var(--admin-border)]
-
           bg-[var(--admin-card-bg)]
-
-          p-5
+          p-2.5
+          sm:rounded-xl
+          sm:p-5
         "
       >
         <h3
           className="
-            text-base
-
+            text-[11px]
             font-semibold
-
             text-[var(--admin-foreground)]
+            sm:text-base
           "
         >
           Destination
@@ -202,7 +192,8 @@ export default function WithdrawalDetails({
         {isCrypto ? (
           <div
             className="
-              mt-5
+              mt-2.5
+              sm:mt-5
             "
           >
             <DetailItem
@@ -215,12 +206,11 @@ export default function WithdrawalDetails({
         ) : (
           <div
             className="
-              mt-5
-
+              mt-2.5
               grid
-
-              gap-4
-
+              gap-2.5
+              sm:mt-5
+              sm:gap-4
               sm:grid-cols-2
             "
           >
@@ -332,11 +322,10 @@ function DetailItem({
     <div>
       <p
         className="
-          text-xs
-
+          text-[8px]
           font-medium
-
           text-[var(--admin-muted-foreground)]
+          sm:text-xs
         "
       >
         {label}
@@ -344,15 +333,13 @@ function DetailItem({
 
       <p
         className="
-          mt-1
-
+          mt-0.5
           break-words
-
-          text-sm
-
+          text-[10px]
           font-semibold
-
           text-[var(--admin-foreground)]
+          sm:mt-1
+          sm:text-sm
         "
       >
         {value || "N/A"}

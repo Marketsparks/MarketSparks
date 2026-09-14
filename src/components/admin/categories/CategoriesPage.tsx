@@ -20,6 +20,7 @@ import CategoriesTable from "./CategoriesTable";
 import CreateCategoryDialog from "./CreateCategoryDialog";
 import EditCategoryDialog from "./EditCategoryDialog";
 import DeleteCategoryDialog from "./DeleteCategoryDialog";
+
 import { toast } from "sonner";
 
 type CategoriesPageProps = {
@@ -65,164 +66,187 @@ export default function CategoriesPage({
     setCategories(data);
   }
 
-async function handleCreate(
-  values: CreateCategoryInput,
-) {
-  setBusy(true);
+  async function handleCreate(
+    values: CreateCategoryInput,
+  ) {
+    setBusy(true);
 
-  try {
-    await createCategory(values);
+    try {
+      await createCategory(values);
 
-    await refresh();
+      await refresh();
 
-    setCreateOpen(false);
+      setCreateOpen(false);
 
-    toast.success(
-      `Category "${values.name}" created successfully.`,
-    );
-  } catch (error) {
-    toast.error(
-      error instanceof Error
-        ? error.message
-        : "Failed to create category.",
-    );
-  } finally {
-    setBusy(false);
-  }
-}
-
-async function handleUpdate(
-  values: UpdateCategoryInput,
-) {
-  if (!editingCategory) {
-    return;
+      toast.success(
+        `Category "${values.name}" created successfully.`,
+      );
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to create category.",
+      );
+    } finally {
+      setBusy(false);
+    }
   }
 
-  const categoryName =
-    values.name ?? editingCategory.name;
+  async function handleUpdate(
+    values: UpdateCategoryInput,
+  ) {
+    if (!editingCategory) {
+      return;
+    }
 
-  setBusy(true);
+    const categoryName =
+      values.name ??
+      editingCategory.name;
 
-  try {
-    await updateCategory(
-      editingCategory.id,
-      values,
-    );
+    setBusy(true);
 
-    await refresh();
+    try {
+      await updateCategory(
+        editingCategory.id,
+        values,
+      );
 
-    setEditingCategory(null);
+      await refresh();
 
-    toast.success(
-      `Category "${categoryName}" updated successfully.`,
-    );
-  } catch (error) {
-    toast.error(
-      error instanceof Error
-        ? error.message
-        : "Failed to update category.",
-    );
-  } finally {
-    setBusy(false);
+      setEditingCategory(null);
+
+      toast.success(
+        `Category "${categoryName}" updated successfully.`,
+      );
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to update category.",
+      );
+    } finally {
+      setBusy(false);
+    }
   }
-}
 
-async function handleDelete() {
-  if (!deletingCategory) {
-    return;
+  async function handleDelete() {
+    if (!deletingCategory) {
+      return;
+    }
+
+    const categoryName =
+      deletingCategory.name;
+
+    setBusy(true);
+
+    try {
+      await deleteCategory(
+        deletingCategory.id,
+      );
+
+      await refresh();
+
+      setDeletingCategory(null);
+
+      toast.success(
+        `Category "${categoryName}" deleted successfully.`,
+      );
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Failed to delete category.",
+      );
+    } finally {
+      setBusy(false);
+    }
   }
-
-  const categoryName =
-    deletingCategory.name;
-
-  setBusy(true);
-
-  try {
-    await deleteCategory(
-      deletingCategory.id,
-    );
-
-    await refresh();
-
-    setDeletingCategory(null);
-
-    toast.success(
-      `Category "${categoryName}" deleted successfully.`,
-    );
-  } catch (error) {
-    toast.error(
-      error instanceof Error
-        ? error.message
-        : "Failed to delete category.",
-    );
-  } finally {
-    setBusy(false);
-  }
-}
 
   return (
     <>
-<div
-  className="
-    space-y-8
-  "
->
-      <CategoriesToolbar
-        onCreate={() =>
-          setCreateOpen(true)
-        }
-      />
+      <div
+        className="
+          space-y-3
+          sm:space-y-6
+        "
+      >
+        <CategoriesToolbar
+          onCreate={() =>
+            setCreateOpen(true)
+          }
+        />
 
-      <CategoriesTable
-        categories={categories}
-        loading={loading}
-        onEdit={
-          setEditingCategory
-        }
-        onDelete={
-          setDeletingCategory
-        }
-      />
-</div>
+        <CategoriesTable
+          categories={
+            categories
+          }
+          loading={
+            loading
+          }
+          onEdit={
+            setEditingCategory
+          }
+          onDelete={
+            setDeletingCategory
+          }
+        />
+      </div>
+
       <CreateCategoryDialog
-        open={createOpen}
-        loading={busy}
+        open={
+          createOpen
+        }
+        loading={
+          busy
+        }
         onClose={() =>
           setCreateOpen(false)
         }
-        onSubmit={handleCreate}
+        onSubmit={
+          handleCreate
+        }
       />
 
       <EditCategoryDialog
         open={
-          editingCategory !== null
+          editingCategory !==
+          null
         }
         category={
           editingCategory
         }
-        loading={busy}
+        loading={
+          busy
+        }
         onClose={() =>
           setEditingCategory(
             null,
           )
         }
-        onSubmit={handleUpdate}
+        onSubmit={
+          handleUpdate
+        }
       />
 
       <DeleteCategoryDialog
         open={
-          deletingCategory !== null
+          deletingCategory !==
+          null
         }
         category={
           deletingCategory
         }
-        loading={busy}
+        loading={
+          busy
+        }
         onClose={() =>
           setDeletingCategory(
             null,
           )
         }
-        onConfirm={handleDelete}
+        onConfirm={
+          handleDelete
+        }
       />
     </>
   );

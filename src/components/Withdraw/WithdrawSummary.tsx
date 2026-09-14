@@ -18,32 +18,25 @@ export default function WithdrawSummary({
   return (
     <section
       className="
-        mt-6
-
+        mt-5
         rounded-[var(--withdraw-summary-radius)]
-
         border
-
         border-[var(--withdraw-summary-border)]
-
         bg-[var(--withdraw-summary-bg)]
-
-        p-[var(--withdraw-summary-padding)]
-
+        p-3
         shadow-[var(--withdraw-summary-shadow)]
-
         transition-all
-
         duration-[var(--withdraw-summary-transition)]
+        sm:mt-6
+        sm:p-[var(--withdraw-summary-padding)]
       "
     >
       <h2
         className="
-          text-[18px]
-
+          text-[15px]
           font-bold
-
           text-[var(--withdraw-summary-title)]
+          sm:text-[18px]
         "
       >
         Withdrawal Summary
@@ -51,9 +44,10 @@ export default function WithdrawSummary({
 
       <div
         className="
-          mt-5
-
-          space-y-3
+          mt-4
+          space-y-2.5
+          sm:mt-5
+          sm:space-y-3
         "
       >
         <SummaryRow
@@ -78,32 +72,28 @@ export default function WithdrawSummary({
 
       <div
         className="
-          my-4
-
+          my-3
           border-t
-
           border-[var(--withdraw-summary-divider)]
+          sm:my-4
         "
       />
 
       <div
         className="
           flex
-
           items-end
-
           justify-between
-
-          gap-4
+          gap-3
+          sm:gap-4
         "
       >
         <span
           className="
-            text-[13px]
-
+            text-[10px]
             font-semibold
-
             text-[var(--withdraw-summary-receive-label)]
+            sm:text-[13px]
           "
         >
           You Receive
@@ -111,13 +101,11 @@ export default function WithdrawSummary({
 
         <span
           className="
-            text-[20px]
-
+            text-[17px]
             font-extrabold
-
             tracking-[-0.02em]
-
             text-[var(--withdraw-summary-receive-value)]
+            sm:text-[20px]
           "
         >
           {formatWithdrawAmount(
@@ -143,19 +131,17 @@ function SummaryRow({
     <div
       className="
         flex
-
         items-center
-
         justify-between
-
-        gap-4
+        gap-3
+        sm:gap-4
       "
     >
       <span
         className="
-          text-[12px]
-
+          text-[10px]
           text-[var(--withdraw-summary-label)]
+          sm:text-[12px]
         "
       >
         {label}
@@ -163,11 +149,10 @@ function SummaryRow({
 
       <span
         className="
-          text-[12px]
-
+          text-[10px]
           font-semibold
-
           text-[var(--withdraw-summary-value)]
+          sm:text-[12px]
         "
       >
         {value}

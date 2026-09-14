@@ -39,8 +39,9 @@ export default function AppSearchBackdrop({
         fixed
         inset-0
         border-0
-        bg-black/45
+        bg-black/35
         p-0
+        sm:bg-black/45
       "
       style={{
         zIndex:

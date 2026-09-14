@@ -65,16 +65,19 @@ export default function WithdrawalMethodTable({
       null
     );
 
-const [
-  form,
-  setForm,
-] = useState<WithdrawalMethodFormValues>(
-  EMPTY_FORM
-);
+  const [
+    form,
+    setForm,
+  ] = useState<WithdrawalMethodFormValues>(
+    EMPTY_FORM
+  );
 
-const router = useRouter();
+  const router = useRouter();
 
-const [loading, setLoading] = useState(false);
+  const [
+    loading,
+    setLoading,
+  ] = useState(false);
 
   const filteredMethods =
     useMemo(() => {
@@ -104,129 +107,137 @@ const [loading, setLoading] = useState(false);
       search,
     ]);
 
-async function handleCreate() {
-  try {
-    setLoading(true);
+  async function handleCreate() {
+    try {
+      setLoading(true);
 
-    const response = await fetch(
-      "/api/admin/withdrawal-methods",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "/api/admin/withdrawal-methods",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
         },
-        body: JSON.stringify(form),
-      },
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.message ?? "Failed to create withdrawal method.",
       );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message ??
+            "Failed to create withdrawal method.",
+        );
+      }
+
+      toast.success(
+        "Withdrawal method created.",
+      );
+
+      setCreateOpen(false);
+      setForm(EMPTY_FORM);
+
+      router.refresh();
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong.",
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleUpdate() {
+    if (!editing) {
+      return;
     }
 
-    toast.success("Withdrawal method created.");
+    try {
+      setLoading(true);
 
-    setCreateOpen(false);
-    setForm(EMPTY_FORM);
-
-    router.refresh();
-  } catch (error) {
-    toast.error(
-      error instanceof Error
-        ? error.message
-        : "Something went wrong.",
-    );
-  } finally {
-    setLoading(false);
-  }
-}
-
-async function handleUpdate() {
-  if (!editing) {
-    return;
-  }
-
-  try {
-    setLoading(true);
-
-    const response = await fetch(
-      `/api/admin/withdrawal-methods/${editing.id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `/api/admin/withdrawal-methods/${editing.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
         },
-        body: JSON.stringify(form),
-      },
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.message ?? "Failed to update withdrawal method.",
       );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message ??
+            "Failed to update withdrawal method.",
+        );
+      }
+
+      toast.success(
+        "Withdrawal method updated.",
+      );
+
+      setEditing(null);
+      setForm(EMPTY_FORM);
+
+      router.refresh();
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong.",
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleDelete() {
+    if (!deleting) {
+      return;
     }
 
-    toast.success("Withdrawal method updated.");
+    try {
+      setLoading(true);
 
-    setEditing(null);
-    setForm(EMPTY_FORM);
-
-    router.refresh();
-  } catch (error) {
-    toast.error(
-      error instanceof Error
-        ? error.message
-        : "Something went wrong.",
-    );
-  } finally {
-    setLoading(false);
-  }
-}
-
-async function handleDelete() {
-  if (!deleting) {
-    return;
-  }
-
-  try {
-    setLoading(true);
-
-    const response = await fetch(
-      `/api/admin/withdrawal-methods/${deleting.id}`,
-      {
-        method: "DELETE",
-      },
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.message ?? "Failed to delete withdrawal method.",
+      const response = await fetch(
+        `/api/admin/withdrawal-methods/${deleting.id}`,
+        {
+          method: "DELETE",
+        },
       );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message ??
+            "Failed to delete withdrawal method.",
+        );
+      }
+
+      toast.success(
+        "Withdrawal method deleted.",
+      );
+
+      setDeleting(null);
+
+      router.refresh();
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong.",
+      );
+    } finally {
+      setLoading(false);
     }
-
-    toast.success("Withdrawal method deleted.");
-
-    setDeleting(null);
-
-    router.refresh();
-  } catch (error) {
-    toast.error(
-      error instanceof Error
-        ? error.message
-        : "Something went wrong.",
-    );
-  } finally {
-    setLoading(false);
   }
-}
-
 
   return (
     <>
@@ -245,11 +256,12 @@ async function handleDelete() {
           className="
             flex
             flex-col
-            gap-4
+            gap-2.5
             border-b
             border-[var(--admin-card-border)]
-            p-6
-
+            p-2.5
+            sm:gap-4
+            sm:p-6
             lg:flex-row
             lg:items-center
             lg:justify-between
@@ -258,9 +270,10 @@ async function handleDelete() {
           <div>
             <h2
               className="
-                text-xl
+                text-sm
                 font-bold
                 text-[var(--admin-title)]
+                sm:text-xl
               "
             >
               Withdrawal Methods
@@ -268,9 +281,12 @@ async function handleDelete() {
 
             <p
               className="
-                mt-1
-                text-sm
+                mt-0.5
+                text-[10px]
+                leading-4
                 text-[var(--admin-muted)]
+                sm:mt-1
+                sm:text-sm
               "
             >
               Manage crypto and bank withdrawal methods.
@@ -281,24 +297,29 @@ async function handleDelete() {
             className="
               flex
               flex-col
-              gap-3
-
+              gap-1.5
               sm:flex-row
+              sm:gap-3
             "
           >
             <div
               className="
                 relative
+                w-full
+                sm:w-auto
               "
             >
               <Search
-                size={18}
+                size={14}
                 className="
                   absolute
-                  left-3
+                  left-2
                   top-1/2
                   -translate-y-1/2
                   text-[var(--admin-muted)]
+                  sm:left-3
+                  sm:h-[18px]
+                  sm:w-[18px]
                 "
               />
 
@@ -312,20 +333,24 @@ async function handleDelete() {
                 }
                 placeholder="Search methods..."
                 className="
-                  h-11
+                  h-7
                   w-full
-                  rounded-[var(--admin-input-radius)]
+                  rounded-md
                   border
                   border-[var(--admin-input-border)]
                   bg-[var(--admin-input-bg)]
-                  pl-10
-                  pr-4
-                  text-sm
+                  pl-7
+                  pr-2
+                  text-[9px]
                   text-[var(--admin-input-text)]
                   outline-none
                   placeholder:text-[var(--admin-input-placeholder)]
                   focus:border-[var(--admin-input-focus)]
-
+                  sm:h-11
+                  sm:rounded-[var(--admin-input-radius)]
+                  sm:pl-10
+                  sm:pr-4
+                  sm:text-sm
                   sm:w-72
                 "
               />
@@ -333,27 +358,41 @@ async function handleDelete() {
 
             <button
               type="button"
-onClick={() => {
-  setForm(EMPTY_FORM);
-  setCreateOpen(true);
-}}
+              onClick={() => {
+                setForm(EMPTY_FORM);
+                setCreateOpen(true);
+              }}
               className="
                 inline-flex
-                h-11
+                h-7
                 items-center
                 justify-center
-                gap-2
-                rounded-[var(--admin-input-radius)]
-                bg-[var(--admin-button-primary-bg)]
-                px-5
-                text-sm
+                gap-1
+                rounded-md
+                border
+                px-2.5
+                text-[9px]
                 font-semibold
-                text-[var(--admin-button-primary-text)]
-                transition-colors
-                hover:bg-[var(--admin-button-primary-hover)]
+                transition-all
+                duration-300
+                hover:opacity-90
+                sm:h-11
+                sm:gap-2
+                sm:rounded-[var(--admin-input-radius)]
+                sm:px-5
+                sm:text-sm
               "
+              style={{
+                background: "var(--admin-table-header-bg)",
+                color: "var(--admin-table-title)",
+                borderColor: "var(--admin-card-border)",
+                boxShadow: "0 1px 3px var(--admin-card-shadow)",
+              }}
             >
-              <Plus size={18} />
+              <Plus
+                size={12}
+                className="sm:h-[18px] sm:w-[18px]"
+              />
 
               Add Method
             </button>
@@ -367,16 +406,19 @@ onClick={() => {
               flex-col
               items-center
               justify-center
-              px-6
-              py-20
+              px-3
+              py-8
               text-center
+              sm:px-6
+              sm:py-20
             "
           >
             <h3
               className="
-                text-lg
+                text-xs
                 font-semibold
                 text-[var(--admin-title)]
+                sm:text-lg
               "
             >
               No withdrawal methods found
@@ -384,10 +426,13 @@ onClick={() => {
 
             <p
               className="
-                mt-2
+                mt-0.5
                 max-w-md
-                text-sm
+                text-[10px]
+                leading-4
                 text-[var(--admin-muted)]
+                sm:mt-2
+                sm:text-sm
               "
             >
               Create your first withdrawal method or adjust your search.
@@ -395,7 +440,7 @@ onClick={() => {
           </div>
         ) : (
           <>
-            <div className="hidden lg:block overflow-x-auto">
+            <div className="hidden overflow-x-auto lg:block">
               <table
                 className="
                   min-w-full
@@ -439,22 +484,27 @@ onClick={() => {
                         key={method.id}
                         method={method}
                         desktop
-onEdit={() => {
-  setEditing(method);
+                        onEdit={() => {
+                          setEditing(method);
 
-  setForm({
-    type: method.type,
-    name: method.name,
-    symbol: method.symbol,
-    network: method.network ?? "",
-    placeholder: method.placeholder,
-    fee: method.fee,
-    feeType: method.feeType,
-    minimumAmount: method.minimumAmount,
-    maximumAmount: method.maximumAmount,
-    icon: method.icon,
-  });
-}}
+                          setForm({
+                            type: method.type,
+                            name: method.name,
+                            symbol: method.symbol,
+                            network:
+                              method.network ?? "",
+                            placeholder:
+                              method.placeholder,
+                            fee: method.fee,
+                            feeType:
+                              method.feeType,
+                            minimumAmount:
+                              method.minimumAmount,
+                            maximumAmount:
+                              method.maximumAmount,
+                            icon: method.icon,
+                          });
+                        }}
                         onDelete={() =>
                           setDeleting(
                             method
@@ -469,9 +519,10 @@ onEdit={() => {
 
             <div
               className="
-                space-y-4
-                p-4
-
+                space-y-2
+                p-2
+                sm:space-y-4
+                sm:p-4
                 lg:hidden
               "
             >
@@ -480,22 +531,27 @@ onEdit={() => {
                   <WithdrawalMethodCard
                     key={method.id}
                     method={method}
-onEdit={() => {
-  setEditing(method);
+                    onEdit={() => {
+                      setEditing(method);
 
-  setForm({
-    type: method.type,
-    name: method.name,
-    symbol: method.symbol,
-    network: method.network ?? "",
-    placeholder: method.placeholder,
-    fee: method.fee,
-    feeType: method.feeType,
-    minimumAmount: method.minimumAmount,
-    maximumAmount: method.maximumAmount,
-    icon: method.icon,
-  });
-}}
+                      setForm({
+                        type: method.type,
+                        name: method.name,
+                        symbol: method.symbol,
+                        network:
+                          method.network ?? "",
+                        placeholder:
+                          method.placeholder,
+                        fee: method.fee,
+                        feeType:
+                          method.feeType,
+                        minimumAmount:
+                          method.minimumAmount,
+                        maximumAmount:
+                          method.maximumAmount,
+                        icon: method.icon,
+                      });
+                    }}
                     onDelete={() =>
                       setDeleting(
                         method
@@ -509,49 +565,49 @@ onEdit={() => {
         )}
       </div>
 
-<WithdrawalMethodModal
-  open={createOpen}
-  title="Add Withdrawal Method"
-  description="Create a new withdrawal method."
-  value={form}
-  loading={loading}
-  onChange={setForm}
-  onSubmit={handleCreate}
-  onClose={() => {
-    if (loading) return;
+      <WithdrawalMethodModal
+        open={createOpen}
+        title="Add Withdrawal Method"
+        description="Create a new withdrawal method."
+        value={form}
+        loading={loading}
+        onChange={setForm}
+        onSubmit={handleCreate}
+        onClose={() => {
+          if (loading) return;
 
-    setCreateOpen(false);
-    setForm(EMPTY_FORM);
-  }}
-/>
+          setCreateOpen(false);
+          setForm(EMPTY_FORM);
+        }}
+      />
 
-<WithdrawalMethodModal
-  open={Boolean(editing)}
-  title="Edit Withdrawal Method"
-  description="Update the selected withdrawal method."
-  value={form}
-  loading={loading}
-  onChange={setForm}
-  onSubmit={handleUpdate}
-  onClose={() => {
-    if (loading) return;
+      <WithdrawalMethodModal
+        open={Boolean(editing)}
+        title="Edit Withdrawal Method"
+        description="Update the selected withdrawal method."
+        value={form}
+        loading={loading}
+        onChange={setForm}
+        onSubmit={handleUpdate}
+        onClose={() => {
+          if (loading) return;
 
-    setEditing(null);
-    setForm(EMPTY_FORM);
-  }}
-/>
+          setEditing(null);
+          setForm(EMPTY_FORM);
+        }}
+      />
 
-<WithdrawalMethodDeleteModal
-  open={Boolean(deleting)}
-  loading={loading}
-  method={deleting ?? undefined}
-  onDelete={handleDelete}
-  onClose={() => {
-    if (loading) return;
+      <WithdrawalMethodDeleteModal
+        open={Boolean(deleting)}
+        loading={loading}
+        method={deleting ?? undefined}
+        onDelete={handleDelete}
+        onClose={() => {
+          if (loading) return;
 
-    setDeleting(null);
-  }}
-/>
+          setDeleting(null);
+        }}
+      />
     </>
   );
 }

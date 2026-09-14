@@ -52,13 +52,13 @@ export default function KycPage() {
 
         setStatus(record.status);
         setSubmittedAt(
-          record.submittedAt
+          record.submittedAt,
         );
         setReviewedAt(
-          record.reviewedAt
+          record.reviewedAt,
         );
         setRejectionReason(
-          record.rejectionReason
+          record.rejectionReason,
         );
       } finally {
         setLoading(false);
@@ -68,7 +68,37 @@ export default function KycPage() {
     load();
   }, []);
 
-if (loading) {
+  if (loading) {
+    return (
+      <DashboardPage
+        environment="user"
+        breadcrumb={[
+          {
+            label: "Identity Verification",
+          },
+        ]}
+      >
+        <div
+          className="
+            py-10
+            text-center
+            text-xs
+            text-[var(--user-text-muted)]
+            sm:py-16
+            sm:text-sm
+          "
+        >
+          Loading...
+        </div>
+      </DashboardPage>
+    );
+  }
+
+  const showForm =
+    !status ||
+    status === "NOT_SUBMITTED" ||
+    status === "REJECTED";
+
   return (
     <DashboardPage
       environment="user"
@@ -77,41 +107,22 @@ if (loading) {
           label: "Identity Verification",
         },
       ]}
+      containerClassName="
+        pb-12
+        sm:pb-16
+        lg:pb-24
+      "
     >
-      <div className="py-16 text-center">
-        Loading...
-      </div>
-    </DashboardPage>
-  );
-}
-
-  const showForm =
-    !status ||
-    status === "NOT_SUBMITTED" ||
-    status === "REJECTED";
-
-return (
-  <DashboardPage
-    environment="user"
-    breadcrumb={[
-      {
-        label: "Identity Verification",
-      },
-    ]}
-    containerClassName="
-      pb-16
-      lg:pb-24
-    "
-  >
       <div
         className="
-          space-y-5
+          space-y-3.5
+          sm:space-y-5
         "
       >
         <div>
           <h1
             className="
-              text-2xl
+              text-lg
               font-bold
               text-[var(--user-title)]
               sm:text-3xl
@@ -122,14 +133,21 @@ return (
 
           <p
             className="
-              mt-2
+              mt-1.5
               max-w-2xl
-              text-sm
-              leading-6
+              text-[11px]
+              leading-5
               text-[var(--user-text-muted)]
+              sm:mt-2
+              sm:text-sm
+              sm:leading-6
             "
           >
-            Verify your identity to unlock withdrawals and maintain a secure account. Please ensure all information matches your government issued identity document.
+            Verify your identity to unlock
+            withdrawals and maintain a secure
+            account. Please ensure all
+            information matches your government
+            issued identity document.
           </p>
         </div>
 
@@ -167,6 +185,6 @@ return (
           />
         )}
       </div>
-  </DashboardPage>
-);
+    </DashboardPage>
+  );
 }

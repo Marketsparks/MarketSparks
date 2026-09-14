@@ -19,18 +19,14 @@ export default function UserContainer({
       className={cn(
         `
           mx-auto
-
           w-full
-
           max-w-[1440px]
-
-          px-5
-
+          px-4
+          sm:px-5
           lg:px-8
-
           xl:px-10
         `,
-        className
+        className,
       )}
     >
       {children}

@@ -56,8 +56,9 @@ export default function CryptoMethodFields({
       className="
         grid
         grid-cols-1
-        gap-5
+        gap-2
         md:grid-cols-2
+        md:gap-5
       "
     >
       <InputField
@@ -125,14 +126,20 @@ export default function CryptoMethodFields({
         }
       />
 
-      <div className="space-y-2">
+      <div
+        className="
+          space-y-0.5
+          sm:space-y-2
+        "
+      >
         <label
           htmlFor="crypto-fee-type"
           className="
             block
-            text-sm
+            text-[11px]
             font-medium
             text-[var(--admin-text)]
+            sm:text-sm
           "
         >
           Fee Type
@@ -144,24 +151,32 @@ export default function CryptoMethodFields({
           disabled={disabled}
           onChange={(e) =>
             onChange({
-              feeType: e.target.value as
-                | "fixed"
-                | "percentage",
+              feeType:
+                e.target.value as
+                  | "fixed"
+                  | "percentage",
             })
           }
           className="
-            h-11
+            h-7
             w-full
-            rounded-[var(--admin-input-radius)]
+            rounded-md
             border
             border-[var(--admin-input-border)]
             bg-[var(--admin-input-bg)]
-            px-3
-            text-sm
+            px-2
+            text-[11px]
             text-[var(--admin-input-text)]
+            sm:h-11
+            sm:rounded-[var(--admin-input-radius)]
+            sm:px-3
+            sm:text-sm
           "
         >
-          <option value="fixed">Fixed</option>
+          <option value="fixed">
+            Fixed
+          </option>
+
           <option value="percentage">
             Percentage
           </option>
@@ -181,53 +196,64 @@ export default function CryptoMethodFields({
         }
       />
 
-<div
-  className="
-    md:col-span-2
-    rounded-[var(--admin-surface-radius)]
-    border-2
-    border-dashed
-    border-[var(--admin-input-border)]
-    bg-[var(--admin-surface-bg)]
-    p-6
-  "
->
-  <h3
-    className="
-      text-sm
-      font-semibold
-      text-[var(--admin-title)]
-    "
-  >
-    Crypto Icon Upload
-  </h3>
+      <div
+        className="
+          md:col-span-2
+          rounded-lg
+          border-2
+          border-dashed
+          border-[var(--admin-input-border)]
+          bg-[var(--admin-surface-bg)]
+          p-2.5
+          sm:rounded-[var(--admin-surface-radius)]
+          sm:p-6
+        "
+      >
+        <h3
+          className="
+            text-[11px]
+            font-semibold
+            text-[var(--admin-title)]
+            sm:text-sm
+          "
+        >
+          Crypto Icon Upload
+        </h3>
 
-  <p
-    className="
-      mt-2
-      text-xs
-      leading-5
-      text-[var(--admin-muted)]
-    "
-  >
-    Upload a bank logo. Supported formats are PNG, JPG, SVG, and WebP.
-    The uploaded image will be stored in Cloudinary and automatically
-    attached to this withdrawal method.
-  </p>
+        <p
+          className="
+            mt-0.5
+            text-[9px]
+            leading-3.5
+            text-[var(--admin-muted)]
+            sm:mt-2
+            sm:text-xs
+            sm:leading-5
+          "
+        >
+          Upload a bank logo. Supported formats are PNG, JPG, SVG, and WebP.
+          The uploaded image will be stored in Cloudinary and automatically
+          attached to this withdrawal method.
+        </p>
 
-  <div className="mt-6">
-    <CloudinaryUploader
-      folder="withdrawal-methods"
-      value={icon}
-      disabled={disabled}
-      onChange={(publicId) =>
-        onChange({
-          icon: publicId,
-        })
-      }
-    />
-  </div>
-</div>
+        <div
+          className="
+            mt-2
+            sm:mt-6
+          "
+        >
+          <CloudinaryUploader
+            folder="withdrawal-methods"
+            value={icon}
+            disabled={disabled}
+            onChange={(publicId) =>
+              onChange({
+                icon: publicId,
+              })
+            }
+          />
+        </div>
+      </div>
     </div>
   );
 }
@@ -268,14 +294,20 @@ function InputField({
   onChange,
 }: InputFieldProps) {
   return (
-    <div className="space-y-2">
+    <div
+      className="
+        space-y-0.5
+        sm:space-y-2
+      "
+    >
       <label
         htmlFor={id}
         className="
           block
-          text-sm
+          text-[11px]
           font-medium
           text-[var(--admin-text)]
+          sm:text-sm
         "
       >
         {label}
@@ -287,21 +319,27 @@ function InputField({
         disabled={disabled}
         placeholder={placeholder}
         onChange={(e) =>
-          onChange(e.target.value)
+          onChange(
+            e.target.value,
+          )
         }
         className="
-          h-11
+          h-7
           w-full
-          rounded-[var(--admin-input-radius)]
+          rounded-md
           border
           border-[var(--admin-input-border)]
           bg-[var(--admin-input-bg)]
-          px-3
-          text-sm
+          px-2
+          text-[11px]
           text-[var(--admin-input-text)]
           placeholder:text-[var(--admin-input-placeholder)]
           focus:border-[var(--admin-input-focus)]
           outline-none
+          sm:h-11
+          sm:rounded-[var(--admin-input-radius)]
+          sm:px-3
+          sm:text-sm
         "
       />
     </div>
@@ -318,14 +356,20 @@ function NumberField({
   onChange,
 }: NumberFieldProps) {
   return (
-    <div className="space-y-2">
+    <div
+      className="
+        space-y-0.5
+        sm:space-y-2
+      "
+    >
       <label
         htmlFor={id}
         className="
           block
-          text-sm
+          text-[11px]
           font-medium
           text-[var(--admin-text)]
+          sm:text-sm
         "
       >
         {label}
@@ -338,32 +382,38 @@ function NumberField({
         placeholder={placeholder}
         disabled={disabled}
         onChange={(event) => {
-          const raw = event.target.value;
+          const raw =
+            event.target.value;
 
           if (raw === "") {
-            onChange(nullable ? null : 0);
+            onChange(
+              nullable
+                ? null
+                : 0,
+            );
             return;
           }
 
-          const parsed = Number(raw);
+          const parsed =
+            Number(raw);
 
           onChange(
             Number.isNaN(parsed)
               ? nullable
                 ? null
                 : 0
-              : parsed
+              : parsed,
           );
         }}
         className="
-          h-11
+          h-7
           w-full
-          rounded-[var(--admin-input-radius)]
+          rounded-md
           border
           border-[var(--admin-input-border)]
           bg-[var(--admin-input-bg)]
-          px-3
-          text-sm
+          px-2
+          text-[11px]
           text-[var(--admin-input-text)]
           outline-none
           transition-all
@@ -372,6 +422,10 @@ function NumberField({
           focus:border-[var(--admin-input-focus)]
           disabled:cursor-not-allowed
           disabled:opacity-60
+          sm:h-11
+          sm:rounded-[var(--admin-input-radius)]
+          sm:px-3
+          sm:text-sm
         "
       />
     </div>

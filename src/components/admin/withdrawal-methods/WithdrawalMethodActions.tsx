@@ -33,7 +33,8 @@ export default function WithdrawalMethodActions({
         flex-wrap
         items-center
         justify-end
-        gap-2
+        gap-0.5
+        sm:gap-1.5
       "
     >
       <button
@@ -42,16 +43,16 @@ export default function WithdrawalMethodActions({
         onClick={onEdit}
         className="
           inline-flex
-          h-10
+          h-6
           items-center
           justify-center
-          gap-2
-          rounded-[var(--admin-input-radius)]
+          gap-0.5
+          rounded
           border
           border-[var(--admin-button-secondary-border)]
           bg-[var(--admin-button-secondary-bg)]
-          px-4
-          text-sm
+          px-1.5
+          text-[9px]
           font-medium
           text-[var(--admin-button-secondary-text)]
           transition-all
@@ -59,9 +60,17 @@ export default function WithdrawalMethodActions({
           hover:bg-[var(--admin-button-secondary-hover)]
           disabled:cursor-not-allowed
           disabled:opacity-60
+          sm:h-8
+          sm:gap-1.5
+          sm:rounded-lg
+          sm:px-2.5
+          sm:text-xs
         "
       >
-        <Pencil size={16} />
+        <Pencil
+          size={10}
+          className="sm:h-3.5 sm:w-3.5"
+        />
 
         Edit
       </button>
@@ -72,16 +81,16 @@ export default function WithdrawalMethodActions({
         onClick={onToggle}
         className="
           inline-flex
-          h-10
+          h-6
           items-center
           justify-center
-          gap-2
-          rounded-[var(--admin-input-radius)]
+          gap-0.5
+          rounded
           border
           border-[var(--admin-button-secondary-border)]
           bg-[var(--admin-button-secondary-bg)]
-          px-4
-          text-sm
+          px-1.5
+          text-[9px]
           font-medium
           text-[var(--admin-button-secondary-text)]
           transition-all
@@ -89,16 +98,29 @@ export default function WithdrawalMethodActions({
           hover:bg-[var(--admin-button-secondary-hover)]
           disabled:cursor-not-allowed
           disabled:opacity-60
+          sm:h-8
+          sm:gap-1.5
+          sm:rounded-lg
+          sm:px-2.5
+          sm:text-xs
         "
       >
         {active ? (
           <>
-            <PowerOff size={16} />
+            <PowerOff
+              size={10}
+              className="sm:h-3.5 sm:w-3.5"
+            />
+
             Disable
           </>
         ) : (
           <>
-            <Power size={16} />
+            <Power
+              size={10}
+              className="sm:h-3.5 sm:w-3.5"
+            />
+
             Enable
           </>
         )}
@@ -110,14 +132,14 @@ export default function WithdrawalMethodActions({
         onClick={onDelete}
         className="
           inline-flex
-          h-10
+          h-6
           items-center
           justify-center
-          gap-2
-          rounded-[var(--admin-input-radius)]
+          gap-0.5
+          rounded
           bg-[var(--admin-button-danger-bg)]
-          px-4
-          text-sm
+          px-1.5
+          text-[9px]
           font-medium
           text-[var(--admin-button-danger-text)]
           transition-all
@@ -125,9 +147,17 @@ export default function WithdrawalMethodActions({
           hover:bg-[var(--admin-button-danger-hover)]
           disabled:cursor-not-allowed
           disabled:opacity-60
+          sm:h-8
+          sm:gap-1.5
+          sm:rounded-lg
+          sm:px-2.5
+          sm:text-xs
         "
       >
-        <Trash2 size={16} />
+        <Trash2
+          size={10}
+          className="sm:h-3.5 sm:w-3.5"
+        />
 
         Delete
       </button>

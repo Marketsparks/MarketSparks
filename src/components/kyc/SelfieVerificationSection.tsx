@@ -7,9 +7,9 @@ type SelfieVerificationSectionProps = {
 
   selfieLoading: boolean;
 
-onSelfieSelect: (
-  file: File,
-) => Promise<void>;
+  onSelfieSelect: (
+    file: File,
+  ) => Promise<void>;
 
   onRemoveSelfie: () => void;
 };
@@ -27,15 +27,22 @@ export default function SelfieVerificationSection({
         border
         border-[var(--user-card-border)]
         bg-[var(--user-card-bg)]
-        p-6
+        p-3
+        sm:p-6
       "
     >
-      <div className="mb-6">
+      <div
+        className="
+          mb-3
+          sm:mb-6
+        "
+      >
         <h2
           className="
-            text-lg
+            text-sm
             font-semibold
             text-[var(--user-title)]
+            sm:text-lg
           "
         >
           Selfie Verification
@@ -44,12 +51,17 @@ export default function SelfieVerificationSection({
         <p
           className="
             mt-1
-            text-sm
+            text-[10px]
+            leading-4
             text-[var(--user-text-muted)]
+            sm:text-sm
+            sm:leading-normal
           "
         >
-          Upload a clear selfie while holding the same identity document.
-          Your face and the document must both be clearly visible.
+          Upload a clear selfie while holding
+          the same identity document. Your face
+          and the document must both be clearly
+          visible.
         </p>
       </div>
 

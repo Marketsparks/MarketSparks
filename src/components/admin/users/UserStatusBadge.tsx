@@ -60,12 +60,16 @@ export function UserStatusBadge({
       className="
         inline-flex
         items-center
-        rounded-full
-        px-3
-        py-1
-        text-xs
-        font-semibold
         whitespace-nowrap
+        rounded-full
+        px-2
+        py-0.5
+        text-[10px]
+        font-semibold
+        leading-4
+        sm:px-2.5
+        sm:py-1
+        sm:text-xs
       "
       style={{
         background:

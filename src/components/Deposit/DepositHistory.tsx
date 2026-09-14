@@ -67,48 +67,37 @@ export default function DepositHistory({
   return (
     <section
       className="
-        mt-12
-
+        mt-6
         rounded-[var(--deposit-history-radius)]
-
         border
-
         border-[var(--deposit-history-border)]
-
         bg-[var(--deposit-history-bg)]
-
-        p-[var(--deposit-history-padding)]
-
+        p-3
         shadow-[var(--deposit-history-shadow)]
-
         transition-all
-
         duration-[var(--deposit-history-transition)]
+        sm:mt-12
+        sm:p-[var(--deposit-history-padding)]
       "
     >
       <div
         className="
           flex
-
           flex-col
-
-          gap-6
-
+          gap-3
           lg:flex-row
-
           lg:items-center
-
           lg:justify-between
+          lg:gap-6
         "
       >
-        <div>
+        <div className="min-w-0">
           <h2
             className="
-              text-2xl
-
+              text-[16px]
               font-bold
-
               text-[var(--deposit-history-title)]
+              sm:text-2xl
             "
           >
             Recent Deposits
@@ -116,11 +105,13 @@ export default function DepositHistory({
 
           <p
             className="
-              mt-2
-
-              text-sm
-
+              mt-1
+              text-[11px]
+              leading-5
               text-[var(--deposit-history-text)]
+              sm:mt-2
+              sm:text-sm
+              sm:leading-normal
             "
           >
             View and monitor all your
@@ -131,10 +122,9 @@ export default function DepositHistory({
         <div
           className="
             flex
-
             flex-wrap
-
-            gap-1.5
+            gap-1
+            sm:gap-1.5
           "
         >
           {FILTERS.map(
@@ -247,21 +237,16 @@ export default function DepositHistory({
                   }
                   className={`
                     rounded-md
-
                     border
-
-                    px-2
-
-                    py-1
-
-                    text-[11px]
-
+                    px-1.5
+                    py-0.5
+                    text-[9px]
                     font-medium
-
                     transition-all
-
                     duration-[var(--deposit-history-filter-transition)]
-
+                    sm:px-2
+                    sm:py-1
+                    sm:text-[11px]
                     ${filterStyles[
                       filter.value
                     ]}
@@ -277,37 +262,36 @@ export default function DepositHistory({
         </div>
       </div>
 
-<div
-  className="
-    mt-8
-
-    max-h-[600px]
-
-    space-y-4
-
-    overflow-y-auto
-
-    pr-1
-  "
->
-  {filteredDeposits.length >
-  0 ? (
-    filteredDeposits.map(
-      (deposit) => (
-        <DepositHistoryCard
-          key={
-            deposit.id
-          }
-          deposit={
-            deposit
-          }
-        />
-      )
-    )
-  ) : (
-    <DepositHistoryEmpty />
-  )}
-</div>
+      <div
+        className="
+          mt-4
+          max-h-[600px]
+          space-y-2.5
+          overflow-y-auto
+          pr-0.5
+          sm:mt-8
+          sm:space-y-4
+          sm:pr-1
+        "
+      >
+        {filteredDeposits.length >
+        0 ? (
+          filteredDeposits.map(
+            (deposit) => (
+              <DepositHistoryCard
+                key={
+                  deposit.id
+                }
+                deposit={
+                  deposit
+                }
+              />
+            )
+          )
+        ) : (
+          <DepositHistoryEmpty />
+        )}
+      </div>
     </section>
   );
 }

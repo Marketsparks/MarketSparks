@@ -15,7 +15,8 @@ export default async function WithdrawalMethodsPage() {
       className="
         flex
         flex-col
-        gap-[var(--admin-page-gap)]
+        gap-4
+        sm:gap-[var(--admin-page-gap)]
       "
     >
       <WithdrawalMethodTable

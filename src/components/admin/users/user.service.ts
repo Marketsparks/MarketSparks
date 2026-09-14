@@ -1,6 +1,7 @@
 import type {
-  UsersResponse,
   UserQuery,
+  UsersResponse,
+  UserRole,
 } from "./user.types";
 
 type UserAction =
@@ -21,10 +22,12 @@ export async function getUsers({
   limit = 10,
   search = "",
   status = "ALL",
+  role = "USER",
 }: Partial<UserQuery> = {}): Promise<UsersResponse> {
   const params = new URLSearchParams({
     page: String(page),
     limit: String(limit),
+    role,
   });
 
   const trimmedSearch = search.trim();

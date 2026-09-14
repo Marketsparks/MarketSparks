@@ -18,35 +18,42 @@ export default function AppSearchEmpty({
         flex-col
         items-center
         justify-center
-        py-14
+        py-8
         text-center
+        sm:py-14
       "
     >
       <div
         className="
           flex
-          h-14
-          w-14
+          h-10
+          w-10
           items-center
           justify-center
           rounded-full
           bg-[var(--surface-card)]
+          sm:h-14
+          sm:w-14
         "
       >
         <SearchX
-          size={24}
+          size={19}
           className="
             text-[var(--foreground-muted)]
+            sm:h-6
+            sm:w-6
           "
         />
       </div>
 
       <h3
         className="
-          mt-5
-          text-[17px]
+          mt-3
+          text-[14px]
           font-semibold
           text-[var(--foreground)]
+          sm:mt-5
+          sm:text-[17px]
         "
       >
         No products found
@@ -54,11 +61,14 @@ export default function AppSearchEmpty({
 
       <p
         className="
-          mt-2
+          mt-1.5
           max-w-sm
-          text-[14px]
-          leading-6
+          text-[10px]
+          leading-4
           text-[var(--foreground-muted)]
+          sm:mt-2
+          sm:text-[14px]
+          sm:leading-6
         "
       >
         We couldn't find any products matching{" "}

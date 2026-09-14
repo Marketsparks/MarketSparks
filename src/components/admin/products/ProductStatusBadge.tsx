@@ -40,12 +40,16 @@ export default function ProductStatusBadge({
         justify-center
         rounded-full
         border
-        px-2.5
-        py-1
-        text-xs
+        px-1.5
+        py-0.5
+        text-[8px]
         font-medium
         uppercase
-        tracking-wide
+        tracking-[0.04em]
+        sm:px-2.5
+        sm:py-1
+        sm:text-xs
+        sm:tracking-wide
         ${statusStyles[status]}
       `}
     >

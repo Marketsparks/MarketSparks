@@ -21,10 +21,11 @@ export default function DepositBalance({
         border
         border-[var(--deposit-balance-border)]
         bg-[var(--deposit-balance-bg)]
-        p-[var(--deposit-balance-padding)]
+        p-3
         shadow-[var(--deposit-balance-shadow)]
         transition-all
         duration-[var(--deposit-balance-transition)]
+        sm:p-[var(--deposit-balance-padding)]
       "
     >
       <div
@@ -32,13 +33,14 @@ export default function DepositBalance({
           flex
           items-start
           justify-between
-          gap-4
+          gap-2.5
+          sm:gap-4
         "
       >
-        <div>
+        <div className="min-w-0">
           <p
             className="
-              text-[13px]
+              text-[11px]
               font-medium
               text-[var(--deposit-balance-title)]
               sm:text-[14px]
@@ -49,12 +51,13 @@ export default function DepositBalance({
 
           <h2
             className="
-              mt-2
-              text-[30px]
+              mt-1.5
+              text-[24px]
               font-extrabold
               leading-none
               tracking-[-0.02em]
               text-[var(--deposit-balance-amount)]
+              sm:mt-2
               sm:text-[36px]
               lg:text-[42px]
             "
@@ -66,31 +69,40 @@ export default function DepositBalance({
         <div
           className="
             flex
-            h-14
-            w-14
+            h-10
+            w-10
+            shrink-0
             items-center
             justify-center
-            rounded-2xl
+            rounded-xl
             bg-[var(--deposit-balance-icon-bg)]
             text-[var(--deposit-balance-icon-color)]
             shadow-md
             sm:h-16
             sm:w-16
+            sm:rounded-2xl
           "
         >
           <Wallet
-            size={28}
+            size={20}
             strokeWidth={2}
+            className="
+              sm:h-7
+              sm:w-7
+            "
           />
         </div>
       </div>
 
       <p
         className="
-          mt-4
-          text-[14px]
-          leading-6
+          mt-3
+          text-[11px]
+          leading-5
           text-[var(--deposit-balance-text)]
+          sm:mt-4
+          sm:text-[14px]
+          sm:leading-6
         "
       >
         Deposit funds into your wallet to purchase products, subscribe to plans, and access premium features.

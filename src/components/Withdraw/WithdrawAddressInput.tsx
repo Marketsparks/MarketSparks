@@ -101,15 +101,13 @@ export default function WithdrawAddressInput({
       <label
         htmlFor="withdrawal-address"
         className="
-          mb-2
-
+          mb-1.5
           block
-
-          text-[12px]
-
+          text-[10px]
           font-medium
-
           text-[var(--withdraw-address-label)]
+          sm:mb-2
+          sm:text-[12px]
         "
       >
         Destination Address
@@ -118,9 +116,7 @@ export default function WithdrawAddressInput({
       <div
         className="
           flex
-
           min-w-0
-
           items-stretch
         "
       >
@@ -139,40 +135,28 @@ export default function WithdrawAddressInput({
           spellCheck={false}
           className="
             min-w-0
-
             flex-1
-
-            rounded-l-xl
-
+            h-8
+            rounded-l-lg
             border
-
             border-r-0
-
             border-[var(--withdraw-address-border)]
-
             bg-[var(--withdraw-address-bg)]
-
-            px-3
-
-            py-2.5
-
-            text-[12px]
-
+            px-2.5
+            text-[10px]
             text-[var(--withdraw-address-text)]
-
             outline-none
-
             transition-all
-
             duration-[var(--withdraw-address-transition)]
-
             placeholder:text-[var(--withdraw-address-placeholder)]
-
             focus:border-[var(--withdraw-address-focus)]
-
             disabled:cursor-not-allowed
-
             disabled:opacity-60
+            sm:h-auto
+            sm:rounded-l-xl
+            sm:px-3
+            sm:py-2.5
+            sm:text-[12px]
           "
         />
 
@@ -194,44 +178,42 @@ export default function WithdrawAddressInput({
           }
           className="
             flex
-
-            w-11
-
+            h-8
+            w-8
             shrink-0
-
             items-center
-
             justify-center
-
-            rounded-r-xl
-
+            rounded-r-lg
             border
-
             border-[var(--withdraw-address-copy-border)]
-
             bg-[var(--withdraw-address-copy-bg)]
-
             text-[var(--withdraw-address-copy-text)]
-
             transition-all
-
             duration-[var(--withdraw-address-transition)]
-
             hover:bg-[var(--withdraw-address-copy-hover)]
-
             disabled:cursor-not-allowed
-
             disabled:opacity-50
+            sm:h-auto
+            sm:w-11
+            sm:rounded-r-xl
           "
         >
           {copied ? (
             <Check
-              size={16}
+              size={14}
               strokeWidth={2.5}
+              className="
+                sm:h-4
+                sm:w-4
+              "
             />
           ) : (
             <Copy
-              size={16}
+              size={14}
+              className="
+                sm:h-4
+                sm:w-4
+              "
             />
           )}
         </button>

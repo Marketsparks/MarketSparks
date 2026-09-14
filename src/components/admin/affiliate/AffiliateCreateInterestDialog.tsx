@@ -124,8 +124,8 @@ export default function AffiliateCreateInterestDialog({
     return null;
   }
 
-const currentListing =
-  listing;
+  const currentListing =
+    listing;
 
   const selectedBuyer =
     buyers.find(
@@ -160,8 +160,8 @@ const currentListing =
     }
 
     const input: CreateAffiliateInterestInput = {
-affiliateListingId:
-  currentListing.id,
+      affiliateListingId:
+        currentListing.id,
 
       testBuyerId:
         selectedBuyerId,
@@ -219,8 +219,9 @@ affiliateListingId:
         items-center
         justify-center
         bg-black/45
-        p-3
+        p-2
         backdrop-blur-sm
+        sm:p-3
       "
     >
       <form
@@ -233,10 +234,12 @@ affiliateListingId:
         className="
           w-full
           max-w-sm
-          rounded-xl
+          rounded-lg
           border
-          p-4
+          p-3
           shadow-2xl
+          sm:rounded-xl
+          sm:p-4
         "
         style={{
           background:
@@ -251,16 +254,18 @@ affiliateListingId:
             flex
             items-start
             justify-between
-            gap-3
+            gap-2
+            sm:gap-3
           "
         >
           <div className="min-w-0">
             <p
               className="
-                text-[9px]
+                text-[8px]
                 font-semibold
                 uppercase
                 tracking-[0.08em]
+                sm:text-[9px]
               "
               style={{
                 color:
@@ -275,8 +280,9 @@ affiliateListingId:
               className="
                 mt-0.5
                 truncate
-                text-sm
+                text-[13px]
                 font-bold
+                sm:text-sm
               "
               style={{
                 color:
@@ -288,10 +294,13 @@ affiliateListingId:
 
             <p
               className="
-                mt-1
+                mt-0.5
                 line-clamp-2
-                text-[10px]
-                leading-4
+                text-[9px]
+                leading-3.5
+                sm:mt-1
+                sm:text-[10px]
+                sm:leading-4
               "
               style={{
                 color:
@@ -312,8 +321,8 @@ affiliateListingId:
             }
             className="
               flex
-              h-7
-              w-7
+              h-6
+              w-6
               shrink-0
               items-center
               justify-center
@@ -322,6 +331,8 @@ affiliateListingId:
               transition
               hover:bg-[var(--surface-hover)]
               disabled:opacity-50
+              sm:h-7
+              sm:w-7
             "
             style={{
               background:
@@ -336,27 +347,37 @@ affiliateListingId:
             aria-label="Close"
           >
             <X
+              size={12}
+              className="sm:hidden"
+            />
+
+            <X
               size={14}
+              className="hidden sm:block"
             />
           </button>
         </div>
 
         <div
           className="
-            mt-4
-            space-y-3
+            mt-3
+            space-y-2.5
+            sm:mt-4
+            sm:space-y-3
           "
         >
           <div>
             <label
               htmlFor="affiliate-test-buyer"
               className="
-                mb-1
+                mb-0.5
                 block
-                text-[9px]
+                text-[8px]
                 font-semibold
                 uppercase
                 tracking-[0.06em]
+                sm:mb-1
+                sm:text-[9px]
               "
               style={{
                 color:
@@ -384,16 +405,19 @@ affiliateListingId:
                 saving
               }
               className="
-                h-9
+                h-8
                 w-full
                 rounded-md
                 border
                 bg-transparent
-                px-2.5
-                text-[10px]
+                px-2
+                text-[9px]
                 outline-none
                 transition
                 focus:border-[var(--primary)]
+                sm:h-9
+                sm:px-2.5
+                sm:text-[10px]
               "
               style={{
                 borderColor:
@@ -439,11 +463,15 @@ affiliateListingId:
               className="
                 flex
                 items-center
-                gap-2.5
-                rounded-lg
+                gap-2
+                rounded-md
                 border
-                px-2.5
-                py-2
+                px-2
+                py-1.5
+                sm:gap-2.5
+                sm:rounded-lg
+                sm:px-2.5
+                sm:py-2
               "
               style={{
                 background:
@@ -463,8 +491,9 @@ affiliateListingId:
                 <p
                   className="
                     truncate
-                    text-[10px]
+                    text-[9px]
                     font-semibold
+                    sm:text-[10px]
                   "
                   style={{
                     color:
@@ -480,7 +509,8 @@ affiliateListingId:
                   className="
                     mt-0.5
                     truncate
-                    text-[9px]
+                    text-[8px]
+                    sm:text-[9px]
                   "
                   style={{
                     color:
@@ -503,12 +533,14 @@ affiliateListingId:
             <label
               htmlFor="affiliate-offered-price"
               className="
-                mb-1
+                mb-0.5
                 block
-                text-[9px]
+                text-[8px]
                 font-semibold
                 uppercase
                 tracking-[0.06em]
+                sm:mb-1
+                sm:text-[9px]
               "
               style={{
                 color:
@@ -521,11 +553,13 @@ affiliateListingId:
             <div
               className="
                 flex
-                h-9
+                h-8
                 items-center
                 rounded-md
                 border
-                px-2.5
+                px-2
+                sm:h-9
+                sm:px-2.5
               "
               style={{
                 borderColor:
@@ -538,8 +572,9 @@ affiliateListingId:
               <span
                 className="
                   mr-1
-                  text-[10px]
+                  text-[9px]
                   font-semibold
+                  sm:text-[10px]
                 "
                 style={{
                   color:
@@ -574,8 +609,9 @@ affiliateListingId:
                   min-w-0
                   flex-1
                   bg-transparent
-                  text-[10px]
+                  text-[9px]
                   outline-none
+                  sm:text-[10px]
                 "
                 style={{
                   color:
@@ -586,8 +622,10 @@ affiliateListingId:
 
             <p
               className="
-                mt-1
-                text-[9px]
+                mt-0.5
+                text-[8px]
+                sm:mt-1
+                sm:text-[9px]
               "
               style={{
                 color:
@@ -604,10 +642,12 @@ affiliateListingId:
 
         <div
           className="
-            mt-4
+            mt-3
             flex
             justify-end
-            gap-2
+            gap-1.5
+            sm:mt-4
+            sm:gap-2
           "
         >
           <button
@@ -619,15 +659,18 @@ affiliateListingId:
               saving
             }
             className="
-              h-8
+              h-7
               rounded-md
               border
-              px-3
-              text-[10px]
+              px-2.5
+              text-[9px]
               font-semibold
               transition
               hover:bg-[var(--surface-hover)]
               disabled:opacity-50
+              sm:h-8
+              sm:px-3
+              sm:text-[10px]
             "
             style={{
               background:
@@ -650,19 +693,23 @@ affiliateListingId:
             }
             className="
               inline-flex
-              h-8
+              h-7
               items-center
               justify-center
-              gap-1.5
+              gap-1
               rounded-md
               border
-              px-3
-              text-[10px]
+              px-2.5
+              text-[9px]
               font-semibold
               transition
               hover:bg-[var(--surface-hover)]
               disabled:cursor-not-allowed
               disabled:opacity-50
+              sm:h-8
+              sm:gap-1.5
+              sm:px-3
+              sm:text-[10px]
             "
             style={{
               background:
@@ -678,8 +725,13 @@ affiliateListingId:
             {saving ? (
               <>
                 <Loader2
+                  size={11}
+                  className="animate-spin sm:hidden"
+                />
+
+                <Loader2
                   size={12}
-                  className="animate-spin"
+                  className="hidden animate-spin sm:block"
                 />
 
                 Creating...
@@ -699,26 +751,28 @@ function BuyerAvatar({
 }: {
   buyer: AffiliateTestBuyer;
 }) {
-const imageUrl =
-  buyer.imageKey
-    ? getCloudinaryImageUrl(
-        buyer.imageKey,
-      )
-    : null;
+  const imageUrl =
+    buyer.imageKey
+      ? getCloudinaryImageUrl(
+          buyer.imageKey,
+        )
+      : null;
 
   return (
     <div
       className="
         relative
         flex
-        h-8
-        w-8
+        h-7
+        w-7
         shrink-0
         items-center
         justify-center
         overflow-hidden
         rounded-full
         bg-[var(--surface)]
+        sm:h-8
+        sm:w-8
       "
     >
       {imageUrl ? (
@@ -735,8 +789,8 @@ const imageUrl =
         />
       ) : (
         <UserRound
-          size={14}
-          className="text-[var(--foreground-muted)]"
+          size={13}
+          className="text-[var(--foreground-muted)] sm:h-3.5 sm:w-3.5"
         />
       )}
     </div>

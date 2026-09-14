@@ -46,10 +46,12 @@ export default function AppSearchResults({
     return (
       <div
         className="
-          py-12
+          py-8
           text-center
-          text-sm
+          text-[11px]
           text-[var(--foreground-muted)]
+          sm:py-12
+          sm:text-sm
         "
       >
         Searching...
@@ -65,15 +67,17 @@ export default function AppSearchResults({
     return (
       <div
         className="
-          py-12
+          py-8
           text-center
+          sm:py-12
         "
       >
         <p
           className="
-            text-[15px]
+            text-[12px]
             font-medium
             text-[var(--foreground)]
+            sm:text-[15px]
           "
         >
           No products found.
@@ -81,9 +85,11 @@ export default function AppSearchResults({
 
         <p
           className="
-            mt-2
-            text-sm
+            mt-1.5
+            text-[10px]
             text-[var(--foreground-muted)]
+            sm:mt-2
+            sm:text-sm
           "
         >
           Try a different keyword.
@@ -111,12 +117,12 @@ export default function AppSearchResults({
             ? `/Market-Place/${product.slug}`
             : `/Product/${product.slug}`;
 
-const compareAtPrice =
-  product.compareAtPrice;
+          const compareAtPrice =
+            product.compareAtPrice;
 
-const hasDiscount =
-  compareAtPrice !== null &&
-  compareAtPrice !== undefined;
+          const hasDiscount =
+            compareAtPrice !== null &&
+            compareAtPrice !== undefined;
 
           return (
             <Link
@@ -135,22 +141,27 @@ const hasDiscount =
                 relative
                 flex
                 items-center
-                gap-3
-                py-3
+                gap-2
+                py-2
                 transition-opacity
                 duration-200
                 hover:opacity-80
+                sm:gap-3
+                sm:py-3
               "
             >
               <div
                 className="
                   relative
-                  h-14
-                  w-14
+                  h-10
+                  w-10
                   flex-shrink-0
                   overflow-hidden
-                  rounded-xl
+                  rounded-lg
                   bg-[var(--surface-card)]
+                  sm:h-14
+                  sm:w-14
+                  sm:rounded-xl
                 "
               >
                 {image && (
@@ -181,46 +192,51 @@ const hasDiscount =
                 <h3
                   className="
                     truncate
-                    text-[15px]
+                    text-[11px]
                     font-semibold
                     text-[var(--foreground)]
+                    sm:text-[15px]
                   "
                 >
                   {product.name}
                 </h3>
 
-<div
-  className="
-    mt-1
-    flex
-    flex-wrap
-    items-end
-    gap-2
-  "
->
-  {hasDiscount && (
-    <span
-      className="
-        text-[12px]
-        font-medium
-        text-[var(--foreground-muted)]
-        line-through
-      "
-    >
-      ${compareAtPrice.toFixed(2)}
-    </span>
-  )}
+                <div
+                  className="
+                    mt-0.5
+                    flex
+                    flex-wrap
+                    items-end
+                    gap-1.5
+                    sm:mt-1
+                    sm:gap-2
+                  "
+                >
+                  {hasDiscount && (
+                    <span
+                      className="
+                        text-[9px]
+                        font-medium
+                        text-[var(--foreground-muted)]
+                        line-through
+                        sm:text-[12px]
+                      "
+                    >
+                      ${compareAtPrice.toFixed(2)}
+                    </span>
+                  )}
 
-  <span
-    className="
-      text-[15px]
-      font-semibold
-      text-[var(--primary)]
-    "
-  >
-    ${product.price.toFixed(2)}
-  </span>
-</div>
+                  <span
+                    className="
+                      text-[11px]
+                      font-semibold
+                      text-[var(--primary)]
+                      sm:text-[15px]
+                    "
+                  >
+                    ${product.price.toFixed(2)}
+                  </span>
+                </div>
               </div>
 
               {index !==
@@ -230,10 +246,11 @@ const hasDiscount =
                   className="
                     absolute
                     bottom-0
-                    left-[72px]
+                    left-[52px]
                     right-0
                     h-px
                     bg-[var(--border)]
+                    sm:left-[72px]
                   "
                 />
               )}

@@ -32,11 +32,12 @@ export default function ProfileHeader({
       className="
         relative
         overflow-hidden
-        rounded-[var(--user-radius-lg)]
+        rounded-lg
         border
         bg-[var(--user-card-bg)]
-        p-4
+        p-3
         shadow-[var(--user-card-shadow)]
+        sm:rounded-[var(--user-radius-lg)]
         sm:p-6
       "
       style={{
@@ -61,25 +62,27 @@ export default function ProfileHeader({
           relative
           flex
           flex-col
-          gap-5
+          gap-4
           lg:flex-row
           lg:items-center
           lg:justify-between
+          sm:gap-5
         "
       >
         <div
           className="
             flex
             items-start
-            gap-4
+            gap-2.5
+            sm:gap-4
           "
         >
           <div
             className="
               relative
               flex
-              h-[88px]
-              w-[88px]
+              h-16
+              w-16
               shrink-0
               items-center
               justify-center
@@ -104,21 +107,32 @@ export default function ProfileHeader({
                 className="object-cover"
               />
             ) : (
-              <UserCircle2
-                size={64}
-                color="var(--user-icon-muted)"
-              />
+              <>
+                <UserCircle2
+                  size={42}
+                  className="sm:hidden"
+                  color="var(--user-icon-muted)"
+                />
+
+                <UserCircle2
+                  size={64}
+                  className="hidden sm:block"
+                  color="var(--user-icon-muted)"
+                />
+              </>
             )}
           </div>
 
           <div className="min-w-0">
             <p
               className="
-                text-xs
+                text-[9px]
                 font-semibold
                 uppercase
-                tracking-[0.16em]
+                tracking-[0.14em]
                 text-[var(--user-text-muted)]
+                sm:text-xs
+                sm:tracking-[0.16em]
               "
             >
               Account Overview
@@ -126,10 +140,12 @@ export default function ProfileHeader({
 
             <h2
               className="
-                mt-1
-                text-xl
+                mt-0.5
+                truncate
+                text-base
                 font-bold
                 text-[var(--user-title)]
+                sm:mt-1
                 sm:text-2xl
               "
             >
@@ -138,76 +154,103 @@ export default function ProfileHeader({
 
             <div
               className="
-                mt-5
+                mt-3
                 grid
-                gap-3
-                text-sm
+                gap-2.5
+                text-[11px]
+                sm:mt-5
+                sm:gap-3
+                sm:text-sm
               "
             >
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-2 sm:gap-3">
                 <Mail
-                  size={17}
-                  className="mt-0.5 text-[var(--user-icon-muted)]"
+                  size={14}
+                  className="
+                    mt-0.5
+                    shrink-0
+                    text-[var(--user-icon-muted)]
+                    sm:h-[17px]
+                    sm:w-[17px]
+                  "
                 />
 
-                <div>
-                  <p className="text-xs text-[var(--user-text-muted)]">
+                <div className="min-w-0">
+                  <p className="text-[9px] text-[var(--user-text-muted)] sm:text-xs">
                     Email
                   </p>
 
-                  <p className="break-all font-medium text-[var(--user-title)]">
+                  <p className="break-all font-medium text-[var(--user-title)] sm:text-sm">
                     {user.email}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-2 sm:gap-3">
                 <Phone
-                  size={17}
-                  className="mt-0.5 text-[var(--user-icon-muted)]"
+                  size={14}
+                  className="
+                    mt-0.5
+                    shrink-0
+                    text-[var(--user-icon-muted)]
+                    sm:h-[17px]
+                    sm:w-[17px]
+                  "
                 />
 
                 <div>
-                  <p className="text-xs text-[var(--user-text-muted)]">
+                  <p className="text-[9px] text-[var(--user-text-muted)] sm:text-xs">
                     Primary Phone
                   </p>
 
-                  <p className="font-medium text-[var(--user-title)]">
+                  <p className="font-medium text-[var(--user-title)] sm:text-sm">
                     {user.phoneNumber}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-2 sm:gap-3">
                 <Phone
-                  size={17}
-                  className="mt-0.5 text-[var(--user-icon-muted)]"
+                  size={14}
+                  className="
+                    mt-0.5
+                    shrink-0
+                    text-[var(--user-icon-muted)]
+                    sm:h-[17px]
+                    sm:w-[17px]
+                  "
                 />
 
                 <div>
-                  <p className="text-xs text-[var(--user-text-muted)]">
+                  <p className="text-[9px] text-[var(--user-text-muted)] sm:text-xs">
                     Secondary Phone
                   </p>
 
-                  <p className="font-medium text-[var(--user-title)]">
+                  <p className="font-medium text-[var(--user-title)] sm:text-sm">
                     {user.secondaryPhoneNumber ??
                       "Not added"}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-2 sm:gap-3">
                 <MapPin
-                  size={17}
-                  className="mt-0.5 text-[var(--user-icon-muted)]"
+                  size={14}
+                  className="
+                    mt-0.5
+                    shrink-0
+                    text-[var(--user-icon-muted)]
+                    sm:h-[17px]
+                    sm:w-[17px]
+                  "
                 />
 
                 <div>
-                  <p className="text-xs text-[var(--user-text-muted)]">
+                  <p className="text-[9px] text-[var(--user-text-muted)] sm:text-xs">
                     Country
                   </p>
 
-                  <p className="font-medium text-[var(--user-title)]">
+                  <p className="font-medium text-[var(--user-title)] sm:text-sm">
                     {user.country}
                   </p>
                 </div>
@@ -219,24 +262,27 @@ export default function ProfileHeader({
         <button
           type="button"
           onClick={onEdit}
-className="
-  h-9
-  rounded-full
-  border
-  border-[var(--user-card-border)]
-  bg-[color:rgba(255,255,255,.06)]
-  px-5
-  text-sm
-  font-medium
-  text-[var(--user-title)]
-  backdrop-blur-sm
-  transition-all
-  duration-300
-  hover:border-[var(--user-primary)]
-  hover:bg-[color:rgba(255,255,255,.10)]
-  sm:h-10
-  sm:px-6
-"
+          className="
+            h-8
+            self-start
+            rounded-full
+            border
+            border-[var(--user-card-border)]
+            bg-[color:rgba(255,255,255,.06)]
+            px-3.5
+            text-[10px]
+            font-medium
+            text-[var(--user-title)]
+            backdrop-blur-sm
+            transition-all
+            duration-300
+            hover:border-[var(--user-primary)]
+            hover:bg-[color:rgba(255,255,255,.10)]
+            sm:h-10
+            sm:self-auto
+            sm:px-6
+            sm:text-sm
+          "
         >
           Edit Profile
         </button>

@@ -27,13 +27,13 @@ type IdentityDocumentSectionProps = {
 
   backLoading: boolean;
 
-onFrontSelect: (
-  file: File
-) => Promise<void>;
+  onFrontSelect: (
+    file: File
+  ) => Promise<void>;
 
-onBackSelect: (
-  file: File
-) => Promise<void>;
+  onBackSelect: (
+    file: File
+  ) => Promise<void>;
 
   onRemoveFront: () => void;
 
@@ -63,15 +63,22 @@ export default function IdentityDocumentSection({
         border
         border-[var(--user-card-border)]
         bg-[var(--user-card-bg)]
-        p-6
+        p-3
+        sm:p-6
       "
     >
-      <div className="mb-6">
+      <div
+        className="
+          mb-4
+          sm:mb-6
+        "
+      >
         <h2
           className="
-            text-lg
+            text-[15px]
             font-semibold
             text-[var(--user-title)]
+            sm:text-lg
           "
         >
           Identity Document
@@ -80,8 +87,11 @@ export default function IdentityDocumentSection({
         <p
           className="
             mt-1
-            text-sm
+            text-[10px]
+            leading-4
             text-[var(--user-text-muted)]
+            sm:text-sm
+            sm:leading-normal
           "
         >
           Select your identification document and upload clear,
@@ -89,15 +99,24 @@ export default function IdentityDocumentSection({
         </p>
       </div>
 
-      <div className="space-y-6 pb-16">
+      <div
+        className="
+          space-y-4
+          pb-8
+          sm:space-y-6
+          sm:pb-16
+        "
+      >
         <div>
           <label
             className="
-              mb-2
+              mb-1.5
               block
-              text-sm
+              text-[10px]
               font-medium
               text-[var(--user-title)]
+              sm:mb-2
+              sm:text-sm
             "
           >
             Document Type
@@ -108,18 +127,24 @@ export default function IdentityDocumentSection({
               "documentType"
             )}
             className="
+              h-9
               w-full
-              rounded-[var(--user-radius-md)]
+              rounded-lg
               border
               border-[var(--user-input-border)]
               bg-[var(--user-select-bg)]
-              px-4
-              py-3
+              px-2.5
+              text-[11px]
               text-[var(--user-select-text)]
               outline-none
               transition-colors
               duration-[var(--user-transition)]
               focus:border-[var(--user-input-border-focus)]
+              sm:h-auto
+              sm:rounded-[var(--user-radius-md)]
+              sm:px-4
+              sm:py-3
+              sm:text-base
             "
           >
             <option value="">
@@ -142,9 +167,11 @@ export default function IdentityDocumentSection({
           {errors.documentType && (
             <p
               className="
-                mt-2
-                text-xs
+                mt-1.5
+                text-[9px]
                 text-[var(--user-danger)]
+                sm:mt-2
+                sm:text-xs
               "
             >
               {

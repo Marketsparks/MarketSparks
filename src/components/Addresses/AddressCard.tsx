@@ -42,39 +42,46 @@ export default function AddressCard({
     <article
       className="
         relative
-        rounded-xl
+        rounded-lg
         border
         border-[var(--user-card-border)]
         bg-[var(--user-card-bg)]
-        p-3
+        p-2.5
         shadow-[var(--user-card-shadow)]
         transition-all
         duration-200
         hover:border-[var(--primary)]/30
+        sm:rounded-xl
+        sm:p-3
       "
     >
       <div
         className="
           flex
           items-start
-          gap-3
+          gap-2
+          sm:gap-3
         "
       >
         <div
           className="
             flex
-            h-8
-            w-8
+            h-7
+            w-7
             shrink-0
             items-center
             justify-center
-            rounded-lg
+            rounded-md
             bg-[var(--user-stat-bg)]
             text-[var(--primary)]
+            sm:h-8
+            sm:w-8
+            sm:rounded-lg
           "
         >
           <MapPin
-            size={15}
+            size={13}
+            className="sm:h-[15px] sm:w-[15px]"
           />
         </div>
 
@@ -84,15 +91,17 @@ export default function AddressCard({
               flex
               flex-wrap
               items-center
-              gap-2
+              gap-1.5
+              sm:gap-2
             "
           >
             <h3
               className="
                 truncate
-                text-sm
+                text-[12px]
                 font-semibold
                 text-[var(--user-title)]
+                sm:text-sm
               "
             >
               {address.fullName}
@@ -103,23 +112,28 @@ export default function AddressCard({
                 className="
                   inline-flex
                   items-center
-                  gap-1
+                  gap-0.5
                   rounded-full
                   border
                   border-[var(--user-badge-success-border)]
                   bg-[var(--user-badge-success-bg)]
-                  px-2
+                  px-1.5
                   py-0.5
-                  text-[9px]
+                  text-[8px]
                   font-semibold
                   uppercase
-                  tracking-[0.06em]
+                  tracking-[0.05em]
                   text-[var(--user-badge-success-text)]
+                  sm:gap-1
+                  sm:px-2
+                  sm:text-[9px]
+                  sm:tracking-[0.06em]
                 "
               >
                 <Star
-                  size={9}
+                  size={8}
                   fill="currentColor"
+                  className="sm:h-[9px] sm:w-[9px]"
                 />
 
                 Primary
@@ -129,11 +143,14 @@ export default function AddressCard({
 
           <div
             className="
-              mt-2
+              mt-1.5
               space-y-0.5
-              text-xs
-              leading-5
+              text-[10px]
+              leading-4
               text-[var(--user-text-muted)]
+              sm:mt-2
+              sm:text-xs
+              sm:leading-5
             "
           >
             <p className="break-words">
@@ -160,7 +177,7 @@ export default function AddressCard({
               {address.country}
             </p>
 
-            <p className="pt-1">
+            <p className="pt-0.5 sm:pt-1">
               {address.phoneNumber}
 
               {address.alternatePhoneNumber && (
@@ -181,7 +198,8 @@ export default function AddressCard({
             className="
               flex
               items-center
-              gap-1
+              gap-0.5
+              sm:gap-1
             "
           >
             {!address.isPrimary && (
@@ -197,21 +215,25 @@ export default function AddressCard({
                 title="Set as primary"
                 className="
                   flex
-                  h-8
-                  w-8
+                  h-7
+                  w-7
                   items-center
                   justify-center
-                  rounded-lg
+                  rounded-md
                   text-[var(--user-text-muted)]
                   transition
                   hover:bg-[var(--user-stat-bg)]
                   hover:text-[var(--primary)]
                   disabled:cursor-not-allowed
                   disabled:opacity-50
+                  sm:h-8
+                  sm:w-8
+                  sm:rounded-lg
                 "
               >
                 <Check
-                  size={15}
+                  size={13}
+                  className="sm:h-[15px] sm:w-[15px]"
                 />
               </button>
             )}
@@ -226,21 +248,25 @@ export default function AddressCard({
               title="Edit address"
               className="
                 flex
-                h-8
-                w-8
+                h-7
+                w-7
                 items-center
                 justify-center
-                rounded-lg
+                rounded-md
                 text-[var(--user-text-muted)]
                 transition
                 hover:bg-[var(--user-stat-bg)]
                 hover:text-[var(--user-title)]
                 disabled:cursor-not-allowed
                 disabled:opacity-50
+                sm:h-8
+                sm:w-8
+                sm:rounded-lg
               "
             >
               <Edit3
-                size={15}
+                size={13}
+                className="sm:h-[15px] sm:w-[15px]"
               />
             </button>
 
@@ -254,21 +280,25 @@ export default function AddressCard({
               title="Delete address"
               className="
                 flex
-                h-8
-                w-8
+                h-7
+                w-7
                 items-center
                 justify-center
-                rounded-lg
+                rounded-md
                 text-[var(--user-text-muted)]
                 transition
                 hover:bg-[var(--user-stat-bg)]
                 hover:text-[var(--user-badge-danger-text)]
                 disabled:cursor-not-allowed
                 disabled:opacity-50
+                sm:h-8
+                sm:w-8
+                sm:rounded-lg
               "
             >
               <Trash2
-                size={15}
+                size={13}
+                className="sm:h-[15px] sm:w-[15px]"
               />
             </button>
 
@@ -279,16 +309,20 @@ export default function AddressCard({
               tabIndex={-1}
               className="
                 hidden
-                h-8
-                w-8
+                h-7
+                w-7
                 items-center
                 justify-center
-                rounded-lg
+                rounded-md
                 text-[var(--user-text-muted)]
+                sm:h-8
+                sm:w-8
+                sm:rounded-lg
               "
             >
               <MoreVertical
-                size={15}
+                size={13}
+                className="sm:h-[15px] sm:w-[15px]"
               />
             </button>
           </div>

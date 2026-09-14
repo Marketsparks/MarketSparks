@@ -102,359 +102,486 @@ export default function EditPlanDialog({
     }));
   }
 
-const currentPlan = plan;
+  const currentPlan = plan;
 
-async function handleSubmit(
-  e: React.FormEvent,
-) {
-  e.preventDefault();
+  async function handleSubmit(
+    e: React.FormEvent,
+  ) {
+    e.preventDefault();
 
-  await onSubmit(
-    currentPlan.id,
-    values,
-  );
-}
+    await onSubmit(
+      currentPlan.id,
+      values,
+    );
+  }
 
   return (
-<div
-  className="
-    fixed
-    inset-0
-    z-[100]
-    overflow-y-auto
-    backdrop-blur-md
-    p-4
-  "
-  style={{
-    background:
-      "var(--admin-modal-overlay)",
-  }}
->
-  <div className="flex min-h-full items-center justify-center py-6">
-<div
-  className="
-    w-full
-    max-w-2xl
-    max-h-[calc(100vh-3rem)]
-    overflow-hidden
-    rounded-[var(--admin-modal-radius)]
-    border
-  "
-        style={{
-          background:
-            "var(--admin-modal-bg)",
-          borderColor:
-            "var(--admin-modal-border)",
-          boxShadow:
-            "var(--admin-modal-shadow)",
-        }}
-      >
-        <form
-          onSubmit={
-            handleSubmit
-          }
-        >
-<div
-  className="flex items-center justify-between border-b px-6 py-4"
-  style={{
-    background:
-      "var(--admin-modal-header-bg)",
-    borderColor:
-      "var(--admin-modal-border)",
-  }}
->
-  <h2
-    className="text-lg font-semibold"
-    style={{
-      color:
-        "var(--admin-title)",
-    }}
-  >
-    Edit Plan
-  </h2>
-
-  <button
-    type="button"
-    onClick={onClose}
-    disabled={loading}
-    className="
-      rounded-full
-      p-2
-      transition-opacity
-      hover:opacity-70
-    "
-    aria-label="Close dialog"
-  >
-    <X
-      size={18}
+    <div
+      className="
+        fixed
+        inset-0
+        z-[100]
+        overflow-y-auto
+        p-2
+        backdrop-blur-md
+        sm:p-4
+      "
       style={{
-        color:
-          "var(--admin-text-muted)",
+        background:
+          "var(--admin-modal-overlay)",
       }}
-    />
-  </button>
-</div>
-
-<div
-  className="
-    grid
-    gap-4
-    overflow-y-auto
-    p-6
-    md:grid-cols-2
-  "
-  style={{
-    maxHeight: "calc(100vh - 14rem)",
-  }}
->
-            <Input
-              label="Name"
-              value={
-                values.name
-              }
-              onChange={(v) =>
-                update(
-                  "name",
-                  v,
-                )
-              }
-            />
-
-<Input
-  label="Slug"
-  value={values.slug}
-  onChange={(v) =>
-    update(
-      "slug",
-      v
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, "-")
-        .replace(/[^a-z0-9-]/g, "")
-        .replace(/-+/g, "-"),
-    )
-  }
-/>
-
-            <Input
-              label="Price"
-              type="number"
-              value={
-                values.price
-              }
-              onChange={(v) =>
-                update(
-                  "price",
-                  Number(v),
-                )
-              }
-            />
-
-            <Input
-              label="Commission (%)"
-              type="number"
-              value={
-                values.commissionRate
-              }
-              onChange={(v) =>
-                update(
-                  "commissionRate",
-                  Number(v),
-                )
-              }
-            />
-
-            <Input
-              label="Products"
-              type="number"
-              value={
-                values.maxPublishedProducts
-              }
-              onChange={(v) =>
-                update(
-                  "maxPublishedProducts",
-                  Number(v),
-                )
-              }
-            />
-
-            <Input
-              label="Duration"
-              type="number"
-              value={
-                values.durationInDays
-              }
-              onChange={(v) =>
-                update(
-                  "durationInDays",
-                  Number(v),
-                )
-              }
-            />
-
-            <Input
-              label="Priority"
-              type="number"
-              value={
-                values.priorityLevel
-              }
-              onChange={(v) =>
-                update(
-                  "priorityLevel",
-                  Number(v),
-                )
-              }
-            />
-
-            <Input
-              label="Sort Order"
-              type="number"
-              value={
-                values.sortOrder
-              }
-              onChange={(v) =>
-                update(
-                  "sortOrder",
-                  Number(v),
-                )
-              }
-            />
-
-            <Input
-              label="Badge Name"
-              value={
-                values.badgeName
-              }
-              onChange={(v) =>
-                update(
-                  "badgeName",
-                  v,
-                )
-              }
-            />
-
-            <Input
-              label="Badge Color"
-              type="color"
-              value={
-                values.badgeColor
-              }
-              onChange={(v) =>
-                update(
-                  "badgeColor",
-                  v,
-                )
-              }
-            />
-
-            <div className="md:col-span-2">
-              <label
-                className="mb-2 block text-sm"
+    >
+      <div
+        className="
+          flex
+          min-h-full
+          items-center
+          justify-center
+          py-3
+          sm:py-6
+        "
+      >
+        <div
+          className="
+            flex
+            w-full
+            max-w-2xl
+            max-h-[calc(100vh-1.5rem)]
+            flex-col
+            overflow-hidden
+            rounded-xl
+            border
+            sm:max-h-[calc(100vh-3rem)]
+            sm:rounded-[var(--admin-modal-radius)]
+          "
+          style={{
+            background:
+              "var(--admin-modal-bg)",
+            borderColor:
+              "var(--admin-modal-border)",
+            boxShadow:
+              "var(--admin-modal-shadow)",
+          }}
+        >
+          <form
+            onSubmit={
+              handleSubmit
+            }
+            className="
+              flex
+              min-h-0
+              flex-1
+              flex-col
+            "
+          >
+            <div
+              className="
+                flex
+                items-center
+                justify-between
+                gap-2
+                border-b
+                px-3
+                py-2.5
+                sm:px-6
+                sm:py-4
+              "
+              style={{
+                background:
+                  "var(--admin-modal-header-bg)",
+                borderColor:
+                  "var(--admin-modal-border)",
+              }}
+            >
+              <h2
+                className="
+                  text-sm
+                  font-semibold
+                  sm:text-lg
+                "
                 style={{
                   color:
-                    "var(--admin-text)",
+                    "var(--admin-title)",
                 }}
               >
-                Description
-              </label>
+                Edit Plan
+              </h2>
 
-              <textarea
-                rows={3}
-                value={
-                  values.description
+              <button
+                type="button"
+                onClick={
+                  onClose
                 }
-                onChange={(
-                  e,
-                ) =>
-                  update(
-                    "description",
-                    e.target
-                      .value,
-                  )
+                disabled={
+                  loading
                 }
-                className="w-full rounded-[var(--admin-input-radius)] border px-3 py-2 outline-none"
-                style={{
-                  background:
-                    "var(--admin-input-bg)",
-                  borderColor:
-                    "var(--admin-input-border)",
-                  color:
-                    "var(--admin-input-text)",
-                }}
-              />
+                className="
+                  flex
+                  h-7
+                  w-7
+                  shrink-0
+                  items-center
+                  justify-center
+                  rounded-full
+                  transition-opacity
+                  hover:opacity-70
+                  sm:h-auto
+                  sm:w-auto
+                  sm:p-2
+                "
+                aria-label="Close dialog"
+              >
+                <X
+                  size={15}
+                  className="sm:hidden"
+                  style={{
+                    color:
+                      "var(--admin-text-muted)",
+                  }}
+                />
+
+                <X
+                  size={18}
+                  className="hidden sm:block"
+                  style={{
+                    color:
+                      "var(--admin-text-muted)",
+                  }}
+                />
+              </button>
             </div>
 
-            <label className="flex items-center gap-2 md:col-span-2">
-              <input
-                type="checkbox"
-                checked={
-                  values.isActive
+            <div
+              className="
+                grid
+                gap-2.5
+                overflow-y-auto
+                p-3
+                sm:gap-4
+                sm:p-6
+                md:grid-cols-2
+              "
+              style={{
+                maxHeight:
+                  "calc(100vh - 9rem)",
+              }}
+            >
+              <Input
+                label="Name"
+                value={
+                  values.name
                 }
-                onChange={(
-                  e,
-                ) =>
+                onChange={(v) =>
                   update(
-                    "isActive",
-                    e.target
-                      .checked,
+                    "name",
+                    v,
                   )
                 }
               />
 
-              <span
-                style={{
-                  color:
-                    "var(--admin-text)",
-                }}
+              <Input
+                label="Slug"
+                value={
+                  values.slug
+                }
+                onChange={(v) =>
+                  update(
+                    "slug",
+                    v
+                      .toLowerCase()
+                      .trim()
+                      .replace(
+                        /\s+/g,
+                        "-",
+                      )
+                      .replace(
+                        /[^a-z0-9-]/g,
+                        "",
+                      )
+                      .replace(
+                        /-+/g,
+                        "-",
+                      ),
+                  )
+                }
+              />
+
+              <Input
+                label="Price"
+                type="number"
+                value={
+                  values.price
+                }
+                onChange={(v) =>
+                  update(
+                    "price",
+                    Number(v),
+                  )
+                }
+              />
+
+              <Input
+                label="Commission (%)"
+                type="number"
+                value={
+                  values.commissionRate
+                }
+                onChange={(v) =>
+                  update(
+                    "commissionRate",
+                    Number(v),
+                  )
+                }
+              />
+
+              <Input
+                label="Products"
+                type="number"
+                value={
+                  values.maxPublishedProducts
+                }
+                onChange={(v) =>
+                  update(
+                    "maxPublishedProducts",
+                    Number(v),
+                  )
+                }
+              />
+
+              <Input
+                label="Duration"
+                type="number"
+                value={
+                  values.durationInDays
+                }
+                onChange={(v) =>
+                  update(
+                    "durationInDays",
+                    Number(v),
+                  )
+                }
+              />
+
+              <Input
+                label="Priority"
+                type="number"
+                value={
+                  values.priorityLevel
+                }
+                onChange={(v) =>
+                  update(
+                    "priorityLevel",
+                    Number(v),
+                  )
+                }
+              />
+
+              <Input
+                label="Sort Order"
+                type="number"
+                value={
+                  values.sortOrder
+                }
+                onChange={(v) =>
+                  update(
+                    "sortOrder",
+                    Number(v),
+                  )
+                }
+              />
+
+              <Input
+                label="Badge Name"
+                value={
+                  values.badgeName
+                }
+                onChange={(v) =>
+                  update(
+                    "badgeName",
+                    v,
+                  )
+                }
+              />
+
+              <Input
+                label="Badge Color"
+                type="color"
+                value={
+                  values.badgeColor
+                }
+                onChange={(v) =>
+                  update(
+                    "badgeColor",
+                    v,
+                  )
+                }
+              />
+
+              <div
+                className="
+                  md:col-span-2
+                "
               >
-                Active
-              </span>
-            </label>
-          </div>
+                <label
+                  className="
+                    mb-1.5
+                    block
+                    text-[10px]
+                    sm:mb-2
+                    sm:text-sm
+                  "
+                  style={{
+                    color:
+                      "var(--admin-text)",
+                  }}
+                >
+                  Description
+                </label>
 
-<div
-className="
-  sticky
-  bottom-0
-  flex
-  justify-end
-  gap-3
-  border-t
-  px-6
-  py-4
-"
-            style={{
-              background:
-                "var(--admin-modal-footer-bg)",
-              borderColor:
-                "var(--admin-modal-border)",
-            }}
-          >
-            <Button
-              type="button"
-              onClick={
-                onClose
-              }
-            >
-              Cancel
-            </Button>
+                <textarea
+                  rows={3}
+                  value={
+                    values.description
+                  }
+                  onChange={(
+                    e,
+                  ) =>
+                    update(
+                      "description",
+                      e.target.value,
+                    )
+                  }
+                  className="
+                    w-full
+                    rounded-lg
+                    border
+                    px-2.5
+                    py-1.5
+                    text-[11px]
+                    outline-none
+                    sm:rounded-[var(--admin-input-radius)]
+                    sm:px-3
+                    sm:py-2
+                    sm:text-sm
+                  "
+                  style={{
+                    background:
+                      "var(--admin-input-bg)",
+                    borderColor:
+                      "var(--admin-input-border)",
+                    color:
+                      "var(--admin-input-text)",
+                  }}
+                />
+              </div>
 
-            <Button
-              type="submit"
-              disabled={
-                loading
-              }
+              <label
+                className="
+                  flex
+                  items-center
+                  gap-1.5
+                  text-[10px]
+                  md:col-span-2
+                  sm:gap-2
+                  sm:text-sm
+                "
+              >
+                <input
+                  type="checkbox"
+                  checked={
+                    values.isActive
+                  }
+                  onChange={(
+                    e,
+                  ) =>
+                    update(
+                      "isActive",
+                      e.target.checked,
+                    )
+                  }
+                />
+
+                <span
+                  style={{
+                    color:
+                      "var(--admin-text)",
+                  }}
+                >
+                  Active
+                </span>
+              </label>
+            </div>
+
+            <div
+              className="
+                sticky
+                bottom-0
+                flex
+                flex-col
+                gap-1.5
+                border-t
+                px-3
+                py-2.5
+                sm:flex-row
+                sm:justify-end
+                sm:gap-3
+                sm:px-6
+                sm:py-4
+              "
+              style={{
+                background:
+                  "var(--admin-modal-footer-bg)",
+                borderColor:
+                  "var(--admin-modal-border)",
+              }}
             >
-              {loading
-                ? "Saving..."
-                : "Save Changes"}
-            </Button>
-          </div>
-        </form>
+              <Button
+                type="button"
+                onClick={
+                  onClose
+                }
+                className="
+                  w-full
+                  !h-8
+                  !px-3
+                  !text-[10px]
+                  sm:w-auto
+                  sm:!h-auto
+                  sm:!px-4
+                  sm:!py-2
+                  sm:!text-sm
+                "
+              >
+                Cancel
+              </Button>
+
+              <Button
+                type="submit"
+                disabled={
+                  loading
+                }
+                className="
+                  w-full
+                  !h-8
+                  !px-3
+                  !text-[10px]
+                  sm:w-auto
+                  sm:!h-auto
+                  sm:!px-4
+                  sm:!py-2
+                  sm:!text-sm
+                "
+              >
+                {loading
+                  ? "Saving..."
+                  : "Save Changes"}
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 }
 
 type InputProps = {
@@ -475,7 +602,13 @@ function Input({
   return (
     <div>
       <label
-        className="mb-2 block text-sm"
+        className="
+          mb-1.5
+          block
+          text-[10px]
+          sm:mb-2
+          sm:text-sm
+        "
         style={{
           color:
             "var(--admin-text)",
@@ -492,7 +625,19 @@ function Input({
             e.target.value,
           )
         }
-        className="w-full rounded-[var(--admin-input-radius)] border px-3 py-2 outline-none"
+        className="
+          w-full
+          rounded-lg
+          border
+          px-2.5
+          py-1.5
+          text-[11px]
+          outline-none
+          sm:rounded-[var(--admin-input-radius)]
+          sm:px-3
+          sm:py-2
+          sm:text-sm
+        "
         style={{
           background:
             "var(--admin-input-bg)",

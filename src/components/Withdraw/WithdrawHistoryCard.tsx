@@ -24,25 +24,19 @@ export default function WithdrawHistoryCard({
   const statusStyles = {
     pending: `
       border-[var(--withdraw-history-status-pending-border)]
-
       bg-[var(--withdraw-history-status-pending-bg)]
-
       text-[var(--withdraw-history-status-pending-text)]
     `,
 
     successful: `
       border-[var(--withdraw-history-status-success-border)]
-
       bg-[var(--withdraw-history-status-success-bg)]
-
       text-[var(--withdraw-history-status-success-text)]
     `,
 
     rejected: `
       border-[var(--withdraw-history-status-rejected-border)]
-
       bg-[var(--withdraw-history-status-rejected-bg)]
-
       text-[var(--withdraw-history-status-rejected-text)]
     `,
   };
@@ -51,107 +45,91 @@ export default function WithdrawHistoryCard({
     <article
       className="
         rounded-[var(--withdraw-history-card-radius)]
-
         border
-
         border-[var(--withdraw-history-card-border)]
-
         bg-[var(--withdraw-history-card-bg)]
-
-        p-[var(--withdraw-history-card-padding)]
-
+        p-2.5
         shadow-[var(--withdraw-history-card-shadow)]
-
         transition-all
-
         duration-[var(--withdraw-history-card-transition)]
-
         hover:border-[var(--withdraw-history-card-hover-border)]
+        sm:p-[var(--withdraw-history-card-padding)]
       "
     >
       <div
         className="
           flex
-
           items-start
-
           justify-between
-
-          gap-4
+          gap-2.5
+          sm:gap-4
         "
       >
         <div
           className="
             flex
-
             min-w-0
-
             items-start
-
-            gap-3
+            gap-2
+            sm:gap-3
           "
         >
           <div
             className="
               flex
-
-              h-10
-
-              w-10
-
+              h-8
+              w-8
               shrink-0
-
               items-center
-
               justify-center
-
               overflow-hidden
-
-              rounded-lg
-
+              rounded-md
               border
-
               border-[var(--withdraw-history-card-icon-border)]
-
               bg-[var(--withdraw-history-card-icon-bg)]
+              sm:h-10
+              sm:w-10
+              sm:rounded-lg
             "
           >
-{withdrawal.method.type ===
-"bank" ? (
-  <Building2
-    size={19}
-    strokeWidth={2}
-    className="
-      text-[var(--withdraw-history-card-icon-color)]
-    "
-  />
-) : (
-  <div
-    className="
-      relative
-
-      h-full
-
-      w-full
-    "
-  >
-    <Image
-      src={
-        withdrawal.method.icon
-      }
-      alt={
-        withdrawal.method.name
-      }
-      fill
-      sizes="40px"
-      className="
-        object-contain
-
-        p-1.5
-      "
-    />
-  </div>
-)}
+            {withdrawal.method.type ===
+            "bank" ? (
+              <Building2
+                size={16}
+                strokeWidth={2}
+                className="
+                  text-[var(--withdraw-history-card-icon-color)]
+                  sm:h-[19px]
+                  sm:w-[19px]
+                "
+              />
+            ) : (
+              <div
+                className="
+                  relative
+                  h-full
+                  w-full
+                "
+              >
+                <Image
+                  src={
+                    withdrawal.method
+                      .icon
+                  }
+                  alt={
+                    withdrawal.method
+                      .name
+                  }
+                  fill
+                  sizes="40px"
+                  className="
+                    object-contain
+                    p-1
+                    sm:p-1.5
+                  "
+                />
+              </div>
+            )}
           </div>
 
           <div
@@ -162,23 +140,19 @@ export default function WithdrawHistoryCard({
             <div
               className="
                 flex
-
                 flex-wrap
-
                 items-center
-
-                gap-2
+                gap-1.5
+                sm:gap-2
               "
             >
               <h3
                 className="
                   truncate
-
-                  text-[13px]
-
+                  text-[11px]
                   font-semibold
-
                   text-[var(--withdraw-history-card-title)]
+                  sm:text-[13px]
                 "
               >
                 {
@@ -189,11 +163,10 @@ export default function WithdrawHistoryCard({
 
               <span
                 className="
-                  text-[10px]
-
+                  text-[8px]
                   font-medium
-
                   text-[var(--withdraw-history-card-symbol)]
+                  sm:text-[10px]
                 "
               >
                 {
@@ -205,15 +178,14 @@ export default function WithdrawHistoryCard({
 
             <p
               className="
-                mt-1
-
-                max-w-[260px]
-
+                mt-0.5
+                max-w-[200px]
                 truncate
-
-                text-[11px]
-
+                text-[9px]
                 text-[var(--withdraw-history-card-text)]
+                sm:mt-1
+                sm:max-w-[260px]
+                sm:text-[11px]
               "
             >
               {
@@ -223,11 +195,11 @@ export default function WithdrawHistoryCard({
 
             <p
               className="
-                mt-1
-
-                text-[10px]
-
+                mt-0.5
+                text-[8px]
                 text-[var(--withdraw-history-card-muted)]
+                sm:mt-1
+                sm:text-[10px]
               "
             >
               Ref:{" "}
@@ -238,11 +210,11 @@ export default function WithdrawHistoryCard({
 
             <p
               className="
-                mt-1
-
-                text-[10px]
-
+                mt-0.5
+                text-[8px]
                 text-[var(--withdraw-history-card-muted)]
+                sm:mt-1
+                sm:text-[10px]
               "
             >
               {
@@ -259,17 +231,15 @@ export default function WithdrawHistoryCard({
         <div
           className="
             shrink-0
-
             text-right
           "
         >
           <p
             className="
-              text-[14px]
-
+              text-[12px]
               font-bold
-
               text-[var(--withdraw-history-card-amount)]
+              sm:text-[14px]
             "
           >
             {formatWithdrawAmount(
@@ -279,11 +249,11 @@ export default function WithdrawHistoryCard({
 
           <p
             className="
-              mt-1
-
-              text-[10px]
-
+              mt-0.5
+              text-[8px]
               text-[var(--withdraw-history-card-crypto)]
+              sm:mt-1
+              sm:text-[10px]
             "
           >
             {
@@ -297,24 +267,19 @@ export default function WithdrawHistoryCard({
 
           <span
             className={`
-              mt-2
-
+              mt-1.5
               inline-flex
-
               rounded-md
-
               border
-
-              px-2
-
-              py-1
-
-              text-[10px]
-
+              px-1.5
+              py-0.5
+              text-[8px]
               font-medium
-
               capitalize
-
+              sm:mt-2
+              sm:px-2
+              sm:py-1
+              sm:text-[10px]
               ${
                 statusStyles[
                   withdrawal.status

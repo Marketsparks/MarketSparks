@@ -92,7 +92,7 @@ export default function AddressModal({
         items-center
         justify-center
         bg-[var(--overlay)]
-        p-3
+        p-2
         sm:p-5
       "
       role="dialog"
@@ -113,13 +113,15 @@ export default function AddressModal({
         className="
           w-full
           max-w-xl
-          max-h-[calc(100vh-24px)]
+          max-h-[calc(100vh-16px)]
           overflow-y-auto
-          rounded-2xl
+          rounded-xl
           border
           border-[var(--user-card-border)]
           bg-[var(--user-card-bg)]
           shadow-[var(--user-card-shadow)]
+          sm:max-h-[calc(100vh-40px)]
+          sm:rounded-2xl
         "
         onMouseDown={(event) =>
           event.stopPropagation()
@@ -133,21 +135,25 @@ export default function AddressModal({
             flex
             items-center
             justify-between
-            gap-3
+            gap-2
             border-b
             border-[var(--user-card-border)]
             bg-[var(--user-card-bg)]
-            px-4
-            py-3
+            px-3
+            py-2.5
+            sm:gap-3
+            sm:px-4
+            sm:py-3
           "
         >
           <div className="min-w-0">
             <h2
               id="address-modal-title"
               className="
-                text-sm
+                text-[13px]
                 font-semibold
                 text-[var(--user-title)]
+                sm:text-sm
               "
             >
               {address
@@ -158,8 +164,11 @@ export default function AddressModal({
             <p
               className="
                 mt-0.5
-                text-[10px]
+                text-[9px]
+                leading-4
                 text-[var(--user-text-muted)]
+                sm:text-[10px]
+                sm:leading-normal
               "
             >
               {address
@@ -175,27 +184,36 @@ export default function AddressModal({
             aria-label="Close address dialog"
             className="
               flex
-              h-8
-              w-8
+              h-7
+              w-7
               shrink-0
               items-center
               justify-center
-              rounded-lg
+              rounded-md
               text-[var(--user-text-muted)]
               transition
               hover:bg-[var(--user-stat-bg)]
               hover:text-[var(--user-title)]
               disabled:cursor-not-allowed
               disabled:opacity-50
+              sm:h-8
+              sm:w-8
+              sm:rounded-lg
             "
           >
             <X
-              size={16}
+              size={14}
+              className="sm:h-4 sm:w-4"
             />
           </button>
         </div>
 
-        <div className="p-4 sm:p-5">
+        <div
+          className="
+            p-3
+            sm:p-5
+          "
+        >
           <AddressForm
             address={address}
             submitting={submitting}

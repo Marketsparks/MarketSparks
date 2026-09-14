@@ -112,7 +112,8 @@ export default function WalletActionModal({
         items-center
         justify-center
         bg-[var(--admin-modal-overlay)]
-        p-4
+        p-2.5
+        sm:p-4
       "
     >
       <div
@@ -132,15 +133,18 @@ export default function WalletActionModal({
             border-b
             border-[var(--admin-modal-border)]
             bg-[var(--admin-modal-header-bg)]
-            px-6
-            py-5
+            px-4
+            py-3
+            sm:px-6
+            sm:py-5
           "
         >
           <h2
             className="
-              text-xl
+              text-base
               font-semibold
               text-[var(--admin-title)]
+              sm:text-xl
             "
           >
             Manage Wallet
@@ -148,9 +152,11 @@ export default function WalletActionModal({
 
           <p
             className="
-              mt-2
-              text-sm
+              mt-1
+              text-xs
               text-[var(--admin-muted)]
+              sm:mt-2
+              sm:text-sm
             "
           >
             {getFullName(user)}
@@ -158,8 +164,9 @@ export default function WalletActionModal({
 
           <p
             className="
-              text-sm
+              text-xs
               text-[var(--admin-muted)]
+              sm:text-sm
             "
           >
             {user.email}
@@ -167,27 +174,33 @@ export default function WalletActionModal({
 
           <div
             className="
-              mt-5
-              space-y-3
+              mt-3
+              space-y-2
+              sm:mt-5
+              sm:space-y-3
             "
           >
             <p
               className="
-                text-sm
+                text-xs
                 font-medium
                 text-[var(--admin-muted)]
+                sm:text-sm
               "
             >
               Choose Balance
             </p>
 
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
               <label
                 className="
                   flex
                   cursor-pointer
                   items-center
-                  gap-3
+                  gap-2
+                  text-xs
+                  sm:gap-3
+                  sm:text-sm
                 "
               >
                 <input
@@ -202,6 +215,12 @@ export default function WalletActionModal({
                       "wallet",
                     )
                   }
+                  className="
+                    h-3
+                    w-3
+                    sm:h-3.5
+                    sm:w-3.5
+                  "
                 />
 
                 <span>
@@ -214,7 +233,10 @@ export default function WalletActionModal({
                   flex
                   cursor-pointer
                   items-center
-                  gap-3
+                  gap-2
+                  text-xs
+                  sm:gap-3
+                  sm:text-sm
                 "
               >
                 <input
@@ -229,6 +251,12 @@ export default function WalletActionModal({
                       "profit",
                     )
                   }
+                  className="
+                    h-3
+                    w-3
+                    sm:h-3.5
+                    sm:w-3.5
+                  "
                 />
 
                 <span>
@@ -241,7 +269,10 @@ export default function WalletActionModal({
                   flex
                   cursor-pointer
                   items-center
-                  gap-3
+                  gap-2
+                  text-xs
+                  sm:gap-3
+                  sm:text-sm
                 "
               >
                 <input
@@ -256,6 +287,12 @@ export default function WalletActionModal({
                       "totalDeposit",
                     )
                   }
+                  className="
+                    h-3
+                    w-3
+                    sm:h-3.5
+                    sm:w-3.5
+                  "
                 />
 
                 <span>
@@ -268,7 +305,10 @@ export default function WalletActionModal({
                   flex
                   cursor-pointer
                   items-center
-                  gap-3
+                  gap-2
+                  text-xs
+                  sm:gap-3
+                  sm:text-sm
                 "
               >
                 <input
@@ -283,6 +323,12 @@ export default function WalletActionModal({
                       "affiliateCommission",
                     )
                   }
+                  className="
+                    h-3
+                    w-3
+                    sm:h-3.5
+                    sm:w-3.5
+                  "
                 />
 
                 <span>
@@ -293,19 +339,22 @@ export default function WalletActionModal({
 
             <div
               className="
-                rounded-xl
+                rounded-lg
                 border
                 border-[var(--admin-modal-border)]
                 bg-[var(--admin-card-bg)]
-                p-4
+                p-2.5
+                sm:rounded-xl
+                sm:p-4
               "
             >
               <p
                 className="
-                  text-xs
+                  text-[10px]
                   uppercase
                   tracking-wide
                   text-[var(--admin-muted)]
+                  sm:text-xs
                 "
               >
                 {balanceLabel}
@@ -313,10 +362,12 @@ export default function WalletActionModal({
 
               <p
                 className="
-                  mt-1
-                  text-lg
+                  mt-0.5
+                  text-base
                   font-semibold
                   text-[var(--admin-title)]
+                  sm:mt-1
+                  sm:text-lg
                 "
               >
                 {formatCurrency(
@@ -327,12 +378,20 @@ export default function WalletActionModal({
           </div>
         </div>
 
-        <div className="space-y-6 p-6">
+        <div
+          className="
+            space-y-3
+            p-3.5
+            sm:space-y-6
+            sm:p-6
+          "
+        >
           <div
             className="
               grid
               grid-cols-2
-              gap-3
+              gap-2
+              sm:gap-3
             "
           >
             <Button
@@ -371,7 +430,12 @@ export default function WalletActionModal({
           </div>
 
           {action && (
-            <div className="space-y-4">
+            <div
+              className="
+                space-y-2.5
+                sm:space-y-4
+              "
+            >
               <input
                 type="number"
                 min="0"
@@ -387,18 +451,23 @@ export default function WalletActionModal({
                 }
                 placeholder="Enter amount"
                 className="
-                  h-12
+                  h-9
                   w-full
-                  rounded-[var(--admin-input-radius)]
+                  rounded-lg
                   border
                   border-[var(--admin-input-border)]
                   bg-[var(--admin-input-bg)]
-                  px-4
+                  px-2.5
+                  text-xs
                   text-[var(--admin-input-text)]
                   placeholder:text-[var(--admin-input-placeholder)]
                   outline-none
                   transition-colors
                   focus:border-[var(--admin-input-focus)]
+                  sm:h-12
+                  sm:rounded-[var(--admin-input-radius)]
+                  sm:px-4
+                  sm:text-base
                 "
               />
 
@@ -431,8 +500,10 @@ export default function WalletActionModal({
             border-t
             border-[var(--admin-modal-border)]
             bg-[var(--admin-modal-footer-bg)]
-            px-6
-            py-4
+            px-3.5
+            py-2.5
+            sm:px-6
+            sm:py-4
           "
         >
           <Button

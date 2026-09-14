@@ -44,7 +44,8 @@ export default function DepositActions({
         flex
         items-center
         justify-end
-        gap-2
+        gap-1
+        sm:gap-2
       "
     >
       <Button
@@ -55,7 +56,8 @@ export default function DepositActions({
         }
       >
         <Eye
-          size={18}
+          size={16}
+          className="sm:h-[18px] sm:w-[18px]"
         />
       </Button>
 
@@ -68,7 +70,8 @@ export default function DepositActions({
         }
       >
         <Check
-          size={18}
+          size={16}
+          className="sm:h-[18px] sm:w-[18px]"
         />
       </Button>
 
@@ -81,7 +84,8 @@ export default function DepositActions({
         }
       >
         <X
-          size={18}
+          size={16}
+          className="sm:h-[18px] sm:w-[18px]"
         />
       </Button>
     </div>

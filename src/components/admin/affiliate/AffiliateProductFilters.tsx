@@ -82,10 +82,11 @@ export default function AffiliateProductFilters({
       className="
         flex
         flex-col
-        gap-2.5
+        gap-2
         sm:flex-row
         sm:items-center
         sm:justify-between
+        sm:gap-2.5
       "
     >
       <div
@@ -96,15 +97,18 @@ export default function AffiliateProductFilters({
         "
       >
         <Search
-          size={15}
+          size={13}
           strokeWidth={2}
           className="
             pointer-events-none
             absolute
-            left-3
+            left-2
             top-1/2
             -translate-y-1/2
             text-[var(--foreground-muted)]
+            sm:left-3
+            sm:h-[15px]
+            sm:w-[15px]
           "
         />
 
@@ -118,15 +122,15 @@ export default function AffiliateProductFilters({
           }
           placeholder="Search products or affiliates..."
           className="
-            h-9
+            h-8
             w-full
-            rounded-lg
+            rounded-md
             border
             border-[var(--border)]
             bg-[var(--surface)]
-            pl-9
-            pr-3
-            text-[12px]
+            pl-7
+            pr-2
+            text-[10px]
             text-[var(--foreground)]
             outline-none
             transition-all
@@ -135,6 +139,11 @@ export default function AffiliateProductFilters({
             focus:border-[var(--primary)]
             focus:ring-2
             focus:ring-[var(--primary)]/10
+            sm:h-9
+            sm:rounded-lg
+            sm:pl-9
+            sm:pr-3
+            sm:text-[12px]
           "
         />
       </div>
@@ -144,28 +153,33 @@ export default function AffiliateProductFilters({
           flex
           min-w-0
           items-center
-          gap-2
+          gap-1.5
+          sm:gap-2
         "
       >
         <div
           className="
             flex
-            h-9
-            w-9
+            h-7
+            w-7
             shrink-0
             items-center
             justify-center
-            rounded-lg
+            rounded-md
             border
             border-[var(--border)]
             bg-[var(--surface)]
             text-[var(--foreground-muted)]
+            sm:h-9
+            sm:w-9
+            sm:rounded-lg
           "
           aria-hidden="true"
         >
           <SlidersHorizontal
-            size={15}
+            size={13}
             strokeWidth={2}
+            className="sm:h-[15px] sm:w-[15px]"
           />
         </div>
 
@@ -179,7 +193,8 @@ export default function AffiliateProductFilters({
             className="
               flex
               items-center
-              gap-1.5
+              gap-1
+              sm:gap-1.5
             "
           >
             {filters.map(
@@ -206,37 +221,42 @@ export default function AffiliateProductFilters({
                     }
                     className="
                       inline-flex
-                      h-8
+                      h-7
                       shrink-0
                       items-center
-                      gap-1.5
-                      rounded-lg
+                      gap-1
+                      rounded-md
                       border
-                      px-2.5
-                      text-[10px]
+                      px-2
+                      text-[9px]
                       font-semibold
                       transition-all
                       duration-200
+                      sm:h-8
+                      sm:gap-1.5
+                      sm:rounded-lg
+                      sm:px-2.5
+                      sm:text-[10px]
                     "
-style={{
-  background:
-    "var(--surface)",
+                    style={{
+                      background:
+                        "var(--surface)",
 
-  color:
-    active
-      ? "var(--foreground)"
-      : "var(--foreground-muted)",
+                      color:
+                        active
+                          ? "var(--foreground)"
+                          : "var(--foreground-muted)",
 
-  borderColor:
-    active
-      ? "var(--foreground-muted)"
-      : "var(--border)",
+                      borderColor:
+                        active
+                          ? "var(--foreground-muted)"
+                          : "var(--border)",
 
-  boxShadow:
-    active
-      ? "inset 0 0 0 1px var(--foreground-muted)"
-      : "none",
-}}
+                      boxShadow:
+                        active
+                          ? "inset 0 0 0 1px var(--foreground-muted)"
+                          : "none",
+                    }}
                   >
                     {filter.label}
 
@@ -245,17 +265,19 @@ style={{
                       <span
                         className="
                           rounded-full
-                          px-1.5
+                          px-1
                           py-0.5
-                          text-[8px]
+                          text-[7px]
                           font-bold
+                          sm:px-1.5
+                          sm:text-[8px]
                         "
                         style={{
-background:
-  "var(--surface-hover)",
+                          background:
+                            "var(--surface-hover)",
 
-color:
-  "var(--foreground-muted)",
+                          color:
+                            "var(--foreground-muted)",
                         }}
                       >
                         {count}

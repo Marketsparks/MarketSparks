@@ -26,12 +26,6 @@ export type ProfileUser = {
 
   createdAt: string;
 
-  /*
-   * Optional fields used by the premium profile header.
-   * They don't require database changes and gracefully
-   * fall back when unavailable.
-   */
-
   emailVerified?: boolean;
 
   phoneVerified?: boolean;

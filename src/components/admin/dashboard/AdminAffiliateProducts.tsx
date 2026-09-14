@@ -33,28 +33,34 @@ export default function AdminAffiliateProducts({
   return (
     <section
       className="
-        rounded-[var(--admin-card-radius)]
+        rounded-lg
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
-        p-[var(--admin-card-padding)]
+        p-2.5
         shadow-[var(--admin-card-shadow)]
+        sm:rounded-[var(--admin-card-radius)]
+        sm:p-[var(--admin-card-padding)]
       "
     >
       <div
         className="
-          mb-5
+          mb-2.5
           flex
           items-center
           justify-between
+          gap-2
+          sm:mb-4
+          sm:gap-3
         "
       >
-        <div>
+        <div className="min-w-0">
           <h2
             className="
-              text-base
+              text-[12px]
               font-semibold
               text-[var(--admin-title)]
+              sm:text-base
             "
           >
             Affiliate Products
@@ -62,9 +68,13 @@ export default function AdminAffiliateProducts({
 
           <p
             className="
-              mt-1
-              text-xs
+              mt-0.5
+              text-[9px]
+              leading-3.5
               text-[var(--admin-muted)]
+              sm:mt-1
+              sm:text-xs
+              sm:leading-4
             "
           >
             Awaiting review.
@@ -75,61 +85,78 @@ export default function AdminAffiliateProducts({
           href="/admin/affiliate"
           className="
             flex
+            shrink-0
             items-center
-            gap-1
-            text-xs
+            gap-0.5
+            text-[9px]
             font-medium
             text-[var(--admin-primary)]
             transition-opacity
             duration-[var(--admin-transition)]
             hover:opacity-80
+            sm:gap-1
+            sm:text-xs
           "
         >
           View All
 
-          <ArrowRight size={14} />
+          <ArrowRight
+            size={11}
+            className="
+              sm:h-3.5
+              sm:w-3.5
+            "
+          />
         </Link>
       </div>
 
       {listings.length === 0 ? (
         <div
           className="
-            rounded-[var(--admin-surface-radius)]
+            rounded-md
             border
             border-[var(--admin-surface-border)]
             bg-[var(--admin-surface-bg)]
-            py-10
+            py-5
             text-center
+            sm:rounded-[var(--admin-surface-radius)]
+            sm:py-8
           "
         >
           <div
             className="
               mx-auto
-              mb-3
+              mb-2
               flex
-              h-10
-              w-10
+              h-8
+              w-8
               items-center
               justify-center
               rounded-full
-              bg-[var(--admin-stat-bg)]
               border
               border-[var(--admin-stat-border)]
+              bg-[var(--admin-stat-bg)]
+              sm:mb-3
+              sm:h-10
+              sm:w-10
             "
           >
             <Package
-              size={18}
+              size={14}
               className="
                 text-[var(--admin-primary)]
+                sm:h-[18px]
+                sm:w-[18px]
               "
             />
           </div>
 
           <p
             className="
-              text-sm
+              text-[10px]
               font-medium
               text-[var(--admin-title)]
+              sm:text-sm
             "
           >
             No products awaiting review.
@@ -150,11 +177,13 @@ export default function AdminAffiliateProducts({
                 flex
                 items-center
                 justify-between
-                gap-4
-                py-4
+                gap-2
+                py-2
                 transition-opacity
                 duration-[var(--admin-transition)]
                 hover:opacity-80
+                sm:gap-4
+                sm:py-3
               "
             >
               <div
@@ -166,9 +195,10 @@ export default function AdminAffiliateProducts({
                 <p
                   className="
                     truncate
-                    text-sm
+                    text-[10px]
                     font-semibold
                     text-[var(--admin-title)]
+                    sm:text-sm
                   "
                 >
                   {listing.product.name}
@@ -176,10 +206,14 @@ export default function AdminAffiliateProducts({
 
                 <p
                   className="
-                    mt-1
+                    mt-0.5
                     truncate
-                    text-xs
+                    text-[8px]
+                    leading-3
                     text-[var(--admin-muted)]
+                    sm:mt-1
+                    sm:text-xs
+                    sm:leading-4
                   "
                 >
                   Submitted by{" "}
@@ -189,10 +223,12 @@ export default function AdminAffiliateProducts({
               </div>
 
               <ArrowRight
-                size={16}
+                size={12}
                 className="
                   shrink-0
                   text-[var(--admin-muted)]
+                  sm:h-4
+                  sm:w-4
                 "
               />
             </Link>

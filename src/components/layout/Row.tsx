@@ -14,8 +14,8 @@ export default function Row({
   return (
     <div
       className={cn(
-        "flex flex-wrap -mx-3",
-        className
+        "flex flex-wrap -mx-2.5 sm:-mx-3",
+        className,
       )}
     >
       {children}

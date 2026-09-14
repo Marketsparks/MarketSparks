@@ -159,11 +159,12 @@ export default function UserActionModal({
         items-center
         justify-center
         bg-black/70
-        p-4
+        p-3
         backdrop-blur-sm
         animate-in
         fade-in
         duration-200
+        sm:p-4
       "
       onClick={() => {
         if (!loading) {
@@ -183,11 +184,12 @@ export default function UserActionModal({
           max-w-lg
           rounded-2xl
           border
-          p-6
+          p-4
           shadow-2xl
           animate-in
           zoom-in-95
           duration-200
+          sm:p-5
         "
         style={{
           background:
@@ -196,16 +198,25 @@ export default function UserActionModal({
             "var(--admin-card-border)",
         }}
       >
-        <div className="flex items-start gap-4">
+        <div
+          className="
+            flex
+            items-start
+            gap-3
+            sm:gap-4
+          "
+        >
           <div
             className="
               flex
-              h-12
-              w-12
+              h-10
+              w-10
               shrink-0
               items-center
               justify-center
               rounded-full
+              sm:h-11
+              sm:w-11
             "
             style={{
               background:
@@ -215,7 +226,12 @@ export default function UserActionModal({
             }}
           >
             <TriangleAlert
-              className="h-6 w-6"
+              className="
+                h-5
+                w-5
+                sm:h-[22px]
+                sm:w-[22px]
+              "
               color={
                 config.danger
                   ? "#dc2626"
@@ -224,10 +240,22 @@ export default function UserActionModal({
             />
           </div>
 
-          <div className="space-y-2">
+          <div
+            className="
+              min-w-0
+              space-y-1.5
+              sm:space-y-2
+            "
+          >
             <h2
               id="user-action-title"
-              className="text-xl font-semibold"
+              className="
+                text-base
+                font-semibold
+                leading-5
+                sm:text-lg
+                sm:leading-6
+              "
               style={{
                 color:
                   "var(--admin-title)",
@@ -237,7 +265,12 @@ export default function UserActionModal({
             </h2>
 
             <p
-              className="text-sm leading-6"
+              className="
+                text-xs
+                leading-5
+                sm:text-sm
+                sm:leading-6
+              "
               style={{
                 color:
                   "var(--admin-muted)",
@@ -252,10 +285,12 @@ export default function UserActionModal({
 
         <div
           className="
-            mt-8
+            mt-5
             flex
             justify-end
-            gap-3
+            gap-2
+            sm:mt-6
+            sm:gap-3
           "
         >
           <button
@@ -263,14 +298,20 @@ export default function UserActionModal({
             disabled={loading}
             onClick={onClose}
             className="
-              rounded-xl
+              h-9
+              rounded-lg
               border
-              px-5
-              py-2.5
-              text-sm
+              px-4
+              text-xs
               font-medium
               transition
+              hover:opacity-90
+              disabled:cursor-not-allowed
               disabled:opacity-50
+              sm:h-10
+              sm:rounded-xl
+              sm:px-5
+              sm:text-sm
             "
             style={{
               background:
@@ -291,31 +332,57 @@ export default function UserActionModal({
             onClick={onConfirm}
             className="
               inline-flex
+              h-9
               items-center
               justify-center
-              gap-2
-              rounded-xl
-              px-5
-              py-2.5
-              text-sm
+              gap-1.5
+              rounded-lg
+              border
+              px-4
+              text-xs
               font-medium
               transition
+              hover:opacity-90
+              disabled:cursor-not-allowed
               disabled:opacity-50
+              sm:h-10
+              sm:gap-2
+              sm:rounded-xl
+              sm:px-5
+              sm:text-sm
             "
             style={{
               background:
                 config.danger
                   ? "var(--admin-button-danger-bg)"
-                  : "var(--admin-button-primary-bg)",
+                  : "var(--admin-table-header-bg)",
 
               color:
                 config.danger
                   ? "var(--admin-button-danger-text)"
-                  : "var(--admin-button-primary-text)",
+                  : "var(--admin-table-title)",
+
+              borderColor:
+                config.danger
+                  ? "transparent"
+                  : "var(--admin-card-border)",
+
+              boxShadow:
+                config.danger
+                  ? undefined
+                  : "0 1px 3px var(--admin-card-shadow)",
             }}
           >
             {loading && (
-              <Loader2 className="h-4 w-4 animate-spin" />
+              <Loader2
+                className="
+                  h-3.5
+                  w-3.5
+                  animate-spin
+                  sm:h-4
+                  sm:w-4
+                "
+              />
             )}
 
             {loading

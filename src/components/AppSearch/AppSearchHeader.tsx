@@ -17,16 +17,19 @@ export default function AppSearchHeader({
         justify-between
         border-b
         border-[var(--border)]
-        px-5
-        py-4
+        px-2.5
+        py-2.5
+        sm:px-5
+        sm:py-4
       "
     >
       <div>
         <h2
           className="
-            text-[15px]
+            text-[13px]
             font-semibold
             text-[var(--foreground)]
+            sm:text-[15px]
           "
         >
           Search Products
@@ -34,9 +37,11 @@ export default function AppSearchHeader({
 
         <p
           className="
-            mt-1
-            text-[13px]
+            mt-0.5
+            text-[10px]
             text-[var(--foreground-muted)]
+            sm:mt-1
+            sm:text-[13px]
           "
         >
           Find products instantly.
@@ -49,8 +54,8 @@ export default function AppSearchHeader({
         aria-label="Close search"
         className="
           flex
-          h-9
-          w-9
+          h-7
+          w-7
           items-center
           justify-center
           rounded-full
@@ -59,11 +64,14 @@ export default function AppSearchHeader({
           duration-200
           hover:bg-[var(--surface-hover)]
           hover:text-[var(--foreground)]
+          sm:h-9
+          sm:w-9
         "
       >
         <X
-          size={18}
+          size={15}
           strokeWidth={2}
+          className="sm:h-[18px] sm:w-[18px]"
         />
       </button>
     </div>

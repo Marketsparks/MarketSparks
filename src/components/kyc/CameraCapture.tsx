@@ -170,18 +170,20 @@ export default function CameraCapture({
         items-center
         justify-center
         bg-[var(--user-overlay)]
-        p-4
+        p-2.5
+        sm:p-4
       "
     >
       <div
         className="
           w-full
           max-w-lg
-          rounded-[var(--user-radius-xl)]
+          rounded-lg
           border
           border-[var(--user-card-border)]
           bg-[var(--user-surface)]
           shadow-xl
+          sm:rounded-[var(--user-radius-xl)]
         "
       >
         <div
@@ -191,14 +193,16 @@ export default function CameraCapture({
             justify-between
             border-b
             border-[var(--user-divider)]
-            p-5
+            p-3
+            sm:p-5
           "
         >
           <h2
             className="
-              text-lg
+              text-[15px]
               font-semibold
               text-[var(--user-title)]
+              sm:text-lg
             "
           >
             Capture Selfie
@@ -208,24 +212,44 @@ export default function CameraCapture({
             type="button"
             onClick={onClose}
             className="
+              flex
+              h-7
+              w-7
+              items-center
+              justify-center
+              rounded-md
               text-[var(--user-text-muted)]
               transition-colors
               duration-[var(--user-transition)]
               hover:text-[var(--user-title)]
+              sm:h-auto
+              sm:w-auto
             "
           >
-            <X size={22} />
+            <X
+              size={18}
+              className="
+                sm:h-[22px]
+                sm:w-[22px]
+              "
+            />
           </button>
         </div>
 
-        <div className="p-5">
+        <div
+          className="
+            p-3
+            sm:p-5
+          "
+        >
           <div
             className="
               overflow-hidden
-              rounded-[var(--user-radius-lg)]
+              rounded-lg
               border
               border-[var(--user-card-border)]
               bg-[var(--user-card-bg)]
+              sm:rounded-[var(--user-radius-lg)]
             "
           >
             {starting ? (
@@ -238,10 +262,12 @@ export default function CameraCapture({
                 "
               >
                 <Loader2
-                  size={34}
+                  size={26}
                   className="
                     animate-spin
                     text-[var(--user-icon)]
+                    sm:h-[34px]
+                    sm:w-[34px]
                   "
                 />
               </div>
@@ -262,11 +288,13 @@ export default function CameraCapture({
 
           <div
             className="
-              mt-6
+              mt-3
               flex
               flex-col
-              gap-3
+              gap-2
+              sm:mt-6
               sm:flex-row
+              sm:gap-3
             "
           >
             <button
@@ -278,29 +306,46 @@ export default function CameraCapture({
               }
               className="
                 flex
+                h-9
                 flex-1
                 items-center
                 justify-center
-                gap-2
-                rounded-[var(--user-radius-md)]
+                gap-1.5
+                rounded-lg
                 bg-[var(--user-button-bg)]
-                px-5
-                py-3
+                px-3
+                text-[11px]
                 font-medium
                 text-[var(--user-button-text)]
                 transition-colors
                 duration-[var(--user-transition)]
                 hover:bg-[var(--user-button-hover)]
                 disabled:opacity-60
+                sm:h-auto
+                sm:gap-2
+                sm:rounded-[var(--user-radius-md)]
+                sm:px-5
+                sm:py-3
+                sm:text-base
               "
             >
               {loading ? (
                 <Loader2
-                  size={18}
-                  className="animate-spin"
+                  size={15}
+                  className="
+                    animate-spin
+                    sm:h-[18px]
+                    sm:w-[18px]
+                  "
                 />
               ) : (
-                <Camera size={18} />
+                <Camera
+                  size={15}
+                  className="
+                    sm:h-[18px]
+                    sm:w-[18px]
+                  "
+                />
               )}
 
               Capture
@@ -314,24 +359,35 @@ export default function CameraCapture({
               }}
               className="
                 flex
+                h-9
                 items-center
                 justify-center
-                gap-2
-                rounded-[var(--user-radius-md)]
+                gap-1.5
+                rounded-lg
                 border
                 border-[var(--user-input-border)]
                 bg-[var(--user-button-secondary-bg)]
-                px-5
-                py-3
+                px-3
+                text-[11px]
                 font-medium
                 text-[var(--user-button-secondary-text)]
                 transition-colors
                 duration-[var(--user-transition)]
                 hover:bg-[var(--user-button-secondary-hover)]
+                sm:h-auto
+                sm:gap-2
+                sm:rounded-[var(--user-radius-md)]
+                sm:px-5
+                sm:py-3
+                sm:text-base
               "
             >
               <RotateCcw
-                size={18}
+                size={15}
+                className="
+                  sm:h-[18px]
+                  sm:w-[18px]
+                "
               />
 
               Retake

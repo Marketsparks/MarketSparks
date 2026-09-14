@@ -126,15 +126,17 @@ function buildDisplaySet(
 export default function DashboardFeaturedProducts({
   products,
 }: DashboardFeaturedProductsProps) {
-  const [displayedProducts, setDisplayedProducts] =
-    useState<
-      DashboardFeaturedProduct[]
-    >(() =>
-      products.slice(
-        0,
-        DISPLAY_LIMIT,
-      ),
-    );
+  const [
+    displayedProducts,
+    setDisplayedProducts,
+  ] = useState<
+    DashboardFeaturedProduct[]
+  >(() =>
+    products.slice(
+      0,
+      DISPLAY_LIMIT,
+    ),
+  );
 
   const [
     usedIds,
@@ -281,13 +283,15 @@ export default function DashboardFeaturedProducts({
   return (
     <section
       className="
-        mb-12
+        mb-8
         overflow-hidden
-        rounded-xl
+        rounded-lg
         border
         border-[var(--user-card-border)]
         bg-[var(--user-card-bg)]
         shadow-[var(--user-card-shadow)]
+        sm:mb-12
+        sm:rounded-xl
       "
     >
       <div
@@ -295,9 +299,10 @@ export default function DashboardFeaturedProducts({
           flex
           items-center
           justify-between
-          gap-4
-          px-4
-          py-4
+          gap-2.5
+          px-3
+          py-2.5
+          sm:gap-4
           sm:px-5
           sm:py-4
         "
@@ -305,7 +310,7 @@ export default function DashboardFeaturedProducts({
         <div className="min-w-0">
           <h2
             className="
-              text-sm
+              text-[12px]
               font-semibold
               tracking-tight
               text-[var(--user-title)]
@@ -318,10 +323,12 @@ export default function DashboardFeaturedProducts({
           <p
             className="
               mt-0.5
-              text-[10px]
-              leading-5
+              truncate
+              text-[9px]
+              leading-4
               text-[var(--user-text-muted)]
               sm:text-[11px]
+              sm:leading-5
             "
           >
             A selection of products worth
@@ -329,38 +336,41 @@ export default function DashboardFeaturedProducts({
           </p>
         </div>
 
-<NavigationLink
-  href="/Market-Place"
-  className="
-    inline-flex
-    shrink-0
-    items-center
-    gap-1.5
-    rounded-lg
-    px-2.5
-    py-1.5
-    text-[10px]
-    font-medium
-    text-[var(--primary)]
-    transition
-    hover:opacity-80
-    sm:text-[11px]
-  "
->
-  Explore Store
+        <NavigationLink
+          href="/Market-Place"
+          className="
+            inline-flex
+            shrink-0
+            items-center
+            gap-1
+            rounded-lg
+            px-2
+            py-1.5
+            text-[9px]
+            font-medium
+            text-[var(--primary)]
+            transition
+            hover:opacity-80
+            sm:gap-1.5
+            sm:px-2.5
+            sm:text-[11px]
+          "
+        >
+          Explore Store
 
-  <ArrowRight
-    size={13}
-  />
-</NavigationLink>
+          <ArrowRight
+            size={11}
+            className="sm:h-[13px] sm:w-[13px]"
+          />
+        </NavigationLink>
       </div>
 
       <div
         className="
           border-t
           border-[var(--user-card-border)]
-          px-3
-          py-3
+          px-2.5
+          py-2.5
           sm:px-4
           sm:py-4
         "
@@ -373,11 +383,14 @@ export default function DashboardFeaturedProducts({
               border
               border-[var(--user-card-border)]
               bg-[var(--user-stat-bg)]
-              px-4
-              py-8
+              px-3
+              py-6
               text-center
-              text-[11px]
+              text-[10px]
               text-[var(--user-text-muted)]
+              sm:px-4
+              sm:py-8
+              sm:text-[11px]
             "
           >
             No featured products are
@@ -388,32 +401,33 @@ export default function DashboardFeaturedProducts({
             className="
               grid
               grid-cols-2
-              gap-2.5
+              gap-2
               sm:grid-cols-3
+              sm:gap-2.5
               lg:grid-cols-4
               xl:grid-cols-5
             "
           >
             {visibleProducts.map(
               (product) => (
-<NavigationLink
-  key={product.id}
-  href={`/Market-Place/${encodeURIComponent(
-    product.slug,
-  )}`}
-  className="
-    group
-    min-w-0
-    overflow-hidden
-    rounded-lg
-    border
-    border-[var(--user-card-border)]
-    bg-[var(--user-stat-bg)]
-    transition
-    duration-200
-    hover:border-[var(--primary)]
-  "
->
+                <NavigationLink
+                  key={product.id}
+                  href={`/Market-Place/${encodeURIComponent(
+                    product.slug,
+                  )}`}
+                  className="
+                    group
+                    min-w-0
+                    overflow-hidden
+                    rounded-lg
+                    border
+                    border-[var(--user-card-border)]
+                    bg-[var(--user-stat-bg)]
+                    transition
+                    duration-200
+                    hover:border-[var(--primary)]
+                  "
+                >
                   <div
                     className="
                       relative
@@ -452,10 +466,12 @@ export default function DashboardFeaturedProducts({
                           w-full
                           items-center
                           justify-center
-                          px-3
+                          px-2
                           text-center
-                          text-[9px]
+                          text-[8px]
                           text-[var(--user-text-muted)]
+                          sm:px-3
+                          sm:text-[9px]
                         "
                       >
                         No image
@@ -463,11 +479,18 @@ export default function DashboardFeaturedProducts({
                     )}
                   </div>
 
-                  <div className="px-2.5 py-2.5">
+                  <div
+                    className="
+                      px-2
+                      py-2
+                      sm:px-2.5
+                      sm:py-2.5
+                    "
+                  >
                     <p
                       className="
                         truncate
-                        text-[10px]
+                        text-[9px]
                         font-medium
                         text-[var(--user-title)]
                         sm:text-[11px]
@@ -478,15 +501,17 @@ export default function DashboardFeaturedProducts({
 
                     <div
                       className="
-                        mt-1
+                        mt-0.5
                         flex
                         items-center
-                        gap-1.5
+                        gap-1
+                        sm:mt-1
+                        sm:gap-1.5
                       "
                     >
                       <span
                         className="
-                          text-[10px]
+                          text-[9px]
                           font-semibold
                           text-[var(--user-title)]
                           sm:text-[11px]
@@ -512,9 +537,10 @@ export default function DashboardFeaturedProducts({
                           <span
                             className="
                               truncate
-                              text-[9px]
+                              text-[8px]
                               line-through
                               text-[var(--user-text-muted)]
+                              sm:text-[9px]
                             "
                           >
                             $

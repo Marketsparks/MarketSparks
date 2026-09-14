@@ -85,17 +85,17 @@ export default function ProductsPage({
     null
   );
 
-const [
-  createOpen,
-  setCreateOpen,
-] = useState(false);
+  const [
+    createOpen,
+    setCreateOpen,
+  ] = useState(false);
 
-const [
-  editingProduct,
-  setEditingProduct,
-] = useState<Product | null>(
-  null,
-);
+  const [
+    editingProduct,
+    setEditingProduct,
+  ] = useState<Product | null>(
+    null,
+  );
 
   const filteredProducts =
     useMemo(() => {
@@ -159,42 +159,41 @@ const [
     );
   }
 
-async function handleCreate(
-  values: CreateProductInput,
-) {
-  await onCreate(values);
+  async function handleCreate(
+    values: CreateProductInput,
+  ) {
+    await onCreate(values);
 
-  setCreateOpen(false);
-}
-
-async function handleUpdate(
-  values: CreateProductInput,
-) {
-  if (!editingProduct) {
-    return;
+    setCreateOpen(false);
   }
 
-  await onUpdate(
-    editingProduct.id,
-    values,
-  );
+  async function handleUpdate(
+    values: CreateProductInput,
+  ) {
+    if (!editingProduct) {
+      return;
+    }
 
-  setEditingProduct(null);
-}
-  
+    await onUpdate(
+      editingProduct.id,
+      values,
+    );
+
+    setEditingProduct(null);
+  }
 
   return (
     <div
       className="
-        space-y-[var(--space-xl)]
+        space-y-2.5
+        sm:space-y-[var(--space-xl)]
       "
     >
-
-<ProductsToolbar
-  onCreate={() =>
-    setCreateOpen(true)
-  }
-/>
+      <ProductsToolbar
+        onCreate={() =>
+          setCreateOpen(true)
+        }
+      />
 
       <ProductFilters
         value={filters}
@@ -202,50 +201,50 @@ async function handleUpdate(
         disabled={loading}
       />
 
-<ProductsTable
-  products={
-    filteredProducts
-  }
-  loading={loading}
-  onEdit={
-    setEditingProduct
-  }
-  onDelete={
-    setSelectedProduct
-  }
-/>
+      <ProductsTable
+        products={
+          filteredProducts
+        }
+        loading={loading}
+        onEdit={
+          setEditingProduct
+        }
+        onDelete={
+          setSelectedProduct
+        }
+      />
 
-<CreateProductDialog
-  open={createOpen}
-  categories={categories}
-  loading={creating}
-  onClose={() =>
-    setCreateOpen(false)
-  }
-  onSubmit={
-    handleCreate
-  }
-/>
+      <CreateProductDialog
+        open={createOpen}
+        categories={categories}
+        loading={creating}
+        onClose={() =>
+          setCreateOpen(false)
+        }
+        onSubmit={
+          handleCreate
+        }
+      />
 
-<EditProductDialog
-  open={
-    editingProduct !==
-    null
-  }
-  product={
-    editingProduct
-  }
-  categories={categories}
-  loading={updating}
-  onClose={() =>
-    setEditingProduct(
-      null
-    )
-  }
-  onSubmit={
-    handleUpdate
-  }
-/>
+      <EditProductDialog
+        open={
+          editingProduct !==
+          null
+        }
+        product={
+          editingProduct
+        }
+        categories={categories}
+        loading={updating}
+        onClose={() =>
+          setEditingProduct(
+            null
+          )
+        }
+        onSubmit={
+          handleUpdate
+        }
+      />
 
       <DeleteProductDialog
         open={

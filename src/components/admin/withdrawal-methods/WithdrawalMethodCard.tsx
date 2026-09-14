@@ -13,7 +13,9 @@ import type {
 
 import Image from "next/image";
 
-import { getCloudinaryImageUrl } from "@/lib/cloudinary";
+import {
+  getCloudinaryImageUrl,
+} from "@/lib/cloudinary";
 
 type WithdrawalMethodCardProps = {
   method: WithdrawalMethod;
@@ -31,9 +33,10 @@ export default function WithdrawalMethodCard({
   onEdit,
   onDelete,
 }: WithdrawalMethodCardProps) {
-
-const iconUrl =
-  getCloudinaryImageUrl(method.icon);
+  const iconUrl =
+    getCloudinaryImageUrl(
+      method.icon,
+    );
 
   const fee =
     method.feeType === "percentage"
@@ -55,45 +58,49 @@ const iconUrl =
           hover:bg-[var(--admin-table-row-hover)]
         "
       >
-        <td className="px-6 py-5">
-          <div className="flex items-center gap-4">
-<div
-  className="
-    flex
-    h-12
-    w-12
-    items-center
-    justify-center
-    overflow-hidden
-    rounded-xl
-    bg-[var(--admin-card-secondary-bg)]
-  "
->
-  {iconUrl ? (
-    <Image
-      src={iconUrl}
-      alt={method.name}
-      width={48}
-      height={48}
-      className="h-full w-full object-cover"
-    />
-  ) : (
-    <span
-      className="
-        text-sm
-        font-bold
-        uppercase
-        text-[var(--admin-title)]
-      "
-    >
-      {method.symbol.slice(0, 2)}
-    </span>
-  )}
-</div>
+        <td className="px-4 py-3.5">
+          <div className="flex items-center gap-3">
+            <div
+              className="
+                flex
+                h-10
+                w-10
+                items-center
+                justify-center
+                overflow-hidden
+                rounded-lg
+                bg-[var(--admin-card-secondary-bg)]
+              "
+            >
+              {iconUrl ? (
+                <Image
+                  src={iconUrl}
+                  alt={method.name}
+                  width={40}
+                  height={40}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <span
+                  className="
+                    text-xs
+                    font-bold
+                    uppercase
+                    text-[var(--admin-title)]
+                  "
+                >
+                  {method.symbol.slice(
+                    0,
+                    2,
+                  )}
+                </span>
+              )}
+            </div>
 
             <div>
               <p
                 className="
+                  text-sm
                   font-semibold
                   text-[var(--admin-title)]
                 "
@@ -103,7 +110,7 @@ const iconUrl =
 
               <p
                 className="
-                  text-sm
+                  text-xs
                   text-[var(--admin-muted)]
                 "
               >
@@ -118,9 +125,9 @@ const iconUrl =
 
         <td
           className="
-            px-6
-            py-5
-            text-sm
+            px-4
+            py-3.5
+            text-xs
             text-[var(--admin-text)]
           "
         >
@@ -129,9 +136,9 @@ const iconUrl =
 
         <td
           className="
-            px-6
-            py-5
-            text-sm
+            px-4
+            py-3.5
+            text-xs
             font-medium
             text-[var(--admin-text)]
           "
@@ -139,21 +146,29 @@ const iconUrl =
           {fee}
         </td>
 
-        <td className="px-6 py-5">
+        <td className="px-4 py-3.5">
           <WithdrawalMethodStatus
-            active={method.isActive}
+            active={
+              method.isActive
+            }
           />
         </td>
 
-        <td className="px-6 py-5">
-          <div className="flex items-center gap-2">
+        <td className="px-4 py-3.5">
+          <div
+            className="
+              flex
+              items-center
+              gap-1.5
+            "
+          >
             <button
               type="button"
               onClick={onEdit}
               className="
                 inline-flex
-                h-10
-                w-10
+                h-8
+                w-8
                 items-center
                 justify-center
                 rounded-lg
@@ -165,7 +180,9 @@ const iconUrl =
                 hover:bg-[var(--admin-button-secondary-hover)]
               "
             >
-              <Edit2 size={16} />
+              <Edit2
+                size={14}
+              />
             </button>
 
             <button
@@ -173,8 +190,8 @@ const iconUrl =
               onClick={onDelete}
               className="
                 inline-flex
-                h-10
-                w-10
+                h-8
+                w-8
                 items-center
                 justify-center
                 rounded-lg
@@ -186,7 +203,9 @@ const iconUrl =
                 hover:bg-[var(--admin-button-danger-hover)]
               "
             >
-              <Trash2 size={16} />
+              <Trash2
+                size={14}
+              />
             </button>
           </div>
         </td>
@@ -197,12 +216,14 @@ const iconUrl =
   return (
     <div
       className="
-        rounded-[var(--admin-card-radius)]
+        rounded-lg
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
-        p-5
+        p-2.5
         shadow-[var(--admin-card-shadow)]
+        sm:rounded-[var(--admin-card-radius)]
+        sm:p-5
       "
     >
       <div
@@ -210,49 +231,61 @@ const iconUrl =
           flex
           items-start
           justify-between
-          gap-4
+          gap-2
+          sm:gap-4
         "
       >
-        <div className="flex items-center gap-4">
-<div
-  className="
-    flex
-    h-12
-    w-12
-    items-center
-    justify-center
-    overflow-hidden
-    rounded-xl
-    bg-[var(--admin-card-secondary-bg)]
-  "
->
-  {iconUrl ? (
-    <Image
-      src={iconUrl}
-      alt={method.name}
-      width={48}
-      height={48}
-      className="h-full w-full object-cover"
-    />
-  ) : (
-    <span
-      className="
-        text-sm
-        font-bold
-        uppercase
-        text-[var(--admin-title)]
-      "
-    >
-      {method.symbol.slice(0, 2)}
-    </span>
-  )}
-</div>
+        <div className="flex min-w-0 items-center gap-2 sm:gap-4">
+          <div
+            className="
+              flex
+              h-8
+              w-8
+              shrink-0
+              items-center
+              justify-center
+              overflow-hidden
+              rounded-md
+              bg-[var(--admin-card-secondary-bg)]
+              sm:h-12
+              sm:w-12
+              sm:rounded-xl
+            "
+          >
+            {iconUrl ? (
+              <Image
+                src={iconUrl}
+                alt={method.name}
+                width={48}
+                height={48}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <span
+                className="
+                  text-[9px]
+                  font-bold
+                  uppercase
+                  text-[var(--admin-title)]
+                  sm:text-sm
+                "
+              >
+                {method.symbol.slice(
+                  0,
+                  2,
+                )}
+              </span>
+            )}
+          </div>
 
-          <div>
+          <div className="min-w-0">
             <h3
               className="
+                truncate
+                text-[11px]
                 font-semibold
                 text-[var(--admin-title)]
+                sm:text-base
               "
             >
               {method.name}
@@ -260,8 +293,12 @@ const iconUrl =
 
             <p
               className="
-                text-sm
+                mt-0
+                truncate
+                text-[9px]
                 text-[var(--admin-muted)]
+                sm:mt-0.5
+                sm:text-sm
               "
             >
               {method.symbol}
@@ -279,19 +316,22 @@ const iconUrl =
 
       <div
         className="
-          mt-5
+          mt-2
           grid
           grid-cols-2
-          gap-4
+          gap-2
+          sm:mt-5
+          sm:gap-4
         "
       >
         <div>
           <p
             className="
-              text-xs
+              text-[8px]
               uppercase
               tracking-wide
               text-[var(--admin-muted)]
+              sm:text-xs
             "
           >
             Type
@@ -299,10 +339,12 @@ const iconUrl =
 
           <p
             className="
-              mt-1
-              text-sm
+              mt-0
+              text-[10px]
               font-medium
               text-[var(--admin-text)]
+              sm:mt-1
+              sm:text-sm
             "
           >
             {type}
@@ -312,10 +354,11 @@ const iconUrl =
         <div>
           <p
             className="
-              text-xs
+              text-[8px]
               uppercase
               tracking-wide
               text-[var(--admin-muted)]
+              sm:text-xs
             "
           >
             Fee
@@ -323,10 +366,12 @@ const iconUrl =
 
           <p
             className="
-              mt-1
-              text-sm
+              mt-0
+              text-[10px]
               font-medium
               text-[var(--admin-text)]
+              sm:mt-1
+              sm:text-sm
             "
           >
             {fee}
@@ -336,9 +381,11 @@ const iconUrl =
 
       <div
         className="
-          mt-6
+          mt-2
           flex
-          gap-3
+          gap-1.5
+          sm:mt-6
+          sm:gap-3
         "
       >
         <button
@@ -346,17 +393,20 @@ const iconUrl =
           onClick={onEdit}
           className="
             flex-1
-            rounded-[var(--admin-input-radius)]
+            rounded
             border
             border-[var(--admin-button-secondary-border)]
             bg-[var(--admin-button-secondary-bg)]
-            py-3
-            text-sm
+            py-1
+            text-[9px]
             font-semibold
             text-[var(--admin-button-secondary-text)]
             transition-all
             duration-300
             hover:bg-[var(--admin-button-secondary-hover)]
+            sm:rounded-[var(--admin-input-radius)]
+            sm:py-3
+            sm:text-sm
           "
         >
           Edit
@@ -367,15 +417,18 @@ const iconUrl =
           onClick={onDelete}
           className="
             flex-1
-            rounded-[var(--admin-input-radius)]
+            rounded
             bg-[var(--admin-button-danger-bg)]
-            py-3
-            text-sm
+            py-1
+            text-[9px]
             font-semibold
             text-[var(--admin-button-danger-text)]
             transition-all
             duration-300
             hover:bg-[var(--admin-button-danger-hover)]
+            sm:rounded-[var(--admin-input-radius)]
+            sm:py-3
+            sm:text-sm
           "
         >
           Delete

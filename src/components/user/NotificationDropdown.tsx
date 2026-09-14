@@ -39,13 +39,16 @@ export default function NotificationDropdown() {
       <DropdownMenuContent
         align="end"
         className="
-          w-[380px]
-          rounded-2xl
+          w-[calc(100vw-1rem)]
+          max-w-[380px]
+          rounded-xl
           border
           border-[var(--border)]
           bg-[var(--background)]
           p-0
           shadow-xl
+          sm:w-[380px]
+          sm:rounded-2xl
         "
       >
         <div
@@ -53,15 +56,20 @@ export default function NotificationDropdown() {
             flex
             items-center
             justify-between
+            gap-2
             border-b
             border-[var(--border)]
-            p-4
+            px-3
+            py-2.5
+            sm:p-4
           "
         >
           <h3
             className="
-              text-base
+              text-[13px]
               font-semibold
+              text-[var(--foreground)]
+              sm:text-base
             "
           >
             Notifications
@@ -72,10 +80,12 @@ export default function NotificationDropdown() {
               type="button"
               onClick={markAllRead}
               className="
-                text-sm
+                shrink-0
+                text-[10px]
                 font-medium
                 text-[var(--primary)]
                 hover:underline
+                sm:text-sm
               "
             >
               Mark all as read
@@ -83,22 +93,31 @@ export default function NotificationDropdown() {
           )}
         </div>
 
-        <ScrollArea className="max-h-[420px]">
+        <ScrollArea className="max-h-[360px] sm:max-h-[420px]">
           {loading ? (
             <NotificationSkeleton />
           ) : notifications.length === 0 ? (
             <div
               className="
-                p-8
+                p-6
                 text-center
-                text-sm
+                text-[11px]
                 text-[var(--foreground-muted)]
+                sm:p-8
+                sm:text-sm
               "
             >
               No notifications yet.
             </div>
           ) : (
-            <div className="space-y-3 p-3">
+            <div
+              className="
+                space-y-2
+                p-2
+                sm:space-y-3
+                sm:p-3
+              "
+            >
               {notifications.map(
                 (notification) => (
                   <NotificationItem

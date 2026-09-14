@@ -44,9 +44,10 @@ function Input({
     >
       <label
         className="
-          text-xs
+          text-[10px]
           font-medium
           text-[var(--user-title)]
+          sm:text-xs
         "
       >
         {label}
@@ -57,8 +58,9 @@ function Input({
       {error && (
         <p
           className="
-            text-xs
+            text-[10px]
             text-[var(--user-danger)]
+            sm:text-xs
           "
         >
           {error}
@@ -80,19 +82,22 @@ export default function PersonalInformationSection({
         border
         border-[var(--user-card-border)]
         bg-[var(--user-card-bg)]
-        p-3 sm:p-4
+        p-3
+        sm:p-4
       "
     >
       <div
         className="
-          mb-3
+          mb-2.5
+          sm:mb-3
         "
       >
         <h2
           className="
-            text-base
+            text-sm
             font-semibold
             text-[var(--user-title)]
+            sm:text-base
           "
         >
           Personal Information
@@ -101,8 +106,11 @@ export default function PersonalInformationSection({
         <p
           className="
             mt-0.5
-            text-xs
+            text-[10px]
+            leading-4
             text-[var(--user-text-muted)]
+            sm:text-xs
+            sm:leading-normal
           "
         >
           Enter your personal information exactly as it appears on your identity
@@ -113,7 +121,8 @@ export default function PersonalInformationSection({
       <div
         className="
           grid
-          gap-3
+          gap-2.5
+          sm:gap-3
           sm:grid-cols-2
         "
       >
@@ -124,19 +133,25 @@ export default function PersonalInformationSection({
           <input
             {...register("firstName")}
             className="
+              h-8
               w-full
-              rounded-[var(--user-radius-md)]
+              rounded-lg
               border
               border-[var(--user-input-border)]
               bg-[var(--user-input-bg)]
-              px-4
-              py-2
+              px-2.5
+              text-[11px]
               text-[var(--user-input-text)]
               placeholder:text-[var(--user-input-placeholder)]
               outline-none
               transition-colors
               duration-[var(--user-transition)]
               focus:border-[var(--user-input-border-focus)]
+              sm:h-auto
+              sm:rounded-[var(--user-radius-md)]
+              sm:px-4
+              sm:py-2
+              sm:text-base
             "
           />
         </Input>
@@ -148,19 +163,25 @@ export default function PersonalInformationSection({
           <input
             {...register("lastName")}
             className="
+              h-8
               w-full
-              rounded-[var(--user-radius-md)]
+              rounded-lg
               border
               border-[var(--user-input-border)]
               bg-[var(--user-input-bg)]
-              px-3
-              py-3
+              px-2.5
+              text-[11px]
               text-[var(--user-input-text)]
               placeholder:text-[var(--user-input-placeholder)]
               outline-none
               transition-colors
               duration-[var(--user-transition)]
               focus:border-[var(--user-input-border-focus)]
+              sm:h-auto
+              sm:rounded-[var(--user-radius-md)]
+              sm:px-3
+              sm:py-3
+              sm:text-base
             "
           />
         </Input>
@@ -173,18 +194,24 @@ export default function PersonalInformationSection({
             type="date"
             {...register("dateOfBirth")}
             className="
+              h-8
               w-full
-              rounded-[var(--user-radius-md)]
+              rounded-lg
               border
               border-[var(--user-input-border)]
               bg-[var(--user-input-bg)]
-              px-4
-              py-3
+              px-2.5
+              text-[11px]
               text-[var(--user-input-text)]
               outline-none
               transition-colors
               duration-[var(--user-transition)]
               focus:border-[var(--user-input-border-focus)]
+              sm:h-auto
+              sm:rounded-[var(--user-radius-md)]
+              sm:px-4
+              sm:py-3
+              sm:text-base
             "
           />
         </Input>
@@ -196,50 +223,64 @@ export default function PersonalInformationSection({
           <input
             {...register("nationality")}
             className="
+              h-8
               w-full
-              rounded-[var(--user-radius-md)]
+              rounded-lg
               border
               border-[var(--user-input-border)]
               bg-[var(--user-input-bg)]
-              px-4
-              py-3
+              px-2.5
+              text-[11px]
               text-[var(--user-input-text)]
               placeholder:text-[var(--user-input-placeholder)]
               outline-none
               transition-colors
               duration-[var(--user-transition)]
               focus:border-[var(--user-input-border-focus)]
+              sm:h-auto
+              sm:rounded-[var(--user-radius-md)]
+              sm:px-4
+              sm:py-3
+              sm:text-base
             "
           />
         </Input>
 
         <div
           className="
-            md:col-span-2
+            sm:col-span-2
           "
         >
           <Input
             label="Residential Address"
-            error={errors.residentialAddress?.message}
+            error={
+              errors.residentialAddress?.message
+            }
           >
             <input
               {...register(
-                "residentialAddress"
+                "residentialAddress",
               )}
               className="
+                h-8
                 w-full
-                rounded-[var(--user-radius-md)]
+                rounded-lg
                 border
                 border-[var(--user-input-border)]
                 bg-[var(--user-input-bg)]
-                px-4
-                py-3
+                px-2.5
+                text-[11px]
                 text-[var(--user-input-text)]
                 placeholder:text-[var(--user-input-placeholder)]
                 outline-none
                 transition-colors
                 duration-[var(--user-transition)]
                 focus:border-[var(--user-input-border-focus)]
+                sm:h-auto
+                sm:rounded-[var(--user-radius-md)]
+                sm:px-4
+                sm:py-3
+                sm:text-base
               "
             />
           </Input>
@@ -252,18 +293,24 @@ export default function PersonalInformationSection({
           <input
             {...register("city")}
             className="
+              h-8
               w-full
-              rounded-[var(--user-radius-md)]
+              rounded-lg
               border
               border-[var(--user-input-border)]
               bg-[var(--user-input-bg)]
-              px-4
-              py-3
+              px-2.5
+              text-[11px]
               text-[var(--user-input-text)]
               outline-none
               transition-colors
               duration-[var(--user-transition)]
               focus:border-[var(--user-input-border-focus)]
+              sm:h-auto
+              sm:rounded-[var(--user-radius-md)]
+              sm:px-4
+              sm:py-3
+              sm:text-base
             "
           />
         </Input>
@@ -275,18 +322,24 @@ export default function PersonalInformationSection({
           <input
             {...register("state")}
             className="
+              h-8
               w-full
-              rounded-[var(--user-radius-md)]
+              rounded-lg
               border
               border-[var(--user-input-border)]
               bg-[var(--user-input-bg)]
-              px-4
-              py-3
+              px-2.5
+              text-[11px]
               text-[var(--user-input-text)]
               outline-none
               transition-colors
               duration-[var(--user-transition)]
               focus:border-[var(--user-input-border-focus)]
+              sm:h-auto
+              sm:rounded-[var(--user-radius-md)]
+              sm:px-4
+              sm:py-3
+              sm:text-base
             "
           />
         </Input>
@@ -298,42 +351,48 @@ export default function PersonalInformationSection({
           <input
             {...register("postalCode")}
             className="
+              h-8
               w-full
-              rounded-[var(--user-radius-md)]
+              rounded-lg
               border
               border-[var(--user-input-border)]
               bg-[var(--user-input-bg)]
-              px-4
-              py-3
+              px-2.5
+              text-[11px]
               text-[var(--user-input-text)]
               outline-none
               transition-colors
               duration-[var(--user-transition)]
               focus:border-[var(--user-input-border-focus)]
+              sm:h-auto
+              sm:rounded-[var(--user-radius-md)]
+              sm:px-4
+              sm:py-3
+              sm:text-base
             "
           />
         </Input>
 
-<Input
-  label="Country"
-  error={errors.country?.message}
->
-  <Controller
-    name="country"
-    control={control}
-    render={({ field }) => (
-      <CountrySelect
-        label=""
-        value={
-          (field.value as Country) || ""
-        }
-        onChange={(country) =>
-          field.onChange(country)
-        }
-      />
-    )}
-  />
-</Input>
+        <Input
+          label="Country"
+          error={errors.country?.message}
+        >
+          <Controller
+            name="country"
+            control={control}
+            render={({ field }) => (
+              <CountrySelect
+                label=""
+                value={
+                  (field.value as Country) || ""
+                }
+                onChange={(country) =>
+                  field.onChange(country)
+                }
+              />
+            )}
+          />
+        </Input>
       </div>
     </section>
   );

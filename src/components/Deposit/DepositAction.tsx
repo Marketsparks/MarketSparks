@@ -26,7 +26,7 @@ export default function DepositAction({
 
     await new Promise(
       (resolve) =>
-        setTimeout(resolve, 300)
+        setTimeout(resolve, 300),
     );
 
     await onContinue();
@@ -37,7 +37,8 @@ export default function DepositAction({
   return (
     <section
       className="
-        mt-8
+        mt-5
+        sm:mt-8
       "
     >
       <button
@@ -48,61 +49,45 @@ export default function DepositAction({
         onClick={handleContinue}
         className="
           inline-flex
-
+          h-10
           w-full
-
           items-center
-
           justify-center
-
-          gap-2
-
+          gap-1.5
           rounded-[var(--deposit-action-button-radius)]
-
           border
-
           border-[var(--deposit-action-button-border)]
-
           bg-[var(--deposit-action-button-bg)]
-
-          px-6
-
-          py-[var(--deposit-action-button-padding-y)]
-
-          text-[16px]
-
+          px-4
+          text-[13px]
           font-semibold
-
           text-[var(--deposit-action-button-text)]
-
           shadow-[var(--deposit-action-button-shadow)]
-
           transition-all
           duration-300
-
           hover:border-[var(--deposit-action-button-hover-border)]
-
           hover:bg-[var(--deposit-action-button-hover)]
-
           hover:text-[var(--deposit-action-button-hover-text)]
-
           disabled:cursor-not-allowed
-
           disabled:border-[var(--deposit-action-button-disabled-border)]
-
           disabled:bg-[var(--deposit-action-button-disabled-bg)]
-
           disabled:text-[var(--deposit-action-button-disabled-text)]
-
           disabled:shadow-none
+          sm:h-auto
+          sm:gap-2
+          sm:px-6
+          sm:py-[var(--deposit-action-button-padding-y)]
+          sm:text-[16px]
         "
       >
         {loading ? (
           <>
             <LoaderCircle
-              size={18}
+              size={15}
               className="
                 animate-spin
+                sm:h-[18px]
+                sm:w-[18px]
               "
             />
 
@@ -115,15 +100,14 @@ export default function DepositAction({
 
       <p
         className="
-          mt-4
-
+          mt-2.5
           text-center
-
-          text-[13px]
-
-          leading-6
-
+          text-[10px]
+          leading-4
           text-[var(--deposit-action-note)]
+          sm:mt-4
+          sm:text-[13px]
+          sm:leading-6
         "
       >
         You will review your deposit details and upload your payment receipt before submitting your request.

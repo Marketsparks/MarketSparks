@@ -160,7 +160,7 @@ export default function AffiliateListingDetailsDialog({
         items-center
         justify-center
         bg-black/60
-        p-3
+        p-2
         backdrop-blur-sm
         sm:p-5
         lg:p-6
@@ -172,13 +172,15 @@ export default function AffiliateListingDetailsDialog({
         aria-labelledby="affiliate-listing-details-title"
         className="
           flex
-          max-h-[92vh]
+          max-h-[96vh]
           w-full
           max-w-3xl
           flex-col
           overflow-hidden
-          rounded-2xl
+          rounded-xl
           border
+          sm:max-h-[92vh]
+          sm:rounded-2xl
         "
         style={{
           background:
@@ -196,11 +198,13 @@ export default function AffiliateListingDetailsDialog({
             flex
             items-center
             justify-between
-            gap-3
+            gap-2
             border-b
-            px-4
-            py-3
+            px-3
+            py-2.5
+            sm:gap-3
             sm:px-5
+            sm:py-3
           "
           style={{
             borderColor:
@@ -210,10 +214,12 @@ export default function AffiliateListingDetailsDialog({
           <div className="min-w-0">
             <p
               className="
-                text-[10px]
+                text-[8px]
                 font-semibold
                 uppercase
-                tracking-[0.14em]
+                tracking-[0.12em]
+                sm:text-[10px]
+                sm:tracking-[0.14em]
               "
               style={{
                 color:
@@ -228,7 +234,7 @@ export default function AffiliateListingDetailsDialog({
               className="
                 mt-0.5
                 truncate
-                text-base
+                text-sm
                 font-bold
                 sm:text-lg
               "
@@ -252,14 +258,16 @@ export default function AffiliateListingDetailsDialog({
             aria-label="Close details"
             className="
               flex
-              h-8
-              w-8
+              h-7
+              w-7
               shrink-0
               items-center
               justify-center
               rounded-full
               transition-opacity
               hover:opacity-70
+              sm:h-8
+              sm:w-8
             "
             style={{
               color:
@@ -268,21 +276,29 @@ export default function AffiliateListingDetailsDialog({
                 "var(--user-hover)",
             }}
           >
-            <X size={16} />
+            <X
+              size={14}
+              className="sm:hidden"
+            />
+            <X
+              size={16}
+              className="hidden sm:block"
+            />
           </button>
         </div>
 
         <div
           className="
             overflow-y-auto
-            p-4
+            p-3
             sm:p-5
           "
         >
           <div
             className="
               grid
-              gap-5
+              gap-3.5
+              sm:gap-5
               lg:grid-cols-[220px_minmax(0,1fr)]
               lg:items-start
             "
@@ -291,9 +307,12 @@ export default function AffiliateListingDetailsDialog({
               className="
                 relative
                 aspect-square
+                max-h-[240px]
                 overflow-hidden
-                rounded-xl
+                rounded-lg
                 bg-[var(--user-surface-secondary)]
+                sm:max-h-none
+                sm:rounded-xl
               "
             >
               {primaryImage ? (
@@ -321,7 +340,8 @@ export default function AffiliateListingDetailsDialog({
                     h-full
                     items-center
                     justify-center
-                    text-xs
+                    text-[10px]
+                    sm:text-xs
                   "
                   style={{
                     color:
@@ -343,7 +363,8 @@ export default function AffiliateListingDetailsDialog({
                   flex
                   flex-wrap
                   items-center
-                  gap-2
+                  gap-1.5
+                  sm:gap-2
                 "
               >
                 <PublicationBadge
@@ -355,7 +376,8 @@ export default function AffiliateListingDetailsDialog({
                 {listing.publishedAt && (
                   <span
                     className="
-                      text-[11px]
+                      text-[9px]
+                      sm:text-[11px]
                     "
                     style={{
                       color:
@@ -372,19 +394,23 @@ export default function AffiliateListingDetailsDialog({
 
               <div
                 className="
-                  mt-3
+                  mt-2
                   flex
                   flex-wrap
                   items-baseline
-                  gap-x-2
-                  gap-y-1
+                  gap-x-1.5
+                  gap-y-0.5
+                  sm:mt-3
+                  sm:gap-x-2
+                  sm:gap-y-1
                 "
               >
                 {hasDiscount && (
                   <span
                     className="
-                      text-sm
+                      text-[11px]
                       line-through
+                      sm:text-sm
                     "
                     style={{
                       color:
@@ -400,8 +426,9 @@ export default function AffiliateListingDetailsDialog({
 
                 <span
                   className="
-                    text-2xl
+                    text-xl
                     font-extrabold
+                    sm:text-2xl
                   "
                   style={{
                     color:
@@ -417,9 +444,12 @@ export default function AffiliateListingDetailsDialog({
 
               <p
                 className="
-                  mt-3
-                  text-sm
-                  leading-6
+                  mt-2
+                  text-[11px]
+                  leading-5
+                  sm:mt-3
+                  sm:text-sm
+                  sm:leading-6
                 "
                 style={{
                   color:
@@ -434,17 +464,19 @@ export default function AffiliateListingDetailsDialog({
 
               <div
                 className="
-                  mt-4
+                  mt-3
                   grid
-                  grid-cols-2
-                  gap-2
-                  sm:grid-cols-3
+                  grid-cols-3
+                  gap-1.5
+                  sm:mt-4
+                  sm:gap-2
                 "
               >
                 <Metric
                   icon={
                     <BarChart3
-                      size={14}
+                      size={12}
+                      className="sm:hidden"
                     />
                   }
                   label="Sales"
@@ -454,7 +486,8 @@ export default function AffiliateListingDetailsDialog({
                 <Metric
                   icon={
                     <CircleDollarSign
-                      size={14}
+                      size={12}
+                      className="sm:hidden"
                     />
                   }
                   label="Revenue"
@@ -466,7 +499,8 @@ export default function AffiliateListingDetailsDialog({
                 <Metric
                   icon={
                     <CheckCircle2
-                      size={14}
+                      size={12}
+                      className="sm:hidden"
                     />
                   }
                   label="Commission"
@@ -480,16 +514,19 @@ export default function AffiliateListingDetailsDialog({
 
           <div
             className="
-              mt-5
+              mt-3
               grid
-              gap-3
+              gap-1.5
+              sm:mt-5
+              sm:gap-3
               sm:grid-cols-2
             "
           >
             <DetailRow
               icon={
                 <CalendarDays
-                  size={15}
+                  size={13}
+                  className="sm:hidden"
                 />
               }
               label="Publication"
@@ -504,7 +541,8 @@ export default function AffiliateListingDetailsDialog({
               <DetailRow
                 icon={
                   <Clock3
-                    size={15}
+                    size={13}
+                    className="sm:hidden"
                   />
                 }
                 label="Submitted"
@@ -518,7 +556,8 @@ export default function AffiliateListingDetailsDialog({
               <DetailRow
                 icon={
                   <CheckCircle2
-                    size={15}
+                    size={13}
+                    className="sm:hidden"
                   />
                 }
                 label="Reviewed"
@@ -531,7 +570,8 @@ export default function AffiliateListingDetailsDialog({
             <DetailRow
               icon={
                 <CalendarDays
-                  size={15}
+                  size={13}
+                  className="sm:hidden"
                 />
               }
               label="Published"
@@ -543,7 +583,8 @@ export default function AffiliateListingDetailsDialog({
             <DetailRow
               icon={
                 <Clock3
-                  size={15}
+                  size={13}
+                  className="sm:hidden"
                 />
               }
               label="Last Sale"
@@ -555,7 +596,8 @@ export default function AffiliateListingDetailsDialog({
             <DetailRow
               icon={
                 <BarChart3
-                  size={15}
+                  size={13}
+                  className="sm:hidden"
                 />
               }
               label="Product ID"
@@ -568,7 +610,8 @@ export default function AffiliateListingDetailsDialog({
             <DetailRow
               icon={
                 <CircleDollarSign
-                  size={15}
+                  size={13}
+                  className="sm:hidden"
                 />
               }
               label="Subscription ID"
@@ -582,7 +625,8 @@ export default function AffiliateListingDetailsDialog({
               <DetailRow
                 icon={
                   <X
-                    size={15}
+                    size={13}
+                    className="sm:hidden"
                   />
                 }
                 label="Rejection Reason"
@@ -596,7 +640,8 @@ export default function AffiliateListingDetailsDialog({
               <DetailRow
                 icon={
                   <Clock3
-                    size={15}
+                    size={13}
+                    className="sm:hidden"
                   />
                 }
                 label="Removed"
@@ -609,15 +654,17 @@ export default function AffiliateListingDetailsDialog({
 
           <div
             className="
-              mt-5
+              mt-3
               flex
               flex-col
               gap-2
               border-t
-              pt-4
+              pt-3
+              sm:mt-5
               sm:flex-row
               sm:items-center
               sm:justify-between
+              sm:pt-4
             "
             style={{
               borderColor:
@@ -631,10 +678,12 @@ export default function AffiliateListingDetailsDialog({
             >
               <p
                 className="
-                  text-[10px]
+                  text-[8px]
                   font-semibold
                   uppercase
-                  tracking-[0.12em]
+                  tracking-[0.1em]
+                  sm:text-[10px]
+                  sm:tracking-[0.12em]
                 "
                 style={{
                   color:
@@ -646,10 +695,12 @@ export default function AffiliateListingDetailsDialog({
 
               <p
                 className="
-                  mt-1
+                  mt-0.5
                   break-all
-                  text-xs
+                  text-[10px]
                   font-medium
+                  sm:mt-1
+                  sm:text-xs
                 "
                 style={{
                   color:
@@ -667,17 +718,23 @@ export default function AffiliateListingDetailsDialog({
               href={`/Market-Place/${listing.product.slug}`}
               className="
                 inline-flex
+                h-8
                 shrink-0
                 items-center
                 justify-center
-                gap-1.5
-                rounded-lg
-                px-3
-                py-2
-                text-xs
+                gap-1
+                rounded-md
+                px-2.5
+                text-[10px]
                 font-semibold
                 transition-opacity
                 hover:opacity-80
+                sm:h-auto
+                sm:gap-1.5
+                sm:rounded-lg
+                sm:px-3
+                sm:py-2
+                sm:text-xs
               "
               style={{
                 background:
@@ -693,7 +750,12 @@ export default function AffiliateListingDetailsDialog({
               View Product
 
               <ExternalLink
+                size={12}
+                className="sm:hidden"
+              />
+              <ExternalLink
                 size={13}
+                className="hidden sm:block"
               />
             </a>
           </div>
@@ -719,9 +781,11 @@ function Metric({
   return (
     <div
       className="
-        rounded-xl
+        rounded-lg
         border
-        p-3
+        p-2
+        sm:rounded-xl
+        sm:p-3
       "
       style={{
         background:
@@ -735,7 +799,8 @@ function Metric({
         className="
           flex
           items-center
-          gap-1.5
+          gap-1
+          sm:gap-1.5
         "
         style={{
           color:
@@ -746,8 +811,10 @@ function Metric({
 
         <span
           className="
-            text-[10px]
+            truncate
+            text-[8px]
             font-medium
+            sm:text-[10px]
           "
         >
           {label}
@@ -756,10 +823,12 @@ function Metric({
 
       <p
         className="
-          mt-1
+          mt-0.5
           truncate
-          text-sm
+          text-[11px]
           font-bold
+          sm:mt-1
+          sm:text-sm
         "
         style={{
           color:
@@ -791,9 +860,11 @@ function DetailRow({
   return (
     <div
       className="
-        rounded-xl
+        rounded-lg
         border
-        p-3
+        p-2
+        sm:rounded-xl
+        sm:p-3
       "
       style={{
         background:
@@ -807,7 +878,8 @@ function DetailRow({
         className="
           flex
           items-center
-          gap-1.5
+          gap-1
+          sm:gap-1.5
         "
         style={{
           color:
@@ -818,8 +890,10 @@ function DetailRow({
 
         <span
           className="
-            text-[10px]
+            truncate
+            text-[8px]
             font-medium
+            sm:text-[10px]
           "
         >
           {label}
@@ -828,9 +902,11 @@ function DetailRow({
 
       <p
         className={`
-          mt-1
-          text-xs
+          mt-0.5
+          text-[10px]
           font-semibold
+          sm:mt-1
+          sm:text-xs
           ${
             breakValue
               ? "break-all"
@@ -926,10 +1002,13 @@ function PublicationBadge({
     <span
       className="
         rounded-full
-        px-2.5
-        py-1
-        text-[9px]
+        px-1.5
+        py-0.5
+        text-[8px]
         font-semibold
+        sm:px-2.5
+        sm:py-1
+        sm:text-[9px]
       "
       style={{
         background,

@@ -36,19 +36,21 @@ export default function DeleteProductDialog({
         items-center
         justify-center
         bg-black/60
-        p-4
+        p-2
         backdrop-blur-sm
+        sm:p-4
       "
     >
       <div
         className="
           w-full
           max-w-md
-          rounded-[var(--admin-surface-radius)]
+          rounded-lg
           border
           border-[var(--admin-card-border)]
           bg-[var(--admin-card-bg)]
           shadow-2xl
+          sm:rounded-[var(--admin-surface-radius)]
         "
       >
         <div
@@ -56,41 +58,54 @@ export default function DeleteProductDialog({
             flex
             items-center
             justify-between
+            gap-2
             border-b
             border-[var(--admin-card-border)]
-            p-[var(--space-lg)]
+            p-3
+            sm:gap-3
+            sm:p-[var(--space-lg)]
           "
         >
           <div
             className="
               flex
+              min-w-0
               items-center
-              gap-3
+              gap-2
+              sm:gap-3
             "
           >
             <div
               className="
                 flex
-                h-10
-                w-10
+                h-7
+                w-7
+                shrink-0
                 items-center
                 justify-center
                 rounded-full
                 bg-[var(--admin-button-danger-bg)]
                 text-[var(--admin-button-danger-text)]
+                sm:h-10
+                sm:w-10
               "
             >
               <AlertTriangle
-                size={20}
+                size={15}
+                className="
+                  sm:h-5
+                  sm:w-5
+                "
               />
             </div>
 
-            <div>
+            <div className="min-w-0">
               <h2
                 className="
-                  text-base
+                  text-[13px]
                   font-semibold
                   text-[var(--admin-title)]
+                  sm:text-base
                 "
               >
                 Delete Product
@@ -98,9 +113,13 @@ export default function DeleteProductDialog({
 
               <p
                 className="
-                  mt-1
-                  text-xs
+                  mt-0.5
+                  text-[9px]
+                  leading-3.5
                   text-[var(--admin-muted)]
+                  sm:mt-1
+                  sm:text-xs
+                  sm:leading-normal
                 "
               >
                 This action cannot be
@@ -113,35 +132,53 @@ export default function DeleteProductDialog({
             type="button"
             disabled={loading}
             onClick={onClose}
+            aria-label="Close delete product dialog"
+            title="Close"
             className="
               inline-flex
-              h-9
-              w-9
+              h-7
+              w-7
+              shrink-0
               items-center
               justify-center
-              rounded-[var(--admin-input-radius)]
+              rounded-md
               border
               border-[var(--admin-button-secondary-border)]
               bg-[var(--admin-button-secondary-bg)]
               transition
               hover:bg-[var(--admin-button-secondary-hover)]
+              disabled:pointer-events-none
+              disabled:opacity-50
+              sm:h-9
+              sm:w-9
+              sm:rounded-[var(--admin-input-radius)]
             "
           >
-            <X size={16} />
+            <X
+              size={13}
+              className="
+                sm:h-4
+                sm:w-4
+              "
+            />
           </button>
         </div>
 
         <div
           className="
-            space-y-[var(--space-md)]
-            p-[var(--space-lg)]
+            space-y-2.5
+            p-3
+            sm:space-y-[var(--space-md)]
+            sm:p-[var(--space-lg)]
           "
         >
           <p
             className="
-              text-sm
-              leading-6
+              text-[10px]
+              leading-4
               text-[var(--admin-muted)]
+              sm:text-sm
+              sm:leading-6
             "
           >
             Are you sure you want to
@@ -160,14 +197,18 @@ export default function DeleteProductDialog({
 
           <div
             className="
-              rounded-[var(--admin-input-radius)]
+              rounded-md
               border
               border-[var(--admin-status-warning-border)]
               bg-[var(--admin-status-warning-bg)]
-              p-3
-              text-xs
-              leading-5
+              p-2.5
+              text-[9px]
+              leading-3.5
               text-[var(--admin-status-warning-text)]
+              sm:rounded-[var(--admin-input-radius)]
+              sm:p-3
+              sm:text-xs
+              sm:leading-5
             "
           >
             All associated images,
@@ -180,11 +221,15 @@ export default function DeleteProductDialog({
         <div
           className="
             flex
-            justify-end
-            gap-3
+            flex-col-reverse
+            gap-1.5
             border-t
             border-[var(--admin-card-border)]
-            p-[var(--space-lg)]
+            p-3
+            sm:flex-row
+            sm:justify-end
+            sm:gap-3
+            sm:p-[var(--space-lg)]
           "
         >
           <button
@@ -193,18 +238,24 @@ export default function DeleteProductDialog({
             onClick={onClose}
             className="
               inline-flex
-              h-10
+              h-7
               items-center
               justify-center
-              rounded-[var(--admin-input-radius)]
+              rounded-md
               border
               border-[var(--admin-button-secondary-border)]
               bg-[var(--admin-button-secondary-bg)]
-              px-4
-              text-sm
+              px-2.5
+              text-[9px]
               font-medium
               transition
               hover:bg-[var(--admin-button-secondary-hover)]
+              disabled:cursor-not-allowed
+              disabled:opacity-60
+              sm:h-10
+              sm:rounded-[var(--admin-input-radius)]
+              sm:px-4
+              sm:text-sm
             "
           >
             Cancel
@@ -216,33 +267,48 @@ export default function DeleteProductDialog({
             onClick={onConfirm}
             className="
               inline-flex
-              h-10
+              h-7
               items-center
               justify-center
-              gap-2
-              rounded-[var(--admin-input-radius)]
+              gap-1
+              rounded-md
               bg-[var(--admin-button-danger-bg)]
-              px-4
-              text-sm
+              px-2.5
+              text-[9px]
               font-medium
               text-[var(--admin-button-danger-text)]
               transition
               hover:opacity-90
               disabled:cursor-not-allowed
               disabled:opacity-60
+              sm:h-10
+              sm:gap-2
+              sm:rounded-[var(--admin-input-radius)]
+              sm:px-4
+              sm:text-sm
             "
           >
             {loading ? (
               <>
                 <Loader2
-                  size={16}
-                  className="animate-spin"
+                  size={13}
+                  className="
+                    animate-spin
+                    sm:h-4
+                    sm:w-4
+                  "
                 />
                 Deleting...
               </>
             ) : (
               <>
-                <Trash2 size={16} />
+                <Trash2
+                  size={13}
+                  className="
+                    sm:h-4
+                    sm:w-4
+                  "
+                />
                 Delete Product
               </>
             )}

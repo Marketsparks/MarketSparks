@@ -81,14 +81,21 @@ export default function CategoryForm({
         handleSubmit
       }
       className="
-        space-y-6
+        space-y-3
+        sm:space-y-6
       "
     >
-      <div className="space-y-2">
+      <div
+        className="
+          space-y-1
+          sm:space-y-2
+        "
+      >
         <label
           className="
-            text-sm
+            text-[10px]
             font-medium
+            sm:text-sm
           "
         >
           Name
@@ -96,8 +103,12 @@ export default function CategoryForm({
 
         <input
           type="text"
-          value={values.name}
-          disabled={loading}
+          value={
+            values.name
+          }
+          disabled={
+            loading
+          }
           onChange={(
             event,
           ) =>
@@ -113,24 +124,34 @@ export default function CategoryForm({
             })
           }
           className="
-            h-11
+            h-8
             w-full
-            rounded-[var(--admin-input-radius)]
+            rounded-md
             border
             border-[var(--admin-input-border)]
             bg-[var(--admin-input-bg)]
-            px-4
-            text-sm
+            px-2.5
+            text-[10px]
+            sm:h-11
+            sm:rounded-[var(--admin-input-radius)]
+            sm:px-4
+            sm:text-sm
           "
           required
         />
       </div>
 
-      <div className="space-y-2">
+      <div
+        className="
+          space-y-1
+          sm:space-y-2
+        "
+      >
         <label
           className="
-            text-sm
+            text-[10px]
             font-medium
+            sm:text-sm
           "
         >
           Slug
@@ -138,8 +159,12 @@ export default function CategoryForm({
 
         <input
           type="text"
-          value={values.slug}
-          disabled={loading}
+          value={
+            values.slug
+          }
+          disabled={
+            loading
+          }
           onChange={(
             event,
           ) =>
@@ -151,24 +176,34 @@ export default function CategoryForm({
             })
           }
           className="
-            h-11
+            h-8
             w-full
-            rounded-[var(--admin-input-radius)]
+            rounded-md
             border
             border-[var(--admin-input-border)]
             bg-[var(--admin-input-bg)]
-            px-4
-            text-sm
+            px-2.5
+            text-[10px]
+            sm:h-11
+            sm:rounded-[var(--admin-input-radius)]
+            sm:px-4
+            sm:text-sm
           "
           required
         />
       </div>
 
-      <div className="space-y-2">
+      <div
+        className="
+          space-y-1
+          sm:space-y-2
+        "
+      >
         <label
           className="
-            text-sm
+            text-[10px]
             font-medium
+            sm:text-sm
           "
         >
           Sort Order
@@ -179,7 +214,9 @@ export default function CategoryForm({
           value={
             values.sortOrder
           }
-          disabled={loading}
+          disabled={
+            loading
+          }
           onChange={(
             event,
           ) =>
@@ -193,14 +230,18 @@ export default function CategoryForm({
             })
           }
           className="
-            h-11
+            h-8
             w-full
-            rounded-[var(--admin-input-radius)]
+            rounded-md
             border
             border-[var(--admin-input-border)]
             bg-[var(--admin-input-bg)]
-            px-4
-            text-sm
+            px-2.5
+            text-[10px]
+            sm:h-11
+            sm:rounded-[var(--admin-input-radius)]
+            sm:px-4
+            sm:text-sm
           "
         />
       </div>
@@ -209,9 +250,11 @@ export default function CategoryForm({
         className="
           flex
           items-center
-          gap-3
-          text-sm
+          gap-2
+          text-[10px]
           font-medium
+          sm:gap-3
+          sm:text-sm
         "
       >
         <input
@@ -219,7 +262,9 @@ export default function CategoryForm({
           checked={
             values.isActive
           }
-          disabled={loading}
+          disabled={
+            loading
+          }
           onChange={(
             event,
           ) =>
@@ -230,6 +275,12 @@ export default function CategoryForm({
                   .checked,
             })
           }
+          className="
+            h-3
+            w-3
+            sm:h-4
+            sm:w-4
+          "
         />
 
         Active Category
@@ -237,22 +288,28 @@ export default function CategoryForm({
 
       <button
         type="submit"
-        disabled={loading}
+        disabled={
+          loading
+        }
         className="
           inline-flex
-          h-11
+          h-8
           items-center
           justify-center
-          rounded-[var(--admin-input-radius)]
+          rounded-md
           bg-violet-600
-          px-5
-          text-sm
+          px-3
+          text-[10px]
           font-medium
           text-white
           transition
           hover:bg-violet-700
           disabled:cursor-not-allowed
           disabled:opacity-60
+          sm:h-11
+          sm:rounded-[var(--admin-input-radius)]
+          sm:px-5
+          sm:text-sm
         "
       >
         {loading

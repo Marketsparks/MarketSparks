@@ -19,26 +19,20 @@ export default function DepositTable({
   onView,
 }: DepositTableProps) {
   return (
-<div
-  className="
-    mb-28
-
-    overflow-hidden
-
-    rounded-[var(--admin-card-radius)]
-
-    border
-
-    border-[var(--admin-card-border)]
-
-    bg-[var(--admin-card-bg)]
-
-    shadow-[var(--admin-card-shadow)]
-
-    transition-all
-    duration-[var(--admin-card-transition)]
-  "
->
+    <div
+      className="
+        mb-20
+        overflow-hidden
+        rounded-[var(--admin-card-radius)]
+        border
+        border-[var(--admin-card-border)]
+        bg-[var(--admin-card-bg)]
+        shadow-[var(--admin-card-shadow)]
+        transition-all
+        duration-[var(--admin-card-transition)]
+        sm:mb-28
+      "
+    >
       <div
         className="
           overflow-x-auto
@@ -47,9 +41,7 @@ export default function DepositTable({
         <table
           className="
             min-w-[900px]
-
             w-full
-
             border-collapse
           "
         >
@@ -57,33 +49,24 @@ export default function DepositTable({
             <tr
               className="
                 border-b
-
                 border-[var(--admin-table-border)]
-
                 bg-[var(--admin-table-header-bg)]
-
                 transition-colors
               "
             >
               <th
                 className="
-                  px-4
-
-                  py-4
-
+                  px-3
+                  py-2.5
                   text-left
-
-                  text-xs
-
+                  text-[10px]
                   font-semibold
-
                   uppercase
-
                   tracking-[0.08em]
-
                   text-[var(--admin-table-muted)]
-
-                  sm:px-6
+                  sm:px-4
+                  sm:py-3
+                  sm:text-xs
                 "
               >
                 User
@@ -91,23 +74,17 @@ export default function DepositTable({
 
               <th
                 className="
-                  px-4
-
-                  py-4
-
+                  px-3
+                  py-2.5
                   text-left
-
-                  text-xs
-
+                  text-[10px]
                   font-semibold
-
                   uppercase
-
                   tracking-[0.08em]
-
                   text-[var(--admin-table-muted)]
-
-                  sm:px-6
+                  sm:px-4
+                  sm:py-3
+                  sm:text-xs
                 "
               >
                 Deposit Method
@@ -115,23 +92,17 @@ export default function DepositTable({
 
               <th
                 className="
-                  px-4
-
-                  py-4
-
+                  px-3
+                  py-2.5
                   text-left
-
-                  text-xs
-
+                  text-[10px]
                   font-semibold
-
                   uppercase
-
                   tracking-[0.08em]
-
                   text-[var(--admin-table-muted)]
-
-                  sm:px-6
+                  sm:px-4
+                  sm:py-3
+                  sm:text-xs
                 "
               >
                 Amount
@@ -139,23 +110,17 @@ export default function DepositTable({
 
               <th
                 className="
-                  px-4
-
-                  py-4
-
+                  px-3
+                  py-2.5
                   text-left
-
-                  text-xs
-
+                  text-[10px]
                   font-semibold
-
                   uppercase
-
                   tracking-[0.08em]
-
                   text-[var(--admin-table-muted)]
-
-                  sm:px-6
+                  sm:px-4
+                  sm:py-3
+                  sm:text-xs
                 "
               >
                 Status
@@ -163,23 +128,17 @@ export default function DepositTable({
 
               <th
                 className="
-                  px-4
-
-                  py-4
-
+                  px-3
+                  py-2.5
                   text-left
-
-                  text-xs
-
+                  text-[10px]
                   font-semibold
-
                   uppercase
-
                   tracking-[0.08em]
-
                   text-[var(--admin-table-muted)]
-
-                  sm:px-6
+                  sm:px-4
+                  sm:py-3
+                  sm:text-xs
                 "
               >
                 Date
@@ -187,23 +146,17 @@ export default function DepositTable({
 
               <th
                 className="
-                  px-4
-
-                  py-4
-
+                  px-3
+                  py-2.5
                   text-right
-
-                  text-xs
-
+                  text-[10px]
                   font-semibold
-
                   uppercase
-
                   tracking-[0.08em]
-
                   text-[var(--admin-table-muted)]
-
-                  sm:px-6
+                  sm:px-4
+                  sm:py-3
+                  sm:text-xs
                 "
               >
                 Action
@@ -214,11 +167,8 @@ export default function DepositTable({
           <tbody
             className="
               divide-y
-
               divide-[var(--admin-table-border)]
-
               bg-[var(--admin-table-bg)]
-
               transition-colors
             "
           >

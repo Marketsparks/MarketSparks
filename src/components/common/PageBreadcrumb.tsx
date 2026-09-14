@@ -29,90 +29,84 @@ export default function PageBreadcrumb({
       aria-label="Breadcrumb"
       className="
         flex
-
         flex-wrap
-
         items-center
-
         justify-center
-
-        gap-2
-
-        text-[13px]
-
+        gap-1.5
+        text-[10px]
         font-medium
-
         text-[var(--foreground-muted)]
-
+        sm:gap-2
         sm:text-[14px]
       "
     >
-<NavigationLink
-  href={homeHref}
-  className="
-    flex
-    items-center
-    gap-1.5
-    transition-colors
-    duration-300
-    hover:text-[var(--primary)]
-  "
->
-  <House
-    size={15}
-    strokeWidth={2}
-  />
+      <NavigationLink
+        href={homeHref}
+        className="
+          flex
+          items-center
+          gap-1
+          transition-colors
+          duration-300
+          hover:text-[var(--primary)]
+          sm:gap-1.5
+        "
+      >
+        <House
+          size={12}
+          strokeWidth={2}
+          className="
+            sm:h-[15px]
+            sm:w-[15px]
+          "
+        />
 
-  Home
-</NavigationLink>
+        Home
+      </NavigationLink>
 
       {items.map(
         (
           item,
-          index
+          index,
         ) => (
           <div
             key={`${item.label}-${index}`}
             className="
               flex
-
               items-center
-
-              gap-2
+              gap-1.5
+              sm:gap-2
             "
           >
             <ChevronRight
-              size={16}
+              size={12}
               strokeWidth={2}
               className="
                 shrink-0
-
                 text-[var(--foreground-muted)]
+                sm:h-4
+                sm:w-4
               "
             />
 
             {item.href ? (
-<NavigationLink
-  href={item.href}
-  className="
-    transition-colors
-    duration-300
-    hover:text-[var(--primary)]
-  "
->
-  {item.label}
-</NavigationLink>
+              <NavigationLink
+                href={item.href}
+                className="
+                  transition-colors
+                  duration-300
+                  hover:text-[var(--primary)]
+                "
+              >
+                {item.label}
+              </NavigationLink>
             ) : (
               <span
                 className="
-                  max-w-[220px]
-
+                  max-w-[180px]
                   truncate
-
                   font-semibold
-
                   text-[var(--foreground)]
-
                   sm:max-w-none
                 "
               >
@@ -120,7 +114,7 @@ export default function PageBreadcrumb({
               </span>
             )}
           </div>
-        )
+        ),
       )}
     </nav>
   );

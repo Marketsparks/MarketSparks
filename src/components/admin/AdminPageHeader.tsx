@@ -18,10 +18,11 @@ export default function AdminPageHeader({
       className="
         flex
         flex-col
-        gap-4
+        gap-2.5
         sm:flex-row
         sm:items-start
         sm:justify-between
+        sm:gap-4
       "
     >
       <div
@@ -32,9 +33,10 @@ export default function AdminPageHeader({
       >
         <h1
           className="
-            text-3xl
+            text-[13px]
             font-bold
             tracking-tight
+            sm:text-3xl
           "
         >
           {title}
@@ -43,10 +45,15 @@ export default function AdminPageHeader({
         {description ? (
           <p
             className="
-              mt-2
-              max-w-3xl
-              text-sm
+              mt-0.5
+              max-w-[340px]
+              text-[9px]
+              leading-3.5
               text-[var(--foreground-muted)]
+              sm:mt-2
+              sm:max-w-3xl
+              sm:text-sm
+              sm:leading-normal
             "
           >
             {description}

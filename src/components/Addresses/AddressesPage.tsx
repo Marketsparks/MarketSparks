@@ -427,7 +427,8 @@ export default function AddressesPage() {
           mx-auto
           w-full
           max-w-5xl
-          pb-16
+          pb-10
+          sm:pb-16
         "
       >
         <div
@@ -435,15 +436,17 @@ export default function AddressesPage() {
             flex
             items-end
             justify-between
-            gap-4
+            gap-2.5
+            sm:gap-4
           "
         >
           <div className="min-w-0">
             <h1
               className="
-                text-lg
+                text-[16px]
                 font-semibold
                 text-[var(--user-title)]
+                sm:text-lg
               "
             >
               Delivery addresses
@@ -451,11 +454,14 @@ export default function AddressesPage() {
 
             <p
               className="
-                mt-1
+                mt-0.5
                 max-w-xl
-                text-xs
-                leading-5
+                text-[10px]
+                leading-4
                 text-[var(--user-text-muted)]
+                sm:mt-1
+                sm:text-xs
+                sm:leading-5
               "
             >
               Save your delivery details for
@@ -469,24 +475,29 @@ export default function AddressesPage() {
             onClick={
               openCreateModal
             }
-className="
-  inline-flex
-  h-9
-  shrink-0
-  items-center
-  gap-2
-  rounded-lg
-  bg-[#5b5ef7]
-  px-3.5
-  text-xs
-  font-semibold
-  text-white
-  transition
-  hover:opacity-90
-"
+            className="
+              inline-flex
+              h-8
+              shrink-0
+              items-center
+              gap-1.5
+              rounded-lg
+              bg-[#5b5ef7]
+              px-2.5
+              text-[10px]
+              font-semibold
+              text-white
+              transition
+              hover:opacity-90
+              sm:h-9
+              sm:gap-2
+              sm:px-3.5
+              sm:text-xs
+            "
           >
             <Plus
-              size={14}
+              size={13}
+              className="sm:h-[14px] sm:w-[14px]"
             />
 
             <span className="hidden sm:inline">
@@ -501,28 +512,33 @@ className="
 
         <div
           className="
-            mt-5
+            mt-4
+            sm:mt-5
           "
         >
           {loading ? (
             <div
               className="
                 flex
-                min-h-[220px]
+                min-h-[180px]
                 items-center
                 justify-center
-                rounded-xl
+                rounded-lg
                 border
                 border-[var(--user-card-border)]
                 bg-[var(--user-card-bg)]
                 shadow-[var(--user-card-shadow)]
+                sm:min-h-[220px]
+                sm:rounded-xl
               "
             >
               <Loader2
-                size={20}
+                size={18}
                 className="
                   animate-spin
                   text-[var(--primary)]
+                  sm:h-5
+                  sm:w-5
                 "
               />
             </div>
@@ -537,8 +553,9 @@ className="
             <div
               className="
                 grid
-                gap-3
+                gap-2
                 md:grid-cols-2
+                md:gap-3
               "
             >
               {addresses.map(

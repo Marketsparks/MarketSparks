@@ -8,10 +8,12 @@ export default function SecurityHeader() {
   return (
     <header
       className="
-        rounded-[var(--user-radius-lg)]
+        rounded-lg
         border
         bg-[var(--user-card-bg)]
-        p-5
+        p-3
+        sm:rounded-[var(--user-radius-lg)]
+        sm:p-5
       "
       style={{
         borderColor:
@@ -22,31 +24,43 @@ export default function SecurityHeader() {
         className="
           flex
           items-start
-          gap-3
+          gap-2.5
+          sm:gap-3
         "
       >
         <div
           className="
             flex
-            h-10
-            w-10
+            h-8
+            w-8
             shrink-0
             items-center
             justify-center
-            rounded-xl
+            rounded-lg
             bg-[var(--user-button-bg)]
             text-[var(--user-button-text)]
+            sm:h-10
+            sm:w-10
+            sm:rounded-xl
           "
         >
-          <ShieldCheck size={20} />
+          <ShieldCheck
+            size={16}
+            className="sm:hidden"
+          />
+          <ShieldCheck
+            size={20}
+            className="hidden sm:block"
+          />
         </div>
 
         <div className="min-w-0">
           <h1
             className="
-              text-lg
+              text-[15px]
               font-semibold
               text-[var(--user-text)]
+              sm:text-lg
             "
           >
             Security
@@ -54,11 +68,14 @@ export default function SecurityHeader() {
 
           <p
             className="
-              mt-1
+              mt-0.5
               max-w-2xl
-              text-sm
-              leading-6
+              text-[10px]
+              leading-4
               text-[var(--user-text-muted)]
+              sm:mt-1
+              sm:text-sm
+              sm:leading-6
             "
           >
             Update your password and manage the

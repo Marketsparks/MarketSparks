@@ -21,22 +21,23 @@ export default function OrderTable({
   onView,
 }: OrderTableProps) {
   return (
-<div
-  className="
-    overflow-hidden
-    rounded-xl
-    border
-    border-[var(--admin-card-border)]
-    bg-[var(--admin-card-bg)]
-    shadow-[var(--admin-card-shadow)]
-  "
->
-  <div
-    className="
-      max-h-[520px]
-      overflow-auto
-    "
-  >
+    <div
+      className="
+        overflow-hidden
+        rounded-lg
+        border
+        border-[var(--admin-card-border)]
+        bg-[var(--admin-card-bg)]
+        shadow-[var(--admin-card-shadow)]
+        sm:rounded-xl
+      "
+    >
+      <div
+        className="
+          max-h-[520px]
+          overflow-auto
+        "
+      >
         <table
           className="
             min-w-[980px]
@@ -152,15 +153,18 @@ function OrderRow({
     >
       <td
         className="
-          px-4
-          py-3.5
+          px-2.5
+          py-2.5
+          sm:px-4
+          sm:py-3.5
         "
       >
         <div
           className="
-            text-xs
+            text-[10px]
             font-semibold
             text-[var(--admin-table-title)]
+            sm:text-xs
           "
         >
           {order.orderNumber}
@@ -170,8 +174,9 @@ function OrderRow({
           <div
             className="
               mt-0.5
-              text-[10px]
+              text-[8px]
               text-[var(--admin-table-muted)]
+              sm:text-[10px]
             "
           >
             {order.cryptoDeposit.reference}
@@ -181,16 +186,19 @@ function OrderRow({
 
       <td
         className="
-          px-4
-          py-3.5
+          px-2.5
+          py-2.5
+          sm:px-4
+          sm:py-3.5
         "
       >
         <div
           className="
             truncate
-            text-xs
+            text-[10px]
             font-semibold
             text-[var(--admin-table-title)]
+            sm:text-xs
           "
         >
           {customerName}
@@ -201,8 +209,9 @@ function OrderRow({
             mt-0.5
             max-w-[210px]
             truncate
-            text-[10px]
+            text-[8px]
             text-[var(--admin-table-muted)]
+            sm:text-[10px]
           "
         >
           {order.user.email}
@@ -212,11 +221,14 @@ function OrderRow({
       <td
         className="
           whitespace-nowrap
-          px-4
-          py-3.5
-          text-xs
+          px-2.5
+          py-2.5
+          text-[10px]
           font-semibold
           text-[var(--admin-table-title)]
+          sm:px-4
+          sm:py-3.5
+          sm:text-xs
         "
       >
         $
@@ -236,8 +248,10 @@ function OrderRow({
 
       <td
         className="
-          px-4
-          py-3.5
+          px-2.5
+          py-2.5
+          sm:px-4
+          sm:py-3.5
         "
       >
         <StatusPill
@@ -258,8 +272,10 @@ function OrderRow({
 
       <td
         className="
-          px-4
-          py-3.5
+          px-2.5
+          py-2.5
+          sm:px-4
+          sm:py-3.5
         "
       >
         <StatusPill
@@ -274,8 +290,10 @@ function OrderRow({
 
       <td
         className="
-          px-4
-          py-3.5
+          px-2.5
+          py-2.5
+          sm:px-4
+          sm:py-3.5
         "
       >
         <StatusPill
@@ -291,10 +309,13 @@ function OrderRow({
       <td
         className="
           whitespace-nowrap
-          px-4
-          py-3.5
-          text-[11px]
+          px-2.5
+          py-2.5
+          text-[9px]
           text-[var(--admin-table-muted)]
+          sm:px-4
+          sm:py-3.5
+          sm:text-[11px]
         "
       >
         {formatDate(
@@ -304,9 +325,11 @@ function OrderRow({
 
       <td
         className="
-          px-4
-          py-3.5
+          px-2.5
+          py-2.5
           text-right
+          sm:px-4
+          sm:py-3.5
         "
       >
         <button
@@ -322,11 +345,11 @@ function OrderRow({
           }
           className="
             inline-flex
-            h-8
-            w-8
+            h-7
+            w-7
             items-center
             justify-center
-            rounded-lg
+            rounded-md
             border
             border-[var(--admin-card-border)]
             bg-[var(--admin-card-bg)]
@@ -340,11 +363,15 @@ function OrderRow({
             focus:ring-[var(--primary)]
             focus:ring-offset-2
             focus:ring-offset-[var(--admin-table-bg)]
+            sm:h-9
+            sm:w-9
+            sm:rounded-lg
           "
         >
           <Eye
-            size={15}
+            size={13}
             strokeWidth={2}
+            className="sm:h-[15px] sm:w-[15px]"
           />
         </button>
       </td>
@@ -365,14 +392,18 @@ function HeaderCell({
   return (
     <th
       className={`
-        px-4
-        py-3.5
+        px-2.5
+        py-2.5
         text-${align}
-        text-[10px]
+        text-[8px]
         font-semibold
         uppercase
-        tracking-[0.08em]
+        tracking-[0.06em]
         text-[var(--admin-table-header-text)]
+        sm:px-4
+        sm:py-3.5
+        sm:text-[10px]
+        sm:tracking-[0.08em]
       `}
     >
       {children}
@@ -424,13 +455,17 @@ function StatusPill({
         whitespace-nowrap
         rounded-full
         border
-        px-2
-        py-1
-        text-[9px]
+        px-1.5
+        py-0.5
+        text-[8px]
         font-semibold
         uppercase
-        tracking-[0.05em]
+        tracking-[0.04em]
         ${toneClasses[tone]}
+        sm:px-2
+        sm:py-1
+        sm:text-[9px]
+        sm:tracking-[0.05em]
       `}
     >
       {formatStatusLabel(

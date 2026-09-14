@@ -8,7 +8,12 @@ type UserAction =
   | "deactivate"
   | "restore"
   | "approveDeletion"
-  | "delete";
+  | "delete"
+  | "updateRole";
+
+type UserRole =
+  | "USER"
+  | "ADMIN";
 
 type Params = {
   params: Promise<{
@@ -18,6 +23,7 @@ type Params = {
 
 type Body = {
   action: UserAction;
+  role?: UserRole;
 };
 
 function unauthorizedResponse() {
@@ -71,7 +77,8 @@ export async function PATCH(
   { params }: Params,
 ) {
   try {
-    await requireAdmin();
+    const session =
+      await requireAdmin();
 
     const { id } = await params;
 
@@ -102,7 +109,7 @@ export async function PATCH(
       );
     }
 
-        switch (body.action) {
+    switch (body.action) {
       case "activate":
         await prisma.user.update({
           where: {
@@ -206,6 +213,72 @@ export async function PATCH(
             "User deleted permanently.",
         });
 
+      case "updateRole": {
+        if (
+          body.role !== "USER" &&
+          body.role !== "ADMIN"
+        ) {
+          return NextResponse.json(
+            {
+              success: false,
+              error:
+                "Invalid user role.",
+            },
+            {
+              status: 400,
+            },
+          );
+        }
+
+        if (
+          session.user.id === user.id &&
+          body.role === "USER"
+        ) {
+          return NextResponse.json(
+            {
+              success: false,
+              error:
+                "You cannot remove ADMIN access from your own account.",
+            },
+            {
+              status: 400,
+            },
+          );
+        }
+
+        if (
+          body.role === user.role
+        ) {
+          return NextResponse.json({
+            success: true,
+            message:
+              "User role is already set.",
+            role: user.role,
+          });
+        }
+
+        const updatedUser =
+          await prisma.user.update({
+            where: {
+              id: user.id,
+            },
+            data: {
+              role: body.role,
+            },
+            select: {
+              id: true,
+              role: true,
+            },
+          });
+
+        return NextResponse.json({
+          success: true,
+          message:
+            "User role updated successfully.",
+          user: updatedUser,
+        });
+      }
+
       default:
         return NextResponse.json(
           {
@@ -217,8 +290,7 @@ export async function PATCH(
           },
         );
     }
-
-      } catch (error) {
+  } catch (error) {
     const authError =
       handleAuthError(error);
 

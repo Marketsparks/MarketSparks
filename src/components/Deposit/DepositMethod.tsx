@@ -25,32 +25,25 @@ export default function DepositMethod({
   return (
     <section
       className="
-        mt-8
-
+        mt-5
         rounded-[var(--deposit-method-radius)]
-
         border
-
         border-[var(--deposit-method-border)]
-
         bg-[var(--deposit-method-bg)]
-
-        p-[var(--deposit-method-padding)]
-
+        p-3
         shadow-[var(--deposit-method-shadow)]
-
         transition-all
-
         duration-300
+        sm:mt-8
+        sm:p-[var(--deposit-method-padding)]
       "
     >
       <h2
         className="
-          text-[20px]
-
+          text-[16px]
           font-bold
-
           text-[var(--deposit-method-title)]
+          sm:text-[20px]
         "
       >
         Payment Method
@@ -58,13 +51,13 @@ export default function DepositMethod({
 
       <p
         className="
-          mt-2
-
-          text-[14px]
-
-          leading-6
-
+          mt-1
+          text-[11px]
+          leading-5
           text-[var(--deposit-method-text)]
+          sm:mt-2
+          sm:text-[14px]
+          sm:leading-6
         "
       >
         Select the cryptocurrency you want to use for your deposit.
@@ -84,33 +77,26 @@ export default function DepositMethod({
           }
         }}
         className="
-          mt-6
-
+          mt-4
+          h-9
           w-full
-
-          rounded-2xl
-
+          rounded-lg
           border
-
           border-[var(--deposit-method-select-border)]
-
           bg-[var(--deposit-method-select-bg)]
-
-          px-4
-
-          py-3
-
-          text-[15px]
-
+          px-2.5
+          text-[11px]
           text-[var(--deposit-method-select-text)]
-
           outline-none
-
           transition-all
-
           duration-300
-
           focus:border-[var(--deposit-method-select-focus)]
+          sm:mt-6
+          sm:h-auto
+          sm:rounded-2xl
+          sm:px-4
+          sm:py-3
+          sm:text-[15px]
         "
       >
         <option value="">

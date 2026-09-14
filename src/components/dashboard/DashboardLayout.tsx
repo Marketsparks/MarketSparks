@@ -66,25 +66,25 @@ export default function DashboardLayout({
   topBarCenter,
   topBarRight,
 }: DashboardLayoutProps) {
-const [
-  avatarKey,
-  setAvatarKey,
-] = useState(
-  user?.avatarKey ?? null,
-);
+  const [
+    avatarKey,
+    setAvatarKey,
+  ] = useState(
+    user?.avatarKey ?? null,
+  );
 
-const [
-  moreMenuOpen,
-  setMoreMenuOpen,
-] = useState(false);
+  const [
+    moreMenuOpen,
+    setMoreMenuOpen,
+  ] = useState(false);
 
-const openMoreMenu = useCallback(() => {
-  setMoreMenuOpen(true);
-}, []);
+  const openMoreMenu = useCallback(() => {
+    setMoreMenuOpen(true);
+  }, []);
 
-const closeMoreMenu = useCallback(() => {
-  setMoreMenuOpen(false);
-}, []);
+  const closeMoreMenu = useCallback(() => {
+    setMoreMenuOpen(false);
+  }, []);
 
   const {
     cartOpen,
@@ -93,8 +93,7 @@ const closeMoreMenu = useCallback(() => {
 
   const {
     openSearch,
-  } =
-    useSearchContext();
+  } = useSearchContext();
 
   return (
     <div
@@ -108,9 +107,9 @@ const closeMoreMenu = useCallback(() => {
         duration-300
       "
     >
-<PublicTopBar
-  environment={environment}
-/>
+      <PublicTopBar
+        environment={environment}
+      />
 
       <TopBar
         left={
@@ -118,42 +117,52 @@ const closeMoreMenu = useCallback(() => {
         }
         center={
           topBarCenter ?? (
-<button
-  type="button"
-  onClick={openSearch}
-  className="
-    group
-    flex
-    h-11
-    w-full
-    max-w-[360px]
-    items-center
-    gap-3
-    rounded-xl
-    border
-    border-[var(--border)]
-    bg-[var(--surface)]
-    px-4
-    text-sm
-    text-[var(--foreground-muted)]
-    transition-all
-    duration-200
-    hover:border-[var(--primary)]
-    hover:bg-[var(--muted)]
-    hover:text-[var(--primary)]
-  "
->
-  <Search
-    size={18}
-    className="
-      transition-colors
-      duration-200
-      group-hover:text-[var(--primary)]
-    "
-  />
+            <button
+              type="button"
+              onClick={openSearch}
+              className="
+                group
+                flex
+                h-9
+                w-full
+                max-w-[360px]
+                items-center
+                gap-2
+                rounded-lg
+                border
+                border-[var(--border)]
+                bg-[var(--surface)]
+                px-2.5
+                text-[10px]
+                text-[var(--foreground-muted)]
+                transition-all
+                duration-200
+                hover:border-[var(--primary)]
+                hover:bg-[var(--muted)]
+                hover:text-[var(--primary)]
+                sm:h-11
+                sm:gap-3
+                sm:rounded-xl
+                sm:px-4
+                sm:text-sm
+              "
+            >
+              <Search
+                size={14}
+                className="
+                  shrink-0
+                  transition-colors
+                  duration-200
+                  group-hover:text-[var(--primary)]
+                  sm:h-[18px]
+                  sm:w-[18px]
+                "
+              />
 
-  <span>Search products...</span>
-</button>
+              <span>
+                Search products...
+              </span>
+            </button>
           )
         }
         right={
@@ -161,15 +170,15 @@ const closeMoreMenu = useCallback(() => {
             <>
               <NotificationDropdown />
 
-<UserChip
-  image={getCloudinaryImageUrl(
-    avatarKey,
-    "c_fill,w_160,h_160,f_auto,q_auto",
-  )}
-  firstName={user?.firstName}
-  lastName={user?.lastName}
-  onClick={openMoreMenu}
-/>
+              <UserChip
+                image={getCloudinaryImageUrl(
+                  avatarKey,
+                  "c_fill,w_160,h_160,f_auto,q_auto",
+                )}
+                firstName={user?.firstName}
+                lastName={user?.lastName}
+                onClick={openMoreMenu}
+              />
             </>
           )
         }
@@ -185,31 +194,31 @@ const closeMoreMenu = useCallback(() => {
 
       <DashboardFooter />
 
-<BottomDock
-  environment={environment}
-  moreButton={
-    <UserChip
-      image={getCloudinaryImageUrl(
-        avatarKey,
-        "c_fill,w_160,h_160,f_auto,q_auto",
-      )}
-      firstName={user?.firstName}
-      lastName={user?.lastName}
-      onClick={openMoreMenu}
-    />
-  }
-/>
+      <BottomDock
+        environment={environment}
+        moreButton={
+          <UserChip
+            image={getCloudinaryImageUrl(
+              avatarKey,
+              "c_fill,w_160,h_160,f_auto,q_auto",
+            )}
+            firstName={user?.firstName}
+            lastName={user?.lastName}
+            onClick={openMoreMenu}
+          />
+        }
+      />
 
-<MoreMenu
-  open={moreMenuOpen}
-  onClose={closeMoreMenu}
-  user={{
-    ...user!,
-    avatarKey,
-  }}
-  environment={environment}
-  onAvatarChanged={setAvatarKey}
-/>
+      <MoreMenu
+        open={moreMenuOpen}
+        onClose={closeMoreMenu}
+        user={{
+          ...user!,
+          avatarKey,
+        }}
+        environment={environment}
+        onAvatarChanged={setAvatarKey}
+      />
 
       {environment ===
         "user" && (

@@ -19,24 +19,28 @@ export default function AppSearchPopular({
   return (
     <section
       className="
-        mt-8
+        mt-5
+        sm:mt-8
       "
     >
       <div
         className="
-          mb-3
+          mb-2
           flex
           items-center
           justify-between
+          sm:mb-3
         "
       >
         <h2
           className="
-            text-[13px]
+            text-[10px]
             font-semibold
             uppercase
-            tracking-[0.12em]
+            tracking-[0.1em]
             text-[var(--foreground-muted)]
+            sm:text-[13px]
+            sm:tracking-[0.12em]
           "
         >
           Popular Searches
@@ -44,10 +48,11 @@ export default function AppSearchPopular({
 
         <div
           className="
+            ml-3
             h-px
             flex-1
-            ml-4
             bg-[var(--border)]
+            sm:ml-4
           "
         />
       </div>
@@ -56,7 +61,8 @@ export default function AppSearchPopular({
         className="
           flex
           flex-wrap
-          gap-2
+          gap-1.5
+          sm:gap-2
         "
       >
         {searches.map(
@@ -74,15 +80,18 @@ export default function AppSearchPopular({
                 border
                 border-[var(--border)]
                 bg-transparent
-                px-3
-                py-1.5
-                text-[13px]
+                px-2.5
+                py-1
+                text-[10px]
                 font-medium
                 text-[var(--foreground-muted)]
                 transition-all
                 duration-200
                 hover:border-[var(--primary)]
                 hover:text-[var(--primary)]
+                sm:px-3
+                sm:py-1.5
+                sm:text-[13px]
               "
             >
               {search}

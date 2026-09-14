@@ -83,14 +83,14 @@ export default function AffiliateProductDetailsModal({
     setReplyLoading,
   ] = useState(false);
 
-const [
-  transactionLoading,
-  setTransactionLoading,
-] = useState<
-  | "payment"
-  | "complete"
-  | null
->(null);
+  const [
+    transactionLoading,
+    setTransactionLoading,
+  ] = useState<
+    | "payment"
+    | "complete"
+    | null
+  >(null);
 
   useEffect(() => {
     setCurrentListing(
@@ -242,119 +242,6 @@ const [
       toast.error(
         "Enter a reply message.",
       );
-
-
-async function handleTransactionAction(
-  action:
-    | "payment"
-    | "complete",
-) {
-  if (
-    !selectedInterest ||
-    transactionLoading
-  ) {
-    return;
-  }
-
-  const transaction =
-    selectedInterest.transaction;
-
-  if (!transaction) {
-    toast.error(
-      "No transaction exists for this interest.",
-    );
-
-    return;
-  }
-
-  const endpoint =
-    action === "payment"
-      ? `/api/admin/affiliate/interests/${encodeURIComponent(
-          selectedInterest.id,
-        )}/payment`
-      : `/api/admin/affiliate/interests/${encodeURIComponent(
-          selectedInterest.id,
-        )}/complete`;
-
-  try {
-    setTransactionLoading(
-      action,
-    );
-
-    const response =
-      await fetch(
-        endpoint,
-        {
-          method: "PATCH",
-
-          credentials:
-            "include",
-        },
-      );
-
-    const data =
-      await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.error ??
-          (
-            action ===
-            "payment"
-              ? "Unable to confirm payment."
-              : "Unable to complete transaction."
-          ),
-      );
-    }
-
-    const updatedTransaction =
-      data.data.transaction;
-
-    setCurrentListing(
-      (current) => {
-        if (!current) {
-          return current;
-        }
-
-        return {
-          ...current,
-
-          interests:
-            current.interests.map(
-              (interest) =>
-                interest.id ===
-                selectedInterest.id
-                  ? {
-                      ...interest,
-
-                      transaction:
-                        updatedTransaction,
-                    }
-                  : interest,
-            ),
-        };
-      },
-    );
-
-    toast.success(
-      action === "payment"
-        ? "Payment confirmed. Transaction is now in escrow."
-        : "Transaction completed successfully.",
-    );
-  } catch (error) {
-    toast.error(
-      error instanceof Error
-        ? error.message
-        : action === "payment"
-          ? "Unable to confirm payment."
-          : "Unable to complete transaction.",
-    );
-  } finally {
-    setTransactionLoading(
-      null,
-    );
-  }
-}
 
       return;
     }
@@ -520,123 +407,124 @@ async function handleTransactionAction(
   }
 
   async function handleTransactionAction(
-  action:
-    | "payment"
-    | "complete",
-) {
-  if (
-    !selectedInterest ||
-    transactionLoading
+    action:
+      | "payment"
+      | "complete",
   ) {
-    return;
-  }
+    if (
+      !selectedInterest ||
+      transactionLoading
+    ) {
+      return;
+    }
 
-  const transaction =
-    selectedInterest.transaction;
+    const transaction =
+      selectedInterest.transaction;
 
-  if (!transaction) {
-    toast.error(
-      "No transaction exists for this interest.",
-    );
+    if (!transaction) {
+      toast.error(
+        "No transaction exists for this interest.",
+      );
 
-    return;
-  }
+      return;
+    }
 
-  const endpoint =
-    action === "payment"
-      ? `/api/admin/affiliate/interests/${encodeURIComponent(
-          selectedInterest.id,
-        )}/payment`
-      : `/api/admin/affiliate/interests/${encodeURIComponent(
-          selectedInterest.id,
-        )}/complete`;
+    const endpoint =
+      action === "payment"
+        ? `/api/admin/affiliate/interests/${encodeURIComponent(
+            selectedInterest.id,
+          )}/payment`
+        : `/api/admin/affiliate/interests/${encodeURIComponent(
+            selectedInterest.id,
+          )}/complete`;
 
-  try {
-    setTransactionLoading(
-      action,
-    );
+    try {
+      setTransactionLoading(
+        action,
+      );
 
-    const response =
-      await fetch(
-        endpoint,
-        {
-          method: "PATCH",
-          credentials:
-            "include",
+      const response =
+        await fetch(
+          endpoint,
+          {
+            method: "PATCH",
+
+            credentials:
+              "include",
+          },
+        );
+
+      const data =
+        await response.json();
+
+      if (
+        !response.ok ||
+        !data.success
+      ) {
+        throw new Error(
+          data.error ??
+            (
+              action ===
+              "payment"
+                ? "Unable to confirm payment."
+                : "Unable to complete transaction."
+            ),
+        );
+      }
+
+      const updatedTransaction =
+        data.data.transaction;
+
+      setCurrentListing(
+        (current) => {
+          if (!current) {
+            return current;
+          }
+
+          return {
+            ...current,
+
+            interests:
+              current.interests.map(
+                (interest) =>
+                  interest.id ===
+                  selectedInterest.id
+                    ? {
+                        ...interest,
+
+                        transaction:
+                          updatedTransaction,
+                      }
+                    : interest,
+              ),
+          };
         },
       );
 
-    const data =
-      await response.json();
+      toast.success(
+        action === "payment"
+          ? "Payment confirmed. Transaction is now in escrow."
+          : "Transaction completed successfully.",
+      );
+    } catch (error) {
+      console.error(
+        "Affiliate transaction action failed:",
+        error,
+      );
 
-    if (
-      !response.ok ||
-      !data.success
-    ) {
-      throw new Error(
-        data.error ??
-          (
-            action ===
-            "payment"
-              ? "Unable to confirm payment."
-              : "Unable to complete transaction."
-          ),
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : action === "payment"
+            ? "Unable to confirm payment."
+            : "Unable to complete transaction.",
+      );
+    } finally {
+      setTransactionLoading(
+        null,
       );
     }
-
-    const updatedTransaction =
-      data.data.transaction;
-
-    setCurrentListing(
-      (current) => {
-        if (!current) {
-          return current;
-        }
-
-        return {
-          ...current,
-
-          interests:
-            current.interests.map(
-              (interest) =>
-                interest.id ===
-                selectedInterest.id
-                  ? {
-                      ...interest,
-
-                      transaction:
-                        updatedTransaction,
-                    }
-                  : interest,
-            ),
-        };
-      },
-    );
-
-    toast.success(
-      action === "payment"
-        ? "Payment confirmed. Transaction is now in escrow."
-        : "Transaction completed successfully.",
-    );
-  } catch (error) {
-    console.error(
-      "Affiliate transaction action failed:",
-      error,
-    );
-
-    toast.error(
-      error instanceof Error
-        ? error.message
-        : action === "payment"
-          ? "Unable to confirm payment."
-          : "Unable to complete transaction.",
-    );
-  } finally {
-    setTransactionLoading(
-      null,
-    );
   }
-}
 
   return (
     <>
@@ -660,7 +548,7 @@ async function handleTransactionAction(
           items-center
           justify-center
           bg-black/50
-          p-3
+          p-2
           backdrop-blur-sm
           sm:p-5
         "
@@ -671,14 +559,16 @@ async function handleTransactionAction(
           aria-label="Affiliate product details"
           className="
             flex
-            max-h-[90vh]
+            max-h-[96vh]
             w-full
             max-w-2xl
             flex-col
             overflow-hidden
-            rounded-xl
+            rounded-lg
             border
             shadow-2xl
+            sm:max-h-[90vh]
+            sm:rounded-xl
           "
           style={{
             background:
@@ -693,10 +583,13 @@ async function handleTransactionAction(
               flex
               items-center
               justify-between
-              gap-3
+              gap-2
               border-b
-              px-4
-              py-3
+              px-3
+              py-2.5
+              sm:gap-3
+              sm:px-4
+              sm:py-3
             "
             style={{
               borderColor:
@@ -706,10 +599,11 @@ async function handleTransactionAction(
             <div className="min-w-0">
               <p
                 className="
-                  text-[9px]
+                  text-[8px]
                   font-semibold
                   uppercase
                   tracking-[0.1em]
+                  sm:text-[9px]
                 "
                 style={{
                   color:
@@ -723,8 +617,9 @@ async function handleTransactionAction(
                 className="
                   mt-0.5
                   truncate
-                  text-sm
+                  text-[13px]
                   font-bold
+                  sm:text-sm
                 "
                 style={{
                   color:
@@ -743,7 +638,8 @@ async function handleTransactionAction(
               className="
                 flex
                 items-center
-                gap-1.5
+                gap-1
+                sm:gap-1.5
               "
             >
               {currentListing
@@ -758,16 +654,19 @@ async function handleTransactionAction(
                   }
                   className="
                     inline-flex
-                    h-7
+                    h-6
                     items-center
                     justify-center
                     rounded-md
                     border
-                    px-2
-                    text-[9px]
+                    px-1.5
+                    text-[8px]
                     font-semibold
                     transition
                     hover:bg-[var(--surface-hover)]
+                    sm:h-7
+                    sm:px-2
+                    sm:text-[9px]
                   "
                   style={{
                     background:
@@ -799,8 +698,8 @@ async function handleTransactionAction(
                 aria-label="Close"
                 className="
                   flex
-                  h-7
-                  w-7
+                  h-6
+                  w-6
                   shrink-0
                   items-center
                   justify-center
@@ -808,6 +707,8 @@ async function handleTransactionAction(
                   border
                   transition
                   hover:bg-[var(--surface-hover)]
+                  sm:h-7
+                  sm:w-7
                 "
                 style={{
                   borderColor:
@@ -818,7 +719,13 @@ async function handleTransactionAction(
                 }}
               >
                 <X
+                  size={12}
+                  className="sm:hidden"
+                />
+
+                <X
                   size={14}
+                  className="hidden sm:block"
                 />
               </button>
             </div>
@@ -828,14 +735,16 @@ async function handleTransactionAction(
             className="
               min-h-0
               overflow-y-auto
-              p-4
+              p-2.5
+              sm:p-4
             "
           >
             <div
               className="
                 grid
-                gap-4
+                gap-2.5
                 sm:grid-cols-[120px_minmax(0,1fr)]
+                sm:gap-4
               "
             >
               <div
@@ -843,8 +752,9 @@ async function handleTransactionAction(
                   relative
                   aspect-square
                   overflow-hidden
-                  rounded-lg
+                  rounded-md
                   bg-[var(--surface-hover)]
+                  sm:rounded-lg
                 "
               >
                 {primaryImage ? (
@@ -872,7 +782,8 @@ async function handleTransactionAction(
                       h-full
                       items-center
                       justify-center
-                      text-[9px]
+                      text-[8px]
+                      sm:text-[9px]
                     "
                     style={{
                       color:
@@ -888,9 +799,9 @@ async function handleTransactionAction(
                 <div
                   className="
                     grid
-                    grid-cols-2
-                    gap-2
-                    sm:grid-cols-3
+                    grid-cols-3
+                    gap-1.5
+                    sm:gap-2
                   "
                 >
                   <Metric
@@ -915,10 +826,14 @@ async function handleTransactionAction(
 
                 <p
                   className="
-                    mt-3
-                    line-clamp-4
-                    text-[11px]
-                    leading-5
+                    mt-2
+                    line-clamp-3
+                    text-[9px]
+                    leading-3.5
+                    sm:mt-3
+                    sm:line-clamp-4
+                    sm:text-[11px]
+                    sm:leading-5
                   "
                   style={{
                     color:
@@ -936,10 +851,12 @@ async function handleTransactionAction(
 
             <div
               className="
-                mt-4
+                mt-2.5
                 grid
-                gap-2
-                sm:grid-cols-2
+                grid-cols-2
+                gap-1.5
+                sm:mt-4
+                sm:gap-2
               "
             >
               <InfoRow
@@ -965,7 +882,8 @@ async function handleTransactionAction(
                 }
                 icon={
                   <Mail
-                    size={12}
+                    size={10}
+                    className="sm:h-3 sm:w-3"
                   />
                 }
               />
@@ -979,7 +897,8 @@ async function handleTransactionAction(
                 }
                 icon={
                   <Phone
-                    size={12}
+                    size={10}
+                    className="sm:h-3 sm:w-3"
                   />
                 }
               />
@@ -991,7 +910,8 @@ async function handleTransactionAction(
                 }
                 icon={
                   <CalendarDays
-                    size={12}
+                    size={10}
+                    className="sm:h-3 sm:w-3"
                   />
                 }
               />
@@ -1003,7 +923,8 @@ async function handleTransactionAction(
                 }
                 icon={
                   <Check
-                    size={12}
+                    size={10}
+                    className="sm:h-3 sm:w-3"
                   />
                 }
               />
@@ -1015,7 +936,8 @@ async function handleTransactionAction(
                 }
                 icon={
                   <CalendarDays
-                    size={12}
+                    size={10}
+                    className="sm:h-3 sm:w-3"
                   />
                 }
               />
@@ -1028,15 +950,24 @@ async function handleTransactionAction(
 
             {currentListing.interests.length >
               0 && (
-              <div className="mt-4 space-y-2">
+              <div
+                className="
+                  mt-2.5
+                  space-y-1.5
+                  sm:mt-4
+                  sm:space-y-2
+                "
+              >
                 <div
                   className="
                     flex
                     items-center
                     justify-between
-                    gap-3
+                    gap-2
                     border-b
-                    pb-2
+                    pb-1.5
+                    sm:gap-3
+                    sm:pb-2
                   "
                   style={{
                     borderColor:
@@ -1046,10 +977,11 @@ async function handleTransactionAction(
                   <div>
                     <p
                       className="
-                        text-[9px]
+                        text-[8px]
                         font-semibold
                         uppercase
                         tracking-[0.08em]
+                        sm:text-[9px]
                       "
                       style={{
                         color:
@@ -1062,7 +994,8 @@ async function handleTransactionAction(
                     <p
                       className="
                         mt-0.5
-                        text-[10px]
+                        text-[8px]
+                        sm:text-[10px]
                       "
                       style={{
                         color:
@@ -1078,10 +1011,12 @@ async function handleTransactionAction(
                       shrink-0
                       rounded-full
                       border
-                      px-2
+                      px-1.5
                       py-0.5
-                      text-[8px]
+                      text-[7px]
                       font-semibold
+                      sm:px-2
+                      sm:text-[8px]
                     "
                     style={{
                       background:
@@ -1116,9 +1051,11 @@ async function handleTransactionAction(
                           interest.id
                         }
                         className="
-                          rounded-lg
+                          rounded-md
                           border
-                          p-3
+                          p-2
+                          sm:rounded-lg
+                          sm:p-3
                         "
                         style={{
                           background:
@@ -1143,21 +1080,24 @@ async function handleTransactionAction(
                             flex
                             w-full
                             items-center
-                            gap-2.5
+                            gap-2
                             text-left
+                            sm:gap-2.5
                           "
                         >
                           <div
                             className="
                               flex
-                              h-8
-                              w-8
+                              h-7
+                              w-7
                               shrink-0
                               items-center
                               justify-center
                               overflow-hidden
                               rounded-full
                               bg-[var(--surface)]
+                              sm:h-8
+                              sm:w-8
                             "
                           >
                             {interest
@@ -1192,8 +1132,8 @@ async function handleTransactionAction(
                               />
                             ) : (
                               <UserRound
-                                size={13}
-                                className="text-[var(--foreground-muted)]"
+                                size={11}
+                                className="text-[var(--foreground-muted)] sm:h-[13px] sm:w-[13px]"
                               />
                             )}
                           </div>
@@ -1204,14 +1144,16 @@ async function handleTransactionAction(
                                 flex
                                 items-center
                                 justify-between
-                                gap-2
+                                gap-1.5
+                                sm:gap-2
                               "
                             >
                               <p
                                 className="
                                   truncate
-                                  text-[10px]
+                                  text-[9px]
                                   font-semibold
+                                  sm:text-[10px]
                                 "
                                 style={{
                                   color:
@@ -1230,10 +1172,12 @@ async function handleTransactionAction(
                                   shrink-0
                                   rounded-full
                                   border
-                                  px-2
+                                  px-1.5
                                   py-0.5
-                                  text-[8px]
+                                  text-[7px]
                                   font-semibold
+                                  sm:px-2
+                                  sm:text-[8px]
                                 "
                                 style={{
                                   background:
@@ -1256,7 +1200,8 @@ async function handleTransactionAction(
                             <p
                               className="
                                 mt-0.5
-                                text-[9px]
+                                text-[8px]
+                                sm:text-[9px]
                               "
                               style={{
                                 color:
@@ -1274,9 +1219,11 @@ async function handleTransactionAction(
                         {isSelected && (
                           <div
                             className="
-                              mt-3
+                              mt-2
                               border-t
-                              pt-3
+                              pt-2
+                              sm:mt-3
+                              sm:pt-3
                             "
                             style={{
                               borderColor:
@@ -1285,7 +1232,8 @@ async function handleTransactionAction(
                           >
                             <div
                               className="
-                                space-y-2
+                                space-y-1.5
+                                sm:space-y-2
                               "
                             >
                               {interest.messages.length ===
@@ -1294,9 +1242,12 @@ async function handleTransactionAction(
                                   className="
                                     rounded-md
                                     border
-                                    px-2.5
-                                    py-2
-                                    text-[9px]
+                                    px-2
+                                    py-1.5
+                                    text-[8px]
+                                    sm:px-2.5
+                                    sm:py-2
+                                    sm:text-[9px]
                                   "
                                   style={{
                                     background:
@@ -1333,10 +1284,13 @@ async function handleTransactionAction(
                                       <div
                                         className="
                                           max-w-[85%]
-                                          rounded-lg
+                                          rounded-md
                                           border
-                                          px-2.5
-                                          py-2
+                                          px-2
+                                          py-1.5
+                                          sm:rounded-lg
+                                          sm:px-2.5
+                                          sm:py-2
                                         "
                                         style={{
                                           background:
@@ -1351,13 +1305,15 @@ async function handleTransactionAction(
                                             flex
                                             items-center
                                             justify-between
-                                            gap-3
+                                            gap-2
+                                            sm:gap-3
                                           "
                                         >
                                           <p
                                             className="
-                                              text-[8px]
+                                              text-[7px]
                                               font-semibold
+                                              sm:text-[8px]
                                             "
                                             style={{
                                               color:
@@ -1374,7 +1330,8 @@ async function handleTransactionAction(
 
                                           <p
                                             className="
-                                              text-[8px]
+                                              text-[7px]
+                                              sm:text-[8px]
                                             "
                                             style={{
                                               color:
@@ -1389,9 +1346,12 @@ async function handleTransactionAction(
 
                                         <p
                                           className="
-                                            mt-1
-                                            text-[10px]
-                                            leading-4
+                                            mt-0.5
+                                            text-[9px]
+                                            leading-3.5
+                                            sm:mt-1
+                                            sm:text-[10px]
+                                            sm:leading-4
                                           "
                                           style={{
                                             color:
@@ -1407,9 +1367,11 @@ async function handleTransactionAction(
                                           null && (
                                           <p
                                             className="
-                                              mt-1.5
-                                              text-[9px]
+                                              mt-1
+                                              text-[8px]
                                               font-semibold
+                                              sm:mt-1.5
+                                              sm:text-[9px]
                                             "
                                             style={{
                                               color:
@@ -1438,19 +1400,23 @@ async function handleTransactionAction(
                                     handleBuyerReply
                                   }
                                   className="
-                                    mt-3
-                                    space-y-2
+                                    mt-2
+                                    space-y-1.5
+                                    sm:mt-3
+                                    sm:space-y-2
                                   "
                                 >
                                   <div>
                                     <label
                                       className="
-                                        mb-1
+                                        mb-0.5
                                         block
-                                        text-[8px]
+                                        text-[7px]
                                         font-semibold
                                         uppercase
                                         tracking-[0.06em]
+                                        sm:mb-1
+                                        sm:text-[8px]
                                       "
                                       style={{
                                         color:
@@ -1482,23 +1448,29 @@ async function handleTransactionAction(
                                       }
                                       placeholder="Write the buyer's reply..."
                                       rows={
-                                        3
+                                        2
                                       }
                                       disabled={
                                         replyLoading
                                       }
                                       className="
+                                        min-h-[52px]
                                         w-full
                                         resize-none
                                         rounded-md
                                         border
                                         bg-transparent
-                                        px-2.5
-                                        py-2
-                                        text-[10px]
-                                        leading-4
+                                        px-2
+                                        py-1.5
+                                        text-[9px]
+                                        leading-3.5
                                         outline-none
                                         focus:border-[var(--foreground-muted)]
+                                        sm:min-h-0
+                                        sm:px-2.5
+                                        sm:py-2
+                                        sm:text-[10px]
+                                        sm:leading-4
                                       "
                                       style={{
                                         color:
@@ -1514,19 +1486,22 @@ async function handleTransactionAction(
                                     className="
                                       flex
                                       items-center
-                                      gap-2
+                                      gap-1.5
+                                      sm:gap-2
                                     "
                                   >
                                     <div
                                       className="
                                         flex
-                                        h-8
+                                        h-7
                                         min-w-0
                                         flex-1
                                         items-center
                                         rounded-md
                                         border
-                                        px-2.5
+                                        px-2
+                                        sm:h-8
+                                        sm:px-2.5
                                       "
                                       style={{
                                         background:
@@ -1539,8 +1514,9 @@ async function handleTransactionAction(
                                       <span
                                         className="
                                           mr-1
-                                          text-[10px]
+                                          text-[9px]
                                           font-semibold
+                                          sm:text-[10px]
                                         "
                                         style={{
                                           color:
@@ -1575,8 +1551,9 @@ async function handleTransactionAction(
                                           min-w-0
                                           flex-1
                                           bg-transparent
-                                          text-[10px]
+                                          text-[9px]
                                           outline-none
+                                          sm:text-[10px]
                                         "
                                         style={{
                                           color:
@@ -1593,19 +1570,23 @@ async function handleTransactionAction(
                                       }
                                       className="
                                         inline-flex
-                                        h-8
+                                        h-7
                                         shrink-0
                                         items-center
-                                        gap-1.5
+                                        gap-1
                                         rounded-md
                                         border
-                                        px-2.5
-                                        text-[9px]
+                                        px-2
+                                        text-[8px]
                                         font-semibold
                                         transition
                                         hover:bg-[var(--surface)]
                                         disabled:cursor-not-allowed
                                         disabled:opacity-50
+                                        sm:h-8
+                                        sm:gap-1.5
+                                        sm:px-2.5
+                                        sm:text-[9px]
                                       "
                                       style={{
                                         background:
@@ -1621,14 +1602,14 @@ async function handleTransactionAction(
                                       {replyLoading ? (
                                         <Loader2
                                           size={
-                                            12
+                                            11
                                           }
                                           className="animate-spin"
                                         />
                                       ) : (
                                         <Send
                                           size={
-                                            12
+                                            11
                                           }
                                         />
                                       )}
@@ -1639,286 +1620,317 @@ async function handleTransactionAction(
                                 </form>
                               )}
 
-                              {interest.transaction && (
-  <div
-    className="
-      mt-3
-      border-t
-      pt-3
-    "
-    style={{
-      borderColor:
-        "var(--border)",
-    }}
-  >
-    <div
-      className="
-        flex
-        items-center
-        justify-between
-        gap-3
-      "
-    >
-      <div>
-        <p
-          className="
-            text-[8px]
-            font-semibold
-            uppercase
-            tracking-[0.07em]
-          "
-          style={{
-            color:
-              "var(--foreground-muted)",
-          }}
-        >
-          Transaction
-        </p>
+                            {interest.transaction && (
+                              <div
+                                className="
+                                  mt-2
+                                  border-t
+                                  pt-2
+                                  sm:mt-3
+                                  sm:pt-3
+                                "
+                                style={{
+                                  borderColor:
+                                    "var(--border)",
+                                }}
+                              >
+                                <div
+                                  className="
+                                    flex
+                                    items-center
+                                    justify-between
+                                    gap-2
+                                    sm:gap-3
+                                  "
+                                >
+                                  <div>
+                                    <p
+                                      className="
+                                        text-[7px]
+                                        font-semibold
+                                        uppercase
+                                        tracking-[0.07em]
+                                        sm:text-[8px]
+                                      "
+                                      style={{
+                                        color:
+                                          "var(--foreground-muted)",
+                                      }}
+                                    >
+                                      Transaction
+                                    </p>
 
-        <p
-          className="
-            mt-0.5
-            text-[10px]
-            font-semibold
-          "
-          style={{
-            color:
-              "var(--foreground)",
-          }}
-        >
-          $
-          {interest.transaction.agreedPrice.toFixed(
-            2,
-          )}
-        </p>
-      </div>
+                                    <p
+                                      className="
+                                        mt-0.5
+                                        text-[9px]
+                                        font-semibold
+                                        sm:text-[10px]
+                                      "
+                                      style={{
+                                        color:
+                                          "var(--foreground)",
+                                      }}
+                                    >
+                                      $
+                                      {interest.transaction.agreedPrice.toFixed(
+                                        2,
+                                      )}
+                                    </p>
+                                  </div>
 
-      <span
-        className="
-          rounded-full
-          border
-          px-2
-          py-0.5
-          text-[8px]
-          font-semibold
-        "
-        style={{
-          background:
-            "var(--surface)",
+                                  <span
+                                    className="
+                                      rounded-full
+                                      border
+                                      px-1.5
+                                      py-0.5
+                                      text-[7px]
+                                      font-semibold
+                                      sm:px-2
+                                      sm:text-[8px]
+                                    "
+                                    style={{
+                                      background:
+                                        "var(--surface)",
 
-          color:
-            "var(--foreground-muted)",
+                                      color:
+                                        "var(--foreground-muted)",
 
-          borderColor:
-            "var(--border)",
-        }}
-      >
-        {formatTransactionStatus(
-          interest.transaction.status,
-        )}
-      </span>
-    </div>
+                                      borderColor:
+                                        "var(--border)",
+                                    }}
+                                  >
+                                    {formatTransactionStatus(
+                                      interest.transaction.status,
+                                    )}
+                                  </span>
+                                </div>
 
-    <div
-      className="
-        mt-2
-        grid
-        grid-cols-3
-        gap-2
-      "
-    >
-      <TransactionMetric
-        label="Agreed"
-        value={`$${interest.transaction.agreedPrice.toFixed(
-          2,
-        )}`}
-      />
+                                <div
+                                  className="
+                                    mt-1.5
+                                    grid
+                                    grid-cols-3
+                                    gap-1.5
+                                    sm:mt-2
+                                    sm:gap-2
+                                  "
+                                >
+                                  <TransactionMetric
+                                    label="Agreed"
+                                    value={`$${interest.transaction.agreedPrice.toFixed(
+                                      2,
+                                    )}`}
+                                  />
 
-      <TransactionMetric
-        label="Rate"
-        value={`${interest.transaction.commissionRate.toFixed(
-          2,
-        )}%`}
-      />
+                                  <TransactionMetric
+                                    label="Rate"
+                                    value={`${interest.transaction.commissionRate.toFixed(
+                                      2,
+                                    )}%`}
+                                  />
 
-      <TransactionMetric
-        label="Commission"
-        value={`$${interest.transaction.commissionAmount.toFixed(
-          2,
-        )}`}
-      />
-    </div>
+                                  <TransactionMetric
+                                    label="Commission"
+                                    value={`$${interest.transaction.commissionAmount.toFixed(
+                                      2,
+                                    )}`}
+                                  />
+                                </div>
 
-    {interest.transaction.status ===
-      "AWAITING_PAYMENT" && (
-      <button
-        type="button"
-        disabled={
-          transactionLoading !==
-          null
-        }
-        onClick={() =>
-          handleTransactionAction(
-            "payment",
-          )
-        }
-        className="
-          mt-2
-          inline-flex
-          h-8
-          items-center
-          gap-1.5
-          rounded-md
-          border
-          px-2.5
-          text-[9px]
-          font-semibold
-          transition
-          hover:bg-[var(--surface)]
-          disabled:cursor-not-allowed
-          disabled:opacity-50
-        "
-        style={{
-          background:
-            "var(--surface-hover)",
+                                {interest.transaction.status ===
+                                  "AWAITING_PAYMENT" && (
+                                  <button
+                                    type="button"
+                                    disabled={
+                                      transactionLoading !==
+                                      null
+                                    }
+                                    onClick={() =>
+                                      handleTransactionAction(
+                                        "payment",
+                                      )
+                                    }
+                                    className="
+                                      mt-1.5
+                                      inline-flex
+                                      h-7
+                                      items-center
+                                      gap-1
+                                      rounded-md
+                                      border
+                                      px-2
+                                      text-[8px]
+                                      font-semibold
+                                      transition
+                                      hover:bg-[var(--surface)]
+                                      disabled:cursor-not-allowed
+                                      disabled:opacity-50
+                                      sm:mt-2
+                                      sm:gap-1.5
+                                      sm:px-2.5
+                                      sm:text-[9px]
+                                    "
+                                    style={{
+                                      background:
+                                        "var(--surface-hover)",
 
-          color:
-            "var(--foreground-muted)",
+                                      color:
+                                        "var(--foreground-muted)",
 
-          borderColor:
-            "var(--border)",
-        }}
-      >
-        {transactionLoading ===
-        "payment" ? (
-          <Loader2
-            size={12}
-            className="animate-spin"
-          />
-        ) : (
-          <Check
-            size={12}
-          />
-        )}
+                                      borderColor:
+                                        "var(--border)",
+                                    }}
+                                  >
+                                    {transactionLoading ===
+                                    "payment" ? (
+                                      <Loader2
+                                        size={
+                                          11
+                                        }
+                                        className="animate-spin"
+                                      />
+                                    ) : (
+                                      <Check
+                                        size={
+                                          11
+                                        }
+                                      />
+                                    )}
 
-        {transactionLoading ===
-        "payment"
-          ? "Confirming..."
-          : "Confirm Payment"}
-      </button>
-    )}
+                                    {transactionLoading ===
+                                    "payment"
+                                      ? "Confirming..."
+                                      : "Confirm Payment"}
+                                  </button>
+                                )}
 
-    {interest.transaction.status ===
-      "IN_ESCROW" && (
-      <button
-        type="button"
-        disabled={
-          transactionLoading !==
-          null
-        }
-        onClick={() =>
-          handleTransactionAction(
-            "complete",
-          )
-        }
-        className="
-          mt-2
-          inline-flex
-          h-8
-          items-center
-          gap-1.5
-          rounded-md
-          border
-          px-2.5
-          text-[9px]
-          font-semibold
-          transition
-          hover:bg-[var(--surface)]
-          disabled:cursor-not-allowed
-          disabled:opacity-50
-        "
-        style={{
-          background:
-            "var(--surface-hover)",
+                                {interest.transaction.status ===
+                                  "IN_ESCROW" && (
+                                  <button
+                                    type="button"
+                                    disabled={
+                                      transactionLoading !==
+                                      null
+                                    }
+                                    onClick={() =>
+                                      handleTransactionAction(
+                                        "complete",
+                                      )
+                                    }
+                                    className="
+                                      mt-1.5
+                                      inline-flex
+                                      h-7
+                                      items-center
+                                      gap-1
+                                      rounded-md
+                                      border
+                                      px-2
+                                      text-[8px]
+                                      font-semibold
+                                      transition
+                                      hover:bg-[var(--surface)]
+                                      disabled:cursor-not-allowed
+                                      disabled:opacity-50
+                                      sm:mt-2
+                                      sm:gap-1.5
+                                      sm:px-2.5
+                                      sm:text-[9px]
+                                    "
+                                    style={{
+                                      background:
+                                        "var(--surface-hover)",
 
-          color:
-            "var(--foreground-muted)",
+                                      color:
+                                        "var(--foreground-muted)",
 
-          borderColor:
-            "var(--border)",
-        }}
-      >
-        {transactionLoading ===
-        "complete" ? (
-          <Loader2
-            size={12}
-            className="animate-spin"
-          />
-        ) : (
-          <Check
-            size={12}
-          />
-        )}
+                                      borderColor:
+                                        "var(--border)",
+                                    }}
+                                  >
+                                    {transactionLoading ===
+                                    "complete" ? (
+                                      <Loader2
+                                        size={
+                                          11
+                                        }
+                                        className="animate-spin"
+                                      />
+                                    ) : (
+                                      <Check
+                                        size={
+                                          11
+                                        }
+                                      />
+                                    )}
 
-        {transactionLoading ===
-        "complete"
-          ? "Completing..."
-          : "Complete Order"}
-      </button>
-    )}
+                                    {transactionLoading ===
+                                    "complete"
+                                      ? "Completing..."
+                                      : "Complete Order"}
+                                  </button>
+                                )}
 
-    {interest.transaction.status ===
-      "COMPLETED" && (
-      <div
-        className="
-          mt-2
-          rounded-md
-          border
-          px-2.5
-          py-2
-        "
-        style={{
-          background:
-            "var(--surface-hover)",
+                                {interest.transaction.status ===
+                                  "COMPLETED" && (
+                                  <div
+                                    className="
+                                      mt-1.5
+                                      rounded-md
+                                      border
+                                      px-2
+                                      py-1.5
+                                      sm:mt-2
+                                      sm:px-2.5
+                                      sm:py-2
+                                    "
+                                    style={{
+                                      background:
+                                        "var(--surface-hover)",
 
-          borderColor:
-            "var(--border)",
-        }}
-      >
-        <p
-          className="
-            text-[9px]
-            font-semibold
-          "
-          style={{
-            color:
-              "var(--foreground)",
-          }}
-        >
-          Commission recorded
-        </p>
+                                      borderColor:
+                                        "var(--border)",
+                                    }}
+                                  >
+                                    <p
+                                      className="
+                                        text-[8px]
+                                        font-semibold
+                                        sm:text-[9px]
+                                      "
+                                      style={{
+                                        color:
+                                          "var(--foreground)",
+                                      }}
+                                    >
+                                      Commission recorded
+                                    </p>
 
-        <p
-          className="
-            mt-0.5
-            text-[9px]
-          "
-          style={{
-            color:
-              "var(--foreground-muted)",
-          }}
-        >
-          $
-          {interest.transaction.commissionAmount.toFixed(
-            2,
-          )}{" "}
-          commission was recorded for
-          this completed transaction.
-        </p>
-      </div>
-    )}
-  </div>
-)}
+                                    <p
+                                      className="
+                                        mt-0.5
+                                        text-[8px]
+                                        leading-3.5
+                                        sm:text-[9px]
+                                      "
+                                      style={{
+                                        color:
+                                          "var(--foreground-muted)",
+                                      }}
+                                    >
+                                      $
+                                      {interest.transaction.commissionAmount.toFixed(
+                                        2,
+                                      )}{" "}
+                                      commission was recorded for
+                                      this completed transaction.
+                                    </p>
+                                  </div>
+                                )}
+                              </div>
+                            )}
                           </div>
                         )}
                       </div>
@@ -1932,11 +1944,15 @@ async function handleTransactionAction(
               .rejectionReason && (
               <div
                 className="
-                  mt-3
-                  rounded-lg
+                  mt-2.5
+                  rounded-md
                   border
-                  px-3
-                  py-2.5
+                  px-2.5
+                  py-2
+                  sm:mt-3
+                  sm:rounded-lg
+                  sm:px-3
+                  sm:py-2.5
                 "
                 style={{
                   background:
@@ -1951,10 +1967,11 @@ async function handleTransactionAction(
               >
                 <p
                   className="
-                    text-[9px]
+                    text-[8px]
                     font-semibold
                     uppercase
                     tracking-[0.08em]
+                    sm:text-[9px]
                   "
                 >
                   Rejection Reason
@@ -1962,9 +1979,12 @@ async function handleTransactionAction(
 
                 <p
                   className="
-                    mt-1
-                    text-[11px]
-                    leading-5
+                    mt-0.5
+                    text-[9px]
+                    leading-4
+                    sm:mt-1
+                    sm:text-[11px]
+                    sm:leading-5
                   "
                 >
                   {
@@ -1977,9 +1997,11 @@ async function handleTransactionAction(
 
             <div
               className="
-                mt-4
+                mt-3
                 border-t
-                pt-3
+                pt-2.5
+                sm:mt-4
+                sm:pt-3
               "
               style={{
                 borderColor:
@@ -1988,10 +2010,11 @@ async function handleTransactionAction(
             >
               <p
                 className="
-                  text-[9px]
+                  text-[8px]
                   font-semibold
                   uppercase
                   tracking-[0.08em]
+                  sm:text-[9px]
                 "
                 style={{
                   color:
@@ -2003,10 +2026,12 @@ async function handleTransactionAction(
 
               <div
                 className="
-                  mt-2
+                  mt-1.5
                   grid
                   grid-cols-2
-                  gap-2
+                  gap-1.5
+                  sm:mt-2
+                  sm:gap-2
                 "
               >
                 <InfoRow
@@ -2064,10 +2089,13 @@ function Metric({
   return (
     <div
       className="
-        rounded-lg
+        rounded-md
         border
-        px-2.5
-        py-2
+        px-2
+        py-1.5
+        sm:rounded-lg
+        sm:px-2.5
+        sm:py-2
       "
       style={{
         background:
@@ -2079,10 +2107,11 @@ function Metric({
     >
       <p
         className="
-          text-[8px]
+          text-[7px]
           font-medium
           uppercase
           tracking-[0.06em]
+          sm:text-[8px]
         "
         style={{
           color:
@@ -2096,8 +2125,9 @@ function Metric({
         className="
           mt-0.5
           truncate
-          text-[11px]
+          text-[10px]
           font-bold
+          sm:text-[11px]
         "
         style={{
           color:
@@ -2124,10 +2154,13 @@ function InfoRow({
   return (
     <div
       className="
-        rounded-lg
+        rounded-md
         border
-        px-2.5
-        py-2
+        px-2
+        py-1.5
+        sm:rounded-lg
+        sm:px-2.5
+        sm:py-2
       "
       style={{
         background:
@@ -2152,10 +2185,11 @@ function InfoRow({
 
         <span
           className="
-            text-[8px]
+            text-[7px]
             font-semibold
             uppercase
             tracking-[0.06em]
+            sm:text-[8px]
           "
         >
           {label}
@@ -2166,8 +2200,9 @@ function InfoRow({
         className="
           mt-0.5
           break-words
-          text-[10px]
+          text-[9px]
           font-medium
+          sm:text-[10px]
         "
         style={{
           color:
@@ -2193,8 +2228,10 @@ function TransactionMetric({
       className="
         rounded-md
         border
-        px-2
-        py-1.5
+        px-1.5
+        py-1
+        sm:px-2
+        sm:py-1.5
       "
       style={{
         background:
@@ -2206,10 +2243,11 @@ function TransactionMetric({
     >
       <p
         className="
-          text-[7px]
+          text-[6px]
           font-medium
           uppercase
           tracking-[0.05em]
+          sm:text-[7px]
         "
         style={{
           color:
@@ -2223,8 +2261,9 @@ function TransactionMetric({
         className="
           mt-0.5
           truncate
-          text-[9px]
+          text-[8px]
           font-semibold
+          sm:text-[9px]
         "
         style={{
           color:

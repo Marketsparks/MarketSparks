@@ -59,6 +59,8 @@ export type UserQuery = {
 
   status: UserStatusFilter;
 
+  role: UserRole;
+
   sort: UserSort;
 };
 

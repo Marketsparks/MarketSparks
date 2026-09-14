@@ -6,8 +6,6 @@ import {
   useState,
 } from "react";
 
-import { Plus } from "lucide-react";
-
 import DepositMethodDialog, {
   DepositMethodFormValues,
 } from "@/components/admin/deposit-methods/DepositMethodDialog";
@@ -19,8 +17,6 @@ import DepositMethodsTable from "@/components/admin/deposit-methods/DepositMetho
 import type {
   DepositMethod,
 } from "@/components/admin/deposit-methods/types";
-
-import Button from "@/components/ui/Button";
 
 import DashboardPageLayout from "@/components/dashboard/DashboardPage";
 
@@ -189,65 +185,51 @@ export default function DepositMethodsPage() {
   }
 
   return (
-<DashboardPageLayout
-  environment="admin"
-  breadcrumb={[
-    {
-      label: "Deposit Methods",
-    },
-  ]}
->
-  <div
-    className="
-      space-y-8
-    "
-  >
-    <AdminPageHeader
-      title="Deposit Methods"
-      description="Manage every cryptocurrency deposit method available to users."
-      action={
-        <Button
-          type="button"
-          variant="primary"
-          onClick={openCreateDialog}
-        >
-          <Plus
-            size={18}
-            className="mr-2"
-          />
+    <DashboardPageLayout
+      environment="admin"
+      breadcrumb={[
+        {
+          label: "Deposit Methods",
+        },
+      ]}
+    >
+      <div
+        className="
+          space-y-8
+        "
+      >
+        <AdminPageHeader
+          title="Deposit Methods"
+          description="Manage every cryptocurrency deposit method available to users."
+        />
 
-          Add Deposit Method
-        </Button>
-      }
-    />
+        <DepositMethodsTable
+          methods={methods}
+          loading={loading}
+          onCreate={openCreateDialog}
+          onEdit={openEditDialog}
+          onDelete={openDeleteDialog}
+        />
 
-    <DepositMethodsTable
-      methods={methods}
-      loading={loading}
-      onCreate={openCreateDialog}
-      onEdit={openEditDialog}
-      onDelete={openDeleteDialog}
-    />
+        <DepositMethodDialog
+          open={dialogOpen}
+          mode={dialogMode}
+          method={editingMethod}
+          submitting={submitting}
+          onClose={closeDialog}
+          onSubmit={handleSubmit}
+        />
 
-    <DepositMethodDialog
-      open={dialogOpen}
-      mode={dialogMode}
-      method={editingMethod}
-      submitting={submitting}
-      onClose={closeDialog}
-      onSubmit={handleSubmit}
-    />
-
-    <DeleteDepositMethodDialog
-      open={deleteOpen}
-      method={editingMethod}
-      onClose={closeDeleteDialog}
-      onSuccess={async () => {
-        await loadMethods();
-        closeDeleteDialog();
-      }}
-    />
-  </div>
-</DashboardPageLayout>
+        <DeleteDepositMethodDialog
+          open={deleteOpen}
+          method={editingMethod}
+          onClose={closeDeleteDialog}
+          onSuccess={async () => {
+            await loadMethods();
+            closeDeleteDialog();
+          }}
+        />
+      </div>
+    </DashboardPageLayout>
   );
 }

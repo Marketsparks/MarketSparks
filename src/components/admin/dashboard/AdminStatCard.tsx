@@ -8,13 +8,9 @@ import { ReactNode } from "react";
 
 type AdminStatCardProps = {
   title: string;
-
   value: number | string;
-
   subtitle?: string;
-
   icon: ReactNode;
-
   href?: string;
 };
 
@@ -31,15 +27,17 @@ export default function AdminStatCard({
         flex
         h-full
         flex-col
-        rounded-[var(--admin-card-radius)]
+        rounded-lg
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
-        p-[var(--admin-card-padding)]
+        p-2.5
         shadow-[var(--admin-card-shadow)]
         transition-all
         duration-[var(--admin-card-transition)]
         hover:-translate-y-0.5
+        sm:rounded-[var(--admin-card-radius)]
+        sm:p-[var(--admin-card-padding)]
       "
     >
       <div
@@ -47,22 +45,26 @@ export default function AdminStatCard({
           flex
           items-start
           justify-between
-          gap-4
+          gap-2
+          sm:gap-4
         "
       >
         <div
           className="
             flex
-            h-10
-            w-10
+            h-7
+            w-7
+            shrink-0
             items-center
             justify-center
-            rounded-[var(--admin-surface-radius)]
+            rounded-md
             border
             border-[var(--admin-surface-border)]
             bg-[var(--admin-surface-bg)]
             text-[var(--admin-primary)]
-            shrink-0
+            sm:h-10
+            sm:w-10
+            sm:rounded-[var(--admin-surface-radius)]
           "
         >
           {icon}
@@ -70,9 +72,11 @@ export default function AdminStatCard({
 
         {href && (
           <ChevronRight
-            size={16}
+            size={12}
             className="
               text-[var(--admin-muted)]
+              sm:h-4
+              sm:w-4
             "
           />
         )}
@@ -80,15 +84,20 @@ export default function AdminStatCard({
 
       <div
         className="
-          mt-4
-          space-y-1
+          mt-2
+          space-y-0.5
+          sm:mt-4
+          sm:space-y-1
         "
       >
         <p
           className="
-            text-xs
+            text-[9px]
             font-medium
+            leading-3.5
             text-[var(--admin-muted)]
+            sm:text-xs
+            sm:leading-4
           "
         >
           {title}
@@ -96,10 +105,11 @@ export default function AdminStatCard({
 
         <h2
           className="
-            text-2xl
+            text-lg
             font-bold
             leading-none
             text-[var(--admin-title)]
+            sm:text-2xl
           "
         >
           {value}
@@ -108,8 +118,11 @@ export default function AdminStatCard({
         {subtitle && (
           <p
             className="
-              text-xs
+              text-[8px]
+              leading-3
               text-[var(--admin-muted)]
+              sm:text-xs
+              sm:leading-4
             "
           >
             {subtitle}
@@ -121,12 +134,12 @@ export default function AdminStatCard({
 
   if (href) {
     return (
-<NavigationLink
-  href={href}
-  className="block"
->
-  {content}
-</NavigationLink>
+      <NavigationLink
+        href={href}
+        className="block"
+      >
+        {content}
+      </NavigationLink>
     );
   }
 

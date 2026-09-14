@@ -40,158 +40,157 @@ export default function KycReviewModal({
   const [loading, setLoading] =
     useState(false);
 
-const [
-  approveLoading,
-  setApproveLoading,
-] = useState(false);
+  const [
+    approveLoading,
+    setApproveLoading,
+  ] = useState(false);
 
-const [
-  rejectLoading,
-  setRejectLoading,
-] = useState(false);
+  const [
+    rejectLoading,
+    setRejectLoading,
+  ] = useState(false);
 
-const [
-  rejectModalOpen,
-  setRejectModalOpen,
-] = useState(false);
+  const [
+    rejectModalOpen,
+    setRejectModalOpen,
+  ] = useState(false);
 
   const [
     rejectionReason,
     setRejectionReason,
   ] = useState("");
 
-const isApproved =
-  record?.status ===
-  "APPROVED";
+  const isApproved =
+    record?.status ===
+    "APPROVED";
 
-useEffect(() => {
-if (!open || !submissionId) {
-  return;
-}
+  useEffect(() => {
+    if (!open || !submissionId) {
+      return;
+    }
 
-const id = submissionId;
+    const id = submissionId;
 
-let cancelled = false;
+    let cancelled = false;
 
-async function load() {
+    async function load() {
+      try {
+        setLoading(true);
+
+        const data =
+          await getKycSubmission(id);
+
+        if (cancelled) {
+          return;
+        }
+
+        setRecord(data);
+
+        setRejectionReason(
+          data.rejectionReason ?? ""
+        );
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    load();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [open, submissionId]);
+
+  useEffect(() => {
+    if (!open) {
+      setRecord(null);
+      setRejectionReason("");
+    }
+  }, [open]);
+
+  async function approve() {
+    if (!submissionId) {
+      return;
+    }
+
+    setApproveLoading(true);
 
     try {
-setLoading(true);
-const data =
-  await getKycSubmission(id);
+      await reviewKyc(
+        submissionId,
+        {
+          action: "approve",
+        }
+      );
 
-      if (cancelled) {
-        return;
-      }
+      toast.success(
+        "KYC approved successfully."
+      );
 
-      setRecord(data);
+      onReviewed();
 
-      setRejectionReason(
-        data.rejectionReason ?? ""
+      onClose();
+    } catch (error) {
+      console.error(error);
+
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Unable to approve KYC."
       );
     } finally {
-      if (!cancelled) {
-        setLoading(false);
-      }
+      setApproveLoading(false);
     }
   }
 
-  load();
+  async function reject() {
+    if (!submissionId) {
+      return;
+    }
 
-  return () => {
-    cancelled = true;
-  };
-}, [open, submissionId]);
+    if (!rejectionReason.trim()) {
+      toast.error(
+        "Please provide a rejection reason."
+      );
 
-useEffect(() => {
-  if (!open) {
-    setRecord(null);
-    setRejectionReason("");
+      return;
+    }
+
+    setRejectLoading(true);
+
+    try {
+      await reviewKyc(
+        submissionId,
+        {
+          action: "reject",
+          rejectionReason,
+        }
+      );
+
+      toast.success(
+        "KYC rejected successfully."
+      );
+
+      setRejectModalOpen(false);
+      setRejectionReason("");
+
+      onReviewed();
+
+      onClose();
+    } catch (error) {
+      console.error(error);
+
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Unable to reject KYC."
+      );
+    } finally {
+      setRejectLoading(false);
+    }
   }
-}, [open]);
-
-async function approve() {
-  if (!submissionId) {
-    return;
-  }
-
-  setApproveLoading(true);
-
-  try {
-    await reviewKyc(
-      submissionId,
-      {
-        action: "approve",
-      }
-    );
-
-    toast.success(
-      "KYC approved successfully."
-    );
-
-    onReviewed();
-
-    onClose();
-  } catch (error) {
-    console.error(error);
-
-    toast.error(
-      error instanceof Error
-        ? error.message
-        : "Unable to approve KYC."
-    );
-  } finally {
-    setApproveLoading(false);
-  }
-}
-
-async function reject() {
-  if (!submissionId) {
-    return;
-  }
-
-  if (!rejectionReason.trim()) {
-    toast.error(
-      "Please provide a rejection reason."
-    );
-
-    return;
-  }
-
-  setRejectLoading(true);
-
-  try {
-    await reviewKyc(
-      submissionId,
-      {
-        action: "reject",
-        rejectionReason,
-      }
-    );
-
-    toast.success(
-      "KYC rejected successfully."
-    );
-
-setRejectModalOpen(false);
-
-setRejectionReason("");
-
-onReviewed();
-
-onClose();
-  } catch (error) {
-    console.error(error);
-
-    toast.error(
-      error instanceof Error
-        ? error.message
-        : "Unable to reject KYC."
-    );
-  } finally {
-    setRejectLoading(false);
-  }
-}
 
   if (!open) {
     return null;
@@ -207,20 +206,23 @@ onClose();
         items-center
         justify-center
         bg-[var(--admin-modal-overlay)]
-        p-4
+        p-2
+        sm:p-4
       "
     >
       <div
         className="
-          max-h-[90vh]
+          max-h-[96vh]
           w-full
           max-w-5xl
           overflow-y-auto
-          rounded-[var(--admin-modal-radius)]
+          rounded-lg
           border
           border-[var(--admin-modal-border)]
           bg-[var(--admin-modal-bg)]
           shadow-[var(--admin-modal-shadow)]
+          sm:max-h-[90vh]
+          sm:rounded-[var(--admin-modal-radius)]
         "
       >
         <div
@@ -228,14 +230,17 @@ onClose();
             border-b
             border-[var(--admin-card-border)]
             bg-[var(--admin-modal-header-bg)]
-            p-6
+            px-3
+            py-2.5
+            sm:p-6
           "
         >
           <h2
             className="
-              text-xl
+              text-[13px]
               font-semibold
               text-[var(--admin-title)]
+              sm:text-xl
             "
           >
             Review KYC
@@ -245,17 +250,34 @@ onClose();
         {loading || !record ? (
           <div
             className="
-              p-8
+              p-6
               text-center
+              text-[10px]
               text-[var(--admin-text)]
+              sm:p-8
+              sm:text-sm
             "
           >
             Loading...
           </div>
         ) : (
           <>
-            <div className="space-y-8 p-6">
-              <section className="grid gap-4 md:grid-cols-2">
+            <div
+              className="
+                space-y-4
+                p-3
+                sm:space-y-8
+                sm:p-6
+              "
+            >
+              <section
+                className="
+                  grid
+                  gap-2.5
+                  md:grid-cols-2
+                  sm:gap-4
+                "
+              >
                 <Info
                   label="First Name"
                   value={
@@ -299,7 +321,14 @@ onClose();
                 />
               </section>
 
-              <section className="grid gap-6 md:grid-cols-3">
+              <section
+                className="
+                  grid
+                  gap-3
+                  md:grid-cols-3
+                  sm:gap-6
+                "
+              >
                 <ImageCard
                   title="Front Document"
                   image={
@@ -323,122 +352,172 @@ onClose();
                   }
                 />
               </section>
-
-
             </div>
 
             <div
               className="
                 flex
                 flex-col-reverse
-                gap-3
+                gap-1.5
                 border-t
                 border-[var(--admin-card-border)]
                 bg-[var(--admin-modal-footer-bg)]
-                p-6
+                p-3
                 sm:flex-row
                 sm:justify-end
+                sm:gap-3
+                sm:p-6
               "
             >
-<button
-  type="button"
-  onClick={onClose}
-  disabled={
-    approveLoading ||
-    rejectLoading
-  }
-  className="
-    rounded-xl
-    border
-    border-[var(--admin-button-secondary-border)]
-    bg-[var(--admin-button-secondary-bg)]
-    px-5
-    py-3
-    text-[var(--admin-button-secondary-text)]
-    disabled:cursor-not-allowed
-    disabled:opacity-60
-  "
->
-  Cancel
-</button>
-
               <button
                 type="button"
-disabled={
-  approveLoading ||
-  rejectLoading ||
-  isApproved
-}
-onClick={() =>
-  setRejectModalOpen(true)
-}
+                onClick={onClose}
+                disabled={
+                  approveLoading ||
+                  rejectLoading
+                }
                 className="
-                  rounded-xl
-                  bg-[var(--admin-button-danger-bg)]
-                  px-5
-                  py-3
-                  text-[var(--admin-button-danger-text)]
+                  inline-flex
+                  h-7
+                  items-center
+                  justify-center
+                  rounded-md
+                  border
+                  border-[var(--admin-button-secondary-border)]
+                  bg-[var(--admin-button-secondary-bg)]
+                  px-2.5
+                  text-[9px]
+                  font-medium
+                  text-[var(--admin-button-secondary-text)]
+                  transition
+                  hover:opacity-90
+                  focus:outline-none
+                  disabled:cursor-not-allowed
+                  disabled:opacity-60
+                  sm:h-10
+                  sm:rounded-xl
+                  sm:px-5
+                  sm:text-sm
                 "
               >
-<>
-  {rejectLoading && (
-    <Loader2
-      className="
-        mr-2
-        inline-block
-        h-4
-        w-4
-        animate-spin
-      "
-    />
-  )}
-
-  {rejectLoading
-    ? "Rejecting..."
-    : "Reject"}
-</>
+                Cancel
               </button>
 
               <button
                 type="button"
-disabled={
-  approveLoading ||
-  rejectLoading ||
-  isApproved
-}
+                disabled={
+                  approveLoading ||
+                  rejectLoading ||
+                  isApproved
+                }
+                onClick={() =>
+                  setRejectModalOpen(true)
+                }
+                className="
+                  inline-flex
+                  h-7
+                  items-center
+                  justify-center
+                  rounded-md
+                  bg-[var(--admin-button-danger-bg)]
+                  px-2.5
+                  text-[9px]
+                  font-medium
+                  text-[var(--admin-button-danger-text)]
+                  transition
+                  hover:opacity-90
+                  focus:outline-none
+                  disabled:cursor-not-allowed
+                  disabled:opacity-60
+                  sm:h-10
+                  sm:rounded-xl
+                  sm:px-5
+                  sm:text-sm
+                "
+              >
+                <>
+                  {rejectLoading && (
+                    <Loader2
+                      className="
+                        mr-1.5
+                        inline-block
+                        h-3
+                        w-3
+                        animate-spin
+                        sm:mr-2
+                        sm:h-4
+                        sm:w-4
+                      "
+                    />
+                  )}
+
+                  {rejectLoading
+                    ? "Rejecting..."
+                    : "Reject"}
+                </>
+              </button>
+
+              <button
+                type="button"
+                disabled={
+                  approveLoading ||
+                  rejectLoading ||
+                  isApproved
+                }
                 onClick={
                   approve
                 }
-className="
-  rounded-xl
-  bg-purple-600
-  px-5
-  py-3
-  text-white
-  transition-colors
-  duration-200
-  hover:bg-purple-700
-  disabled:cursor-not-allowed
-  disabled:opacity-50
-"
+                className="
+                  inline-flex
+                  h-7
+                  items-center
+                  justify-center
+                  rounded-md
+                  border
+                  px-2.5
+                  text-[9px]
+                  font-medium
+                  transition
+                  hover:opacity-90
+                  focus:outline-none
+                  disabled:cursor-not-allowed
+                  disabled:opacity-60
+                  sm:h-10
+                  sm:rounded-xl
+                  sm:px-5
+                  sm:text-sm
+                "
+                style={{
+                  background:
+                    "var(--admin-table-header-bg)",
+                  color:
+                    "var(--admin-table-title)",
+                  borderColor:
+                    "var(--admin-card-border)",
+                  boxShadow:
+                    "0 1px 3px var(--admin-card-shadow)",
+                }}
               >
-<>
-  {approveLoading && (
-    <Loader2
-      className="
-        mr-2
-        inline-block
-        h-4
-        w-4
-        animate-spin
-      "
-    />
-  )}
+                <>
+                  {approveLoading && (
+                    <Loader2
+                      className="
+                        mr-1.5
+                        inline-block
+                        h-3
+                        w-3
+                        animate-spin
+                        sm:mr-2
+                        sm:h-4
+                        sm:w-4
+                      "
+                    />
+                  )}
 
-  {approveLoading
-    ? "Approving..."
-    : "Approve"}
-</>
+                  {approveLoading
+                    ? "Approving..."
+                    : "Approve"}
+                </>
               </button>
             </div>
           </>
@@ -455,26 +534,30 @@ className="
             items-center
             justify-center
             bg-black/50
-            p-4
+            p-2
+            sm:p-4
           "
         >
           <div
             className="
               w-full
               max-w-lg
-              rounded-[var(--admin-modal-radius)]
+              rounded-lg
               border
               border-[var(--admin-modal-border)]
               bg-[var(--admin-modal-bg)]
-              p-6
+              p-3
               shadow-[var(--admin-modal-shadow)]
+              sm:rounded-[var(--admin-modal-radius)]
+              sm:p-6
             "
           >
             <h3
               className="
-                text-lg
+                text-[13px]
                 font-semibold
                 text-[var(--admin-title)]
+                sm:text-lg
               "
             >
               Reject KYC
@@ -482,9 +565,13 @@ className="
 
             <p
               className="
-                mt-2
-                text-sm
+                mt-1.5
+                text-[9px]
+                leading-3.5
                 text-[var(--admin-text)]
+                sm:mt-2
+                sm:text-sm
+                sm:leading-normal
               "
             >
               Please provide a reason for rejecting this submission.
@@ -497,72 +584,110 @@ className="
                   event.target.value
                 )
               }
-              rows={5}
+              rows={4}
               className="
-                mt-5
+                mt-3
                 w-full
-                rounded-[var(--admin-input-radius)]
+                rounded-md
                 border
                 border-[var(--admin-input-border)]
                 bg-[var(--admin-input-bg)]
-                p-4
+                p-2
+                text-[10px]
                 text-[var(--admin-input-text)]
                 outline-none
+                sm:mt-5
+                sm:rounded-[var(--admin-input-radius)]
+                sm:p-4
+                sm:text-sm
               "
             />
 
             <div
               className="
-                mt-6
+                mt-3
                 flex
                 justify-end
-                gap-3
+                gap-1.5
+                sm:mt-6
+                sm:gap-3
               "
             >
-<button
-  type="button"
-  onClick={() => {
-    setRejectModalOpen(false);
-    setRejectionReason("");
-  }}
-  disabled={rejectLoading}
-  className="
-    rounded-xl
-    border
-    border-[var(--admin-button-secondary-border)]
-    bg-[var(--admin-button-secondary-bg)]
-    px-5
-    py-3
-    text-[var(--admin-button-secondary-text)]
-  "
->
-  Cancel
-</button>
+              <button
+                type="button"
+                onClick={() => {
+                  setRejectModalOpen(false);
+                  setRejectionReason("");
+                }}
+                disabled={rejectLoading}
+                className="
+                  inline-flex
+                  h-7
+                  items-center
+                  justify-center
+                  rounded-md
+                  border
+                  border-[var(--admin-button-secondary-border)]
+                  bg-[var(--admin-button-secondary-bg)]
+                  px-2.5
+                  text-[9px]
+                  font-medium
+                  text-[var(--admin-button-secondary-text)]
+                  transition
+                  hover:opacity-90
+                  focus:outline-none
+                  disabled:cursor-not-allowed
+                  disabled:opacity-60
+                  sm:h-10
+                  sm:rounded-xl
+                  sm:px-5
+                  sm:text-sm
+                "
+              >
+                Cancel
+              </button>
 
               <button
                 type="button"
                 onClick={reject}
-disabled={
-  rejectLoading ||
-  isApproved
-}
+                disabled={
+                  rejectLoading ||
+                  isApproved
+                }
                 className="
-                  rounded-xl
+                  inline-flex
+                  h-7
+                  items-center
+                  justify-center
+                  rounded-md
                   bg-[var(--admin-button-danger-bg)]
-                  px-5
-                  py-3
+                  px-2.5
+                  text-[9px]
+                  font-medium
                   text-[var(--admin-button-danger-text)]
+                  transition
+                  hover:opacity-90
+                  focus:outline-none
+                  disabled:cursor-not-allowed
+                  disabled:opacity-60
+                  sm:h-10
+                  sm:rounded-xl
+                  sm:px-5
+                  sm:text-sm
                 "
               >
                 {rejectLoading ? (
                   <>
                     <Loader2
                       className="
-                        mr-2
+                        mr-1.5
                         inline-block
-                        h-4
-                        w-4
+                        h-3
+                        w-3
                         animate-spin
+                        sm:mr-2
+                        sm:h-4
+                        sm:w-4
                       "
                     />
                     Rejecting...
@@ -590,8 +715,9 @@ function Info({
     <div>
       <p
         className="
-          text-sm
+          text-[9px]
           text-[var(--admin-muted)]
+          sm:text-sm
         "
       >
         {label}
@@ -599,8 +725,13 @@ function Info({
 
       <p
         className="
-          mt-1
+          mt-0.5
+          text-[10px]
+          leading-4
           text-[var(--admin-text)]
+          sm:mt-1
+          sm:text-sm
+          sm:leading-normal
         "
       >
         {value}
@@ -620,29 +751,32 @@ function ImageCard({
     <div>
       <p
         className="
-          mb-3
-          text-sm
+          mb-1.5
+          text-[9px]
           text-[var(--admin-muted)]
+          sm:mb-3
+          sm:text-sm
         "
       >
         {title}
       </p>
 
-<Image
-  src={
-    getCloudinaryImageUrl(image) ??
-    ""
-  }
-  alt={title}
-  width={500}
-  height={500}
-  className="
-    aspect-square
-    w-full
-    rounded-xl
-    object-cover
-  "
-/>
+      <Image
+        src={
+          getCloudinaryImageUrl(image) ??
+          ""
+        }
+        alt={title}
+        width={500}
+        height={500}
+        className="
+          aspect-square
+          w-full
+          rounded-md
+          object-cover
+          sm:rounded-xl
+        "
+      />
     </div>
   );
 }

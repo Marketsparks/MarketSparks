@@ -9,104 +9,100 @@ import { useWishlist } from "@/context/WishlistContext";
 import { useCartContext } from "@/context/CartContext";
 
 export default function WishlistPage() {
-const {
-  wishlist,
-  loading,
-  removeFromWishlist,
-} = useWishlist();
+  const {
+    wishlist,
+    loading,
+    removeFromWishlist,
+  } = useWishlist();
 
-const {
-  addToCart,
-} = useCartContext();
+  const {
+    addToCart,
+  } = useCartContext();
 
-const items =
-  wishlist?.items ?? [];
+  const items =
+    wishlist?.items ?? [];
 
-async function handleRemove(
-  productId: string,
-  variantSizeId?: string,
-) {
+  async function handleRemove(
+    productId: string,
+    variantSizeId?: string,
+  ) {
     try {
-await removeFromWishlist(
-  productId,
-  variantSizeId,
-);
+      await removeFromWishlist(
+        productId,
+        variantSizeId,
+      );
 
       toast.success(
-        "Removed from wishlist."
+        "Removed from wishlist.",
       );
     } catch {
       toast.error(
-        "Unable to remove item."
+        "Unable to remove item.",
       );
     }
   }
 
-async function handleAddToCart(
-  productId: string,
-  variantSizeId?: string,
-) {
-  if (!variantSizeId) {
-    toast.error(
-      "This wishlist item has no selected product option.",
-    );
+  async function handleAddToCart(
+    productId: string,
+    variantSizeId?: string,
+  ) {
+    if (!variantSizeId) {
+      toast.error(
+        "This wishlist item has no selected product option.",
+      );
 
-    return;
+      return;
+    }
+
+    try {
+      await addToCart({
+        productId,
+        variantSizeId,
+        quantity: 1,
+      });
+
+      await removeFromWishlist(
+        productId,
+        variantSizeId,
+      );
+
+      toast.success(
+        "Added to cart.",
+      );
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Unable to add item to cart.",
+      );
+    }
   }
 
-  try {
-    await addToCart({
-      productId,
-      variantSizeId,
-      quantity: 1,
-    });
-
-    await removeFromWishlist(
-      productId,
-      variantSizeId,
-    );
-
-    toast.success(
-      "Added to cart.",
-    );
-  } catch (error) {
-    toast.error(
-      error instanceof Error
-        ? error.message
-        : "Unable to add item to cart.",
-    );
-  }
-}
-
-return (
-<section
-  className="
-    space-y-5
-
-    pb-28
-
-    sm:pb-32
-  "
->
+  return (
+    <section
+      className="
+        space-y-3
+        pb-20
+        sm:space-y-5
+        sm:pb-28
+      "
+    >
       <header
         className="
           flex
-
           items-center
-
           justify-between
-
-          gap-4
+          gap-3
+          sm:gap-4
         "
       >
-        <div>
+        <div className="min-w-0">
           <h1
             className="
-              text-xl
-
+              text-[18px]
               font-bold
-
               text-[var(--user-title)]
+              sm:text-xl
             "
           >
             Wishlist
@@ -114,11 +110,11 @@ return (
 
           <p
             className="
-              mt-1
-
-              text-sm
-
+              mt-0.5
+              text-[10px]
               text-[var(--user-text-muted)]
+              sm:mt-1
+              sm:text-sm
             "
           >
             {items.length}

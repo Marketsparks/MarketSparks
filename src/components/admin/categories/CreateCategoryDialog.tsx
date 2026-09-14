@@ -40,8 +40,8 @@ export default function CreateCategoryDialog({
         items-end
         justify-center
         bg-black/60
-        backdrop-blur-md
         p-0
+        backdrop-blur-md
         sm:items-center
         sm:p-6
       "
@@ -56,16 +56,18 @@ export default function CreateCategoryDialog({
         }
         className="
           flex
-          h-auto
+          max-h-[94vh]
           w-full
           flex-col
-          overflow-hidden
-          rounded-none
+          overflow-y-auto
+          rounded-t-lg
           border
           border-[var(--admin-card-border)]
           bg-[var(--admin-card-bg)]
           shadow-2xl
+          sm:max-h-none
           sm:max-w-2xl
+          sm:overflow-hidden
           sm:rounded-[var(--admin-surface-radius)]
         "
       >
@@ -74,20 +76,26 @@ export default function CreateCategoryDialog({
             flex
             items-center
             justify-between
+            gap-2
             border-b
             border-[var(--admin-card-border)]
             bg-[var(--admin-card-bg)]
-            px-6
-            py-5
+            px-3
+            py-2.5
+            sm:gap-3
+            sm:px-6
+            sm:py-5
           "
         >
-          <div>
+          <div className="min-w-0">
             <h2
               id="create-category-title"
               className="
-                text-xl
+                truncate
+                text-[13px]
                 font-semibold
                 text-[var(--admin-title)]
+                sm:text-xl
               "
             >
               Create Category
@@ -95,9 +103,13 @@ export default function CreateCategoryDialog({
 
             <p
               className="
-                mt-1
-                text-sm
+                mt-px
+                text-[9px]
+                leading-3.5
                 text-[var(--admin-muted)]
+                sm:mt-1
+                sm:text-sm
+                sm:leading-normal
               "
             >
               Add a new product category.
@@ -110,8 +122,9 @@ export default function CreateCategoryDialog({
             disabled={loading}
             className="
               flex
-              h-10
-              w-10
+              h-6
+              w-6
+              shrink-0
               items-center
               justify-center
               rounded-full
@@ -121,16 +134,24 @@ export default function CreateCategoryDialog({
               hover:text-[var(--admin-title)]
               disabled:pointer-events-none
               disabled:opacity-50
+              sm:h-10
+              sm:w-10
             "
+            aria-label="Close"
           >
-            <X size={20} />
+            <X
+              size={13}
+              className="sm:h-5 sm:w-5"
+            />
           </button>
         </header>
 
         <div
           className="
-            px-6
-            py-6
+            px-3
+            py-3
+            sm:px-6
+            sm:py-6
           "
         >
           <CategoryForm

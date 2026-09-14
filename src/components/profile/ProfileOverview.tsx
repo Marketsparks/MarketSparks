@@ -1,6 +1,11 @@
 "use client";
 
-import { CalendarDays, Mail, MapPin, Phone } from "lucide-react";
+import {
+  CalendarDays,
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
 
 import { AvatarUploader } from "./AvatarUploader";
 
@@ -93,33 +98,56 @@ export function ProfileOverview({
   return (
     <section
       className="
-        rounded-[var(--user-radius-lg)]
+        rounded-lg
         border
         bg-[var(--user-card-bg)]
-        p-6
+        p-3
         shadow-[var(--user-card-shadow)]
+        sm:rounded-[var(--user-radius-lg)]
+        sm:p-6
       "
       style={{
         borderColor:
           "var(--user-card-border)",
       }}
     >
-      <div className="flex flex-col gap-8 lg:flex-row lg:items-center">
-<AvatarUploader
-  avatarKey={avatarKey}
-  avatarUrl={avatarUrl}
-  fullName={fullName}
-  onUploaded={onAvatarUploaded}
-/>
+      <div
+        className="
+          flex
+          flex-col
+          gap-4
+          sm:gap-8
+          lg:flex-row
+          lg:items-center
+        "
+      >
+        <AvatarUploader
+          avatarKey={avatarKey}
+          avatarUrl={avatarUrl}
+          fullName={fullName}
+          onUploaded={onAvatarUploaded}
+        />
 
         <div className="flex-1">
-          <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-            <div>
+          <div
+            className="
+              flex
+              flex-col
+              gap-3
+              md:flex-row
+              md:items-start
+              md:justify-between
+              sm:gap-4
+            "
+          >
+            <div className="min-w-0">
               <h1
                 className="
-                  text-2xl
+                  truncate
+                  text-lg
                   font-bold
                   text-[var(--user-title)]
+                  sm:text-2xl
                 "
               >
                 {fullName}
@@ -127,13 +155,17 @@ export function ProfileOverview({
 
               <div
                 className="
-                  mt-3
+                  mt-2
                   inline-flex
                   rounded-full
-                  px-3
-                  py-1
-                  text-sm
+                  px-2
+                  py-0.5
+                  text-[10px]
                   font-medium
+                  sm:mt-3
+                  sm:px-3
+                  sm:py-1
+                  sm:text-sm
                 "
                 style={{
                   background:
@@ -150,36 +182,84 @@ export function ProfileOverview({
               type="button"
               onClick={onEdit}
               className="
-                rounded-[var(--user-radius-md)]
+                h-8
+                self-start
+                rounded-lg
                 bg-[var(--user-button-bg)]
-                px-5
-                py-2.5
-                text-sm
+                px-3.5
+                text-[10px]
                 font-semibold
                 text-[var(--user-button-text)]
                 transition
                 hover:bg-[var(--user-button-hover)]
+                sm:h-auto
+                sm:rounded-[var(--user-radius-md)]
+                sm:px-5
+                sm:py-2.5
+                sm:text-sm
               "
             >
               Edit Profile
             </button>
           </div>
 
-          <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          <div
+            className="
+              mt-4
+              grid
+              gap-2
+              sm:mt-8
+              sm:grid-cols-2
+              sm:gap-5
+            "
+          >
             <InfoItem
-              icon={<Mail size={18} />}
+              icon={
+                <>
+                  <Mail
+                    size={14}
+                    className="sm:hidden"
+                  />
+                  <Mail
+                    size={18}
+                    className="hidden sm:block"
+                  />
+                </>
+              }
               label="Email"
               value={email}
             />
 
             <InfoItem
-              icon={<Phone size={18} />}
+              icon={
+                <>
+                  <Phone
+                    size={14}
+                    className="sm:hidden"
+                  />
+                  <Phone
+                    size={18}
+                    className="hidden sm:block"
+                  />
+                </>
+              }
               label="Primary Phone"
               value={phoneNumber}
             />
 
             <InfoItem
-              icon={<Phone size={18} />}
+              icon={
+                <>
+                  <Phone
+                    size={14}
+                    className="sm:hidden"
+                  />
+                  <Phone
+                    size={18}
+                    className="hidden sm:block"
+                  />
+                </>
+              }
               label="Secondary Phone"
               value={
                 secondaryPhoneNumber ??
@@ -188,16 +268,34 @@ export function ProfileOverview({
             />
 
             <InfoItem
-              icon={<MapPin size={18} />}
+              icon={
+                <>
+                  <MapPin
+                    size={14}
+                    className="sm:hidden"
+                  />
+                  <MapPin
+                    size={18}
+                    className="hidden sm:block"
+                  />
+                </>
+              }
               label="Country"
               value={country}
             />
 
             <InfoItem
               icon={
-                <CalendarDays
-                  size={18}
-                />
+                <>
+                  <CalendarDays
+                    size={14}
+                    className="sm:hidden"
+                  />
+                  <CalendarDays
+                    size={18}
+                    className="hidden sm:block"
+                  />
+                </>
               }
               label="Member Since"
               value={new Date(
@@ -232,9 +330,11 @@ function InfoItem({
   return (
     <div
       className="
-        rounded-[var(--user-radius-md)]
+        rounded-lg
         border
-        p-4
+        p-2.5
+        sm:rounded-[var(--user-radius-md)]
+        sm:p-4
       "
       style={{
         borderColor:
@@ -243,16 +343,24 @@ function InfoItem({
           "var(--user-surface)",
       }}
     >
-      <div className="flex items-center gap-2">
+      <div
+        className="
+          flex
+          items-center
+          gap-1.5
+          sm:gap-2
+        "
+      >
         <span className="text-[var(--user-icon-muted)]">
           {icon}
         </span>
 
         <span
           className="
-            text-sm
+            text-[10px]
             font-medium
             text-[var(--user-text-muted)]
+            sm:text-sm
           "
         >
           {label}
@@ -261,11 +369,13 @@ function InfoItem({
 
       <p
         className="
-          mt-2
+          mt-1
           break-words
-          text-base
+          text-[11px]
           font-medium
           text-[var(--user-text)]
+          sm:mt-2
+          sm:text-base
         "
       >
         {value}

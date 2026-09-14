@@ -55,32 +55,25 @@ export default function DepositAmount({
   return (
     <section
       className="
-        mt-8
-
+        mt-5
         rounded-[var(--deposit-amount-radius)]
-
         border
-
         border-[var(--deposit-amount-border)]
-
         bg-[var(--deposit-amount-bg)]
-
-        p-[var(--deposit-amount-padding)]
-
+        p-3
         shadow-[var(--deposit-amount-shadow)]
-
         transition-all
-
         duration-300
+        sm:mt-8
+        sm:p-[var(--deposit-amount-padding)]
       "
     >
       <h2
         className="
-          text-[20px]
-
+          text-[16px]
           font-bold
-
           text-[var(--deposit-amount-title)]
+          sm:text-[20px]
         "
       >
         Deposit Amount
@@ -88,13 +81,13 @@ export default function DepositAmount({
 
       <p
         className="
-          mt-2
-
-          text-[14px]
-
-          leading-6
-
+          mt-1
+          text-[11px]
+          leading-5
           text-[var(--deposit-amount-text)]
+          sm:mt-2
+          sm:text-[14px]
+          sm:leading-6
         "
       >
         Select one of the suggested amounts or enter your preferred amount.
@@ -102,13 +95,12 @@ export default function DepositAmount({
 
       <div
         className="
-          mt-6
-
+          mt-4
           flex
-
           flex-wrap
-
-          gap-3
+          gap-1.5
+          sm:mt-6
+          sm:gap-3
         "
       >
         {DEPOSIT_SUGGESTED_AMOUNTS.map(
@@ -118,128 +110,107 @@ export default function DepositAmount({
               value === amount;
 
             return (
-      <button
-        key={amount}
-        type="button"
-        onClick={() =>
-          handleSuggestedAmount(
-            amount
-          )
-        }
-        className={`
-          rounded-md
+              <button
+                key={amount}
+                type="button"
+                onClick={() =>
+                  handleSuggestedAmount(
+                    amount
+                  )
+                }
+                className={`
+                  rounded-md
+                  border
+                  px-2
+                  py-1
+                  text-[10px]
+                  font-medium
+                  transition-all
+                  duration-300
+                  sm:px-2
+                  sm:py-1
+                  sm:text-[11px]
 
-          border
+                  ${
+                    isSelected
+                      ? `
+                          border-[var(--deposit-amount-chip-active-border)]
+                          bg-[var(--deposit-amount-chip-active-bg)]
+                          text-[var(--deposit-amount-chip-active-text)]
+                        `
+                      : `
+                          border-[var(--deposit-amount-chip-border)]
+                          bg-[var(--deposit-amount-chip-bg)]
+                          text-[var(--deposit-amount-chip-text)]
+                          hover:border-[var(--deposit-amount-chip-hover-border)]
+                          hover:bg-[var(--deposit-amount-chip-hover-bg)]
+                          hover:text-[var(--deposit-amount-chip-hover-text)]
+                        `
+                  }
+                `}
+              >
+                ${amount}
+              </button>
+            );
+          },
+        )}
 
-          px-2
-
-          py-1
-
-          text-[11px]
-
-          font-medium
-
-          transition-all
-          duration-300
-
-          ${
-            isSelected
-              ? `
-                  border-[var(--deposit-amount-chip-active-border)]
-
-                  bg-[var(--deposit-amount-chip-active-bg)]
-
-                  text-[var(--deposit-amount-chip-active-text)]
-                `
-              : `
-                  border-[var(--deposit-amount-chip-border)]
-
-                  bg-[var(--deposit-amount-chip-bg)]
-
-                  text-[var(--deposit-amount-chip-text)]
-
-                  hover:border-[var(--deposit-amount-chip-hover-border)]
-
-                  hover:bg-[var(--deposit-amount-chip-hover-bg)]
-
-                  hover:text-[var(--deposit-amount-chip-hover-text)]
-                `
+        <button
+          type="button"
+          onClick={
+            handleOtherSelect
           }
-        `}
-      >
-        ${amount}
-      </button>
-    );
-  }
-)}
+          className={`
+            rounded-md
+            border
+            px-2
+            py-1
+            text-[10px]
+            font-medium
+            transition-all
+            duration-300
+            sm:px-2
+            sm:py-1
+            sm:text-[11px]
 
-<button
-  type="button"
-  onClick={
-    handleOtherSelect
-  }
-  className={`
-    rounded-md
-
-    border
-
-    px-2
-
-    py-1
-
-    text-[11px]
-
-    font-medium
-
-    transition-all
-    duration-300
-
-    ${
-      isOtherSelected
-        ? `
-            border-[var(--deposit-amount-chip-active-border)]
-
-            bg-[var(--deposit-amount-chip-active-bg)]
-
-            text-[var(--deposit-amount-chip-active-text)]
-          `
-        : `
-            border-[var(--deposit-amount-chip-border)]
-
-            bg-[var(--deposit-amount-chip-bg)]
-
-            text-[var(--deposit-amount-chip-text)]
-
-            hover:border-[var(--deposit-amount-chip-hover-border)]
-
-            hover:bg-[var(--deposit-amount-chip-hover-bg)]
-
-            hover:text-[var(--deposit-amount-chip-hover-text)]
-          `
-    }
-  `}
->
-  Other
-</button>
+            ${
+              isOtherSelected
+                ? `
+                    border-[var(--deposit-amount-chip-active-border)]
+                    bg-[var(--deposit-amount-chip-active-bg)]
+                    text-[var(--deposit-amount-chip-active-text)]
+                  `
+                : `
+                    border-[var(--deposit-amount-chip-border)]
+                    bg-[var(--deposit-amount-chip-bg)]
+                    text-[var(--deposit-amount-chip-text)]
+                    hover:border-[var(--deposit-amount-chip-hover-border)]
+                    hover:bg-[var(--deposit-amount-chip-hover-bg)]
+                    hover:text-[var(--deposit-amount-chip-hover-text)]
+                  `
+            }
+          `}
+        >
+          Other
+        </button>
       </div>
 
       {isOtherSelected && (
         <div
           className="
-            mt-8
+            mt-5
+            sm:mt-8
           "
         >
           <label
             className="
-              mb-2
-
+              mb-1.5
               block
-
-              text-[14px]
-
+              text-[11px]
               font-medium
-
               text-[var(--deposit-amount-title)]
+              sm:mb-2
+              sm:text-[14px]
             "
           >
             Other Amount
@@ -261,32 +232,25 @@ export default function DepositAmount({
             placeholder="Enter amount in USD"
             autoFocus
             className="
+              h-9
               w-full
-
-              rounded-2xl
-
+              rounded-lg
               border
-
               border-[var(--deposit-amount-input-border)]
-
               bg-[var(--deposit-amount-input-bg)]
-
-              px-4
-
-              py-3
-
-              text-[15px]
-
+              px-3
+              text-[12px]
               text-[var(--deposit-amount-input-text)]
-
               outline-none
-
               transition-all
               duration-300
-
               placeholder:text-[var(--deposit-amount-input-placeholder)]
-
               focus:border-[var(--deposit-amount-input-focus)]
+              sm:h-auto
+              sm:rounded-2xl
+              sm:px-4
+              sm:py-3
+              sm:text-[15px]
             "
           />
         </div>

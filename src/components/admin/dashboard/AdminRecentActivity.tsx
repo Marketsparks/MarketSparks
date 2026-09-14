@@ -7,18 +7,12 @@ import {
 
 type Activity = {
   id: string;
-
   action: string;
-
   entity: string;
-
   description: string | null;
-
   createdAt: Date;
-
   admin: {
     firstName: string;
-
     lastName: string;
   };
 };
@@ -33,28 +27,36 @@ export default function AdminRecentActivity({
   return (
     <section
       className="
-        rounded-[var(--admin-card-radius)]
+        mb-15
+        rounded-lg
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
-        p-[var(--admin-card-padding)]
+        p-2.5
         shadow-[var(--admin-card-shadow)]
+        sm:mb-20
+        sm:rounded-[var(--admin-card-radius)]
+        sm:p-[var(--admin-card-padding)]
       "
     >
       <div
         className="
-          mb-5
+          mb-2.5
           flex
           items-center
           justify-between
+          gap-2
+          sm:mb-4
+          sm:gap-3
         "
       >
-        <div>
+        <div className="min-w-0">
           <h2
             className="
-              text-base
+              text-[12px]
               font-semibold
               text-[var(--admin-title)]
+              sm:text-base
             "
           >
             Recent Activity
@@ -62,9 +64,13 @@ export default function AdminRecentActivity({
 
           <p
             className="
-              mt-1
-              text-xs
+              mt-0.5
+              text-[9px]
+              leading-3.5
               text-[var(--admin-muted)]
+              sm:mt-1
+              sm:text-xs
+              sm:leading-4
             "
           >
             Latest administrator actions.
@@ -75,149 +81,168 @@ export default function AdminRecentActivity({
           href="/admin/activity"
           className="
             flex
+            shrink-0
             items-center
-            gap-1
-            text-xs
+            gap-0.5
+            text-[9px]
             font-medium
             text-[var(--admin-primary)]
             transition-opacity
             duration-[var(--admin-transition)]
             hover:opacity-80
+            sm:gap-1
+            sm:text-xs
           "
         >
           View All
-
-          <ArrowRight size={14} />
+          <ArrowRight
+            size={11}
+            className="
+              sm:h-3.5
+              sm:w-3.5
+            "
+          />
         </Link>
       </div>
 
       {activities.length === 0 ? (
         <div
           className="
-            rounded-[var(--admin-surface-radius)]
+            rounded-md
             border
             border-[var(--admin-surface-border)]
             bg-[var(--admin-surface-bg)]
-            py-10
+            py-5
             text-center
+            sm:rounded-[var(--admin-surface-radius)]
+            sm:py-8
           "
         >
           <div
             className="
               mx-auto
-              mb-3
+              mb-2
               flex
-              h-10
-              w-10
+              h-8
+              w-8
               items-center
               justify-center
               rounded-full
               border
               border-[var(--admin-stat-border)]
               bg-[var(--admin-stat-bg)]
+              sm:mb-3
+              sm:h-10
+              sm:w-10
             "
           >
             <Clock3
-              size={18}
+              size={14}
               className="
                 text-[var(--admin-primary)]
+                sm:h-[18px]
+                sm:w-[18px]
               "
             />
           </div>
 
           <p
             className="
-              text-sm
+              text-[10px]
               font-medium
               text-[var(--admin-title)]
+              sm:text-sm
             "
           >
             No recent activity.
           </p>
         </div>
       ) : (
-        <div
-          className="
-            space-y-3
-          "
-        >
-          {activities.map(
-            (activity) => (
+        <div className="space-y-1.5 sm:space-y-3">
+          {activities.map((activity) => (
+            <div
+              key={activity.id}
+              className="
+                rounded-md
+                border
+                border-[var(--admin-surface-border)]
+                bg-[var(--admin-surface-bg)]
+                p-2
+                sm:rounded-[var(--admin-surface-radius)]
+                sm:p-3
+              "
+            >
               <div
-                key={activity.id}
                 className="
-                  rounded-[var(--admin-surface-radius)]
-                  border
-                  border-[var(--admin-surface-border)]
-                  bg-[var(--admin-surface-bg)]
-                  p-4
+                  flex
+                  items-start
+                  justify-between
+                  gap-2
+                  sm:gap-3
                 "
               >
-                <div
-                  className="
-                    flex
-                    items-start
-                    justify-between
-                    gap-3
-                  "
-                >
-                  <div
+                <div className="min-w-0 flex-1">
+                  <p
                     className="
-                      min-w-0
-                      flex-1
+                      text-[10px]
+                      font-semibold
+                      leading-3.5
+                      text-[var(--admin-title)]
+                      sm:text-sm
+                      sm:leading-4
                     "
                   >
+                    {activity.action.replaceAll("_", " ")}
+                  </p>
+
+                  {activity.description && (
                     <p
                       className="
-                        text-sm
-                        font-semibold
-                        text-[var(--admin-title)]
-                      "
-                    >
-                      {activity.action.replaceAll(
-                        "_",
-                        " ",
-                      )}
-                    </p>
-
-                    {activity.description && (
-                      <p
-                        className="
-                          mt-1
-                          text-xs
-                          text-[var(--admin-muted)]
-                        "
-                      >
-                        {activity.description}
-                      </p>
-                    )}
-
-                    <p
-                      className="
-                        mt-2
-                        text-[11px]
+                        mt-0.5
+                        text-[9px]
+                        leading-3.5
                         text-[var(--admin-muted)]
+                        sm:mt-1
+                        sm:text-xs
+                        sm:leading-4
                       "
                     >
-                      {activity.admin.firstName}{" "}
-                      {activity.admin.lastName}
+                      {activity.description}
                     </p>
-                  </div>
+                  )}
 
-                  <time
+                  <p
                     className="
-                      shrink-0
-                      text-[11px]
+                      mt-1
+                      text-[8px]
+                      leading-3
                       text-[var(--admin-muted)]
+                      sm:mt-2
+                      sm:text-[11px]
+                      sm:leading-4
                     "
-                    dateTime={activity.createdAt.toISOString()}
                   >
-                    {activity.createdAt.toLocaleDateString()}
-                  </time>
+                    {activity.admin.firstName}{" "}
+                    {activity.admin.lastName}
+                  </p>
                 </div>
+
+                <time
+                  className="
+                    shrink-0
+                    text-[8px]
+                    leading-3
+                    text-[var(--admin-muted)]
+                    sm:text-[11px]
+                    sm:leading-4
+                  "
+                  dateTime={activity.createdAt.toISOString()}
+                >
+                  {activity.createdAt.toLocaleDateString()}
+                </time>
               </div>
-            ),
-          )}
+            </div>
+          ))}
         </div>
       )}
     </section>

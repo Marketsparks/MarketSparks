@@ -42,7 +42,8 @@ export default function AffiliateInterestsSection({
   return (
     <section
       className="
-        space-y-3
+        space-y-2.5
+        sm:space-y-3
       "
     >
       <div
@@ -50,7 +51,8 @@ export default function AffiliateInterestsSection({
           flex
           items-center
           justify-between
-          gap-3
+          gap-2.5
+          sm:gap-3
         "
       >
         <div
@@ -58,18 +60,22 @@ export default function AffiliateInterestsSection({
             flex
             min-w-0
             items-center
-            gap-2
+            gap-1.5
+            sm:gap-2
           "
         >
           <div
             className="
               flex
-              h-7
-              w-7
+              h-6
+              w-6
               shrink-0
               items-center
               justify-center
-              rounded-lg
+              rounded-md
+              sm:h-7
+              sm:w-7
+              sm:rounded-lg
             "
             style={{
               background:
@@ -80,7 +86,13 @@ export default function AffiliateInterestsSection({
             }}
           >
             <MessageCircle
+              size={13}
+              className="sm:hidden"
+            />
+
+            <MessageCircle
               size={14}
+              className="hidden sm:block"
             />
           </div>
 
@@ -88,8 +100,9 @@ export default function AffiliateInterestsSection({
             <h3
               className="
                 truncate
-                text-sm
+                text-[12px]
                 font-semibold
+                sm:text-sm
               "
               style={{
                 color:
@@ -102,7 +115,9 @@ export default function AffiliateInterestsSection({
             <p
               className="
                 mt-0.5
-                text-[9px]
+                truncate
+                text-[8px]
+                sm:text-[9px]
               "
               style={{
                 color:
@@ -119,10 +134,12 @@ export default function AffiliateInterestsSection({
             shrink-0
             rounded-full
             border
-            px-2
-            py-1
+            px-1.5
+            py-0.5
             text-[8px]
             font-semibold
+            sm:px-2
+            sm:py-1
           "
           style={{
             background:
@@ -143,7 +160,8 @@ export default function AffiliateInterestsSection({
         className="
           grid
           grid-cols-1
-          gap-2.5
+          gap-2
+          sm:gap-2.5
           xl:grid-cols-2
         "
       >

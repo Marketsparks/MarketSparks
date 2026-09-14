@@ -3,11 +3,12 @@ export default function LoadingSkeleton() {
     <div
       className="
         overflow-hidden
-        rounded-xl
+        rounded-lg
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
         shadow-[var(--admin-card-shadow)]
+        sm:rounded-xl
       "
     >
       <div className="overflow-x-auto">
@@ -33,14 +34,18 @@ export default function LoadingSkeleton() {
                 <th
                   key={label}
                   className="
-                    px-4
-                    py-3.5
+                    px-2.5
+                    py-2.5
                     text-left
-                    text-[10px]
+                    text-[8px]
                     font-semibold
                     uppercase
-                    tracking-[0.08em]
+                    tracking-[0.06em]
                     text-[var(--admin-table-header-text)]
+                    sm:px-4
+                    sm:py-3.5
+                    sm:text-[10px]
+                    sm:tracking-[0.08em]
                   "
                 >
                   {label}
@@ -66,14 +71,20 @@ export default function LoadingSkeleton() {
                   (_, cellIndex) => (
                     <td
                       key={cellIndex}
-                      className="px-4 py-4"
+                      className="
+                        px-2.5
+                        py-2.5
+                        sm:px-4
+                        sm:py-4
+                      "
                     >
                       <div
                         className="
-                          h-3
+                          h-2.5
                           rounded
                           bg-[var(--admin-table-header-bg)]
                           animate-pulse
+                          sm:h-3
                         "
                       />
                     </td>

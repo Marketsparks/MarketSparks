@@ -68,8 +68,9 @@ export default function AffiliateProductsTable({
       <div
         className="
           overflow-hidden
-          rounded-xl
+          rounded-lg
           border
+          sm:rounded-xl
         "
         style={{
           background:
@@ -80,8 +81,10 @@ export default function AffiliateProductsTable({
       >
         <div
           className="
-            space-y-2
-            p-3
+            space-y-1.5
+            p-2
+            sm:space-y-2
+            sm:p-3
           "
         >
           {Array.from({
@@ -91,10 +94,12 @@ export default function AffiliateProductsTable({
               <div
                 key={index}
                 className="
-                  h-14
+                  h-10
                   animate-pulse
-                  rounded-lg
+                  rounded-md
                   bg-[var(--surface-hover)]
+                  sm:h-14
+                  sm:rounded-lg
                 "
               />
             ),
@@ -111,11 +116,14 @@ export default function AffiliateProductsTable({
     return (
       <div
         className="
-          rounded-xl
+          rounded-lg
           border
-          px-4
-          py-10
+          px-3
+          py-8
           text-center
+          sm:rounded-xl
+          sm:px-4
+          sm:py-10
         "
         style={{
           background:
@@ -126,8 +134,9 @@ export default function AffiliateProductsTable({
       >
         <p
           className="
-            text-xs
+            text-[11px]
             font-semibold
+            sm:text-xs
           "
           style={{
             color:
@@ -139,8 +148,10 @@ export default function AffiliateProductsTable({
 
         <p
           className="
-            mt-1
-            text-[11px]
+            mt-0.5
+            text-[9px]
+            sm:mt-1
+            sm:text-[11px]
           "
           style={{
             color:
@@ -157,8 +168,9 @@ export default function AffiliateProductsTable({
     <div
       className="
         overflow-hidden
-        rounded-xl
+        rounded-lg
         border
+        sm:rounded-xl
       "
       style={{
         background:
@@ -261,30 +273,32 @@ export default function AffiliateProductsTable({
                           flex
                           min-w-[230px]
                           items-center
-                          gap-2.5
+                          gap-2
+                          sm:gap-2.5
                         "
                       >
                         <div
                           className="
                             relative
-                            h-10
-                            w-10
+                            h-8
+                            w-8
                             shrink-0
                             overflow-hidden
-                            rounded-lg
+                            rounded-md
                             bg-[var(--surface-hover)]
+                            sm:h-10
+                            sm:w-10
+                            sm:rounded-lg
                           "
                         >
                           {primaryImage ? (
                             <Image
-src={
-  primaryImage
-    ? getCloudinaryImageUrl(
-        primaryImage.imageKey,
-      ) ??
-      "/placeholder.png"
-    : "/placeholder.png"
-}
+                              src={
+                                getCloudinaryImageUrl(
+                                  primaryImage.imageKey,
+                                ) ??
+                                "/placeholder.png"
+                              }
                               alt={
                                 primaryImage.altText ??
                                 listing.product.name
@@ -300,8 +314,9 @@ src={
                           <p
                             className="
                               truncate
-                              text-[11px]
+                              text-[10px]
                               font-semibold
+                              sm:text-[11px]
                             "
                             style={{
                               color:
@@ -317,9 +332,11 @@ src={
 
                           <p
                             className="
-                              mt-0.5
+                              mt-px
                               truncate
-                              text-[9px]
+                              text-[8px]
+                              sm:mt-0.5
+                              sm:text-[9px]
                             "
                             style={{
                               color:
@@ -342,31 +359,34 @@ src={
                           flex
                           min-w-[150px]
                           items-center
-                          gap-2
+                          gap-1.5
+                          sm:gap-2
                         "
                       >
                         <div
                           className="
                             flex
-                            h-7
-                            w-7
+                            h-6
+                            w-6
                             shrink-0
                             items-center
                             justify-center
                             overflow-hidden
                             rounded-full
                             bg-[var(--surface-hover)]
+                            sm:h-7
+                            sm:w-7
                           "
                         >
                           {listing.user.avatarKey ? (
                             <Image
-src={
-  getCloudinaryImageUrl(
-    listing.user.avatarKey,
-    "c_fill,w_80,h_80,f_auto,q_auto",
-  ) ??
-  "/placeholder.png"
-}
+                              src={
+                                getCloudinaryImageUrl(
+                                  listing.user.avatarKey,
+                                  "c_fill,w_80,h_80,f_auto,q_auto",
+                                ) ??
+                                "/placeholder.png"
+                              }
                               alt=""
                               width={28}
                               height={28}
@@ -374,7 +394,7 @@ src={
                             />
                           ) : (
                             <UserRound
-                              size={13}
+                              size={12}
                               strokeWidth={2}
                               className="text-[var(--foreground-muted)]"
                             />
@@ -385,8 +405,9 @@ src={
                           <p
                             className="
                               truncate
-                              text-[10px]
+                              text-[9px]
                               font-semibold
+                              sm:text-[10px]
                             "
                             style={{
                               color:
@@ -408,7 +429,8 @@ src={
                           <p
                             className="
                               truncate
-                              text-[9px]
+                              text-[8px]
+                              sm:text-[9px]
                             "
                             style={{
                               color:
@@ -429,8 +451,9 @@ src={
                       <div className="min-w-[100px]">
                         <p
                           className="
-                            text-[10px]
+                            text-[9px]
                             font-semibold
+                            sm:text-[10px]
                           "
                           style={{
                             color:
@@ -447,8 +470,10 @@ src={
 
                         <p
                           className="
-                            mt-0.5
-                            text-[9px]
+                            mt-px
+                            text-[8px]
+                            sm:mt-0.5
+                            sm:text-[9px]
                           "
                           style={{
                             color:
@@ -470,8 +495,9 @@ src={
                     <Cell>
                       <span
                         className="
-                          text-[10px]
+                          text-[9px]
                           font-semibold
+                          sm:text-[10px]
                         "
                         style={{
                           color:
@@ -503,7 +529,8 @@ src={
                           flex
                           min-w-[105px]
                           items-center
-                          gap-1.5
+                          gap-1
+                          sm:gap-1.5
                         "
                         style={{
                           color:
@@ -511,13 +538,19 @@ src={
                         }}
                       >
                         <CalendarDays
-                          size={12}
+                          size={11}
                           strokeWidth={
                             2
                           }
+                          className="sm:h-3 sm:w-3"
                         />
 
-                        <span className="text-[9px]">
+                        <span
+                          className="
+                            text-[8px]
+                            sm:text-[9px]
+                          "
+                        >
                           {
                             submittedDate
                           }
@@ -576,12 +609,15 @@ function Header({
   return (
     <th
       className={`
-        px-3
-        py-2.5
-        text-[9px]
+        px-2
+        py-2
+        text-[8px]
         font-semibold
         uppercase
         tracking-[0.08em]
+        sm:px-3
+        sm:py-2.5
+        sm:text-[9px]
         ${
           align ===
           "right"
@@ -610,8 +646,10 @@ function Cell({
   return (
     <td
       className={`
-        px-3
-        py-2.5
+        px-2
+        py-2
+        sm:px-3
+        sm:py-2.5
         ${
           align ===
           "right"

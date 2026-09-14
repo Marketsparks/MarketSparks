@@ -23,10 +23,9 @@ export default function DeleteCategoryDialog({
   onClose,
   onConfirm,
 }: DeleteCategoryDialogProps) {
-    
-if (!open || !category) {
-  return null;
-}
+  if (!open || !category) {
+    return null;
+  }
 
   return (
     <div
@@ -38,8 +37,9 @@ if (!open || !category) {
         items-center
         justify-center
         bg-black/60
+        p-2
         backdrop-blur-sm
-        p-6
+        sm:p-6
       "
       onClick={onClose}
     >
@@ -53,20 +53,23 @@ if (!open || !category) {
         className="
           w-full
           max-w-md
-          rounded-[var(--admin-surface-radius)]
+          rounded-lg
           border
           border-[var(--admin-card-border)]
           bg-[var(--admin-card-bg)]
-          p-6
+          p-3
           shadow-2xl
+          sm:rounded-[var(--admin-surface-radius)]
+          sm:p-6
         "
       >
         <h2
           id="delete-category-title"
           className="
-            text-xl
+            text-[13px]
             font-semibold
             text-[var(--admin-title)]
+            sm:text-xl
           "
         >
           Delete Category
@@ -74,25 +77,30 @@ if (!open || !category) {
 
         <p
           className="
-            mt-3
-            text-sm
-            leading-6
+            mt-1.5
+            text-[10px]
+            leading-4
             text-[var(--admin-muted)]
+            sm:mt-3
+            sm:text-sm
+            sm:leading-6
           "
         >
           Are you sure you want to delete{" "}
-<span className="font-semibold">
-  {category.name}
-</span>
+          <span className="font-semibold">
+            {category.name}
+          </span>
           ? This action cannot be undone.
         </p>
 
         <div
           className="
-            mt-6
+            mt-3
             flex
             justify-end
-            gap-3
+            gap-1.5
+            sm:mt-6
+            sm:gap-3
           "
         >
           <button
@@ -101,18 +109,22 @@ if (!open || !category) {
             disabled={loading}
             className="
               inline-flex
-              h-10
+              h-7
               items-center
               justify-center
-              rounded-[var(--admin-input-radius)]
+              rounded-md
               border
               border-[var(--admin-card-border)]
-              px-4
-              text-sm
+              px-2.5
+              text-[9px]
               font-medium
               transition
               hover:bg-[var(--admin-hover)]
               disabled:opacity-60
+              sm:h-10
+              sm:rounded-[var(--admin-input-radius)]
+              sm:px-4
+              sm:text-sm
             "
           >
             Cancel
@@ -124,18 +136,22 @@ if (!open || !category) {
             onClick={onConfirm}
             className="
               inline-flex
-              h-10
+              h-7
               items-center
               justify-center
-              rounded-[var(--admin-input-radius)]
+              rounded-md
               bg-red-600
-              px-4
-              text-sm
+              px-2.5
+              text-[9px]
               font-medium
               text-white
               transition
               hover:bg-red-700
               disabled:opacity-60
+              sm:h-10
+              sm:rounded-[var(--admin-input-radius)]
+              sm:px-4
+              sm:text-sm
             "
           >
             {loading

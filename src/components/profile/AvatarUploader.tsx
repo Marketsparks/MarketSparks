@@ -96,7 +96,6 @@ export function AvatarUploader({
           bg-[var(--user-avatar-bg)]
           text-[var(--user-title)]
           shadow-sm
-
           md:h-[var(--profile-avatar-size-desktop)]
           md:w-[var(--profile-avatar-size-desktop)]
         "
@@ -113,9 +112,25 @@ export function AvatarUploader({
             className="object-cover"
           />
         ) : (
-          <span className="text-xl font-semibold md:text-3xl">
+          <span
+            className="
+              text-base
+              font-semibold
+              md:text-3xl
+            "
+          >
             {getInitials() || (
-              <User size={34} />
+              <User
+                size={24}
+                className="md:hidden"
+              />
+            )}
+
+            {getInitials() ? null : (
+              <User
+                size={34}
+                className="hidden md:block"
+              />
             )}
           </span>
         )}
@@ -129,11 +144,11 @@ export function AvatarUploader({
         }
         className="
           absolute
-          bottom-1
-          right-1
+          bottom-0.5
+          right-0.5
           flex
-          h-10
-          w-10
+          h-7
+          w-7
           items-center
           justify-center
           rounded-full
@@ -142,6 +157,10 @@ export function AvatarUploader({
           hover:scale-105
           disabled:cursor-not-allowed
           disabled:opacity-60
+          md:bottom-1
+          md:right-1
+          md:h-10
+          md:w-10
         "
         style={{
           background:
@@ -151,12 +170,36 @@ export function AvatarUploader({
         }}
       >
         {uploading ? (
-          <Loader2
-            className="animate-spin"
-            size={18}
-          />
+          <>
+            <Loader2
+              className="
+                animate-spin
+                md:hidden
+              "
+              size={14}
+            />
+
+            <Loader2
+              className="
+                hidden
+                animate-spin
+                md:block
+              "
+              size={18}
+            />
+          </>
         ) : (
-          <Camera size={18} />
+          <>
+            <Camera
+              className="md:hidden"
+              size={14}
+            />
+
+            <Camera
+              className="hidden md:block"
+              size={18}
+            />
+          </>
         )}
       </button>
 

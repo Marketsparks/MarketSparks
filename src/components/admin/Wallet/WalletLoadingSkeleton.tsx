@@ -4,61 +4,54 @@ export default function WalletLoadingSkeleton() {
   return (
     <div
       className="
+        w-full
         overflow-hidden
-
         rounded-[var(--admin-card-radius)]
-
         border
-
         border-[var(--admin-card-border)]
-
         bg-[var(--admin-card-bg)]
-
         shadow-[var(--admin-card-shadow)]
       "
     >
-      <div
-        className="
-          animate-pulse
-
-          overflow-x-auto
-        "
-      >
+      <div className="overflow-x-auto">
         <table
           className="
-            min-w-[960px]
-
             w-full
+            min-w-[960px]
+            border-collapse
           "
         >
           <thead>
             <tr
               className="
                 border-b
-
                 border-[var(--admin-table-border)]
-
                 bg-[var(--admin-table-header-bg)]
               "
             >
-              {Array.from({
-                length: 5,
-              }).map((_, index) => (
+              {[
+                "User",
+                "Email",
+                "Balance",
+                "Status",
+                "Actions",
+              ].map((label) => (
                 <th
-                  key={index}
-                  className="px-6 py-5"
+                  key={label}
+                  className="
+                    px-3
+                    py-2.5
+                    text-left
+                    text-[10px]
+                    font-semibold
+                    uppercase
+                    tracking-[0.08em]
+                    text-[var(--admin-table-header-text)]
+                    sm:px-4
+                    sm:py-3
+                  "
                 >
-                  <div
-                    className="
-                      h-4
-
-                      w-20
-
-                      rounded
-
-                      bg-[var(--admin-surface-bg)]
-                    "
-                  />
+                  {label}
                 </th>
               ))}
             </tr>
@@ -67,97 +60,120 @@ export default function WalletLoadingSkeleton() {
           <tbody>
             {Array.from({
               length: 8,
-            }).map((_, index) => (
+            }).map((_, row) => (
               <tr
-                key={index}
+                key={row}
                 className="
                   border-b
-
                   border-[var(--admin-table-border)]
                 "
               >
-                <td className="px-6 py-5">
-                  <div className="space-y-2">
+                <td
+                  className="
+                    px-3
+                    py-3
+                    sm:px-4
+                    sm:py-3.5
+                  "
+                >
+                  <div className="space-y-1.5">
                     <div
                       className="
-                        h-4
-
-                        w-36
-
+                        h-3
+                        w-32
+                        animate-pulse
                         rounded
-
-                        bg-[var(--admin-surface-bg)]
+                        bg-[var(--admin-table-header-bg)]
                       "
                     />
 
                     <div
                       className="
-                        h-3
-
-                        w-24
-
+                        h-2.5
+                        w-20
+                        animate-pulse
                         rounded
-
-                        bg-[var(--admin-surface-bg)]
+                        bg-[var(--admin-table-header-bg)]
                       "
                     />
                   </div>
                 </td>
 
-                <td className="px-6 py-5">
+                <td
+                  className="
+                    px-3
+                    py-3
+                    sm:px-4
+                    sm:py-3.5
+                  "
+                >
                   <div
                     className="
-                      h-4
-
-                      w-56
-
+                      h-3
+                      w-full
+                      max-w-[180px]
+                      animate-pulse
                       rounded
-
-                      bg-[var(--admin-surface-bg)]
+                      bg-[var(--admin-table-header-bg)]
                     "
                   />
                 </td>
 
-                <td className="px-6 py-5">
+                <td
+                  className="
+                    px-3
+                    py-3
+                    sm:px-4
+                    sm:py-3.5
+                  "
+                >
                   <div
                     className="
-                      h-4
-
-                      w-28
-
+                      h-3
+                      w-20
+                      animate-pulse
                       rounded
-
-                      bg-[var(--admin-surface-bg)]
+                      bg-[var(--admin-table-header-bg)]
                     "
                   />
                 </td>
 
-                <td className="px-6 py-5">
+                <td
+                  className="
+                    px-3
+                    py-3
+                    sm:px-4
+                    sm:py-3.5
+                  "
+                >
                   <div
                     className="
-                      h-8
-
-                      w-24
-
+                      h-5
+                      w-16
+                      animate-pulse
                       rounded-full
-
-                      bg-[var(--admin-surface-bg)]
+                      bg-[var(--admin-table-header-bg)]
                     "
                   />
                 </td>
 
-                <td className="px-6 py-5 text-right">
+                <td
+                  className="
+                    px-3
+                    py-3
+                    text-right
+                    sm:px-4
+                    sm:py-3.5
+                  "
+                >
                   <div
                     className="
                       ml-auto
-
-                      h-10
-
-                      w-24
-
-                      rounded-xl
-
-                      bg-[var(--admin-surface-bg)]
+                      h-6
+                      w-16
+                      animate-pulse
+                      rounded-md
+                      bg-[var(--admin-table-header-bg)]
                     "
                   />
                 </td>

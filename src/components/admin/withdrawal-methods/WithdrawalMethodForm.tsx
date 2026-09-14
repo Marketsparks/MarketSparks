@@ -41,7 +41,10 @@ export default function WithdrawalMethodForm({
         event.preventDefault();
         onSubmit();
       }}
-      className="space-y-6"
+      className="
+        space-y-2.5
+        sm:space-y-6
+      "
     >
       <WithdrawalMethodTypeSelect
         value={value.type}
@@ -68,18 +71,18 @@ export default function WithdrawalMethodForm({
           onChange={update}
         />
       ) : (
-<BankMethodFields
-  name={value.name}
-  symbol={value.symbol}
-  placeholder={value.placeholder}
-  fee={value.fee}
-  feeType={value.feeType}
-  minimumAmount={value.minimumAmount}
-  maximumAmount={value.maximumAmount}
-  icon={value.icon}
-  disabled={loading}
-  onChange={update}
-/>
+        <BankMethodFields
+          name={value.name}
+          symbol={value.symbol}
+          placeholder={value.placeholder}
+          fee={value.fee}
+          feeType={value.feeType}
+          minimumAmount={value.minimumAmount}
+          maximumAmount={value.maximumAmount}
+          icon={value.icon}
+          disabled={loading}
+          onChange={update}
+        />
       )}
     </form>
   );

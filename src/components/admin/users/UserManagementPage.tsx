@@ -22,6 +22,7 @@ import { UsersTable } from "./UsersTable";
 
 import type {
   AdminUser,
+  UserRole,
   UsersResponse,
   UserStatusFilter,
 } from "./user.types";
@@ -29,7 +30,6 @@ import type {
 import UserActionModal from "./UserActionModal";
 
 const DEFAULT_PAGE = 1;
-
 const DEFAULT_LIMIT = 10;
 
 export function UserManagementPage() {
@@ -43,9 +43,10 @@ export function UserManagementPage() {
     useState("");
 
   const [status, setStatus] =
-    useState<UserStatusFilter>(
-      "ALL",
-    );
+    useState<UserStatusFilter>("ALL");
+
+  const [role, setRole] =
+    useState<UserRole>("USER");
 
   const [page, setPage] =
     useState(DEFAULT_PAGE);
@@ -56,21 +57,21 @@ export function UserManagementPage() {
   const [totalUsers, setTotalUsers] =
     useState(0);
 
-const [selectedUser, setSelectedUser] =
-  useState<AdminUser | null>(null);
+  const [selectedUser, setSelectedUser] =
+    useState<AdminUser | null>(null);
 
-const [pendingAction, setPendingAction] =
-  useState<
-    | "activate"
-    | "deactivate"
-    | "restore"
-    | "approveDeletion"
-    | "delete"
-    | null
-  >(null);
+  const [pendingAction, setPendingAction] =
+    useState<
+      | "activate"
+      | "deactivate"
+      | "restore"
+      | "approveDeletion"
+      | "delete"
+      | null
+    >(null);
 
-const [submitting, setSubmitting] =
-  useState(false);
+  const [submitting, setSubmitting] =
+    useState(false);
 
   const loadUsers =
     useCallback(async () => {
@@ -80,10 +81,10 @@ const [submitting, setSubmitting] =
         const response: UsersResponse =
           await getUsers({
             page,
-            limit:
-              DEFAULT_LIMIT,
+            limit: DEFAULT_LIMIT,
             search,
             status,
+            role,
           });
 
         setUsers(
@@ -114,6 +115,7 @@ const [submitting, setSubmitting] =
       page,
       search,
       status,
+      role,
     ]);
 
   useEffect(() => {
@@ -134,94 +136,123 @@ const [submitting, setSubmitting] =
     setStatus(value);
   }
 
-function handleUserAction(
-  user: AdminUser,
-  action:
-    | "activate"
-    | "deactivate"
-    | "restore"
-    | "approveDeletion"
-    | "delete",
-) {
-  setSelectedUser(user);
-  setPendingAction(action);
-}
-
-async function handleConfirmAction() {
-  if (
-    !selectedUser ||
-    !pendingAction
+  function handleRoleChange(
+    value: UserRole,
   ) {
-    return;
+    setPage(1);
+    setRole(value);
   }
 
-  try {
-    setSubmitting(true);
+  function handleUserAction(
+    user: AdminUser,
+    action:
+      | "activate"
+      | "deactivate"
+      | "restore"
+      | "approveDeletion"
+      | "delete",
+  ) {
+    setSelectedUser(user);
+    setPendingAction(action);
+  }
 
-    switch (pendingAction) {
-      case "activate":
-        await activateUser(
-          selectedUser.id,
-        );
-        break;
+  function handleRoleChangeAfterUpdate(
+    userId: string,
+    role: UserRole,
+  ) {
+    setUsers((currentUsers) =>
+      currentUsers.map((user) =>
+        user.id === userId
+          ? {
+              ...user,
+              role,
+            }
+          : user,
+      ),
+    );
+  }
 
-      case "deactivate":
-        await deactivateUser(
-          selectedUser.id,
-        );
-        break;
-
-      case "restore":
-        await restoreUser(
-          selectedUser.id,
-        );
-        break;
-
-      case "approveDeletion":
-        await approveDeletion(
-          selectedUser.id,
-        );
-        break;
-
-      case "delete":
-        await deleteUser(
-          selectedUser.id,
-        );
-        break;
+  async function handleConfirmAction() {
+    if (
+      !selectedUser ||
+      !pendingAction
+    ) {
+      return;
     }
 
-    appToast.success(
-      "User updated successfully.",
-    );
+    try {
+      setSubmitting(true);
 
-    setSelectedUser(null);
-    setPendingAction(null);
+      switch (pendingAction) {
+        case "activate":
+          await activateUser(
+            selectedUser.id,
+          );
+          break;
 
-    await loadUsers();
-  } catch (error) {
-    appToast.error(
-      error instanceof Error
-        ? error.message
-        : "Unable to update user.",
-    );
-  } finally {
-    setSubmitting(false);
+        case "deactivate":
+          await deactivateUser(
+            selectedUser.id,
+          );
+          break;
+
+        case "restore":
+          await restoreUser(
+            selectedUser.id,
+          );
+          break;
+
+        case "approveDeletion":
+          await approveDeletion(
+            selectedUser.id,
+          );
+          break;
+
+        case "delete":
+          await deleteUser(
+            selectedUser.id,
+          );
+          break;
+      }
+
+      appToast.success(
+        "User updated successfully.",
+      );
+
+      setSelectedUser(null);
+      setPendingAction(null);
+
+      await loadUsers();
+    } catch (error) {
+      appToast.error(
+        error instanceof Error
+          ? error.message
+          : "Unable to update user.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
-}
 
-    return (
+  return (
     <>
-      <header
-        className="
-          flex
-          flex-col
-          gap-2
-        "
-      >
+<header
+  className="
+    -mt-4
+    flex
+    flex-col
+    gap-1
+    sm:-mt-5
+    sm:gap-2
+  "
+>
         <h1
           className="
-            text-3xl
+            text-xl
             font-bold
+            leading-6
+            sm:text-3xl
+            sm:leading-9
           "
           style={{
             color:
@@ -232,7 +263,11 @@ async function handleConfirmAction() {
         </h1>
 
         <p
-          className="text-sm"
+          className="
+            text-xs
+            leading-5
+            sm:text-sm
+          "
           style={{
             color:
               "var(--admin-muted)",
@@ -241,25 +276,91 @@ async function handleConfirmAction() {
           Manage user accounts, account status, and deletion requests.
         </p>
 
-        <p
-          className="text-sm"
-          style={{
-            color:
-              "var(--admin-muted)",
-          }}
-        >
-          Total Users: {totalUsers}
-        </p>
+<p
+  className="
+    inline-flex
+    w-fit
+    items-center
+    gap-1.5
+    rounded-md
+    border
+    px-2
+    py-0.5
+    text-[11px]
+    leading-4
+    sm:gap-2
+    sm:rounded-lg
+    sm:px-2.5
+    sm:py-1
+    sm:text-xs
+  "
+  style={{
+    background:
+      "var(--admin-input-bg)",
+    borderColor:
+      "var(--admin-card-border)",
+  }}
+>
+  <span
+    className="
+      font-medium
+    "
+    style={{
+      color:
+        "var(--admin-muted)",
+    }}
+  >
+    Total {role === "ADMIN"
+      ? "Admins"
+      : "Users"}:
+  </span>
+
+  <span
+    className="
+      flex
+      h-4
+      min-w-4
+      items-center
+      justify-center
+      rounded-full
+      px-1
+      text-[9px]
+      font-bold
+      leading-none
+      tabular-nums
+      sm:h-5
+      sm:min-w-5
+      sm:px-1.5
+      sm:text-[10px]
+    "
+    style={{
+      background:
+        "var(--admin-table-header-bg)",
+      border:
+        "1px solid var(--admin-card-border)",
+      color:
+        "var(--admin-table-title)",
+      boxShadow:
+        "0 1px 3px var(--admin-card-shadow)",
+    }}
+  >
+    {totalUsers}
+  </span>
+</p>
       </header>
 
       <UserFilters
         search={search}
         status={status}
+        role={role}
         onSearchChange={
           handleSearchChange
         }
         onStatusChange={
           handleStatusChange
+        }
+        onRoleChange={
+          handleRoleChange
         }
       />
 
@@ -269,6 +370,9 @@ async function handleConfirmAction() {
         onAction={
           handleUserAction
         }
+        onRoleChange={
+          handleRoleChangeAfterUpdate
+        }
       />
 
       <footer
@@ -276,7 +380,8 @@ async function handleConfirmAction() {
           flex
           items-center
           justify-between
-          gap-4
+          gap-2
+          sm:gap-4
         "
       >
         <button
@@ -295,15 +400,19 @@ async function handleConfirmAction() {
             loading
           }
           className="
-            rounded-xl
+            h-8
+            rounded-lg
             border
-            px-4
-            py-2
-            text-sm
+            px-3
+            text-[11px]
             font-medium
             transition
             disabled:cursor-not-allowed
             disabled:opacity-50
+            sm:h-9
+            sm:rounded-xl
+            sm:px-4
+            sm:text-sm
           "
           style={{
             background:
@@ -318,77 +427,85 @@ async function handleConfirmAction() {
         </button>
 
         <span
-          className="text-sm"
+          className="
+            whitespace-nowrap
+            text-[11px]
+            sm:text-sm
+          "
           style={{
             color:
               "var(--admin-muted)",
           }}
         >
-          Page {page} of{" "}
-          {totalPages}
+          Page {page} of {totalPages}
         </span>
 
-        <button
-          type="button"
-          onClick={() =>
-            setPage(
-              (current) =>
-                Math.min(
-                  totalPages,
-                  current + 1,
-                ),
-            )
-          }
-          disabled={
-            page >=
-              totalPages ||
-            loading
-          }
-          className="
-            rounded-xl
-            border
-            px-4
-            py-2
-            text-sm
-            font-medium
-            transition
-            disabled:cursor-not-allowed
-            disabled:opacity-50
-          "
-          style={{
-            background:
-              "var(--admin-button-primary-bg)",
-            color:
-              "var(--admin-button-primary-text)",
-            borderColor:
-              "transparent",
-          }}
-        >
-          Next
-        </button>
+<button
+  type="button"
+  onClick={() =>
+    setPage(
+      (current) =>
+        Math.min(
+          totalPages,
+          current + 1,
+        ),
+    )
+  }
+  disabled={
+    page >=
+      totalPages ||
+    loading
+  }
+  className="
+    h-8
+    rounded-lg
+    border
+    px-3
+    text-[11px]
+    font-medium
+    transition
+    disabled:cursor-not-allowed
+    disabled:opacity-50
+    sm:h-9
+    sm:rounded-xl
+    sm:px-4
+    sm:text-sm
+  "
+  style={{
+    background:
+      "var(--admin-table-header-bg)",
+    color:
+      "var(--admin-table-title)",
+    borderColor:
+      "var(--admin-card-border)",
+    boxShadow:
+      "0 1px 3px var(--admin-card-shadow)",
+  }}
+>
+  Next
+</button>
       </footer>
 
-<UserActionModal
-  open={
-    selectedUser !== null &&
-    pendingAction !== null
-  }
-  user={selectedUser}
-  action={pendingAction}
-  loading={submitting}
-  onClose={() => {
-    if (submitting) {
-      return;
-    }
+      <UserActionModal
+        open={
+          selectedUser !== null &&
+          pendingAction !== null
+        }
+        user={selectedUser}
+        action={pendingAction}
+        loading={submitting}
+        onClose={() => {
+          if (submitting) {
+            return;
+          }
 
-    setSelectedUser(null);
-    setPendingAction(null);
-  }}
-  onConfirm={
-    handleConfirmAction
-  }
-/>
+          setSelectedUser(null);
+          setPendingAction(null);
+        }}
+        onConfirm={
+          handleConfirmAction
+        }
+      />
     </>
-
   );
 }

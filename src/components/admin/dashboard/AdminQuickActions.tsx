@@ -37,36 +37,42 @@ export default function AdminQuickActions() {
   return (
     <section
       className="
-        rounded-[var(--admin-card-radius)]
+        rounded-lg
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
-        p-[var(--admin-card-padding)]
+        p-2.5
         shadow-[var(--admin-card-shadow)]
+        sm:rounded-[var(--admin-card-radius)]
+        sm:p-[var(--admin-card-padding)]
       "
     >
       <div
         className="
-          mb-4
+          mb-2.5
           flex
           items-center
           justify-between
+          sm:mb-4
         "
       >
         <h2
           className="
-            text-[15px]
+            text-[12px]
             font-semibold
             text-[var(--admin-title)]
+            sm:text-[15px]
           "
         >
           Quick Actions
         </h2>
 
         <ArrowRight
-          size={16}
+          size={12}
           className="
             text-[var(--admin-muted)]
+            sm:h-4
+            sm:w-4
           "
         />
       </div>
@@ -75,7 +81,8 @@ export default function AdminQuickActions() {
         className="
           grid
           grid-cols-2
-          gap-3
+          gap-1.5
+          sm:gap-3
         "
       >
         {actions.map((action) => {
@@ -88,43 +95,53 @@ export default function AdminQuickActions() {
               className="
                 flex
                 items-center
-                gap-3
-                rounded-[var(--admin-surface-radius)]
+                gap-1.5
+                rounded-md
                 border
                 border-[var(--admin-surface-border)]
                 bg-[var(--admin-surface-bg)]
-                p-3
+                p-2
                 transition-all
                 duration-[var(--admin-transition)]
                 hover:border-[var(--admin-primary)]
+                sm:gap-3
+                sm:rounded-[var(--admin-surface-radius)]
+                sm:p-3
               "
             >
               <div
                 className="
                   flex
-                  h-9
-                  w-9
+                  h-7
+                  w-7
+                  shrink-0
                   items-center
                   justify-center
                   rounded-full
                   border
                   border-[var(--admin-stat-border)]
                   bg-[var(--admin-stat-bg)]
+                  sm:h-9
+                  sm:w-9
                 "
               >
                 <Icon
-                  size={16}
+                  size={12}
                   className="
                     text-[var(--admin-primary)]
+                    sm:h-4
+                    sm:w-4
                   "
                 />
               </div>
 
               <span
                 className="
-                  text-[13px]
+                  truncate
+                  text-[9px]
                   font-medium
                   text-[var(--admin-text)]
+                  sm:text-[13px]
                 "
               >
                 {action.label}

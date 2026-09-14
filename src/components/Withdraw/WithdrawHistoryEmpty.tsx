@@ -9,67 +9,53 @@ export default function WithdrawHistoryEmpty() {
     <div
       className="
         flex
-
         flex-col
-
         items-center
-
         justify-center
-
         rounded-[var(--withdraw-history-empty-radius)]
-
         border
-
         border-[var(--withdraw-history-empty-border)]
-
         bg-[var(--withdraw-history-empty-bg)]
-
-        p-[var(--withdraw-history-empty-padding)]
-
+        p-5
         text-center
-
         shadow-[var(--withdraw-history-empty-shadow)]
-
         transition-all
-
         duration-[var(--withdraw-history-empty-transition)]
+        sm:p-[var(--withdraw-history-empty-padding)]
       "
     >
       <div
         className="
           flex
-
-          h-12
-
-          w-12
-
+          h-10
+          w-10
           items-center
-
           justify-center
-
           rounded-full
-
           bg-[var(--withdraw-history-empty-icon-bg)]
+          sm:h-12
+          sm:w-12
         "
       >
         <Wallet
-          size={22}
+          size={18}
           strokeWidth={2}
           className="
             text-[var(--withdraw-history-empty-icon-color)]
+            sm:h-[22px]
+            sm:w-[22px]
           "
         />
       </div>
 
       <h3
         className="
-          mt-4
-
-          text-[16px]
-
+          mt-3
+          text-[14px]
           font-bold
-
           text-[var(--withdraw-history-empty-title)]
+          sm:mt-4
+          sm:text-[16px]
         "
       >
         No Withdrawals Yet
@@ -77,15 +63,14 @@ export default function WithdrawHistoryEmpty() {
 
       <p
         className="
-          mt-2
-
+          mt-1.5
           max-w-sm
-
-          text-[12px]
-
-          leading-6
-
+          text-[10px]
+          leading-5
           text-[var(--withdraw-history-empty-text)]
+          sm:mt-2
+          sm:text-[12px]
+          sm:leading-6
         "
       >
         Your withdrawal transactions will

@@ -31,28 +31,20 @@ export default function WithdrawalCard({
     return (
       <div
         className="
-          rounded-xl
-
+          rounded-lg
           border
-
           border-[var(--admin-border)]
-
           bg-[var(--admin-card-bg)]
-
-          p-4
-
+          p-2.5
           shadow-sm
         "
       >
         <div
           className="
             flex
-
             items-start
-
             justify-between
-
-            gap-4
+            gap-2
           "
         >
           <div
@@ -63,11 +55,8 @@ export default function WithdrawalCard({
             <p
               className="
                 truncate
-
-                text-sm
-
+                text-[11px]
                 font-semibold
-
                 text-[var(--admin-foreground)]
               "
             >
@@ -76,27 +65,23 @@ export default function WithdrawalCard({
 
             <p
               className="
-                mt-1
-
-                text-xs
-
+                mt-0.5
+                text-[9px]
                 text-[var(--admin-muted-foreground)]
               "
             >
               {[
-  withdrawal.user.firstName,
-  withdrawal.user.lastName,
-]
-  .filter(Boolean)
-  .join(" ")}
+                withdrawal.user.firstName,
+                withdrawal.user.lastName,
+              ]
+                .filter(Boolean)
+                .join(" ")}
             </p>
 
             <p
               className="
-                mt-1
-
-                text-xs
-
+                mt-0.5
+                text-[9px]
                 text-[var(--admin-muted-foreground)]
               "
             >
@@ -113,22 +98,17 @@ export default function WithdrawalCard({
 
         <div
           className="
-            mt-5
-
+            mt-2.5
             grid
-
             grid-cols-2
-
-            gap-4
-
-            text-sm
+            gap-2
+            text-[10px]
           "
         >
           <div>
             <p
               className="
-                text-xs
-
+                text-[8px]
                 text-[var(--admin-muted-foreground)]
               "
             >
@@ -137,10 +117,9 @@ export default function WithdrawalCard({
 
             <p
               className="
-                mt-1
-
+                mt-0.5
+                text-[10px]
                 font-semibold
-
                 text-[var(--admin-foreground)]
               "
             >
@@ -153,8 +132,7 @@ export default function WithdrawalCard({
           <div>
             <p
               className="
-                text-xs
-
+                text-[8px]
                 text-[var(--admin-muted-foreground)]
               "
             >
@@ -163,10 +141,9 @@ export default function WithdrawalCard({
 
             <p
               className="
-                mt-1
-
+                mt-0.5
+                text-[9px]
                 font-medium
-
                 text-[var(--admin-foreground)]
               "
             >
@@ -185,41 +162,27 @@ export default function WithdrawalCard({
             )
           }
           className="
-            mt-5
-
+            mt-2.5
             flex
-
+            h-7
             w-full
-
             items-center
-
             justify-center
-
-            gap-2
-
-            rounded-lg
-
+            gap-1
+            rounded-md
             bg-[var(--admin-primary)]
-
-            px-4
-
-            py-2.5
-
-            text-sm
-
+            px-2.5
+            text-[9px]
             font-semibold
-
             text-[var(--admin-primary-foreground)]
-
             transition-opacity
-
             hover:opacity-90
           "
         >
           Review
 
           <ArrowRight
-            size={16}
+            size={12}
           />
         </button>
       </div>
@@ -230,23 +193,19 @@ export default function WithdrawalCard({
     <tr
       className="
         transition-colors
-
         hover:bg-[var(--admin-muted-bg)]
       "
     >
       <td
         className="
           whitespace-nowrap
-
           px-6
-
           py-5
         "
       >
         <p
           className="
             font-semibold
-
             text-[var(--admin-foreground)]
           "
         >
@@ -257,7 +216,6 @@ export default function WithdrawalCard({
       <td
         className="
           px-6
-
           py-5
         "
       >
@@ -265,24 +223,21 @@ export default function WithdrawalCard({
           <p
             className="
               font-medium
-
               text-[var(--admin-foreground)]
             "
           >
             {[
-  withdrawal.user.firstName,
-  withdrawal.user.lastName,
-]
-  .filter(Boolean)
-  .join(" ")}
+              withdrawal.user.firstName,
+              withdrawal.user.lastName,
+            ]
+              .filter(Boolean)
+              .join(" ")}
           </p>
 
           <p
             className="
               mt-1
-
               text-xs
-
               text-[var(--admin-muted-foreground)]
             "
           >
@@ -294,7 +249,6 @@ export default function WithdrawalCard({
       <td
         className="
           px-6
-
           py-5
         "
       >
@@ -302,7 +256,6 @@ export default function WithdrawalCard({
           <p
             className="
               font-medium
-
               text-[var(--admin-foreground)]
             "
           >
@@ -312,9 +265,7 @@ export default function WithdrawalCard({
           <p
             className="
               mt-1
-
               text-xs
-
               text-[var(--admin-muted-foreground)]
             "
           >
@@ -326,13 +277,9 @@ export default function WithdrawalCard({
       <td
         className="
           whitespace-nowrap
-
           px-6
-
           py-5
-
           font-semibold
-
           text-[var(--admin-foreground)]
         "
       >
@@ -344,9 +291,7 @@ export default function WithdrawalCard({
       <td
         className="
           whitespace-nowrap
-
           px-6
-
           py-5
         "
       >
@@ -360,13 +305,9 @@ export default function WithdrawalCard({
       <td
         className="
           whitespace-nowrap
-
           px-6
-
           py-5
-
           text-sm
-
           text-[var(--admin-muted-foreground)]
         "
       >
@@ -376,11 +317,8 @@ export default function WithdrawalCard({
       <td
         className="
           whitespace-nowrap
-
           px-6
-
           py-5
-
           text-right
         "
       >
@@ -393,31 +331,18 @@ export default function WithdrawalCard({
           }
           className="
             inline-flex
-
             items-center
-
             gap-2
-
             rounded-lg
-
             border
-
             border-[var(--admin-border)]
-
             px-3
-
             py-2
-
             text-sm
-
             font-semibold
-
             text-[var(--admin-foreground)]
-
             transition-all
-
             hover:border-[var(--admin-primary)]
-
             hover:text-[var(--admin-primary)]
           "
         >

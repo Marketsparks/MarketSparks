@@ -47,7 +47,8 @@ export default function DashboardBreadcrumb({
 
         border-[var(--dashboard-breadcrumb-border)]
 
-        mb-[var(--dashboard-breadcrumb-margin-bottom)]
+        mb-3
+        sm:mb-[var(--dashboard-breadcrumb-margin-bottom)]
 
         bg-[var(--dashboard-breadcrumb-bg)]
 

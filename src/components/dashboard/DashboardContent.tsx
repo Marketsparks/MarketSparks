@@ -19,12 +19,11 @@ export default function UserContent({
       className={cn(
         `
           flex-1
-
-          pb-28
-
+          pb-20
+          sm:pb-28
           lg:pb-32
         `,
-        className
+        className,
       )}
     >
       {children}

@@ -243,14 +243,16 @@ export default function AddressForm({
         handleSubmit
       }
       className="
-        space-y-3
+        space-y-2.5
+        sm:space-y-3
       "
     >
       <div
         className="
           grid
-          gap-3
+          gap-2.5
           sm:grid-cols-2
+          sm:gap-3
         "
       >
         <Field
@@ -349,8 +351,9 @@ export default function AddressForm({
       <div
         className="
           grid
-          gap-3
+          gap-2.5
           sm:grid-cols-2
+          sm:gap-3
         "
       >
         <Field
@@ -393,8 +396,9 @@ export default function AddressForm({
       <div
         className="
           grid
-          gap-3
+          gap-2.5
           sm:grid-cols-2
+          sm:gap-3
         "
       >
         <Field
@@ -439,13 +443,16 @@ export default function AddressForm({
           flex
           cursor-pointer
           items-center
-          gap-2.5
+          gap-2
           rounded-lg
           border
           border-[var(--user-card-border)]
           bg-[var(--user-stat-bg)]
-          px-3
-          py-2.5
+          px-2.5
+          py-2
+          sm:gap-2.5
+          sm:px-3
+          sm:py-2.5
         "
       >
         <input
@@ -474,9 +481,10 @@ export default function AddressForm({
 
         <span
           className="
-            text-xs
+            text-[10px]
             font-medium
             text-[var(--user-title)]
+            sm:text-xs
           "
         >
           Make this my primary
@@ -487,9 +495,11 @@ export default function AddressForm({
       {error && (
         <p
           className="
-            text-xs
-            leading-5
+            text-[10px]
+            leading-4
             text-[var(--user-badge-danger-text)]
+            sm:text-xs
+            sm:leading-5
           "
         >
           {error}
@@ -500,8 +510,10 @@ export default function AddressForm({
         className="
           flex
           justify-end
-          gap-2
-          pt-1
+          gap-1.5
+          pt-0.5
+          sm:gap-2
+          sm:pt-1
         "
       >
         {onCancel && (
@@ -514,18 +526,21 @@ export default function AddressForm({
               onCancel
             }
             className="
-              h-9
+              h-8
               rounded-lg
               border
               border-[var(--user-card-border)]
-              px-3
-              text-xs
+              px-2.5
+              text-[10px]
               font-medium
               text-[var(--user-title)]
               transition
               hover:border-[var(--primary)]
               disabled:cursor-not-allowed
               disabled:opacity-50
+              sm:h-9
+              sm:px-3
+              sm:text-xs
             "
           >
             Cancel
@@ -541,7 +556,7 @@ export default function AddressForm({
           className="
             relative
             inline-flex
-            h-9
+            h-8
             items-center
             justify-center
             overflow-hidden
@@ -551,32 +566,37 @@ export default function AddressForm({
             bg-gradient-to-r
             from-[#6D63FF]
             to-[#5A4FFF]
-            px-5
-            text-xs
+            px-4
+            text-[10px]
             font-medium
             text-white
-            shadow-[0_8px_24px_rgba(90,79,255,0.35)]
+            shadow-[0_6px_18px_rgba(90,79,255,0.3)]
             transition-all
             duration-300
             hover:-translate-y-0.5
-            hover:shadow-[0_12px_30px_rgba(90,79,255,0.45)]
+            hover:shadow-[0_10px_26px_rgba(90,79,255,0.4)]
             active:translate-y-0
             active:scale-[0.98]
             disabled:cursor-not-allowed
             disabled:opacity-50
             disabled:hover:translate-y-0
-            disabled:hover:shadow-[0_8px_24px_rgba(90,79,255,0.35)]
+            disabled:hover:shadow-[0_6px_18px_rgba(90,79,255,0.3)]
+            sm:h-9
+            sm:px-5
+            sm:text-xs
+            sm:shadow-[0_8px_24px_rgba(90,79,255,0.35)]
+            sm:disabled:hover:shadow-[0_8px_24px_rgba(90,79,255,0.35)]
           "
         >
           <span
             className="
               absolute
               inset-0
+              -translate-x-full
               bg-gradient-to-r
               from-transparent
               via-white/15
               to-transparent
-              -translate-x-full
               transition-transform
               duration-700
               group-hover:translate-x-full
@@ -589,13 +609,14 @@ export default function AddressForm({
               z-10
               inline-flex
               items-center
-              gap-2
+              gap-1.5
+              sm:gap-2
             "
           >
             {submitting ? (
               <>
                 <Loader2
-                  size={14}
+                  size={13}
                   className="animate-spin"
                 />
 
@@ -644,11 +665,13 @@ function Field({
     <div className="min-w-0">
       <label
         className="
-          mb-1.5
+          mb-1
           block
-          text-[10px]
+          text-[9px]
           font-medium
           text-[var(--user-text-muted)]
+          sm:mb-1.5
+          sm:text-[10px]
         "
       >
         {label}
@@ -682,20 +705,23 @@ function Field({
           )
         }
         className="
-          h-9
+          h-8
           w-full
           rounded-lg
           border
           border-[var(--user-card-border)]
           bg-[var(--user-card-bg)]
-          px-3
-          text-xs
+          px-2.5
+          text-[10px]
           text-[var(--user-title)]
           outline-none
           placeholder:text-[var(--user-text-muted)]
           focus:border-[var(--primary)]
           disabled:cursor-not-allowed
           disabled:opacity-60
+          sm:h-9
+          sm:px-3
+          sm:text-xs
         "
       />
     </div>

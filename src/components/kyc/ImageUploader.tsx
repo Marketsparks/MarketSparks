@@ -41,15 +41,17 @@ export default function ImageUploader({
   return (
     <div
       className="
-        space-y-2
+        space-y-1.5
+        sm:space-y-2
       "
     >
       <div>
         <h3
           className="
-            text-sm
+            text-[11px]
             font-semibold
             text-[var(--user-title)]
+            sm:text-sm
           "
         >
           {label}
@@ -69,9 +71,13 @@ export default function ImageUploader({
         {description && (
           <p
             className="
-              mt-1
-              text-xs
+              mt-0.5
+              text-[9px]
+              leading-4
               text-[var(--user-text-muted)]
+              sm:mt-1
+              sm:text-xs
+              sm:leading-normal
             "
           >
             {description}
@@ -84,20 +90,21 @@ export default function ImageUploader({
           className="
             relative
             overflow-hidden
-            rounded-xl
+            rounded-lg
             border
             border-[var(--user-card-border)]
             bg-[var(--user-card-bg)]
+            sm:rounded-xl
           "
         >
           <div
             className="
               relative
-              h-36
+              h-28
+              w-full
               sm:h-40
               md:h-44
               lg:h-48
-              w-full
             "
           >
             <Image
@@ -113,11 +120,11 @@ export default function ImageUploader({
             onClick={onRemove}
             className="
               absolute
-              right-2
-              top-2
+              right-1.5
+              top-1.5
               flex
-              h-8
-              w-8
+              h-7
+              w-7
               items-center
               justify-center
               rounded-full
@@ -126,34 +133,46 @@ export default function ImageUploader({
               transition-colors
               duration-[var(--user-transition)]
               hover:bg-[var(--user-danger-hover)]
+              sm:right-2
+              sm:top-2
+              sm:h-8
+              sm:w-8
             "
           >
-            <Trash2 size={16} />
+            <Trash2
+              size={14}
+              className="
+                sm:h-4
+                sm:w-4
+              "
+            />
           </button>
         </div>
       ) : (
         <label
           className="
             flex
-            h-36
-            sm:h-40
-            md:h-44
-            lg:h-48
+            h-28
             w-full
             cursor-pointer
             flex-col
             items-center
             justify-center
-            rounded-xl
+            rounded-lg
             border-2
             border-dashed
             border-[var(--user-card-border)]
             bg-[var(--user-card-bg)]
-            px-4
+            px-3
             text-center
             transition-colors
             duration-[var(--user-transition)]
             hover:border-[var(--user-input-border-focus)]
+            sm:h-40
+            sm:rounded-xl
+            sm:px-4
+            md:h-44
+            lg:h-48
           "
         >
           <input
@@ -178,19 +197,22 @@ export default function ImageUploader({
           {loading ? (
             <>
               <Loader2
-                size={22}
+                size={18}
                 className="
                   animate-spin
                   text-[var(--user-icon)]
+                  sm:h-[22px]
+                  sm:w-[22px]
                 "
               />
 
               <p
                 className="
-                  mt-2
-                  text-xs
-                  sm:text-sm
+                  mt-1.5
+                  text-[10px]
                   text-[var(--user-text)]
+                  sm:mt-2
+                  sm:text-sm
                 "
               >
                 Uploading...
@@ -201,31 +223,34 @@ export default function ImageUploader({
               <div
                 className="
                   flex
-                  h-9
-                  w-9
-                  sm:h-10
-                  sm:w-10
+                  h-8
+                  w-8
                   items-center
                   justify-center
                   rounded-full
                   bg-[var(--user-surface)]
+                  sm:h-10
+                  sm:w-10
                 "
               >
                 <ImagePlus
-                  size={18}
+                  size={16}
                   className="
                     text-[var(--user-icon)]
+                    sm:h-[18px]
+                    sm:w-[18px]
                   "
                 />
               </div>
 
               <p
                 className="
-                  mt-2
-                  text-xs
-                  sm:text-sm
+                  mt-1.5
+                  text-[10px]
                   font-medium
                   text-[var(--user-title)]
+                  sm:mt-2
+                  sm:text-sm
                 "
               >
                 Upload image
@@ -233,10 +258,11 @@ export default function ImageUploader({
 
               <p
                 className="
-                  mt-1
-                  text-[10px]
-                  sm:text-xs
+                  mt-0.5
+                  text-[8px]
                   text-[var(--user-text-muted)]
+                  sm:mt-1
+                  sm:text-xs
                 "
               >
                 PNG • JPG • WEBP

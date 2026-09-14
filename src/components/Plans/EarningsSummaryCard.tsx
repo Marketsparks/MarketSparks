@@ -14,9 +14,11 @@ export default function EarningsSummaryCard({
   return (
     <section
       className="
-        rounded-[var(--user-radius-md)]
+        rounded-lg
         border
-        p-4
+        p-3
+        sm:rounded-[var(--user-radius-md)]
+        sm:p-4
       "
       style={{
         background:
@@ -27,9 +29,18 @@ export default function EarningsSummaryCard({
           "var(--user-card-shadow)",
       }}
     >
-      <div className="mb-4">
+      <div
+        className="
+          mb-2.5
+          sm:mb-4
+        "
+      >
         <h2
-          className="text-base font-semibold"
+          className="
+            text-sm
+            font-semibold
+            sm:text-base
+          "
           style={{
             color:
               "var(--user-title)",
@@ -39,7 +50,14 @@ export default function EarningsSummaryCard({
         </h2>
 
         <p
-          className="mt-1 text-xs"
+          className="
+            mt-0.5
+            text-[10px]
+            leading-4
+            sm:mt-1
+            sm:text-xs
+            sm:leading-normal
+          "
           style={{
             color:
               "var(--user-text-muted)",
@@ -49,7 +67,15 @@ export default function EarningsSummaryCard({
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div
+        className="
+          grid
+          grid-cols-2
+          gap-1.5
+          lg:grid-cols-4
+          lg:gap-3
+        "
+      >
         <Metric
           label="Published"
           value={overview.totalPublishedProducts.toLocaleString()}
@@ -86,10 +112,13 @@ function Metric({
   return (
     <div
       className="
-        rounded-[var(--user-radius-sm)]
+        rounded-lg
         border
-        px-3
-        py-3
+        px-2
+        py-2
+        sm:rounded-[var(--user-radius-sm)]
+        sm:px-3
+        sm:py-3
       "
       style={{
         background:
@@ -99,7 +128,10 @@ function Metric({
       }}
     >
       <p
-        className="text-[11px]"
+        className="
+          text-[9px]
+          sm:text-[11px]
+        "
         style={{
           color:
             "var(--user-text-muted)",
@@ -109,7 +141,14 @@ function Metric({
       </p>
 
       <p
-        className="mt-1 truncate text-sm font-semibold"
+        className="
+          mt-0.5
+          truncate
+          text-[11px]
+          font-semibold
+          sm:mt-1
+          sm:text-sm
+        "
         style={{
           color:
             "var(--user-title)",

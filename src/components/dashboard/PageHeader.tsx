@@ -24,21 +24,23 @@ export default function PageHeader({
     <header
       className={cn(
         `
-          mb-6
+          mb-4
           flex
           flex-col
-          gap-3
+          gap-2.5
+          sm:mb-6
           sm:flex-row
           sm:items-end
           sm:justify-between
+          sm:gap-3
         `,
         className,
       )}
     >
-      <div>
+      <div className="min-w-0">
         <h1
           className="
-            text-[22px]
+            text-[18px]
             font-bold
             leading-tight
             tracking-[-0.04em]
@@ -53,11 +55,14 @@ export default function PageHeader({
         {description && (
           <p
             className="
-              mt-2
+              mt-1
               max-w-md
-              text-[15px]
-              leading-6
+              text-[12px]
+              leading-5
               text-[var(--foreground-muted)]
+              sm:mt-2
+              sm:text-[15px]
+              sm:leading-6
             "
           >
             {description}

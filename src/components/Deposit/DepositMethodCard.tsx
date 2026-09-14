@@ -30,98 +30,92 @@ export default function DepositMethodCard({
   const [copied, setCopied] =
     useState(false);
 
-async function handleCopy() {
-  try {
-    if (
-      navigator.clipboard &&
-      window.isSecureContext
-    ) {
-      try {
-        await navigator.clipboard.writeText(
-          method.address
-        );
+  async function handleCopy() {
+    try {
+      if (
+        navigator.clipboard &&
+        window.isSecureContext
+      ) {
+        try {
+          await navigator.clipboard.writeText(
+            method.address
+          );
 
-        setCopied(true);
+          setCopied(true);
 
-        setTimeout(() => {
-          setCopied(false);
-        }, 2000);
+          setTimeout(() => {
+            setCopied(false);
+          }, 2000);
 
-        return;
-      } catch {
-        // Clipboard API unavailable or blocked.
-        // Fall back to the legacy copy method.
+          return;
+        } catch {
+          // Clipboard API unavailable or blocked.
+          // Fall back to the legacy copy method.
+        }
       }
-    }
 
-    const textarea =
-      document.createElement("textarea");
+      const textarea =
+        document.createElement("textarea");
 
-    textarea.value =
-      method.address;
+      textarea.value =
+        method.address;
 
-    textarea.style.position =
-      "fixed";
+      textarea.style.position =
+        "fixed";
 
-    textarea.style.opacity = "0";
+      textarea.style.opacity =
+        "0";
 
-    textarea.style.pointerEvents =
-      "none";
+      textarea.style.pointerEvents =
+        "none";
 
-    document.body.appendChild(
-      textarea
-    );
+      document.body.appendChild(
+        textarea
+      );
 
-    textarea.focus();
+      textarea.focus();
 
-    textarea.select();
+      textarea.select();
 
-    const copied =
-      document.execCommand("copy");
+      const copied =
+        document.execCommand("copy");
 
-    document.body.removeChild(
-      textarea
-    );
+      document.body.removeChild(
+        textarea
+      );
 
-    if (!copied) {
-      throw new Error(
-        "Copy command failed"
+      if (!copied) {
+        throw new Error(
+          "Copy command failed"
+        );
+      }
+
+      setCopied(true);
+
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch (error) {
+      console.error(
+        "Failed to copy wallet address:",
+        error
       );
     }
-
-    setCopied(true);
-
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
-  } catch (error) {
-    console.error(
-      "Failed to copy wallet address:",
-      error
-    );
   }
-}
 
   return (
     <section
       className="
-        mt-6
-
+        mt-4
         overflow-hidden
-
         rounded-[var(--deposit-method-card-radius)]
-
         border
-
         border-[var(--deposit-method-card-border)]
-
         bg-[var(--deposit-method-card-bg)]
-
         shadow-[var(--deposit-method-card-shadow)]
-
         transition-all
-
         duration-[var(--deposit-method-card-transition)]
+        sm:mt-6
       "
     >
       {/* Method Header */}
@@ -129,52 +123,40 @@ async function handleCopy() {
       <div
         className="
           flex
-
           flex-col
-
-          gap-4
-
-          p-[var(--deposit-method-card-padding)]
-
+          gap-2.5
+          p-3
           sm:flex-row
-
           sm:items-center
-
           sm:justify-between
+          sm:gap-4
+          sm:p-[var(--deposit-method-card-padding)]
         "
       >
         <div
           className="
             flex
-
             min-w-0
-
             items-center
-
-            gap-4
+            gap-2.5
+            sm:gap-4
           "
         >
           <div
             className="
               relative
-
               flex
-
-              h-14
-
-              w-14
-
+              h-10
+              w-10
               shrink-0
-
               items-center
-
               justify-center
-
               overflow-hidden
-
-              rounded-2xl
-
+              rounded-xl
               bg-[var(--deposit-method-card-icon-bg)]
+              sm:h-14
+              sm:w-14
+              sm:rounded-2xl
             "
           >
             <Image
@@ -184,8 +166,8 @@ async function handleCopy() {
               sizes="56px"
               className="
                 object-contain
-
-                p-2
+                p-1.5
+                sm:p-2
               "
             />
           </div>
@@ -197,11 +179,11 @@ async function handleCopy() {
           >
             <h3
               className="
-                text-[18px]
-
+                truncate
+                text-[13px]
                 font-bold
-
                 text-[var(--deposit-method-card-title)]
+                sm:text-[18px]
               "
             >
               {method.name}
@@ -209,11 +191,11 @@ async function handleCopy() {
 
             <p
               className="
-                mt-1
-
-                text-[14px]
-
+                mt-0.5
+                text-[10px]
                 text-[var(--deposit-method-card-subtitle)]
+                sm:mt-1
+                sm:text-[14px]
               "
             >
               {method.symbol}
@@ -224,24 +206,18 @@ async function handleCopy() {
         <div
           className="
             self-start
-
             rounded-full
-
             border
-
             border-[var(--deposit-method-card-border)]
-
-            px-3
-
-            py-1.5
-
-            text-xs
-
+            px-2
+            py-1
+            text-[9px]
             font-medium
-
             text-[var(--deposit-method-card-subtitle)]
-
             sm:self-auto
+            sm:px-3
+            sm:py-1.5
+            sm:text-xs
           "
         >
           {method.symbol} Network
@@ -253,14 +229,12 @@ async function handleCopy() {
       <div
         className="
           border-t
-
           border-[var(--deposit-method-card-border)]
         "
       >
         <div
           className="
             grid
-
             lg:grid-cols-[minmax(280px,0.9fr)_1px_minmax(0,1.1fr)]
           "
         >
@@ -269,15 +243,10 @@ async function handleCopy() {
           <div
             className="
               flex
-
               flex-col
-
               items-center
-
               justify-center
-
-              p-6
-
+              p-4
               sm:p-8
             "
           >
@@ -288,11 +257,10 @@ async function handleCopy() {
             >
               <h3
                 className="
-                  text-lg
-
+                  text-[14px]
                   font-bold
-
                   text-[var(--deposit-qr-title)]
+                  sm:text-lg
                 "
               >
                 Scan QR Code
@@ -300,11 +268,13 @@ async function handleCopy() {
 
               <p
                 className="
-                  mt-2
-
-                  text-sm
-
+                  mt-1
+                  text-[10px]
+                  leading-4
                   text-[var(--deposit-qr-subtitle)]
+                  sm:mt-2
+                  sm:text-sm
+                  sm:leading-normal
                 "
               >
                 Scan using your preferred
@@ -314,13 +284,11 @@ async function handleCopy() {
 
             <div
               className="
-                mt-6
-
+                mt-3
                 flex
-
                 items-center
-
                 justify-center
+                sm:mt-6
               "
             >
               <AnimatePresence
@@ -345,12 +313,11 @@ async function handleCopy() {
                   }}
                   className="
                     overflow-hidden
-
-                    rounded-2xl
-
+                    rounded-xl
                     bg-[var(--deposit-qr-bg)]
-
-                    p-2
+                    p-1.5
+                    sm:rounded-2xl
+                    sm:p-2
                   "
                 >
                   <Image
@@ -360,16 +327,12 @@ async function handleCopy() {
                     height={220}
                     className="
                       h-[var(--deposit-qr-image-size-mobile)]
-
                       w-[var(--deposit-qr-image-size-mobile)]
-
-                      rounded-xl
-
+                      rounded-lg
                       object-contain
-
                       sm:h-[var(--deposit-qr-image-size-desktop)]
-
                       sm:w-[var(--deposit-qr-image-size-desktop)]
+                      sm:rounded-xl
                     "
                   />
                 </motion.div>
@@ -378,13 +341,12 @@ async function handleCopy() {
 
             <p
               className="
-                mt-4
-
+                mt-2.5
                 text-center
-
-                text-xs
-
+                text-[9px]
                 text-[var(--deposit-qr-subtitle)]
+                sm:mt-4
+                sm:text-xs
               "
             >
               Scan to open your wallet
@@ -396,48 +358,29 @@ async function handleCopy() {
           <div
             className="
               relative
-
               hidden
-
               w-px
-
               bg-[var(--deposit-method-card-border)]
-
               lg:block
             "
           >
             <span
               className="
                 absolute
-
                 left-1/2
-
                 top-1/2
-
                 -translate-x-1/2
-
                 -translate-y-1/2
-
                 rounded-full
-
                 border
-
                 border-[var(--deposit-method-card-border)]
-
                 bg-[var(--deposit-method-card-bg)]
-
                 px-3
-
                 py-1.5
-
                 text-[11px]
-
                 font-semibold
-
                 uppercase
-
                 tracking-[0.12em]
-
                 text-[var(--deposit-method-card-subtitle)]
               "
             >
@@ -450,24 +393,19 @@ async function handleCopy() {
           <div
             className="
               flex
-
               flex-col
-
               justify-center
-
-              p-6
-
+              p-4
               sm:p-8
             "
           >
             <div>
               <p
                 className="
-                  text-sm
-
+                  text-[11px]
                   font-semibold
-
                   text-[var(--deposit-address-title)]
+                  sm:text-sm
                 "
               >
                 Wallet Address
@@ -475,13 +413,13 @@ async function handleCopy() {
 
               <p
                 className="
-                  mt-2
-
-                  text-sm
-
-                  leading-6
-
+                  mt-1
+                  text-[10px]
+                  leading-4
                   text-[var(--deposit-address-muted)]
+                  sm:mt-2
+                  sm:text-sm
+                  sm:leading-6
                 "
               >
                 Send only {method.symbol} to
@@ -493,13 +431,11 @@ async function handleCopy() {
 
             <div
               className="
-                mt-5
-
+                mt-3
                 flex
-
                 min-w-0
-
                 items-stretch
+                sm:mt-5
               "
             >
               <motion.div
@@ -517,28 +453,21 @@ async function handleCopy() {
                 }}
                 className="
                   min-w-0
-
                   flex-1
-
                   break-all
-
-                  rounded-l-2xl
-
+                  rounded-l-lg
                   border
-
                   border-r-0
-
                   border-[var(--deposit-address-border)]
-
                   bg-[var(--deposit-address-bg)]
-
-                  p-4
-
-                  text-sm
-
-                  leading-6
-
+                  p-2.5
+                  text-[10px]
+                  leading-4
                   text-[var(--deposit-address-text)]
+                  sm:rounded-l-2xl
+                  sm:p-4
+                  sm:text-sm
+                  sm:leading-6
                 "
               >
                 {method.address}
@@ -559,41 +488,28 @@ async function handleCopy() {
                 }
                 className={`
                   flex
-
                   h-auto
-
-                  w-12
-
+                  w-9
                   shrink-0
-
                   items-center
-
                   justify-center
-
-                  rounded-r-2xl
-
+                  rounded-r-lg
                   border
-
                   border-[var(--deposit-address-copy-border)]
-
                   transition-all
-
                   duration-[var(--deposit-address-transition)]
-
+                  sm:w-12
+                  sm:rounded-r-2xl
                   ${
                     copied
                       ? `
                           bg-[var(--deposit-address-copy-success-bg)]
-
                           text-[var(--deposit-address-copy-success-text)]
                         `
                       : `
                           bg-[var(--deposit-address-copy-bg)]
-
                           text-[var(--deposit-address-copy-text)]
-
                           hover:bg-[var(--deposit-address-copy-hover)]
-
                           hover:text-[var(--deposit-address-copy-hover-text)]
                         `
                   }
@@ -625,19 +541,25 @@ async function handleCopy() {
                     }}
                     className="
                       flex
-
                       items-center
-
                       justify-center
                     "
                   >
                     {copied ? (
                       <Check
-                        size={18}
+                        size={15}
+                        className="
+                          sm:h-[18px]
+                          sm:w-[18px]
+                        "
                       />
                     ) : (
                       <Copy
-                        size={18}
+                        size={15}
+                        className="
+                          sm:h-[18px]
+                          sm:w-[18px]
+                        "
                       />
                     )}
                   </motion.span>
@@ -647,15 +569,14 @@ async function handleCopy() {
 
             <p
               className="
-                mt-4
-
+                mt-2.5
                 text-center
-
-                text-xs
-
-                leading-5
-
+                text-[9px]
+                leading-4
                 text-[var(--deposit-address-muted)]
+                sm:mt-4
+                sm:text-xs
+                sm:leading-5
               "
             >
               Only send {method.symbol} to this address. Sending any other cryptocurrency may result in permanent loss of funds.

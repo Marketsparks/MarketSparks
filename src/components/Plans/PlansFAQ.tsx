@@ -7,52 +7,38 @@ export default function PlansFAQ() {
     <section
       className="
         bg-[var(--background)]
-
-        py-16
-
+        py-10
         transition-colors
         duration-300
-
         sm:py-20
-
         lg:py-24
       "
     >
       <div
         className="
           mx-auto
-
           w-full
-
           max-w-5xl
-
-          px-5
-
+          px-3
+          sm:px-5
           lg:px-8
         "
       >
         <div
           className="
             mx-auto
-
             max-w-3xl
-
             text-center
           "
         >
           <h2
             className="
-              text-3xl
-
+              text-2xl
               font-bold
-
               leading-tight
-
               text-[var(--foreground)]
-
               transition-colors
               duration-300
-
               sm:text-4xl
             "
           >
@@ -62,21 +48,16 @@ export default function PlansFAQ() {
           <p
             className="
               mx-auto
-
-              mt-6
-
+              mt-3
               max-w-2xl
-
-              text-base
-
-              leading-8
-
+              text-[11px]
+              leading-5
               text-[var(--foreground-muted)]
-
               transition-colors
               duration-300
-
+              sm:mt-6
               sm:text-lg
+              sm:leading-8
             "
           >
             {PLANS_FAQ.description}
@@ -86,30 +67,29 @@ export default function PlansFAQ() {
         <div
           className="
             mx-auto
-
-            mt-14
-
+            mt-8
             max-w-4xl
-
-            space-y-8
+            space-y-5
+            sm:mt-14
+            sm:space-y-8
           "
         >
           <div
             className="
               border-b
-
               border-[var(--border)]
-
-              pb-8
+              pb-5
+              sm:pb-8
             "
           >
             <h3
               className="
-                text-xl
-
+                text-sm
                 font-semibold
-
+                leading-5
                 text-[var(--foreground)]
+                sm:text-xl
+                sm:leading-normal
               "
             >
               Can I upgrade my membership later?
@@ -117,13 +97,13 @@ export default function PlansFAQ() {
 
             <p
               className="
-                mt-4
-
-                text-base
-
-                leading-8
-
+                mt-2.5
+                text-[11px]
+                leading-5
                 text-[var(--foreground-muted)]
+                sm:mt-4
+                sm:text-base
+                sm:leading-8
               "
             >
               Yes. You can upgrade your membership at any time to access
@@ -134,19 +114,19 @@ export default function PlansFAQ() {
           <div
             className="
               border-b
-
               border-[var(--border)]
-
-              pb-8
+              pb-5
+              sm:pb-8
             "
           >
             <h3
               className="
-                text-xl
-
+                text-sm
                 font-semibold
-
+                leading-5
                 text-[var(--foreground)]
+                sm:text-xl
+                sm:leading-normal
               "
             >
               Are there any hidden fees?
@@ -154,13 +134,13 @@ export default function PlansFAQ() {
 
             <p
               className="
-                mt-4
-
-                text-base
-
-                leading-8
-
+                mt-2.5
+                text-[11px]
+                leading-5
                 text-[var(--foreground-muted)]
+                sm:mt-4
+                sm:text-base
+                sm:leading-8
               "
             >
               No. Our pricing is transparent. You only pay for the membership
@@ -171,19 +151,19 @@ export default function PlansFAQ() {
           <div
             className="
               border-b
-
               border-[var(--border)]
-
-              pb-8
+              pb-5
+              sm:pb-8
             "
-            >
+          >
             <h3
               className="
-                text-xl
-
+                text-sm
                 font-semibold
-
+                leading-5
                 text-[var(--foreground)]
+                sm:text-xl
+                sm:leading-normal
               "
             >
               Can I cancel my subscription?
@@ -191,13 +171,13 @@ export default function PlansFAQ() {
 
             <p
               className="
-                mt-4
-
-                text-base
-
-                leading-8
-
+                mt-2.5
+                text-[11px]
+                leading-5
                 text-[var(--foreground-muted)]
+                sm:mt-4
+                sm:text-base
+                sm:leading-8
               "
             >
               Yes. You can cancel your membership according to our Terms of
@@ -208,11 +188,12 @@ export default function PlansFAQ() {
           <div>
             <h3
               className="
-                text-xl
-
+                text-sm
                 font-semibold
-
+                leading-5
                 text-[var(--foreground)]
+                sm:text-xl
+                sm:leading-normal
               "
             >
               Which plan is best for beginners?
@@ -220,13 +201,13 @@ export default function PlansFAQ() {
 
             <p
               className="
-                mt-4
-
-                text-base
-
-                leading-8
-
+                mt-2.5
+                text-[11px]
+                leading-5
                 text-[var(--foreground-muted)]
+                sm:mt-4
+                sm:text-base
+                sm:leading-8
               "
             >
               Our Basic Plan is a great starting point for new sellers, while

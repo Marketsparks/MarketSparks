@@ -12,35 +12,48 @@ export default function EmptySessions() {
         flex-col
         items-center
         justify-center
-        rounded-[var(--user-radius-md)]
+        rounded-lg
         border
         border-dashed
         border-[var(--user-card-border)]
-        py-10
+        py-7
         text-center
+        sm:rounded-[var(--user-radius-md)]
+        sm:py-10
       "
     >
       <div
         className="
           flex
-          h-11
-          w-11
+          h-9
+          w-9
           items-center
           justify-center
           rounded-full
           bg-[var(--user-button-bg)]/10
           text-[var(--user-button-bg)]
+          sm:h-11
+          sm:w-11
         "
       >
-        <MonitorOff size={22} />
+        <MonitorOff
+          size={18}
+          className="sm:hidden"
+        />
+        <MonitorOff
+          size={22}
+          className="hidden sm:block"
+        />
       </div>
 
       <h3
         className="
-          mt-3
-          text-sm
+          mt-2.5
+          text-[12px]
           font-semibold
           text-[var(--user-title)]
+          sm:mt-3
+          sm:text-sm
         "
       >
         No Active Sessions
@@ -48,11 +61,16 @@ export default function EmptySessions() {
 
       <p
         className="
-          mt-1
+          mt-0.5
           max-w-sm
-          text-xs
-          leading-5
+          px-3
+          text-[10px]
+          leading-4
           text-[var(--user-text-muted)]
+          sm:mt-1
+          sm:px-0
+          sm:text-xs
+          sm:leading-5
         "
       >
         There are no other active sessions associated

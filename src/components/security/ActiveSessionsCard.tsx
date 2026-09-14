@@ -114,45 +114,57 @@ export default function ActiveSessionsCard() {
   return (
     <section
       className="
-        rounded-[var(--user-radius-lg)]
+        rounded-lg
         border
         border-[var(--user-card-border)]
         bg-[var(--user-card-bg)]
-        p-4
+        p-3
+        sm:rounded-[var(--user-radius-lg)]
         sm:p-5
       "
     >
       <div
         className="
-          mb-4
+          mb-3
           flex
           items-start
-          gap-3
+          gap-2.5
+          sm:mb-4
+          sm:gap-3
         "
       >
         <div
           className="
             flex
-            h-9
-            w-9
+            h-8
+            w-8
+            shrink-0
             items-center
             justify-center
             rounded-lg
             bg-[var(--user-button-bg)]/10
             text-[var(--user-button-bg)]
+            sm:h-9
+            sm:w-9
           "
         >
           <MonitorSmartphone
+            size={16}
+            className="sm:hidden"
+          />
+          <MonitorSmartphone
             size={18}
+            className="hidden sm:block"
           />
         </div>
 
-        <div>
+        <div className="min-w-0">
           <h2
             className="
-              text-sm
+              text-[12px]
               font-semibold
               text-[var(--user-title)]
+              sm:text-sm
             "
           >
             Active Sessions
@@ -160,10 +172,13 @@ export default function ActiveSessionsCard() {
 
           <p
             className="
-              mt-1
-              text-xs
-              leading-5
+              mt-0.5
+              text-[10px]
+              leading-4
               text-[var(--user-text-muted)]
+              sm:mt-1
+              sm:text-xs
+              sm:leading-5
             "
           >
             Manage devices that are currently signed
@@ -177,14 +192,25 @@ export default function ActiveSessionsCard() {
           className="
             flex
             justify-center
-            py-8
+            py-6
+            sm:py-8
           "
         >
           <Loader2
-            size={22}
+            size={18}
             className="
               animate-spin
               text-[var(--user-button-bg)]
+              sm:hidden
+            "
+          />
+          <Loader2
+            size={22}
+            className="
+              hidden
+              animate-spin
+              text-[var(--user-button-bg)]
+              sm:block
             "
           />
         </div>
@@ -193,7 +219,8 @@ export default function ActiveSessionsCard() {
       ) : (
         <div
           className="
-            space-y-3
+            space-y-2
+            sm:space-y-3
           "
         >
           {sessions.map(

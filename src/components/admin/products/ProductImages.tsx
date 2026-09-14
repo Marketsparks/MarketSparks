@@ -156,15 +156,17 @@ export default function ProductImages({
   return (
     <section
       className="
-        space-y-[var(--space-lg)]
+        space-y-3
+        sm:space-y-[var(--space-lg)]
       "
     >
       <div>
         <h3
           className="
-            text-sm
+            text-[11px]
             font-semibold
             text-[var(--admin-title)]
+            sm:text-sm
           "
         >
           Product's Primary Image
@@ -172,9 +174,13 @@ export default function ProductImages({
 
         <p
           className="
-            mt-1
-            text-xs
+            mt-0.5
+            text-[9px]
+            leading-3.5
             text-[var(--admin-muted)]
+            sm:mt-1
+            sm:text-xs
+            sm:leading-normal
           "
         >
           Upload one or more images.
@@ -183,21 +189,22 @@ export default function ProductImages({
         </p>
       </div>
 
-<div className="relative">
-<CloudinaryUploader
-  value={
-    value[0]?.imageKey ?? null
-  }
-  folder="products"
-  disabled={disabled}
-  onChange={addImage}
-/>
-</div>
+      <div className="relative">
+        <CloudinaryUploader
+          value={
+            value[0]?.imageKey ?? null
+          }
+          folder="products"
+          disabled={disabled}
+          onChange={addImage}
+        />
+      </div>
 
       {value.length > 0 && (
         <div
           className="
-            space-y-[var(--space-md)]
+            space-y-2
+            sm:space-y-[var(--space-md)]
           "
         >
           {value.map(
@@ -210,12 +217,15 @@ export default function ProductImages({
                 className="
                   flex
                   flex-col
-                  gap-[var(--space-md)]
-                  rounded-[var(--admin-surface-radius)]
+                  gap-2
+                  rounded-lg
                   border
                   border-[var(--admin-card-border)]
                   bg-[var(--admin-card-bg)]
-                  p-[var(--space-md)]
+                  p-2.5
+                  sm:gap-[var(--space-md)]
+                  sm:rounded-[var(--admin-surface-radius)]
+                  sm:p-[var(--space-md)]
                   md:flex-row
                   md:items-center
                 "
@@ -224,13 +234,16 @@ export default function ProductImages({
                   className="
                     flex
                     items-center
-                    gap-[var(--space-sm)]
+                    gap-1.5
+                    sm:gap-[var(--space-sm)]
                   "
                 >
                   <GripVertical
-                    size={16}
+                    size={13}
                     className="
                       text-[var(--admin-muted)]
+                      sm:h-4
+                      sm:w-4
                     "
                   />
 
@@ -238,12 +251,15 @@ export default function ProductImages({
                     src={`/api/image/${image.imageKey}`}
                     alt=""
                     className="
-                      h-16
-                      w-16
-                      rounded-[var(--radius-md)]
+                      h-10
+                      w-10
+                      rounded-md
                       border
                       border-[var(--admin-card-border)]
                       object-cover
+                      sm:h-16
+                      sm:w-16
+                      sm:rounded-[var(--radius-md)]
                     "
                   />
                 </div>
@@ -266,14 +282,22 @@ export default function ProductImages({
                       )
                     }
                     className="
-                      h-10
+                      h-8
                       w-full
-                      rounded-[var(--admin-input-radius)]
+                      rounded-md
                       border
                       border-[var(--admin-input-border)]
                       bg-[var(--admin-input-bg)]
-                      px-3
-                      text-sm
+                      px-2.5
+                      text-[10px]
+                      text-[var(--admin-input-text)]
+                      outline-none
+                      transition
+                      focus:border-[var(--admin-input-focus)]
+                      sm:h-10
+                      sm:rounded-[var(--admin-input-radius)]
+                      sm:px-3
+                      sm:text-sm
                     "
                   />
                 </div>
@@ -283,7 +307,8 @@ export default function ProductImages({
                     flex
                     flex-wrap
                     items-center
-                    gap-2
+                    gap-1
+                    sm:gap-2
                   "
                 >
                   <button
@@ -299,13 +324,27 @@ export default function ProductImages({
                       )
                     }
                     className="
-                      rounded
+                      inline-flex
+                      h-7
+                      min-w-7
+                      items-center
+                      justify-center
+                      rounded-md
                       border
-                      px-3
-                      py-2
-                      text-xs
+                      border-[var(--admin-card-border)]
+                      bg-[var(--admin-button-secondary-bg)]
+                      px-1.5
+                      text-[9px]
+                      text-[var(--admin-title)]
+                      transition
+                      hover:bg-[var(--admin-bg)]
                       disabled:pointer-events-none
                       disabled:opacity-50
+                      sm:h-9
+                      sm:min-w-9
+                      sm:rounded-lg
+                      sm:px-3
+                      sm:text-xs
                     "
                     aria-label="Move image up"
                   >
@@ -327,13 +366,27 @@ export default function ProductImages({
                       )
                     }
                     className="
-                      rounded
+                      inline-flex
+                      h-7
+                      min-w-7
+                      items-center
+                      justify-center
+                      rounded-md
                       border
-                      px-3
-                      py-2
-                      text-xs
+                      border-[var(--admin-card-border)]
+                      bg-[var(--admin-button-secondary-bg)]
+                      px-1.5
+                      text-[9px]
+                      text-[var(--admin-title)]
+                      transition
+                      hover:bg-[var(--admin-bg)]
                       disabled:pointer-events-none
                       disabled:opacity-50
+                      sm:h-9
+                      sm:min-w-9
+                      sm:rounded-lg
+                      sm:px-3
+                      sm:text-xs
                     "
                     aria-label="Move image down"
                   >
@@ -348,26 +401,36 @@ export default function ProductImages({
                     }
                     className={`
                       inline-flex
+                      h-7
                       items-center
                       gap-1
-                      rounded
-                      px-3
-                      py-2
-                      text-xs
+                      rounded-md
+                      px-2
+                      text-[9px]
+                      transition
+                      sm:h-9
+                      sm:gap-1
+                      sm:rounded-lg
+                      sm:px-3
+                      sm:text-xs
                       ${
                         image.isPrimary
                           ? "bg-[var(--admin-plan-active-bg)] text-[var(--admin-status-success-text)]"
-                          : "border bg-[var(--admin-button-secondary-bg)]"
+                          : "border border-[var(--admin-card-border)] bg-[var(--admin-button-secondary-bg)] text-[var(--admin-title)]"
                       }
                     `}
                   >
                     <Star
-                      size={14}
+                      size={12}
                       fill={
                         image.isPrimary
                           ? "currentColor"
                           : "none"
                       }
+                      className="
+                        sm:h-3.5
+                        sm:w-3.5
+                      "
                     />
 
                     Primary
@@ -381,16 +444,29 @@ export default function ProductImages({
                     }
                     className="
                       inline-flex
+                      h-7
+                      w-7
                       items-center
                       justify-center
-                      rounded
+                      rounded-md
                       bg-[var(--admin-button-danger-bg)]
-                      p-2
+                      p-0
                       text-[var(--admin-button-danger-text)]
+                      transition
+                      hover:opacity-90
+                      sm:h-9
+                      sm:w-9
+                      sm:rounded-lg
                     "
                     aria-label="Remove image"
                   >
-                    <Trash2 size={15} />
+                    <Trash2
+                      size={13}
+                      className="
+                        sm:h-[15px]
+                        sm:w-[15px]
+                      "
+                    />
                   </button>
                 </div>
               </div>

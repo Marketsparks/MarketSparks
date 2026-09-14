@@ -22,11 +22,11 @@ export default function WithdrawBalance({
   affiliateBalance,
   lockedBalance,
 }: WithdrawBalanceProps) {
-const totalBalance =
-  availableBalance +
-  profitBalance +
-  affiliateBalance +
-  lockedBalance;
+  const totalBalance =
+    availableBalance +
+    profitBalance +
+    affiliateBalance +
+    lockedBalance;
 
   return (
     <section
@@ -35,10 +35,11 @@ const totalBalance =
         border
         border-[var(--withdraw-balance-border)]
         bg-[var(--withdraw-balance-bg)]
-        p-[var(--withdraw-balance-padding)]
+        p-3
         shadow-[var(--withdraw-balance-shadow)]
         transition-all
         duration-[var(--withdraw-balance-transition)]
+        sm:p-[var(--withdraw-balance-padding)]
       "
     >
       <div
@@ -46,7 +47,8 @@ const totalBalance =
           flex
           items-start
           justify-between
-          gap-4
+          gap-2.5
+          sm:gap-4
         "
       >
         <div
@@ -54,69 +56,75 @@ const totalBalance =
             min-w-0
           "
         >
-<p
-  className="
-    text-[12px]
-    font-medium
-    text-[var(--withdraw-balance-label)]
-  "
->
-  Total Balance
-</p>
+          <p
+            className="
+              text-[10px]
+              font-medium
+              text-[var(--withdraw-balance-label)]
+              sm:text-[12px]
+            "
+          >
+            Total Balance
+          </p>
 
           <h2
             className="
-              mt-2
-              text-[28px]
+              mt-1.5
+              text-[24px]
               font-extrabold
               leading-none
               tracking-[-0.02em]
               text-[var(--withdraw-balance-value)]
+              sm:mt-2
               sm:text-[32px]
             "
           >
-{formatWithdrawAmount(
-  totalBalance
-)}
+            {formatWithdrawAmount(
+              totalBalance
+            )}
           </h2>
 
           <div
             className="
-              mt-4
-              space-y-1
-              text-[12px]
+              mt-3
+              space-y-1.5
+              text-[10px]
+              sm:mt-4
+              sm:space-y-1
+              sm:text-[12px]
             "
           >
+            <div
+              className="
+                flex
+                items-center
+                justify-between
+                gap-3
+                text-[var(--withdraw-balance-text)]
+                sm:gap-4
+              "
+            >
+              <span>
+                Wallet Balance
+              </span>
 
-<div
-  className="
-    flex
-    items-center
-    justify-between
-    gap-4
-    text-[var(--withdraw-balance-text)]
-  "
->
-  <span>
-    Wallet Balance
-  </span>
-
-  <span
-    className="font-medium"
-  >
-    {formatWithdrawAmount(
-      availableBalance
-    )}
-  </span>
-</div>
+              <span
+                className="font-medium"
+              >
+                {formatWithdrawAmount(
+                  availableBalance
+                )}
+              </span>
+            </div>
 
             <div
               className="
                 flex
                 items-center
                 justify-between
-                gap-4
+                gap-3
                 text-[var(--withdraw-balance-text)]
+                sm:gap-4
               "
             >
               <span>
@@ -137,8 +145,9 @@ const totalBalance =
                 flex
                 items-center
                 justify-between
-                gap-4
+                gap-3
                 text-[var(--withdraw-balance-text)]
+                sm:gap-4
               "
             >
               <span>
@@ -153,34 +162,40 @@ const totalBalance =
                 )}
               </span>
             </div>
-<div
-  className="
-    flex
-    items-center
-    justify-between
-    gap-4
-    text-[var(--withdraw-balance-text)]
-  "
->
-  <span>
-    Affiliate Balance
-  </span>
 
-  <span
-    className="font-medium"
-  >
-    {formatWithdrawAmount(
-      affiliateBalance
-    )}
-  </span>
-</div>
+            <div
+              className="
+                flex
+                items-center
+                justify-between
+                gap-3
+                text-[var(--withdraw-balance-text)]
+                sm:gap-4
+              "
+            >
+              <span>
+                Affiliate Balance
+              </span>
+
+              <span
+                className="font-medium"
+              >
+                {formatWithdrawAmount(
+                  affiliateBalance
+                )}
+              </span>
+            </div>
           </div>
 
           <p
             className="
-              mt-4
-              text-[12px]
+              mt-3
+              text-[9px]
+              leading-4
               text-[var(--withdraw-balance-text)]
+              sm:mt-4
+              sm:text-[12px]
+              sm:leading-normal
             "
           >
             Locked funds are awaiting
@@ -191,22 +206,27 @@ const totalBalance =
         <div
           className="
             flex
-            h-12
-            w-12
+            h-9
+            w-9
             shrink-0
             items-center
             justify-center
-            rounded-xl
+            rounded-lg
             bg-[var(--withdraw-balance-icon-bg)]
             text-[var(--withdraw-balance-icon-color)]
             shadow-[var(--withdraw-balance-icon-shadow)]
             sm:h-14
             sm:w-14
+            sm:rounded-xl
           "
         >
           <Wallet
-            size={24}
+            size={18}
             strokeWidth={2}
+            className="
+              sm:h-6
+              sm:w-6
+            "
           />
         </div>
       </div>

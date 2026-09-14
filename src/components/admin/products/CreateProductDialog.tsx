@@ -86,20 +86,25 @@ export default function CreateProductDialog({
             flex
             items-center
             justify-between
+            gap-3
             border-b
             border-[var(--admin-card-border)]
             bg-[var(--admin-card-bg)]
-            px-6
-            py-5
+            px-3
+            py-2.5
+            sm:px-6
+            sm:py-5
           "
         >
-          <div>
+          <div className="min-w-0">
             <h2
               id="create-product-title"
               className="
-                text-xl
+                truncate
+                text-[13px]
                 font-semibold
                 text-[var(--admin-title)]
+                sm:text-xl
               "
             >
               Create Product
@@ -107,9 +112,13 @@ export default function CreateProductDialog({
 
             <p
               className="
-                mt-1
-                text-sm
+                mt-0.5
+                text-[9px]
+                leading-3.5
                 text-[var(--admin-muted)]
+                sm:mt-1
+                sm:text-sm
+                sm:leading-normal
               "
             >
               Add a new product to your marketplace.
@@ -120,10 +129,13 @@ export default function CreateProductDialog({
             type="button"
             onClick={onClose}
             disabled={loading}
+            aria-label="Close create product dialog"
+            title="Close"
             className="
               flex
-              h-10
-              w-10
+              h-7
+              w-7
+              shrink-0
               items-center
               justify-center
               rounded-full
@@ -133,9 +145,17 @@ export default function CreateProductDialog({
               hover:text-[var(--admin-title)]
               disabled:pointer-events-none
               disabled:opacity-50
+              sm:h-10
+              sm:w-10
             "
           >
-            <X size={20} />
+            <X
+              size={15}
+              className="
+                sm:h-5
+                sm:w-5
+              "
+            />
           </button>
         </header>
 
@@ -143,9 +163,10 @@ export default function CreateProductDialog({
           className="
             flex-1
             overflow-y-auto
-            px-5
-            py-6
+            px-3
+            py-3.5
             sm:px-8
+            sm:py-6
           "
         >
           <ProductForm

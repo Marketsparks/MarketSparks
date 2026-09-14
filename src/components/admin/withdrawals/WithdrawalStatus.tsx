@@ -60,37 +60,22 @@ export default function WithdrawalStatus({
     <span
       className={`
         inline-flex
-
         items-center
-
         justify-center
-
-        rounded-full
-
-        border
-
-        px-2.5
-
-        py-1
-
-        text-[11px]
-
-        font-semibold
-
-        uppercase
-
-        tracking-[0.04em]
-
         whitespace-nowrap
-
+        rounded-full
+        border
+        px-1.5
+        py-0.5
+        text-[8px]
+        font-semibold
+        uppercase
+        tracking-[0.04em]
         transition-all
-
         duration-200
-
         sm:px-3
-
+        sm:py-1
         sm:text-[12px]
-
         ${current.className}
       `}
     >

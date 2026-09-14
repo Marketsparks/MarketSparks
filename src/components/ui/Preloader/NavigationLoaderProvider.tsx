@@ -12,7 +12,10 @@ import {
 } from "react";
 
 import { AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation";
+import {
+  usePathname,
+  useSearchParams,
+} from "next/navigation";
 
 import NavigationLoader from "./NavigationLoader";
 
@@ -34,12 +37,16 @@ export default function NavigationLoaderProvider({
   children,
 }: NavigationLoaderProviderProps) {
   const pathname = usePathname();
+  const searchParams =
+    useSearchParams();
 
   const [loading, setLoading] =
     useState(false);
 
-  const previousPathname =
-    useRef(pathname);
+  const previousUrl =
+    useRef(
+      `${pathname}?${searchParams.toString()}`,
+    );
 
   const startNavigation =
     useCallback(() => {
@@ -47,15 +54,18 @@ export default function NavigationLoaderProvider({
     }, []);
 
   useEffect(() => {
+    const currentUrl =
+      `${pathname}?${searchParams.toString()}`;
+
     if (
       !loading ||
-      pathname === previousPathname.current
+      currentUrl === previousUrl.current
     ) {
       return;
     }
 
-    previousPathname.current =
-      pathname;
+    previousUrl.current =
+      currentUrl;
 
     const timer = setTimeout(() => {
       setLoading(false);
@@ -63,7 +73,11 @@ export default function NavigationLoaderProvider({
 
     return () =>
       clearTimeout(timer);
-  }, [pathname, loading]);
+  }, [
+    pathname,
+    searchParams,
+    loading,
+  ]);
 
   const value = useMemo(
     () => ({

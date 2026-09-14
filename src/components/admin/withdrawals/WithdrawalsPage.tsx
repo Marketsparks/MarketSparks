@@ -38,21 +38,21 @@ export default function WithdrawalsPage() {
     setActionLoading,
   ] = useState(false);
 
-const [
-  filters,
-  setFilters,
-] =
-  useState<WithdrawalFiltersType>({
-    search: "",
-    methodId: "ALL",
-  });
+  const [
+    filters,
+    setFilters,
+  ] =
+    useState<WithdrawalFiltersType>({
+      search: "",
+      methodId: "ALL",
+    });
 
-const [
-  methods,
-  setMethods,
-] = useState<
-  WithdrawalMethod[]
->([]);
+  const [
+    methods,
+    setMethods,
+  ] = useState<
+    WithdrawalMethod[]
+  >([]);
 
   const [
     selectedWithdrawal,
@@ -110,124 +110,120 @@ const [
     void loadWithdrawals();
   }, []);
 
-const filteredWithdrawals =
-  useMemo(() => {
-    return withdrawals.filter(
-      (withdrawal) => {
-        const search =
-          filters.search
-            .trim()
-            .toLowerCase();
+  const filteredWithdrawals =
+    useMemo(() => {
+      return withdrawals.filter(
+        (withdrawal) => {
+          const search =
+            filters.search
+              .trim()
+              .toLowerCase();
 
-        const matchesSearch =
-          search === "" ||
-          withdrawal.reference
-            .toLowerCase()
-            .includes(search) ||
-          withdrawal.user.name
-            .toLowerCase()
-            .includes(search) ||
-          withdrawal.user.email
-            .toLowerCase()
-            .includes(search);
+          const matchesSearch =
+            search === "" ||
+            withdrawal.reference
+              .toLowerCase()
+              .includes(search) ||
+            withdrawal.user.name
+              .toLowerCase()
+              .includes(search) ||
+            withdrawal.user.email
+              .toLowerCase()
+              .includes(search);
 
-        const matchesMethod =
-          filters.methodId ===
-            "ALL" ||
-          withdrawal.method.id ===
-            filters.methodId;
+          const matchesMethod =
+            filters.methodId ===
+              "ALL" ||
+            withdrawal.method.id ===
+              filters.methodId;
 
-        return (
-          matchesSearch &&
-          matchesMethod
-        );
-      }
-    );
-  }, [
-    withdrawals,
-    filters,
-  ]);
-
-async function updateWithdrawal(
-  action: "approve" | "reject"
-) {
-  if (!selectedWithdrawal) {
-    return;
-  }
-
-  try {
-    setActionLoading(true);
-
-    const response = await fetch(
-      `/api/admin/withdrawals/${selectedWithdrawal.id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          action,
-        }),
-      }
-    );
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.message ??
-          "Unable to update withdrawal."
+          return (
+            matchesSearch &&
+            matchesMethod
+          );
+        }
       );
+    }, [
+      withdrawals,
+      filters,
+    ]);
+
+  async function updateWithdrawal(
+    action: "approve" | "reject"
+  ) {
+    if (!selectedWithdrawal) {
+      return;
     }
 
-    toast.success(data.message);
+    try {
+      setActionLoading(true);
 
-    setSelectedWithdrawal(null);
+      const response = await fetch(
+        `/api/admin/withdrawals/${selectedWithdrawal.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            action,
+          }),
+        }
+      );
 
-    await loadWithdrawals();
-  } catch (error) {
-    console.error(error);
+      const data = await response.json();
 
-    toast.error(
-      error instanceof Error
-        ? error.message
-        : "Unable to update withdrawal."
-    );
-  } finally {
-    setActionLoading(false);
+      if (!response.ok) {
+        throw new Error(
+          data.message ??
+            "Unable to update withdrawal."
+        );
+      }
+
+      toast.success(data.message);
+
+      setSelectedWithdrawal(null);
+
+      await loadWithdrawals();
+    } catch (error) {
+      console.error(error);
+
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Unable to update withdrawal."
+      );
+    } finally {
+      setActionLoading(false);
+    }
   }
-}
 
   return (
     <>
       <div
         className="
-          space-y-6
+          space-y-3
+          sm:space-y-6
         "
       >
         <div
           className="
             flex
-
             flex-col
-
-            gap-4
-
+            gap-2.5
             lg:flex-row
-
             lg:items-center
-
             lg:justify-between
+            sm:gap-2.5
           "
         >
           <div>
             <h1
               className="
-                text-2xl
-
+                text-xl
                 font-bold
-
                 text-[var(--admin-foreground)]
+                sm:text-2xl
               "
             >
               Withdrawal
@@ -236,11 +232,13 @@ async function updateWithdrawal(
 
             <p
               className="
-                mt-1
-
-                text-sm
-
+                mt-0.5
+                text-[10px]
+                leading-4
                 text-[var(--admin-muted-foreground)]
+                sm:mt-1
+                sm:text-sm
+                sm:leading-normal
               "
             >
               Review,
@@ -251,37 +249,33 @@ async function updateWithdrawal(
             </p>
           </div>
 
-<WithdrawalFilters
-  filters={
-    filters
-  }
-  methods={
-    methods
-  }
-  onChange={
-    setFilters
-  }
-/>
+          <WithdrawalFilters
+            filters={
+              filters
+            }
+            methods={
+              methods
+            }
+            onChange={
+              setFilters
+            }
+          />
         </div>
 
         {loading ? (
           <div
             className="
-              rounded-xl
-
+              rounded-lg
               border
-
               border-[var(--admin-border)]
-
               bg-[var(--admin-card-bg)]
-
-              p-12
-
+              p-6
               text-center
-
-              text-sm
-
+              text-[10px]
               text-[var(--admin-muted-foreground)]
+              sm:rounded-xl
+              sm:p-12
+              sm:text-sm
             "
           >
             Loading
@@ -315,17 +309,16 @@ async function updateWithdrawal(
             null
           )
         }
-onApprove={() =>
-  void updateWithdrawal(
-    "approve"
-  )
-}
-
-onReject={() =>
-  void updateWithdrawal(
-    "reject"
-  )
-}
+        onApprove={() =>
+          void updateWithdrawal(
+            "approve"
+          )
+        }
+        onReject={() =>
+          void updateWithdrawal(
+            "reject"
+          )
+        }
       />
     </>
   );

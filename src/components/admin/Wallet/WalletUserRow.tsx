@@ -22,29 +22,27 @@ export default function WalletUserRow({
       }
       className="
         cursor-pointer
-
         border-b
-
         border-[var(--admin-table-border)]
-
         transition-colors
         duration-300
-
         hover:bg-[var(--admin-table-row-hover)]
       "
     >
       <td
         className="
-          px-6
-
-          py-5
+          px-3
+          py-3
+          sm:px-4
+          sm:py-3.5
         "
       >
         <div
           className="
+            text-xs
             font-semibold
-
             text-[var(--admin-table-title)]
+            sm:text-sm
           "
         >
           {getFullName(user)}
@@ -52,11 +50,11 @@ export default function WalletUserRow({
 
         <div
           className="
-            mt-1
-
-            text-sm
-
+            mt-0.5
+            text-[10px]
             text-[var(--admin-table-muted)]
+            sm:mt-1
+            sm:text-xs
           "
         >
           {user.role}
@@ -65,11 +63,13 @@ export default function WalletUserRow({
 
       <td
         className="
-          px-6
-
-          py-5
-
+          px-3
+          py-3
+          text-xs
           text-[var(--admin-table-text)]
+          sm:px-4
+          sm:py-3.5
+          sm:text-sm
         "
       >
         {user.email}
@@ -77,13 +77,14 @@ export default function WalletUserRow({
 
       <td
         className="
-          px-6
-
-          py-5
-
+          px-3
+          py-3
+          text-xs
           font-semibold
-
           text-[var(--admin-table-title)]
+          sm:px-4
+          sm:py-3.5
+          sm:text-sm
         "
       >
         {formatCurrency(
@@ -95,24 +96,23 @@ export default function WalletUserRow({
 
       <td
         className="
-          px-6
-
-          py-5
+          px-3
+          py-3
+          sm:px-4
+          sm:py-3.5
         "
       >
         <span
           className="
             inline-flex
-
             rounded-full
-
-            px-3
-
-            py-1
-
-            text-xs
-
+            px-2
+            py-0.5
+            text-[9px]
             font-semibold
+            sm:px-2.5
+            sm:py-1
+            sm:text-[10px]
           "
         >
           {user.status}
@@ -121,11 +121,11 @@ export default function WalletUserRow({
 
       <td
         className="
-          px-6
-
-          py-5
-
+          px-3
+          py-3
           text-right
+          sm:px-4
+          sm:py-3.5
         "
       >
         <Button

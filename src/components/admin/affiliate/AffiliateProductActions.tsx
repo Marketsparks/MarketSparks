@@ -65,15 +65,17 @@ export default function AffiliateProductActions({
         flex
         items-center
         justify-end
-        gap-1.5
+        gap-1
+        sm:gap-1.5
       "
     >
       <ActionButton
         label="View"
         icon={
           <Eye
-            size={13}
+            size={11}
             strokeWidth={2}
+            className="sm:h-[13px] sm:w-[13px]"
           />
         }
         onClick={() =>
@@ -83,24 +85,25 @@ export default function AffiliateProductActions({
 
       {publicationStatus ===
         "SUBMITTED" && (
-<ActionButton
-  label="Review"
-  icon={
-    <MessageSquare
-      size={13}
-      strokeWidth={2}
-    />
-  }
-  loading={
-    loadingAction ===
-    "review"
-  }
-  onClick={() =>
-    onReview(
-      listing.id,
-    )
-  }
-/>
+        <ActionButton
+          label="Review"
+          icon={
+            <MessageSquare
+              size={11}
+              strokeWidth={2}
+              className="sm:h-[13px] sm:w-[13px]"
+            />
+          }
+          loading={
+            loadingAction ===
+            "review"
+          }
+          onClick={() =>
+            onReview(
+              listing.id,
+            )
+          }
+        />
       )}
 
       {publicationStatus ===
@@ -110,8 +113,9 @@ export default function AffiliateProductActions({
             label="Approve"
             icon={
               <Check
-                size={13}
+                size={11}
                 strokeWidth={2}
+                className="sm:h-[13px] sm:w-[13px]"
               />
             }
             loading={
@@ -130,8 +134,9 @@ export default function AffiliateProductActions({
             label="Reject"
             icon={
               <X
-                size={13}
+                size={11}
                 strokeWidth={2}
+                className="sm:h-[13px] sm:w-[13px]"
               />
             }
             loading={
@@ -150,25 +155,26 @@ export default function AffiliateProductActions({
 
       {publicationStatus ===
         "APPROVED" && (
-<ActionButton
-  label="Publish"
-  icon={
-    <Send
-      size={13}
-      strokeWidth={2}
-    />
-  }
-  loading={
-    loadingAction ===
-    "publish"
-  }
-  onClick={() =>
-    onPublish(
-      listing.id,
-    )
-  }
-  primary
-/>
+        <ActionButton
+          label="Publish"
+          icon={
+            <Send
+              size={11}
+              strokeWidth={2}
+              className="sm:h-[13px] sm:w-[13px]"
+            />
+          }
+          loading={
+            loadingAction ===
+            "publish"
+          }
+          onClick={() =>
+            onPublish(
+              listing.id,
+            )
+          }
+          primary
+        />
       )}
 
       {publicationStatus ===
@@ -176,12 +182,15 @@ export default function AffiliateProductActions({
         <span
           className="
             inline-flex
-            h-7
+            h-6
             items-center
             rounded-md
-            px-2
-            text-[9px]
+            px-1.5
+            text-[8px]
             font-semibold
+            sm:h-7
+            sm:px-2
+            sm:text-[9px]
           "
           style={{
             background:
@@ -200,12 +209,15 @@ export default function AffiliateProductActions({
         <span
           className="
             inline-flex
-            h-7
+            h-6
             items-center
             rounded-md
-            px-2
-            text-[9px]
+            px-1.5
+            text-[8px]
             font-semibold
+            sm:h-7
+            sm:px-2
+            sm:text-[9px]
           "
           style={{
             background:
@@ -256,16 +268,16 @@ function ActionButton({
   let border =
     "var(--border)";
 
-if (primary) {
-  background =
-    "#FFFFFF";
+  if (primary) {
+    background =
+      "#FFFFFF";
 
-  color =
-    "#9409be";
+    color =
+      "#9409be";
 
-  border =
-    "#9409be";
-}
+    border =
+      "#9409be";
+  }
 
   if (success) {
     background =
@@ -296,20 +308,25 @@ if (primary) {
       onClick={onClick}
       className="
         inline-flex
-        h-7
+        h-6
         items-center
         justify-center
-        gap-1.5
-        rounded-md
+        gap-1
+        rounded
         border
-        px-2
-        text-[9px]
+        px-1.5
+        text-[8px]
         font-semibold
         transition-all
         duration-200
         disabled:cursor-not-allowed
         disabled:opacity-60
         hover:brightness-105
+        sm:h-7
+        sm:gap-1.5
+        sm:rounded-md
+        sm:px-2
+        sm:text-[9px]
       "
       style={{
         background,
@@ -319,8 +336,8 @@ if (primary) {
     >
       {loading ? (
         <Loader2
-          size={13}
-          className="animate-spin"
+          size={11}
+          className="animate-spin sm:h-[13px] sm:w-[13px]"
         />
       ) : (
         icon

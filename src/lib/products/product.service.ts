@@ -19,6 +19,7 @@ import { shuffleProducts } from "./product-shuffle";
 
 export async function getPublishedProducts(
   categoryId?: string | null,
+  limit?: number,
 ): Promise<ProductCard[]> {
   const products =
     await prisma.product.findMany({
@@ -48,11 +49,19 @@ export async function getPublishedProducts(
       ],
     });
 
-return shuffleProducts(
-  products.map(
-    toProductCard,
-  ),
-);
+  const shuffledProducts =
+    shuffleProducts(
+      products.map(
+        toProductCard,
+      ),
+    );
+
+  return limit
+    ? shuffledProducts.slice(
+        0,
+        limit,
+      )
+    : shuffledProducts;
 }
 
 export async function getRelatedProducts(

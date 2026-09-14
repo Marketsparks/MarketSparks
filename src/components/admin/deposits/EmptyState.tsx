@@ -19,72 +19,43 @@ export default function EmptyState({
     <div
       className="
         flex
-
-        min-h-[260px]
-
+        min-h-[200px]
         flex-col
-
         items-center
-
         justify-center
-
         rounded-[var(--admin-deposit-empty-radius)]
-
         border
-
         border-[var(--admin-deposit-empty-border)]
-
         bg-[var(--admin-deposit-empty-bg)]
-
-        px-5
-
-        py-10
-
+        px-4
+        py-7
         text-center
-
         shadow-[var(--admin-deposit-empty-shadow)]
-
         transition-all
         duration-300
-
-        sm:min-h-[320px]
-
-        sm:px-8
-
-        sm:py-14
+        sm:min-h-[260px]
+        sm:px-6
+        sm:py-10
       "
     >
       <div
         className="
-          mb-5
-
+          mb-3.5
           flex
-
-          h-16
-
-          w-16
-
+          h-12
+          w-12
           items-center
-
           justify-center
-
           rounded-full
-
           border
-
           border-[var(--admin-deposit-empty-icon-border)]
-
           bg-[var(--admin-deposit-empty-icon-bg)]
-
-          text-3xl
-
+          text-2xl
           shadow-[var(--admin-deposit-empty-icon-shadow)]
-
-          sm:h-20
-
-          sm:w-20
-
-          sm:text-4xl
+          sm:mb-4
+          sm:h-14
+          sm:w-14
+          sm:text-3xl
         "
       >
         💳
@@ -92,13 +63,10 @@ export default function EmptyState({
 
       <h2
         className="
-          text-lg
-
+          text-base
           font-semibold
-
           text-[var(--admin-deposit-empty-title)]
-
-          sm:text-xl
+          sm:text-lg
         "
       >
         {title}
@@ -106,15 +74,14 @@ export default function EmptyState({
 
       <p
         className="
-          mt-3
-
+          mt-1.5
           max-w-md
-
-          text-sm
-
-          leading-6
-
+          text-xs
+          leading-5
           text-[var(--admin-deposit-empty-text)]
+          sm:mt-2
+          sm:text-sm
+          sm:leading-5
         "
       >
         {description}
@@ -123,12 +90,9 @@ export default function EmptyState({
       {onAction && (
         <div
           className="
-            mt-7
-
+            mt-4
             w-full
-
-            sm:mt-8
-
+            sm:mt-5
             sm:w-auto
           "
         >
@@ -136,15 +100,14 @@ export default function EmptyState({
             type="button"
             variant="secondary"
             className="
-              h-11
-
+              h-9
               w-full
-
-              px-6
-
-              sm:h-12
-
+              px-4
+              text-xs
+              sm:h-10
               sm:w-auto
+              sm:px-5
+              sm:text-sm
             "
             onClick={onAction}
           >

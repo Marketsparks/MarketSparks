@@ -12,11 +12,8 @@ import { NavigationLink } from "@/components/ui/Preloader";
 
 type AdminOverviewProps = {
   pendingUsers: number;
-
   pendingDeposits: number;
-
   pendingWithdrawals: number;
-
   pendingAffiliateProducts: number;
 };
 
@@ -33,21 +30,18 @@ export default function AdminOverview({
       href: "/admin/kyc",
       icon: ShieldCheck,
     },
-
     {
       title: "Pending Deposits",
       value: pendingDeposits,
       href: "/admin/deposits",
       icon: CreditCard,
     },
-
     {
       title: "Pending Withdrawals",
       value: pendingWithdrawals,
       href: "/admin/withdrawals",
       icon: Wallet,
     },
-
     {
       title: "Affiliate Reviews",
       value: pendingAffiliateProducts,
@@ -59,28 +53,32 @@ export default function AdminOverview({
   return (
     <section
       className="
-        rounded-[var(--admin-card-radius)]
+        rounded-lg
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
-        p-[var(--admin-card-padding)]
+        p-2.5
         shadow-[var(--admin-card-shadow)]
+        sm:rounded-[var(--admin-card-radius)]
+        sm:p-[var(--admin-card-padding)]
       "
     >
       <div
         className="
-          mb-5
+          mb-2.5
           flex
           items-center
           justify-between
+          sm:mb-4
         "
       >
-        <div>
+        <div className="min-w-0">
           <h2
             className="
-              text-base
+              text-[12px]
               font-semibold
               text-[var(--admin-title)]
+              sm:text-base
             "
           >
             Overview
@@ -88,9 +86,13 @@ export default function AdminOverview({
 
           <p
             className="
-              mt-1
-              text-xs
+              mt-0.5
+              text-[9px]
+              leading-3.5
               text-[var(--admin-muted)]
+              sm:mt-1
+              sm:text-xs
+              sm:leading-4
             "
           >
             Items requiring attention.
@@ -101,8 +103,9 @@ export default function AdminOverview({
       <div
         className="
           grid
-          gap-3
+          gap-1.5
           sm:grid-cols-2
+          sm:gap-3
         "
       >
         {items.map((item) => {
@@ -117,45 +120,63 @@ export default function AdminOverview({
                 flex
                 items-center
                 justify-between
-                rounded-[var(--admin-surface-radius)]
+                gap-2
+                rounded-md
                 border
                 border-[var(--admin-surface-border)]
                 bg-[var(--admin-surface-bg)]
-                p-4
+                p-2
                 transition-all
                 duration-[var(--admin-transition)]
                 hover:opacity-90
+                sm:rounded-[var(--admin-surface-radius)]
+                sm:p-3
               "
             >
               <div
                 className="
                   flex
+                  min-w-0
                   items-center
-                  gap-3
+                  gap-2
+                  sm:gap-3
                 "
               >
                 <div
                   className="
                     flex
-                    h-10
-                    w-10
+                    h-7
+                    w-7
+                    shrink-0
                     items-center
                     justify-center
                     rounded-full
-                    bg-[var(--admin-stat-bg)]
                     border
                     border-[var(--admin-stat-border)]
+                    bg-[var(--admin-stat-bg)]
                     text-[var(--admin-primary)]
+                    sm:h-10
+                    sm:w-10
                   "
                 >
-                  <Icon size={18} />
+                  <Icon
+                    size={13}
+                    className="
+                      sm:h-[18px]
+                      sm:w-[18px]
+                    "
+                  />
                 </div>
 
-                <div>
+                <div className="min-w-0">
                   <p
                     className="
-                      text-xs
+                      truncate
+                      text-[9px]
+                      leading-3.5
                       text-[var(--admin-muted)]
+                      sm:text-xs
+                      sm:leading-4
                     "
                   >
                     {item.title}
@@ -163,10 +184,14 @@ export default function AdminOverview({
 
                   <p
                     className="
-                      mt-1
-                      text-lg
+                      mt-0.5
+                      text-sm
                       font-bold
+                      leading-4
                       text-[var(--admin-title)]
+                      sm:mt-1
+                      sm:text-lg
+                      sm:leading-5
                     "
                   >
                     {item.value}
@@ -174,15 +199,18 @@ export default function AdminOverview({
                 </div>
               </div>
 
-<ArrowRight
-  size={16}
-  className="
-    text-[var(--admin-muted)]
-    transition-transform
-    duration-[var(--admin-transition)]
-    group-hover:translate-x-1
-  "
-/>
+              <ArrowRight
+                size={12}
+                className="
+                  shrink-0
+                  text-[var(--admin-muted)]
+                  transition-transform
+                  duration-[var(--admin-transition)]
+                  group-hover:translate-x-1
+                  sm:h-4
+                  sm:w-4
+                "
+              />
             </NavigationLink>
           );
         })}

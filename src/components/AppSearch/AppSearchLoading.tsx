@@ -10,7 +10,8 @@ export default function AppSearchLoading({
   return (
     <div
       className="
-        py-2
+        py-1
+        sm:py-2
       "
     >
       {Array.from({
@@ -22,42 +23,51 @@ export default function AppSearchLoading({
             relative
             flex
             items-center
-            gap-3
-            py-3
+            gap-2
+            py-2
             animate-pulse
+            sm:gap-3
+            sm:py-3
           "
         >
           <div
             className="
-              h-14
-              w-14
+              h-10
+              w-10
               flex-shrink-0
-              rounded-xl
+              rounded-lg
               bg-[var(--surface-card)]
+              sm:h-14
+              sm:w-14
+              sm:rounded-xl
             "
           />
 
           <div
             className="
               flex-1
-              space-y-2
+              space-y-1.5
+              sm:space-y-2
             "
           >
             <div
               className="
-                h-4
+                h-3
                 w-3/5
                 rounded-full
                 bg-[var(--surface-card)]
+                sm:h-4
               "
             />
 
             <div
               className="
-                h-3
-                w-24
+                h-2.5
+                w-20
                 rounded-full
                 bg-[var(--surface-card)]
+                sm:h-3
+                sm:w-24
               "
             />
           </div>
@@ -68,10 +78,11 @@ export default function AppSearchLoading({
               className="
                 absolute
                 bottom-0
-                left-[72px]
+                left-[52px]
                 right-0
                 h-px
                 bg-[var(--border)]
+                sm:left-[72px]
               "
             />
           )}

@@ -52,48 +52,37 @@ export default function WithdrawHistory({
   return (
     <section
       className="
-        mt-10
-
+        mt-6
         rounded-[var(--withdraw-history-radius)]
-
         border
-
         border-[var(--withdraw-history-border)]
-
         bg-[var(--withdraw-history-bg)]
-
-        p-[var(--withdraw-history-padding)]
-
+        p-3
         shadow-[var(--withdraw-history-shadow)]
-
         transition-all
-
         duration-[var(--withdraw-history-transition)]
+        sm:mt-10
+        sm:p-[var(--withdraw-history-padding)]
       "
     >
       <div
         className="
           flex
-
           flex-col
-
-          gap-4
-
+          gap-2.5
           sm:flex-row
-
           sm:items-center
-
           sm:justify-between
+          sm:gap-4
         "
       >
         <div>
           <h2
             className="
-              text-[18px]
-
+              text-[15px]
               font-bold
-
               text-[var(--withdraw-history-title)]
+              sm:text-[18px]
             "
           >
             Withdrawal History
@@ -101,13 +90,13 @@ export default function WithdrawHistory({
 
           <p
             className="
-              mt-1.5
-
-              text-[12px]
-
-              leading-5
-
+              mt-1
+              text-[10px]
+              leading-4
               text-[var(--withdraw-history-text)]
+              sm:mt-1.5
+              sm:text-[12px]
+              sm:leading-5
             "
           >
             View your recent withdrawal
@@ -118,10 +107,9 @@ export default function WithdrawHistory({
         <div
           className="
             flex
-
             flex-wrap
-
-            gap-1.5
+            gap-1
+            sm:gap-1.5
           "
         >
           {WITHDRAW_FILTERS.map(
@@ -133,33 +121,25 @@ export default function WithdrawHistory({
               const statusStyles = {
                 all: `
                   border-[var(--withdraw-history-filter-all-border)]
-
                   bg-[var(--withdraw-history-filter-all-bg)]
-
                   text-[var(--withdraw-history-filter-all-text)]
                 `,
 
                 pending: `
                   border-[var(--withdraw-history-filter-pending-border)]
-
                   bg-[var(--withdraw-history-filter-pending-bg)]
-
                   text-[var(--withdraw-history-filter-pending-text)]
                 `,
 
                 successful: `
                   border-[var(--withdraw-history-filter-success-border)]
-
                   bg-[var(--withdraw-history-filter-success-bg)]
-
                   text-[var(--withdraw-history-filter-success-text)]
                 `,
 
                 rejected: `
                   border-[var(--withdraw-history-filter-rejected-border)]
-
                   bg-[var(--withdraw-history-filter-rejected-bg)]
-
                   text-[var(--withdraw-history-filter-rejected-text)]
                 `,
               };
@@ -167,33 +147,25 @@ export default function WithdrawHistory({
               const activeStyles = {
                 all: `
                   border-[var(--withdraw-history-filter-all-active-border)]
-
                   bg-[var(--withdraw-history-filter-all-active-bg)]
-
                   text-[var(--withdraw-history-filter-all-active-text)]
                 `,
 
                 pending: `
                   border-[var(--withdraw-history-filter-pending-active-border)]
-
                   bg-[var(--withdraw-history-filter-pending-active-bg)]
-
                   text-[var(--withdraw-history-filter-pending-active-text)]
                 `,
 
                 successful: `
                   border-[var(--withdraw-history-filter-success-active-border)]
-
                   bg-[var(--withdraw-history-filter-success-active-bg)]
-
                   text-[var(--withdraw-history-filter-success-active-text)]
                 `,
 
                 rejected: `
                   border-[var(--withdraw-history-filter-rejected-active-border)]
-
                   bg-[var(--withdraw-history-filter-rejected-active-bg)]
-
                   text-[var(--withdraw-history-filter-rejected-active-text)]
                 `,
               };
@@ -211,21 +183,13 @@ export default function WithdrawHistory({
                   }
                   className={`
                     rounded-md
-
                     border
-
-                    px-2
-
-                    py-1
-
-                    text-[11px]
-
+                    px-1.5
+                    py-0.5
+                    text-[9px]
                     font-medium
-
                     transition-all
-
                     duration-[var(--withdraw-history-transition)]
-
                     ${
                       isActive
                         ? activeStyles[
@@ -235,8 +199,10 @@ export default function WithdrawHistory({
                             filter.value
                           ]
                     }
-
                     hover:opacity-85
+                    sm:px-2
+                    sm:py-1
+                    sm:text-[11px]
                   `}
                 >
                   {
@@ -249,37 +215,37 @@ export default function WithdrawHistory({
         </div>
       </div>
 
-<div
-  className="
-    mt-6
-
-    max-h-[600px]
-
-    space-y-3
-
-    overflow-y-auto
-
-    pr-1
-  "
->
-  {filteredWithdrawals.length >
-  0 ? (
-    filteredWithdrawals.map(
-      (withdrawal) => (
-        <WithdrawHistoryCard
-          key={
-            withdrawal.id
-          }
-          withdrawal={
-            withdrawal
-          }
-        />
-      )
-    )
-  ) : (
-    <WithdrawHistoryEmpty />
-  )}
-</div>
+      <div
+        className="
+          mt-4
+          max-h-[480px]
+          space-y-2
+          overflow-y-auto
+          pr-0.5
+          sm:mt-6
+          sm:max-h-[600px]
+          sm:space-y-3
+          sm:pr-1
+        "
+      >
+        {filteredWithdrawals.length >
+        0 ? (
+          filteredWithdrawals.map(
+            (withdrawal) => (
+              <WithdrawHistoryCard
+                key={
+                  withdrawal.id
+                }
+                withdrawal={
+                  withdrawal
+                }
+              />
+            )
+          )
+        ) : (
+          <WithdrawHistoryEmpty />
+        )}
+      </div>
     </section>
   );
 }

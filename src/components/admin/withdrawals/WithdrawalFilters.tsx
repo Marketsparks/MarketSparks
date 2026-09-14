@@ -35,14 +35,14 @@ export default function WithdrawalFilters({
   }
 
   const inputClasses = `
-    h-11
+    h-7
     w-full
-    rounded-[var(--admin-input-radius)]
+    rounded-md
     border
     border-[var(--admin-input-border)]
     bg-[var(--admin-input-bg)]
-    px-4
-    text-sm
+    px-2
+    text-[10px]
     text-[var(--admin-input-text)]
     outline-none
     transition-all
@@ -52,35 +52,40 @@ export default function WithdrawalFilters({
     focus:ring-2
     focus:ring-[var(--admin-input-focus)]/20
     sm:h-12
+    sm:rounded-[var(--admin-input-radius)]
+    sm:px-4
+    sm:text-sm
   `;
 
   return (
     <section
       className="
-        rounded-[var(--admin-card-radius)]
+        rounded-lg
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
-        p-4
+        p-2.5
         shadow-[var(--admin-card-shadow)]
         transition-all
         duration-[var(--admin-card-transition)]
+        sm:rounded-[var(--admin-card-radius)]
         sm:p-5
       "
     >
       <div
         className="
           grid
-          gap-4
+          gap-2.5
+          sm:gap-4
           sm:grid-cols-2
           xl:grid-cols-3
         "
       >
-        <div className="space-y-2">
+        <div className="space-y-0.5 sm:space-y-2">
           <label
             className="
               block
-              text-xs
+              text-[9px]
               font-semibold
               uppercase
               tracking-wide
@@ -105,11 +110,11 @@ export default function WithdrawalFilters({
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-0.5 sm:space-y-2">
           <label
             className="
               block
-              text-xs
+              text-[9px]
               font-semibold
               uppercase
               tracking-wide
@@ -157,16 +162,23 @@ export default function WithdrawalFilters({
             type="button"
             size="md"
             className="
-              h-11
+              h-7
               w-full
+              rounded-md
               border
               border-[var(--admin-button-secondary-border)]
               bg-[var(--admin-button-secondary-bg)]
+              px-2.5
+              text-[9px]
+              font-semibold
               text-[var(--admin-button-secondary-text)]
               transition-all
               duration-300
               hover:bg-[var(--admin-button-secondary-hover)]
               sm:h-12
+              sm:rounded-[var(--admin-input-radius)]
+              sm:px-4
+              sm:text-sm
             "
             onClick={() =>
               onChange({

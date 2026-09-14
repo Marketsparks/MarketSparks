@@ -120,22 +120,24 @@ export default function AdminPlansPage() {
     try {
       setSubmitting(true);
 
-const {
-  plan,
-} = await createPlan(values);
+      const {
+        plan,
+      } = await createPlan(
+        values,
+      );
 
-setPlans((current) =>
-  sortPlans([
-    ...current,
-    plan,
-  ]),
-);
+      setPlans((current) =>
+        sortPlans([
+          ...current,
+          plan,
+        ]),
+      );
 
-toast.success(
-  "Plan created successfully.",
-);
+      toast.success(
+        "Plan created successfully.",
+      );
 
-closeDialog();
+      closeDialog();
     } catch (
       error
     ) {
@@ -158,28 +160,28 @@ closeDialog();
     try {
       setSubmitting(true);
 
-const {
-  plan,
-} = await updatePlan(
-  planId,
-  values,
-);
+      const {
+        plan,
+      } = await updatePlan(
+        planId,
+        values,
+      );
 
-setPlans((current) =>
-  sortPlans(
-    current.map((item) =>
-      item.id === plan.id
-        ? plan
-        : item,
-    ),
-  ),
-);
+      setPlans((current) =>
+        sortPlans(
+          current.map((item) =>
+            item.id === plan.id
+              ? plan
+              : item,
+          ),
+        ),
+      );
 
-toast.success(
-  "Plan updated successfully.",
-);
+      toast.success(
+        "Plan updated successfully.",
+      );
 
-closeDialog();
+      closeDialog();
     } catch (
       error
     ) {
@@ -201,22 +203,22 @@ closeDialog();
     try {
       setSubmitting(true);
 
-await deletePlan(
-  planId,
-);
+      await deletePlan(
+        planId,
+      );
 
-setPlans((current) =>
-  current.filter(
-    (plan) =>
-      plan.id !== planId,
-  ),
-);
+      setPlans((current) =>
+        current.filter(
+          (plan) =>
+            plan.id !== planId,
+        ),
+      );
 
-toast.success(
-  "Plan deleted successfully.",
-);
+      toast.success(
+        "Plan deleted successfully.",
+      );
 
-closeDialog();
+      closeDialog();
     } catch (
       error
     ) {
@@ -232,107 +234,129 @@ closeDialog();
     }
   }
 
-return (
-  <DashboardPageLayout
-    environment="admin"
-    breadcrumb={[
-      {
-        label: "Subscription Plans",
-      },
-    ]}
-  >
-    <div className="space-y-6 pb-16">
-      <div className="flex items-start justify-between gap-4">
-        <AdminPageHeader
-          title="Subscription Plans"
-          description="Create, update and manage subscription plans available to affiliates."
+  return (
+    <DashboardPageLayout
+      environment="admin"
+      breadcrumb={[
+        {
+          label: "Subscription Plans",
+        },
+      ]}
+    >
+      <div
+        className="
+          space-y-3
+          pb-12
+          sm:space-y-6
+          sm:pb-16
+        "
+      >
+        <div
+          className="
+            flex
+            flex-col
+            items-stretch
+            gap-3
+            sm:flex-row
+            sm:items-start
+            sm:justify-between
+            sm:gap-4
+          "
+        >
+          <AdminPageHeader
+            title="Subscription Plans"
+            description="Create, update and manage subscription plans available to affiliates."
+          />
+
+          <Button
+            type="button"
+            onClick={() =>
+              setActiveDialog(
+                "create",
+              )
+            }
+            className="
+              w-full
+              sm:w-auto
+            "
+          >
+            Create Plan
+          </Button>
+        </div>
+
+        <PlanTable
+          plans={plans}
+          loading={loading}
+          onView={(plan) => {
+            setSelectedPlan(plan);
+
+            setActiveDialog(
+              "view",
+            );
+          }}
+          onEdit={(plan) => {
+            setSelectedPlan(plan);
+
+            setActiveDialog(
+              "edit",
+            );
+          }}
+          onDelete={(plan) => {
+            setSelectedPlan(plan);
+
+            setActiveDialog(
+              "delete",
+            );
+          }}
         />
 
-        <Button
-          type="button"
-          onClick={() =>
-            setActiveDialog(
-              "create",
-            )
+        <CreatePlanDialog
+          open={
+            activeDialog ===
+            "create"
           }
-        >
-          Create Plan
-        </Button>
+          loading={submitting}
+          onClose={closeDialog}
+          onSubmit={
+            handleCreate
+          }
+        />
+
+        <EditPlanDialog
+          open={
+            activeDialog ===
+            "edit"
+          }
+          loading={submitting}
+          plan={selectedPlan}
+          onClose={closeDialog}
+          onSubmit={
+            handleEdit
+          }
+        />
+
+        <ViewPlanDialog
+          open={
+            activeDialog ===
+            "view"
+          }
+          plan={selectedPlan}
+          onClose={closeDialog}
+        />
+
+        <DeletePlanDialog
+          open={
+            activeDialog ===
+            "delete"
+          }
+          loading={submitting}
+          plan={selectedPlan}
+          onClose={closeDialog}
+          onConfirm={
+            handleDelete
+          }
+        />
       </div>
-
-      <PlanTable
-        plans={plans}
-        loading={loading}
-        onView={(plan) => {
-          setSelectedPlan(plan);
-
-          setActiveDialog(
-            "view",
-          );
-        }}
-        onEdit={(plan) => {
-          setSelectedPlan(plan);
-
-          setActiveDialog(
-            "edit",
-          );
-        }}
-        onDelete={(plan) => {
-          setSelectedPlan(plan);
-
-          setActiveDialog(
-            "delete",
-          );
-        }}
-      />
-
-      <CreatePlanDialog
-        open={
-          activeDialog ===
-          "create"
-        }
-        loading={submitting}
-        onClose={closeDialog}
-        onSubmit={
-          handleCreate
-        }
-      />
-
-      <EditPlanDialog
-        open={
-          activeDialog ===
-          "edit"
-        }
-        loading={submitting}
-        plan={selectedPlan}
-        onClose={closeDialog}
-        onSubmit={
-          handleEdit
-        }
-      />
-
-      <ViewPlanDialog
-        open={
-          activeDialog ===
-          "view"
-        }
-        plan={selectedPlan}
-        onClose={closeDialog}
-      />
-
-      <DeletePlanDialog
-        open={
-          activeDialog ===
-          "delete"
-        }
-        loading={submitting}
-        plan={selectedPlan}
-        onClose={closeDialog}
-        onConfirm={
-          handleDelete
-        }
-      />
-    </div>
-  </DashboardPageLayout>
-);
+    </DashboardPageLayout>
+  );
 }

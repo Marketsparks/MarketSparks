@@ -240,7 +240,8 @@ export default function AffiliateTestBuyersPage() {
   return (
     <div
       className="
-        space-y-3
+        space-y-2.5
+        sm:space-y-3
       "
     >
       <div
@@ -248,15 +249,17 @@ export default function AffiliateTestBuyersPage() {
           flex
           items-center
           justify-between
-          gap-3
+          gap-2
+          sm:gap-3
         "
       >
         <div className="min-w-0">
           <h1
             className="
               truncate
-              text-sm
+              text-[13px]
               font-bold
+              sm:text-sm
             "
             style={{
               color:
@@ -268,8 +271,11 @@ export default function AffiliateTestBuyersPage() {
 
           <p
             className="
-              mt-0.5
-              text-[10px]
+              mt-px
+              text-[9px]
+              leading-3.5
+              sm:mt-0.5
+              sm:text-[10px]
             "
             style={{
               color:
@@ -288,17 +294,21 @@ export default function AffiliateTestBuyersPage() {
           }
           className="
             inline-flex
-            h-8
+            h-7
             shrink-0
             items-center
-            gap-1.5
+            gap-1
             rounded-md
             border
-            px-2.5
-            text-[10px]
+            px-2
+            text-[9px]
             font-semibold
             transition
             hover:bg-[var(--surface-hover)]
+            sm:h-8
+            sm:gap-1.5
+            sm:px-2.5
+            sm:text-[10px]
           "
           style={{
             background:
@@ -310,7 +320,8 @@ export default function AffiliateTestBuyersPage() {
           }}
         >
           <Plus
-            size={13}
+            size={12}
+            className="sm:h-[13px] sm:w-[13px]"
           />
 
           Add Buyer
@@ -320,8 +331,9 @@ export default function AffiliateTestBuyersPage() {
       <div
         className="
           overflow-hidden
-          rounded-xl
+          rounded-lg
           border
+          sm:rounded-xl
         "
         style={{
           background:
@@ -333,8 +345,10 @@ export default function AffiliateTestBuyersPage() {
         {loading ? (
           <div
             className="
-              space-y-2
-              p-3
+              space-y-1.5
+              p-2
+              sm:space-y-2
+              sm:p-3
             "
           >
             {Array.from({
@@ -346,10 +360,12 @@ export default function AffiliateTestBuyersPage() {
                     index
                   }
                   className="
-                    h-12
+                    h-10
                     animate-pulse
-                    rounded-lg
+                    rounded-md
                     bg-[var(--surface-hover)]
+                    sm:h-12
+                    sm:rounded-lg
                   "
                 />
               ),
@@ -359,15 +375,18 @@ export default function AffiliateTestBuyersPage() {
           0 ? (
           <div
             className="
-              px-4
-              py-10
+              px-3
+              py-8
               text-center
+              sm:px-4
+              sm:py-10
             "
           >
             <p
               className="
-                text-xs
+                text-[11px]
                 font-semibold
+                sm:text-xs
               "
               style={{
                 color:
@@ -379,8 +398,10 @@ export default function AffiliateTestBuyersPage() {
 
             <p
               className="
-                mt-1
-                text-[10px]
+                mt-0.5
+                text-[9px]
+                sm:mt-1
+                sm:text-[10px]
               "
               style={{
                 color:
@@ -460,35 +481,40 @@ function BuyerRow({
   onEdit,
   onDelete,
 }: BuyerRowProps) {
-const imageUrl =
-  buyer.imageKey
-    ? getCloudinaryImageUrl(
-        buyer.imageKey,
-      )
-    : null;
+  const imageUrl =
+    buyer.imageKey
+      ? getCloudinaryImageUrl(
+          buyer.imageKey,
+        )
+      : null;
 
   return (
     <div
       className="
         flex
         items-center
-        gap-3
-        px-3
-        py-2.5
+        gap-2
+        px-2.5
+        py-2
+        sm:gap-3
+        sm:px-3
+        sm:py-2.5
       "
     >
       <div
         className="
           relative
           flex
-          h-9
-          w-9
+          h-8
+          w-8
           shrink-0
           items-center
           justify-center
           overflow-hidden
           rounded-full
           bg-[var(--surface-hover)]
+          sm:h-9
+          sm:w-9
         "
       >
         {imageUrl ? (
@@ -505,8 +531,8 @@ const imageUrl =
           />
         ) : (
           <UserRound
-            size={15}
-            className="text-[var(--foreground-muted)]"
+            size={13}
+            className="text-[var(--foreground-muted)] sm:h-[15px] sm:w-[15px]"
           />
         )}
       </div>
@@ -515,8 +541,9 @@ const imageUrl =
         <p
           className="
             truncate
-            text-[11px]
+            text-[10px]
             font-semibold
+            sm:text-[11px]
           "
           style={{
             color:
@@ -528,9 +555,11 @@ const imageUrl =
 
         <p
           className="
-            mt-0.5
+            mt-px
             truncate
-            text-[9px]
+            text-[8px]
+            sm:mt-0.5
+            sm:text-[9px]
           "
           style={{
             color:
@@ -715,8 +744,9 @@ function BuyerFormDialog({
         items-center
         justify-center
         bg-black/45
-        p-3
+        p-2
         backdrop-blur-sm
+        sm:p-3
       "
     >
       <form
@@ -724,14 +754,17 @@ function BuyerFormDialog({
           handleSubmit
         }
         className="
-          max-h-[92vh]
+          max-h-[94vh]
           w-full
           max-w-sm
           overflow-y-auto
-          rounded-xl
+          rounded-lg
           border
-          p-4
+          p-3
           shadow-2xl
+          sm:max-h-[92vh]
+          sm:rounded-xl
+          sm:p-4
         "
         style={{
           background:
@@ -745,14 +778,17 @@ function BuyerFormDialog({
             flex
             items-center
             justify-between
-            gap-3
+            gap-2
+            sm:gap-3
           "
         >
-          <div>
+          <div className="min-w-0">
             <h2
               className="
-                text-sm
+                truncate
+                text-[12px]
                 font-bold
+                sm:text-sm
               "
               style={{
                 color:
@@ -766,8 +802,11 @@ function BuyerFormDialog({
 
             <p
               className="
-                mt-0.5
-                text-[10px]
+                mt-px
+                text-[9px]
+                leading-3.5
+                sm:mt-0.5
+                sm:text-[10px]
               "
               style={{
                 color:
@@ -789,12 +828,15 @@ function BuyerFormDialog({
             }
             className="
               flex
-              h-7
-              w-7
+              h-6
+              w-6
+              shrink-0
               items-center
               justify-center
               rounded-md
               border
+              sm:h-7
+              sm:w-7
             "
             style={{
               background:
@@ -807,15 +849,18 @@ function BuyerFormDialog({
             aria-label="Close"
           >
             <X
-              size={14}
+              size={12}
+              className="sm:h-[14px] sm:w-[14px]"
             />
           </button>
         </div>
 
         <div
           className="
-            mt-3
-            space-y-3
+            mt-2.5
+            space-y-2.5
+            sm:mt-3
+            sm:space-y-3
           "
         >
           <Field
@@ -857,12 +902,14 @@ function BuyerFormDialog({
           <div>
             <span
               className="
-                mb-1
+                mb-0.5
                 block
-                text-[9px]
+                text-[8px]
                 font-semibold
                 uppercase
                 tracking-[0.06em]
+                sm:mb-1
+                sm:text-[9px]
               "
               style={{
                 color:
@@ -889,10 +936,12 @@ function BuyerFormDialog({
 
         <div
           className="
-            mt-4
+            mt-3
             flex
             justify-end
-            gap-2
+            gap-1.5
+            sm:mt-4
+            sm:gap-2
           "
         >
           <button
@@ -904,12 +953,15 @@ function BuyerFormDialog({
               saving
             }
             className="
-              h-8
+              h-7
               rounded-md
               border
-              px-3
-              text-[10px]
+              px-2.5
+              text-[9px]
               font-semibold
+              sm:h-8
+              sm:px-3
+              sm:text-[10px]
             "
             style={{
               background:
@@ -931,16 +983,19 @@ function BuyerFormDialog({
               !phone.trim()
             }
             className="
-              h-8
+              h-7
               rounded-md
               border
-              px-3
-              text-[10px]
+              px-2.5
+              text-[9px]
               font-semibold
               transition
               hover:bg-[var(--surface-hover)]
               disabled:cursor-not-allowed
               disabled:opacity-50
+              sm:h-8
+              sm:px-3
+              sm:text-[10px]
             "
             style={{
               background:
@@ -991,12 +1046,14 @@ function Field({
     <label className="block">
       <span
         className="
-          mb-1
+          mb-0.5
           block
-          text-[9px]
+          text-[8px]
           font-semibold
           uppercase
           tracking-[0.06em]
+          sm:mb-1
+          sm:text-[9px]
         "
         style={{
           color:
@@ -1026,15 +1083,18 @@ function Field({
           required
         }
         className="
-          h-8
+          h-7
           w-full
           rounded-md
           border
           bg-transparent
-          px-2.5
-          text-[10px]
+          px-2
+          text-[9px]
           outline-none
           focus:border-[var(--primary)]
+          sm:h-8
+          sm:px-2.5
+          sm:text-[10px]
         "
         style={{
           borderColor:

@@ -74,8 +74,9 @@ export function EditProfileDialog({
         items-center
         justify-center
         bg-black/60
-        p-4
+        p-2
         backdrop-blur-sm
+        sm:p-4
       "
       onClick={onClose}
     >
@@ -84,12 +85,16 @@ export function EditProfileDialog({
           event.stopPropagation()
         }
         className="
+          max-h-[calc(100vh-1.5rem)]
           w-full
           max-w-2xl
-          rounded-[var(--user-radius-lg)]
+          overflow-y-auto
+          rounded-lg
           border
           bg-[var(--user-card-bg)]
           shadow-2xl
+          sm:max-h-[calc(100vh-3rem)]
+          sm:rounded-[var(--user-radius-lg)]
         "
         style={{
           borderColor:
@@ -101,37 +106,62 @@ export function EditProfileDialog({
             flex
             items-center
             justify-between
+            gap-2
             border-b
-            px-6
-            py-5
+            px-3
+            py-2.5
+            sm:gap-3
+            sm:px-6
+            sm:py-5
           "
           style={{
             borderColor:
               "var(--user-card-border)",
           }}
         >
-          <div className="flex items-center gap-3">
+          <div
+            className="
+              flex
+              min-w-0
+              items-center
+              gap-2
+              sm:gap-3
+            "
+          >
             <div
               className="
                 flex
-                h-10
-                w-10
+                h-8
+                w-8
+                shrink-0
                 items-center
                 justify-center
                 rounded-full
                 bg-[var(--user-button-bg)]
                 text-[var(--user-button-text)]
+                sm:h-10
+                sm:w-10
               "
             >
-              <UserPen size={18} />
+              <UserPen
+                size={15}
+                className="sm:hidden"
+              />
+
+              <UserPen
+                size={18}
+                className="hidden sm:block"
+              />
             </div>
 
-            <div>
+            <div className="min-w-0">
               <h2
                 className="
-                  text-lg
+                  truncate
+                  text-sm
                   font-semibold
                   text-[var(--user-text)]
+                  sm:text-lg
                 "
               >
                 Edit Profile
@@ -139,8 +169,14 @@ export function EditProfileDialog({
 
               <p
                 className="
-                  text-sm
+                  mt-0.5
+                  truncate
+                  text-[10px]
+                  leading-4
                   text-[var(--user-text-muted)]
+                  sm:mt-0
+                  sm:text-sm
+                  sm:leading-normal
                 "
               >
                 Update your personal information.
@@ -151,28 +187,54 @@ export function EditProfileDialog({
           <button
             type="button"
             onClick={onClose}
+            aria-label="Close dialog"
             className="
+              flex
+              h-7
+              w-7
+              shrink-0
+              items-center
+              justify-center
               rounded-full
-              p-2
               transition
               hover:bg-[var(--user-card-hover)]
+              sm:h-auto
+              sm:w-auto
+              sm:p-2
             "
           >
             <X
+              size={15}
+              className="
+                text-[var(--user-text)]
+                sm:hidden
+              "
+            />
+
+            <X
               size={20}
-              className="text-[var(--user-text)]"
+              className="
+                hidden
+                text-[var(--user-text)]
+                sm:block
+              "
             />
           </button>
         </div>
 
-        <div className="p-6">
+        <div
+          className="
+            p-3
+            sm:p-6
+          "
+        >
           <EditProfileForm
             initialValues={values}
-onSuccess={(updatedValues) => {
-  setValues(updatedValues);
-  onSuccess(updatedValues);
-  onClose();
-}}
+            onSuccess={(updatedValues) => {
+              setValues(updatedValues);
+              onSuccess(updatedValues);
+              onClose();
+            }}
           />
         </div>
       </div>

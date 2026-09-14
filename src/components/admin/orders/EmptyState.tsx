@@ -17,21 +17,25 @@ export default function EmptyState({
   return (
     <div
       className="
-        rounded-xl
+        rounded-lg
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
-        px-5
-        py-10
+        px-3
+        py-7
         text-center
         shadow-[var(--admin-card-shadow)]
+        sm:rounded-xl
+        sm:px-5
+        sm:py-10
       "
     >
       <h3
         className="
-          text-sm
+          text-[12px]
           font-semibold
           text-[var(--admin-title)]
+          sm:text-sm
         "
       >
         {title}
@@ -40,11 +44,14 @@ export default function EmptyState({
       <p
         className="
           mx-auto
-          mt-1.5
+          mt-1
           max-w-md
-          text-xs
-          leading-5
+          text-[9px]
+          leading-3.5
           text-[var(--admin-muted)]
+          sm:mt-1.5
+          sm:text-xs
+          sm:leading-5
         "
       >
         {description}
@@ -55,19 +62,24 @@ export default function EmptyState({
           type="button"
           onClick={onAction}
           className="
-            mt-4
-            h-9
-            rounded-lg
+            mt-3
+            h-7
+            rounded-md
             border
             border-[var(--admin-card-border)]
             bg-[var(--admin-card-bg)]
-            px-3
-            text-xs
+            px-2.5
+            text-[9px]
             font-medium
             text-[var(--admin-muted)]
             transition
             hover:border-[var(--primary)]
             hover:text-[var(--admin-title)]
+            sm:mt-4
+            sm:h-9
+            sm:rounded-lg
+            sm:px-3
+            sm:text-xs
           "
         >
           {actionLabel}

@@ -61,15 +61,12 @@ export default function AffiliateListingCard({
     <article
       className="
         overflow-hidden
-
-        rounded-[var(--user-radius-md)]
-
+        rounded-lg
         border
-
         transition-all
         duration-200
-
         hover:shadow-md
+        sm:rounded-[var(--user-radius-md)]
       "
       style={{
         background:
@@ -85,31 +82,24 @@ export default function AffiliateListingCard({
       <div
         className="
           flex
-
-          gap-3
-
-          p-3
-
+          gap-2.5
+          p-2.5
+          sm:gap-3
           sm:p-3.5
         "
       >
         <div
           className="
             relative
-
-            h-24
-            w-24
-
+            h-20
+            w-20
             shrink-0
-
             overflow-hidden
-
-            rounded-xl
-
+            rounded-lg
             bg-[var(--user-surface-secondary)]
-
             sm:h-28
             sm:w-28
+            sm:rounded-xl
           "
         >
           {primaryImage ? (
@@ -124,15 +114,13 @@ export default function AffiliateListingCard({
               }
               fill
               sizes="
-                (max-width:640px) 96px,
+                (max-width:640px) 80px,
                 112px
               "
               className="
                 object-cover
-
                 transition-transform
                 duration-300
-
                 hover:scale-105
               "
             />
@@ -140,18 +128,14 @@ export default function AffiliateListingCard({
             <div
               className="
                 flex
-
                 h-full
                 w-full
-
                 items-center
                 justify-center
-
                 px-2
-
                 text-center
-
-                text-[10px]
+                text-[9px]
+                sm:text-[10px]
               "
               style={{
                 color:
@@ -174,7 +158,8 @@ export default function AffiliateListingCard({
               flex
               items-start
               justify-between
-              gap-2
+              gap-1.5
+              sm:gap-2
             "
           >
             <div
@@ -185,12 +170,11 @@ export default function AffiliateListingCard({
               <h3
                 className="
                   line-clamp-2
-
-                  text-sm
-
+                  text-[11px]
                   font-semibold
-
-                  leading-5
+                  leading-4
+                  sm:text-sm
+                  sm:leading-5
                 "
                 style={{
                   color:
@@ -206,20 +190,20 @@ export default function AffiliateListingCard({
               <div
                 className="
                   mt-1
-
                   flex
                   flex-wrap
                   items-baseline
-                  gap-x-2
+                  gap-x-1.5
                   gap-y-0.5
+                  sm:gap-x-2
                 "
               >
                 {hasDiscount && (
                   <span
                     className="
-                      text-[10px]
-
+                      text-[9px]
                       line-through
+                      sm:text-[10px]
                     "
                     style={{
                       color:
@@ -235,9 +219,9 @@ export default function AffiliateListingCard({
 
                 <span
                   className="
-                    text-sm
-
+                    text-[13px]
                     font-bold
+                    sm:text-sm
                   "
                   style={{
                     color:
@@ -261,22 +245,21 @@ export default function AffiliateListingCard({
 
           <div
             className="
-              mt-3
-
+              mt-2.5
               grid
-
               grid-cols-2
-
-              gap-x-4
-              gap-y-2
-
+              gap-x-3
+              gap-y-1.5
+              sm:mt-3
               sm:grid-cols-3
+              sm:gap-x-4
+              sm:gap-y-2
             "
           >
             <Stat
               icon={
                 <BarChart3
-                  size={12}
+                  size={11}
                 />
               }
               label="Sales"
@@ -286,7 +269,7 @@ export default function AffiliateListingCard({
             <Stat
               icon={
                 <TrendingUp
-                  size={12}
+                  size={11}
                 />
               }
               label="Earned"
@@ -298,7 +281,7 @@ export default function AffiliateListingCard({
             <Stat
               icon={
                 <CalendarDays
-                  size={12}
+                  size={11}
                 />
               }
               label="Published"
@@ -311,18 +294,15 @@ export default function AffiliateListingCard({
       <div
         className="
           flex
-
           items-center
           justify-between
-
-          gap-3
-
+          gap-2.5
           border-t
-
-          px-3
-          py-2.5
-
+          px-2.5
+          py-2
+          sm:gap-3
           sm:px-3.5
+          sm:py-2.5
         "
         style={{
           borderColor:
@@ -332,11 +312,8 @@ export default function AffiliateListingCard({
         <div
           className="
             flex
-
             min-w-0
-
             items-center
-
             gap-1.5
           "
           style={{
@@ -345,14 +322,14 @@ export default function AffiliateListingCard({
           }}
         >
           <Heart
-            size={12}
+            size={11}
           />
 
           <span
             className="
               truncate
-
-              text-[10px]
+              text-[9px]
+              sm:text-[10px]
             "
           >
             Affiliate product
@@ -368,14 +345,14 @@ export default function AffiliateListingCard({
           }
           className="
             shrink-0
-
-            !h-8
-
-            !px-3
-
-            !text-[11px]
-
-            !rounded-lg
+            !h-7
+            !px-2.5
+            !text-[10px]
+            !rounded-md
+            sm:!h-8
+            sm:!px-3
+            sm:!text-[11px]
+            sm:!rounded-lg
           "
           style={{
             background:
@@ -389,8 +366,8 @@ export default function AffiliateListingCard({
           }}
         >
           <Eye
-            size={13}
-            className="mr-1.5"
+            size={12}
+            className="mr-1 sm:mr-1.5"
           />
 
           View Details
@@ -434,7 +411,8 @@ function Stat({
 
         <span
           className="
-            text-[9px]
+            text-[8px]
+            sm:text-[9px]
           "
         >
           {label}
@@ -444,12 +422,10 @@ function Stat({
       <p
         className="
           mt-0.5
-
           truncate
-
-          text-[11px]
-
+          text-[10px]
           font-semibold
+          sm:text-[11px]
         "
         style={{
           color:
@@ -534,16 +510,14 @@ function PublicationBadge({
     <span
       className="
         shrink-0
-
         rounded-full
-
-        px-2
-
-        py-1
-
-        text-[9px]
-
+        px-1.5
+        py-0.5
+        text-[8px]
         font-semibold
+        sm:px-2
+        sm:py-1
+        sm:text-[9px]
       "
       style={{
         background,

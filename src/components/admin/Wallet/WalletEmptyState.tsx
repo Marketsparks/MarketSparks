@@ -21,22 +21,28 @@ export default function WalletEmptyState({
         border-dashed
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
-        px-8
-        py-16
+        px-4
+        py-8
         text-center
+        sm:px-8
+        sm:py-16
       "
     >
       <div
         className="
-          mb-4
+          mb-2.5
           flex
-          h-16
-          w-16
+          h-10
+          w-10
           items-center
           justify-center
           rounded-full
           bg-[var(--admin-muted-bg)]
-          text-2xl
+          text-lg
+          sm:mb-4
+          sm:h-16
+          sm:w-16
+          sm:text-2xl
         "
       >
         💳
@@ -44,9 +50,10 @@ export default function WalletEmptyState({
 
       <h3
         className="
-          text-xl
+          text-sm
           font-semibold
           text-[var(--admin-title)]
+          sm:text-xl
         "
       >
         No wallet users found
@@ -54,10 +61,13 @@ export default function WalletEmptyState({
 
       <p
         className="
-          mt-2
+          mt-1
           max-w-md
-          text-sm
+          text-xs
+          leading-5
           text-[var(--admin-muted)]
+          sm:mt-2
+          sm:text-sm
         "
       >
         No users match your current search. Try another keyword or refresh the page.
@@ -65,7 +75,10 @@ export default function WalletEmptyState({
 
       {onRefresh && (
         <Button
-          className="mt-6"
+          className="
+            mt-3
+            sm:mt-6
+          "
           onClick={onRefresh}
         >
           Refresh

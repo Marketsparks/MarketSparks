@@ -39,7 +39,7 @@ export default function DepositStatusBadge({
   return (
     <span
       className={clsx(
-        "inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold",
+        "inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold leading-4 sm:px-2.5 sm:py-1 sm:text-xs",
         STATUS_STYLES[status],
       )}
     >

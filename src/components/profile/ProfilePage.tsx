@@ -79,18 +79,26 @@ export default async function ProfilePage() {
         },
       ]}
     >
-<section className="pt-2 pb-6 sm:pt-6">
+      <section
+        className="
+          pt-1
+          pb-5
+          sm:pt-6
+          sm:pb-6
+        "
+      >
         <section
-className="
-  relative
-  overflow-hidden
-  rounded-[var(--user-radius-lg)]
-  border
-  bg-[var(--user-card-bg)]
-  p-3
-  shadow-[var(--user-card-shadow)]
-  sm:p-6
-"
+          className="
+            relative
+            overflow-hidden
+            rounded-lg
+            border
+            bg-[var(--user-card-bg)]
+            p-3
+            shadow-[var(--user-card-shadow)]
+            sm:rounded-[var(--user-radius-lg)]
+            sm:p-6
+          "
           style={{
             borderColor:
               "var(--user-card-border)",
@@ -109,33 +117,33 @@ className="
           />
 
           <div
-className="
-  relative
-  flex
-  flex-col
-  gap-4
-  sm:gap-5
-  lg:flex-row
-  lg:items-center
-  lg:justify-between
-"
+            className="
+              relative
+              flex
+              flex-col
+              gap-3
+              sm:gap-5
+              lg:flex-row
+              lg:items-center
+              lg:justify-between
+            "
           >
             <div className="max-w-2xl">
               <div
-className="
-  inline-flex
-  items-center
-  gap-1
-  rounded-full
-  border
-  px-2
-  py-0.5
-  text-[10px]
-  font-semibold
-  sm:px-2.5
-  sm:py-1
-  sm:text-[11px]
-"
+                className="
+                  inline-flex
+                  items-center
+                  gap-1
+                  rounded-full
+                  border
+                  px-1.5
+                  py-0.5
+                  text-[8px]
+                  font-semibold
+                  sm:px-2.5
+                  sm:py-1
+                  sm:text-[11px]
+                "
                 style={{
                   borderColor:
                     "var(--user-card-border)",
@@ -143,37 +151,40 @@ className="
                     "rgba(99,102,241,.08)",
                 }}
               >
-                <UserCircle2 size={12} />
+                <UserCircle2
+                  size={10}
+                  className="sm:h-3 sm:w-3"
+                />
 
                 Hello, {user.firstName} 👋
               </div>
 
               <h1
-className="
-  mt-2
-  text-[30px]
-  font-extrabold
-  tracking-tight
-  leading-none
-  text-[var(--user-title)]
-  sm:mt-4
-  sm:text-4xl
-"
+                className="
+                  mt-1.5
+                  text-2xl
+                  font-extrabold
+                  leading-none
+                  tracking-tight
+                  text-[var(--user-title)]
+                  sm:mt-4
+                  sm:text-4xl
+                "
               >
                 Welcome back.
               </h1>
 
               <p
-className="
-  mt-2
-  max-w-xl
-  text-[13px]
-  leading-5
-  text-[var(--user-text-muted)]
-  sm:mt-3
-  sm:text-[15px]
-  sm:leading-7
-"
+                className="
+                  mt-1.5
+                  max-w-xl
+                  text-[10px]
+                  leading-4
+                  text-[var(--user-text-muted)]
+                  sm:mt-3
+                  sm:text-[15px]
+                  sm:leading-7
+                "
               >
                 Manage your personal details, keep your contact information
                 up to date, and make sure your profile is always complete.
@@ -181,13 +192,13 @@ className="
             </div>
 
             <div
-className="
-  grid
-  grid-cols-2
-  gap-2
-  sm:gap-2.5
-  lg:w-[430px]
-"
+              className="
+                grid
+                grid-cols-2
+                gap-1.5
+                sm:gap-2.5
+                lg:w-[430px]
+              "
             >
               {[
                 {
@@ -220,13 +231,13 @@ className="
                 }) => (
                   <div
                     key={label}
-className="
-  rounded-lg
-  border
-  p-2.5
-  sm:rounded-2xl
-  sm:p-4
-"
+                    className="
+                      rounded-lg
+                      border
+                      p-2
+                      sm:rounded-2xl
+                      sm:p-4
+                    "
                     style={{
                       borderColor:
                         "var(--user-card-border)",
@@ -234,35 +245,41 @@ className="
                         "rgba(255,255,255,.03)",
                     }}
                   >
-<Icon
-  size={14}
-  className="text-[var(--user-primary)] sm:w-4 sm:h-4"
-/>
+                    <Icon
+                      size={12}
+                      className="
+                        text-[var(--user-primary)]
+                        sm:h-4
+                        sm:w-4
+                      "
+                    />
 
                     <p
-className="
-  mt-1.5
-  text-[9px]
-  font-semibold
-  uppercase
-  tracking-[0.08em]
-  text-[var(--user-text-muted)]
-  sm:mt-2
-  sm:text-[10px]
-"
+                      className="
+                        mt-1
+                        text-[8px]
+                        font-semibold
+                        uppercase
+                        tracking-[0.06em]
+                        text-[var(--user-text-muted)]
+                        sm:mt-2
+                        sm:text-[10px]
+                        sm:tracking-[0.08em]
+                      "
                     >
                       {label}
                     </p>
 
                     <p
-className="
-  mt-0.5
-  text-[12px]
-  font-semibold
-  leading-4
-  text-[var(--user-title)]
-  sm:text-sm
-"
+                      className="
+                        mt-0.5
+                        truncate
+                        text-[10px]
+                        font-semibold
+                        leading-4
+                        text-[var(--user-title)]
+                        sm:text-sm
+                      "
                     >
                       {value}
                     </p>
@@ -273,7 +290,12 @@ className="
           </div>
         </section>
 
-        <div className="mt-6 sm:mt-8">
+        <div
+          className="
+            mt-4
+            sm:mt-8
+          "
+        >
           <ProfileClient
             user={{
               ...user,

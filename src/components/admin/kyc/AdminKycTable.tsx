@@ -8,7 +8,7 @@ type AdminKycTableProps = {
   submissions: KycRecord[];
 
   onReview: (
-    id: string
+    id: string,
   ) => void;
 };
 
@@ -20,20 +20,24 @@ export default function AdminKycTable({
     return (
       <div
         className="
-          rounded-[var(--admin-card-radius)]
+          rounded-lg
           border
           border-[var(--admin-empty-border)]
           bg-[var(--admin-empty-bg)]
-          p-12
+          px-3
+          py-8
           text-center
           shadow-[var(--admin-empty-shadow)]
+          sm:rounded-[var(--admin-card-radius)]
+          sm:p-12
         "
       >
         <h3
           className="
-            text-lg
+            text-[12px]
             font-semibold
             text-[var(--admin-empty-title)]
+            sm:text-lg
           "
         >
           No KYC submissions found
@@ -41,9 +45,13 @@ export default function AdminKycTable({
 
         <p
           className="
-            mt-2
-            text-sm
+            mt-1
+            text-[9px]
+            leading-4
             text-[var(--admin-empty-text)]
+            sm:mt-2
+            sm:text-sm
+            sm:leading-normal
           "
         >
           There are currently no submissions matching your filters.
@@ -53,108 +61,272 @@ export default function AdminKycTable({
   }
 
   return (
-<div className="overflow-x-auto">
-        <table className="min-w-full">
-<thead
-  className="
-    sticky
-    top-0
-    z-10
-    bg-[var(--admin-table-header-bg)]
-  "
->
-            <tr>
-              <th className="px-6 py-4 text-left text-sm font-semibold text-[var(--admin-table-header-text)]">
-                Name
-              </th>
+    <div className="overflow-x-auto">
+      <table
+        className="
+          min-w-[760px]
+          w-full
+        "
+      >
+        <thead
+          className="
+            sticky
+            top-0
+            z-10
+            bg-[var(--admin-table-header-bg)]
+          "
+        >
+          <tr>
+            <th
+              className="
+                px-2.5
+                py-2.5
+                text-left
+                text-[8px]
+                font-semibold
+                text-[var(--admin-table-header-text)]
+                sm:px-6
+                sm:py-4
+                sm:text-sm
+              "
+            >
+              Name
+            </th>
 
-              <th className="px-6 py-4 text-left text-sm font-semibold text-[var(--admin-table-header-text)]">
-                Nationality
-              </th>
+            <th
+              className="
+                px-2.5
+                py-2.5
+                text-left
+                text-[8px]
+                font-semibold
+                text-[var(--admin-table-header-text)]
+                sm:px-6
+                sm:py-4
+                sm:text-sm
+              "
+            >
+              Nationality
+            </th>
 
-              <th className="px-6 py-4 text-left text-sm font-semibold text-[var(--admin-table-header-text)]">
-                Document
-              </th>
+            <th
+              className="
+                px-2.5
+                py-2.5
+                text-left
+                text-[8px]
+                font-semibold
+                text-[var(--admin-table-header-text)]
+                sm:px-6
+                sm:py-4
+                sm:text-sm
+              "
+            >
+              Document
+            </th>
 
-              <th className="px-6 py-4 text-left text-sm font-semibold text-[var(--admin-table-header-text)]">
-                Status
-              </th>
+            <th
+              className="
+                px-2.5
+                py-2.5
+                text-left
+                text-[8px]
+                font-semibold
+                text-[var(--admin-table-header-text)]
+                sm:px-6
+                sm:py-4
+                sm:text-sm
+              "
+            >
+              Status
+            </th>
 
-              <th className="px-6 py-4 text-left text-sm font-semibold text-[var(--admin-table-header-text)]">
-                Submitted
-              </th>
+            <th
+              className="
+                px-2.5
+                py-2.5
+                text-left
+                text-[8px]
+                font-semibold
+                text-[var(--admin-table-header-text)]
+                sm:px-6
+                sm:py-4
+                sm:text-sm
+              "
+            >
+              Submitted
+            </th>
 
-              <th className="px-6 py-4 text-right text-sm font-semibold text-[var(--admin-table-header-text)]">
-                Action
-              </th>
-            </tr>
-          </thead>
+            <th
+              className="
+                px-2.5
+                py-2.5
+                text-right
+                text-[8px]
+                font-semibold
+                text-[var(--admin-table-header-text)]
+                sm:px-6
+                sm:py-4
+                sm:text-sm
+              "
+            >
+              Action
+            </th>
+          </tr>
+        </thead>
 
-          <tbody>
-            {submissions.map(
-              (submission) => (
-                <tr
-                  key={submission.id}
+        <tbody>
+          {submissions.map(
+            (submission) => (
+              <tr
+                key={
+                  submission.id
+                }
+                className="
+                  border-t
+                  border-[var(--admin-table-border)]
+                  transition-colors
+                  duration-[var(--admin-card-transition)]
+                  hover:bg-[var(--admin-table-row-hover)]
+                "
+              >
+                <td
                   className="
-                    border-t
-                    border-[var(--admin-table-border)]
-                    transition-colors
-                    duration-[var(--admin-card-transition)]
-                    hover:bg-[var(--admin-table-row-hover)]
+                    whitespace-nowrap
+                    px-2.5
+                    py-2.5
+                    text-[9px]
+                    text-[var(--admin-table-text)]
+                    sm:px-6
+                    sm:py-4
+                    sm:text-sm
                   "
                 >
-                  <td className="px-6 py-4 text-[var(--admin-table-text)]">
-                    {submission.firstName}{" "}
-                    {submission.lastName}
-                  </td>
+                  {submission.firstName}{" "}
+                  {submission.lastName}
+                </td>
 
-                  <td className="px-6 py-4 text-[var(--admin-table-muted)]">
-                    {submission.nationality}
-                  </td>
+                <td
+                  className="
+                    whitespace-nowrap
+                    px-2.5
+                    py-2.5
+                    text-[9px]
+                    text-[var(--admin-table-muted)]
+                    sm:px-6
+                    sm:py-4
+                    sm:text-sm
+                  "
+                >
+                  {
+                    submission.nationality
+                  }
+                </td>
 
-                  <td className="px-6 py-4 text-[var(--admin-table-muted)]">
-                    {submission.documentType}
-                  </td>
+                <td
+                  className="
+                    whitespace-nowrap
+                    px-2.5
+                    py-2.5
+                    text-[9px]
+                    text-[var(--admin-table-muted)]
+                    sm:px-6
+                    sm:py-4
+                    sm:text-sm
+                  "
+                >
+                  {
+                    submission.documentType
+                  }
+                </td>
 
-                  <td className="px-6 py-4">
-                    {submission.status}
-                  </td>
+                <td
+                  className="
+                    whitespace-nowrap
+                    px-2.5
+                    py-2.5
+                    text-[9px]
+                    text-[var(--admin-table-text)]
+                    sm:px-6
+                    sm:py-4
+                    sm:text-sm
+                  "
+                >
+                  {
+                    submission.status
+                  }
+                </td>
 
-                  <td className="px-6 py-4 text-[var(--admin-table-muted)]">
-                    {new Date(
-                      submission.submittedAt
-                    ).toLocaleDateString()}
-                  </td>
+                <td
+                  className="
+                    whitespace-nowrap
+                    px-2.5
+                    py-2.5
+                    text-[9px]
+                    text-[var(--admin-table-muted)]
+                    sm:px-6
+                    sm:py-4
+                    sm:text-sm
+                  "
+                >
+                  {new Date(
+                    submission.submittedAt,
+                  ).toLocaleDateString()}
+                </td>
 
-                  <td className="px-6 py-4 text-right">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        onReview(
-                          submission.id
-                        )
-                      }
-className="
-  rounded-xl
-  bg-purple-600
-  px-4
-  py-2
-  text-sm
-  font-medium
-  text-white
-  transition-colors
-  duration-200
-  hover:bg-purple-700
-"
-                    >
-                      Review
-                    </button>
-                  </td>
-                </tr>
-              )
-            )}
-          </tbody>
-        </table>
-      </div>
+                <td
+                  className="
+                    px-2.5
+                    py-2.5
+                    text-right
+                    sm:px-6
+                    sm:py-4
+                  "
+                >
+                  <button
+                    type="button"
+                    onClick={() =>
+                      onReview(
+                        submission.id,
+                      )
+                    }
+                    className="
+                      inline-flex
+                      h-7
+                      items-center
+                      justify-center
+                      rounded-md
+                      border
+                      px-2.5
+                      text-[9px]
+                      font-semibold
+                      transition
+                      hover:opacity-90
+                      focus:outline-none
+                      sm:h-9
+                      sm:rounded-[var(--admin-input-radius)]
+                      sm:px-4
+                      sm:text-sm
+                    "
+                    style={{
+                      background:
+                        "var(--admin-table-header-bg)",
+                      color:
+                        "var(--admin-table-title)",
+                      borderColor:
+                        "var(--admin-card-border)",
+                      boxShadow:
+                        "0 1px 3px var(--admin-card-shadow)",
+                    }}
+                  >
+                    Review
+                  </button>
+                </td>
+              </tr>
+            ),
+          )}
+        </tbody>
+      </table>
+    </div>
   );
 }

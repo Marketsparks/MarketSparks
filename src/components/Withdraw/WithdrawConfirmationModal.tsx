@@ -20,19 +20,19 @@ type WithdrawConfirmationModalProps = {
 
   address: string;
 
-bankDetails: {
-  accountHolderName: string;
-  bankName: string;
-  accountNumber: string;
-  country: string;
-  currency: string;
-  bankAddress: string;
-  swiftBic: string;
-  iban: string;
-  routingNumber: string;
-  sortCode: string;
-  ifsc: string;
-};
+  bankDetails: {
+    accountHolderName: string;
+    bankName: string;
+    accountNumber: string;
+    country: string;
+    currency: string;
+    bankAddress: string;
+    swiftBic: string;
+    iban: string;
+    routingNumber: string;
+    sortCode: string;
+    ifsc: string;
+  };
 
   summary: WithdrawSummary;
 
@@ -64,21 +64,13 @@ export default function WithdrawConfirmationModal({
     <div
       className="
         fixed
-
         inset-0
-
         z-[999]
-
         flex
-
         items-center
-
         justify-center
-
         bg-[var(--withdraw-modal-overlay)]
-
-        p-4
-
+        p-2
         sm:p-5
       "
       role="dialog"
@@ -87,43 +79,39 @@ export default function WithdrawConfirmationModal({
     >
       <div
         className="
+          max-h-[96vh]
           w-full
-
           max-w-md
-
-          rounded-[var(--withdraw-modal-radius)]
-
+          overflow-y-auto
+          rounded-lg
           border
-
           border-[var(--withdraw-modal-border)]
-
           bg-[var(--withdraw-modal-bg)]
-
-          p-[var(--withdraw-modal-padding)]
-
+          p-3
           shadow-[var(--withdraw-modal-shadow)]
+          sm:max-h-none
+          sm:rounded-[var(--withdraw-modal-radius)]
+          sm:overflow-visible
+          sm:p-[var(--withdraw-modal-padding)]
         "
       >
         <div
           className="
             flex
-
             items-start
-
             justify-between
-
-            gap-4
+            gap-2.5
+            sm:gap-4
           "
         >
-          <div>
+          <div className="min-w-0">
             <h2
               id="withdraw-confirmation-title"
               className="
-                text-[18px]
-
+                text-[15px]
                 font-bold
-
                 text-[var(--withdraw-modal-title)]
+                sm:text-[18px]
               "
             >
               Confirm Withdrawal
@@ -131,13 +119,13 @@ export default function WithdrawConfirmationModal({
 
             <p
               className="
-                mt-1.5
-
-                text-[12px]
-
-                leading-5
-
+                mt-1
+                text-[10px]
+                leading-4
                 text-[var(--withdraw-modal-text)]
+                sm:mt-1.5
+                sm:text-[12px]
+                sm:leading-5
               "
             >
               Review your withdrawal details
@@ -152,75 +140,63 @@ export default function WithdrawConfirmationModal({
             aria-label="Close confirmation"
             className="
               flex
-
-              h-8
-
-              w-8
-
+              h-7
+              w-7
               shrink-0
-
               items-center
-
               justify-center
-
-              rounded-lg
-
+              rounded-md
               border
-
               border-[var(--withdraw-modal-close-border)]
-
               bg-[var(--withdraw-modal-close-bg)]
-
               text-[var(--withdraw-modal-close-text)]
-
               transition-all
-
               duration-[var(--withdraw-modal-transition)]
-
               hover:bg-[var(--withdraw-modal-close-hover-bg)]
-
               disabled:cursor-not-allowed
-
               disabled:opacity-50
+              sm:h-8
+              sm:w-8
+              sm:rounded-lg
             "
           >
             <X
-              size={16}
+              size={14}
+              className="
+                sm:h-4
+                sm:w-4
+              "
             />
           </button>
         </div>
 
         <div
           className="
-            mt-5
-
-            rounded-xl
-
+            mt-3
+            rounded-lg
             border
-
             border-[var(--withdraw-modal-summary-border)]
-
             bg-[var(--withdraw-modal-summary-bg)]
-
-            p-4
+            p-2.5
+            sm:mt-5
+            sm:rounded-xl
+            sm:p-4
           "
         >
           <div
             className="
               flex
-
               items-center
-
               justify-between
-
-              gap-3
+              gap-2.5
+              sm:gap-3
             "
           >
             <span
               className="
-                text-[11px]
-
+                text-[9px]
                 text-[var(--withdraw-modal-label)]
+                sm:text-[11px]
               "
             >
               Withdrawal Method
@@ -228,11 +204,11 @@ export default function WithdrawConfirmationModal({
 
             <span
               className="
-                text-[12px]
-
+                text-right
+                text-[10px]
                 font-semibold
-
                 text-[var(--withdraw-modal-value)]
+                sm:text-[12px]
               "
             >
               {method.name}{" "}
@@ -240,94 +216,113 @@ export default function WithdrawConfirmationModal({
             </span>
           </div>
 
-{isBank ? (
-  <>
-    <InfoRow
-      label="Account Holder"
-      value={bankDetails.accountHolderName}
-    />
+          {isBank ? (
+            <>
+              <InfoRow
+                label="Account Holder"
+                value={
+                  bankDetails.accountHolderName
+                }
+              />
 
-    <InfoRow
-      label="Bank Name"
-      value={bankDetails.bankName}
-    />
+              <InfoRow
+                label="Bank Name"
+                value={
+                  bankDetails.bankName
+                }
+              />
 
-    <InfoRow
-      label="Account Number"
-      value={bankDetails.accountNumber}
-    />
+              <InfoRow
+                label="Account Number"
+                value={
+                  bankDetails.accountNumber
+                }
+              />
 
-    <InfoRow
-      label="Country"
-      value={bankDetails.country}
-    />
+              <InfoRow
+                label="Country"
+                value={
+                  bankDetails.country
+                }
+              />
 
-    <InfoRow
-      label="Currency"
-      value={bankDetails.currency}
-    />
+              <InfoRow
+                label="Currency"
+                value={
+                  bankDetails.currency
+                }
+              />
 
-    <InfoRow
-      label="Bank Address"
-      value={bankDetails.bankAddress}
-    />
+              <InfoRow
+                label="Bank Address"
+                value={
+                  bankDetails.bankAddress
+                }
+              />
 
-    {bankDetails.swiftBic && (
-      <InfoRow
-        label="SWIFT / BIC"
-        value={bankDetails.swiftBic}
-      />
-    )}
+              {bankDetails.swiftBic && (
+                <InfoRow
+                  label="SWIFT / BIC"
+                  value={
+                    bankDetails.swiftBic
+                  }
+                />
+              )}
 
-    {bankDetails.iban && (
-      <InfoRow
-        label="IBAN"
-        value={bankDetails.iban}
-      />
-    )}
+              {bankDetails.iban && (
+                <InfoRow
+                  label="IBAN"
+                  value={
+                    bankDetails.iban
+                  }
+                />
+              )}
 
-    {bankDetails.routingNumber && (
-      <InfoRow
-        label="Routing Number"
-        value={bankDetails.routingNumber}
-      />
-    )}
+              {bankDetails.routingNumber && (
+                <InfoRow
+                  label="Routing Number"
+                  value={
+                    bankDetails.routingNumber
+                  }
+                />
+              )}
 
-    {bankDetails.sortCode && (
-      <InfoRow
-        label="Sort Code"
-        value={bankDetails.sortCode}
-      />
-    )}
+              {bankDetails.sortCode && (
+                <InfoRow
+                  label="Sort Code"
+                  value={
+                    bankDetails.sortCode
+                  }
+                />
+              )}
 
-    {bankDetails.ifsc && (
-      <InfoRow
-        label="IFSC"
-        value={bankDetails.ifsc}
-      />
-    )}
-  </>
-) : (
+              {bankDetails.ifsc && (
+                <InfoRow
+                  label="IFSC"
+                  value={
+                    bankDetails.ifsc
+                  }
+                />
+              )}
+            </>
+          ) : (
             <div
               className="
-                mt-3
-
+                mt-2.5
                 flex
-
                 items-start
-
                 justify-between
-
-                gap-3
+                gap-2.5
+                sm:mt-3
+                sm:gap-3
               "
             >
               <span
                 className="
                   shrink-0
-
-                  text-[11px]
-
+                  text-[9px]
                   text-[var(--withdraw-modal-label)]
+                  sm:text-[11px]
                 "
               >
                 Destination
@@ -336,16 +331,12 @@ export default function WithdrawConfirmationModal({
               <span
                 className="
                   max-w-[65%]
-
                   break-all
-
                   text-right
-
-                  text-[11px]
-
+                  text-[9px]
                   font-medium
-
                   text-[var(--withdraw-modal-value)]
+                  sm:text-[11px]
                 "
               >
                 {address}
@@ -355,30 +346,27 @@ export default function WithdrawConfirmationModal({
 
           <div
             className="
-              my-3
-
+              my-2.5
               border-t
-
               border-[var(--withdraw-modal-divider)]
+              sm:my-3
             "
           />
 
           <div
             className="
               flex
-
               items-center
-
               justify-between
-
-              gap-3
+              gap-2.5
+              sm:gap-3
             "
           >
             <span
               className="
-                text-[11px]
-
+                text-[9px]
                 text-[var(--withdraw-modal-label)]
+                sm:text-[11px]
               "
             >
               Withdrawal Amount
@@ -386,11 +374,10 @@ export default function WithdrawConfirmationModal({
 
             <span
               className="
-                text-[12px]
-
+                text-[10px]
                 font-semibold
-
                 text-[var(--withdraw-modal-value)]
+                sm:text-[12px]
               "
             >
               {formatWithdrawAmount(
@@ -401,22 +388,20 @@ export default function WithdrawConfirmationModal({
 
           <div
             className="
-              mt-2
-
+              mt-1.5
               flex
-
               items-center
-
               justify-between
-
-              gap-3
+              gap-2.5
+              sm:mt-2
+              sm:gap-3
             "
           >
             <span
               className="
-                text-[11px]
-
+                text-[9px]
                 text-[var(--withdraw-modal-label)]
+                sm:text-[11px]
               "
             >
               Network Fee
@@ -424,11 +409,10 @@ export default function WithdrawConfirmationModal({
 
             <span
               className="
-                text-[12px]
-
+                text-[10px]
                 font-semibold
-
                 text-[var(--withdraw-modal-value)]
+                sm:text-[12px]
               "
             >
               {formatWithdrawAmount(
@@ -439,34 +423,30 @@ export default function WithdrawConfirmationModal({
 
           <div
             className="
-              mt-3
-
+              mt-2.5
               border-t
-
               border-[var(--withdraw-modal-divider)]
+              sm:mt-3
             "
           />
 
           <div
             className="
-              mt-3
-
+              mt-2.5
               flex
-
               items-center
-
               justify-between
-
-              gap-3
+              gap-2.5
+              sm:mt-3
+              sm:gap-3
             "
           >
             <span
               className="
-                text-[12px]
-
+                text-[10px]
                 font-semibold
-
                 text-[var(--withdraw-modal-receive-label)]
+                sm:text-[12px]
               "
             >
               You Receive
@@ -474,11 +454,10 @@ export default function WithdrawConfirmationModal({
 
             <span
               className="
-                text-[17px]
-
+                text-[15px]
                 font-extrabold
-
                 text-[var(--withdraw-modal-receive-value)]
+                sm:text-[17px]
               "
             >
               {formatWithdrawAmount(
@@ -490,11 +469,11 @@ export default function WithdrawConfirmationModal({
 
         <div
           className="
-            mt-5
-
+            mt-3
             flex
-
-            gap-2.5
+            gap-2
+            sm:mt-5
+            sm:gap-2.5
           "
         >
           <button
@@ -502,35 +481,26 @@ export default function WithdrawConfirmationModal({
             onClick={onClose}
             disabled={loading}
             className="
+              h-8
               flex-1
-
-              rounded-xl
-
+              rounded-lg
               border
-
               border-[var(--withdraw-modal-cancel-border)]
-
               bg-[var(--withdraw-modal-cancel-bg)]
-
-              px-4
-
-              py-2.5
-
-              text-[12px]
-
+              px-2.5
+              text-[10px]
               font-semibold
-
               text-[var(--withdraw-modal-cancel-text)]
-
               transition-all
-
               duration-[var(--withdraw-modal-transition)]
-
               hover:bg-[var(--withdraw-modal-cancel-hover-bg)]
-
               disabled:cursor-not-allowed
-
               disabled:opacity-50
+              sm:h-auto
+              sm:rounded-xl
+              sm:px-4
+              sm:py-2.5
+              sm:text-[12px]
             "
           >
             Cancel
@@ -541,33 +511,25 @@ export default function WithdrawConfirmationModal({
             onClick={onConfirm}
             disabled={loading}
             className="
+              h-8
               flex-1
-
-              rounded-xl
-
+              rounded-lg
               bg-[var(--withdraw-modal-confirm-bg)]
-
-              px-4
-
-              py-2.5
-
-              text-[12px]
-
+              px-2.5
+              text-[10px]
               font-semibold
-
               text-[var(--withdraw-modal-confirm-text)]
-
               shadow-[var(--withdraw-modal-confirm-shadow)]
-
               transition-all
-
               duration-[var(--withdraw-modal-transition)]
-
               hover:bg-[var(--withdraw-modal-confirm-hover-bg)]
-
               disabled:cursor-not-allowed
-
               disabled:opacity-50
+              sm:h-auto
+              sm:rounded-xl
+              sm:px-4
+              sm:py-2.5
+              sm:text-[12px]
             "
           >
             {loading
@@ -579,7 +541,6 @@ export default function WithdrawConfirmationModal({
     </div>
   );
 }
-
 
 type InfoRowProps = {
   label: string;
@@ -593,18 +554,21 @@ function InfoRow({
   return (
     <div
       className="
-        mt-3
+        mt-2
         flex
         items-start
         justify-between
-        gap-3
+        gap-2.5
+        sm:mt-3
+        sm:gap-3
       "
     >
       <span
         className="
           shrink-0
-          text-[11px]
+          text-[9px]
           text-[var(--withdraw-modal-label)]
+          sm:text-[11px]
         "
       >
         {label}
@@ -615,9 +579,10 @@ function InfoRow({
           max-w-[65%]
           break-words
           text-right
-          text-[11px]
+          text-[9px]
           font-medium
           text-[var(--withdraw-modal-value)]
+          sm:text-[11px]
         "
       >
         {value}

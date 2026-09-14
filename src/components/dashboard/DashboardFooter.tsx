@@ -39,11 +39,8 @@ export default function UserFooter({
       className={cn(
         `
           border-t
-
           border-[var(--border)]
-
           bg-[var(--background)]
-
           transition-colors
           duration-300
         `,
@@ -54,31 +51,20 @@ export default function UserFooter({
         <div
           className="
             flex
-
             flex-col
-
             items-center
-
             justify-between
-
-            gap-1
-
-            py-2
-
+            gap-0.5
+            py-1.5
             text-center
-
-            text-[12px]
-
+            text-[10px]
             text-[var(--foreground-muted)]
-
             sm:flex-row
-
+            sm:gap-1
+            sm:py-2
             sm:text-left
-
             sm:text-[13px]
-
             lg:gap-3
-
             lg:py-5
           "
         >
@@ -89,16 +75,12 @@ export default function UserFooter({
           <nav
             className="
               flex
-
               flex-wrap
-
               items-center
-
               justify-center
-
-              gap-2
-
+              gap-1.5
               sm:justify-end
+              sm:gap-2
             "
           >
             <Link
@@ -111,7 +93,6 @@ export default function UserFooter({
               className="
                 transition-colors
                 duration-300
-
                 hover:text-[var(--foreground)]
               "
             >
@@ -130,7 +111,6 @@ export default function UserFooter({
               className="
                 transition-colors
                 duration-300
-
                 hover:text-[var(--foreground)]
               "
             >
@@ -149,7 +129,6 @@ export default function UserFooter({
               className="
                 transition-colors
                 duration-300
-
                 hover:text-[var(--foreground)]
               "
             >

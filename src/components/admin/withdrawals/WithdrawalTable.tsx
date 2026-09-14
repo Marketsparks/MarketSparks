@@ -24,26 +24,23 @@ export default function WithdrawalTable({
     return (
       <div
         className="
-          rounded-xl
-
+          rounded-lg
           border
-
           border-[var(--admin-border)]
-
           bg-[var(--admin-card-bg)]
-
-          px-6
-
-          py-14
-
+          px-3
+          py-8
           text-center
+          sm:rounded-xl
+          sm:px-6
+          sm:py-14
         "
       >
         <p
           className="
-            text-sm
-
+            text-[10px]
             text-[var(--admin-muted-foreground)]
+            sm:text-sm
           "
         >
           No withdrawal requests found.
@@ -54,30 +51,30 @@ export default function WithdrawalTable({
 
   return (
     <>
-<div
-  className="
-    hidden
-    overflow-hidden
-    rounded-xl
-    border
-    border-[var(--admin-border)]
-    bg-[var(--admin-card-bg)]
-    lg:block
-  "
->
-  <div
-    className="
-      overflow-x-auto
-    "
-  >
-    <table
-      className="
-        min-w-[1000px]
-        w-full
-        divide-y
-        divide-[var(--admin-border)]
-      "
-    >
+      <div
+        className="
+          hidden
+          overflow-hidden
+          rounded-xl
+          border
+          border-[var(--admin-border)]
+          bg-[var(--admin-card-bg)]
+          lg:block
+        "
+      >
+        <div
+          className="
+            overflow-x-auto
+          "
+        >
+          <table
+            className="
+              min-w-[1000px]
+              w-full
+              divide-y
+              divide-[var(--admin-border)]
+            "
+          >
             <thead
               className="
                 bg-[var(--admin-muted-bg)]
@@ -102,19 +99,12 @@ export default function WithdrawalTable({
                       }
                       className="
                         px-6
-
                         py-4
-
                         text-left
-
                         text-xs
-
                         font-semibold
-
                         uppercase
-
                         tracking-wide
-
                         text-[var(--admin-muted-foreground)]
                       "
                     >
@@ -128,7 +118,6 @@ export default function WithdrawalTable({
             <tbody
               className="
                 divide-y
-
                 divide-[var(--admin-border)]
               "
             >
@@ -156,8 +145,7 @@ export default function WithdrawalTable({
 
       <div
         className="
-          space-y-4
-
+          space-y-2
           lg:hidden
         "
       >

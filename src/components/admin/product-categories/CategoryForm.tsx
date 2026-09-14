@@ -27,7 +27,6 @@ type CategoryFormProps = {
   ) => Promise<void> | void;
 };
 
-
 function slugify(value: string) {
   return value
     .toLowerCase()
@@ -36,7 +35,6 @@ function slugify(value: string) {
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-");
 }
-
 
 type FormValues = z.input<
   typeof createCategorySchema
@@ -69,50 +67,54 @@ export default function CategoryForm({
     },
   });
 
-const slugEditedRef = useRef(false);
+  const slugEditedRef =
+    useRef(false);
 
-const name = watch("name");
+  const name = watch("name");
 
-const slug = watch("slug");
+  const slug = watch("slug");
 
-useEffect(() => {
-  if (!slug) {
-    slugEditedRef.current = false;
-  }
-
-  if (slugEditedRef.current) {
-    return;
-  }
-
-  setValue(
-    "slug",
-    slugify(name ?? ""),
-    {
-      shouldDirty: true,
-      shouldValidate: true,
+  useEffect(() => {
+    if (!slug) {
+      slugEditedRef.current = false;
     }
-  );
-}, [name, slug, setValue]);
 
-useEffect(() => {
-  if (!initialValues) {
-    return;
-  }
+    if (slugEditedRef.current) {
+      return;
+    }
 
-  reset({
-    name: initialValues.name,
-    slug: initialValues.slug,
-    description:
-      initialValues.description ?? "",
-    imageKey:
-      initialValues.imageKey ?? "",
-    isActive: initialValues.isActive,
-    sortOrder:
-      initialValues.sortOrder,
-  });
+    setValue(
+      "slug",
+      slugify(name ?? ""),
+      {
+        shouldDirty: true,
+        shouldValidate: true,
+      }
+    );
+  }, [name, slug, setValue]);
 
-  slugEditedRef.current = false;
-}, [initialValues, reset]);
+  useEffect(() => {
+    if (!initialValues) {
+      return;
+    }
+
+    reset({
+      name: initialValues.name,
+      slug: initialValues.slug,
+      description:
+        initialValues.description ??
+        "",
+      imageKey:
+        initialValues.imageKey ??
+        "",
+      isActive:
+        initialValues.isActive,
+      sortOrder:
+        initialValues.sortOrder,
+    });
+
+    slugEditedRef.current = false;
+  }, [initialValues, reset]);
 
   const imageKey =
     watch("imageKey") ?? "";
@@ -123,53 +125,66 @@ useEffect(() => {
       className="
         flex
         flex-col
-        gap-[var(--space-lg)]
+        gap-3
+        sm:gap-[var(--space-lg)]
       "
     >
       <div
         className="
           grid
-          gap-[var(--space-lg)]
+          gap-3
           lg:grid-cols-2
+          sm:gap-[var(--space-lg)]
         "
       >
-        <div className="space-y-2">
-<label
-  htmlFor="name"
-  className="
-    text-sm
-    font-medium
-    text-[var(--admin-title)]
-  "
->
-  Name
-</label>
+        <div
+          className="
+            space-y-1
+            sm:space-y-2
+          "
+        >
+          <label
+            htmlFor="name"
+            className="
+              text-[10px]
+              font-medium
+              text-[var(--admin-title)]
+              sm:text-sm
+            "
+          >
+            Name
+          </label>
 
-<input
-  id="name"
-  {...register("name")}
-  placeholder="Streetwear"
-  className="
-    h-11
-    w-full
-    rounded-[var(--admin-input-radius)]
-    border
-    border-[var(--admin-input-border)]
-    bg-[var(--admin-input-bg)]
-    px-4
-    text-sm
-    text-[var(--admin-input-text)]
-    outline-none
-    transition
-    focus:border-[var(--admin-input-focus)]
-  "
-/>
+          <input
+            id="name"
+            {...register("name")}
+            placeholder="Streetwear"
+            className="
+              h-8
+              w-full
+              rounded-md
+              border
+              border-[var(--admin-input-border)]
+              bg-[var(--admin-input-bg)]
+              px-2.5
+              text-[10px]
+              text-[var(--admin-input-text)]
+              outline-none
+              transition
+              focus:border-[var(--admin-input-focus)]
+              sm:h-11
+              sm:rounded-[var(--admin-input-radius)]
+              sm:px-4
+              sm:text-sm
+            "
+          />
 
-{errors.name && (
+          {errors.name && (
             <p
               className="
-                text-xs
+                text-[9px]
                 text-[var(--user-danger)]
+                sm:text-xs
               "
             >
               {errors.name.message}
@@ -177,48 +192,60 @@ useEffect(() => {
           )}
         </div>
 
-        <div className="space-y-2">
+        <div
+          className="
+            space-y-1
+            sm:space-y-2
+          "
+        >
           <label
             htmlFor="slug"
             className="
-              text-sm
+              text-[10px]
               font-medium
               text-[var(--admin-title)]
+              sm:text-sm
             "
           >
             Slug
           </label>
 
-<input
-  id="slug"
-  placeholder="streetwear"
-  {...register("slug", {
-    onChange: (event) => {
-      slugEditedRef.current =
-        event.target.value.trim() !== "";
-    },
-  })}
-  className="
-    h-11
-    w-full
-    rounded-[var(--admin-input-radius)]
-    border
-    border-[var(--admin-input-border)]
-    bg-[var(--admin-input-bg)]
-    px-4
-    text-sm
-    text-[var(--admin-input-text)]
-    outline-none
-    transition
-    focus:border-[var(--admin-input-focus)]
-  "
-/>
+          <input
+            id="slug"
+            placeholder="streetwear"
+            {...register("slug", {
+              onChange: (event) => {
+                slugEditedRef.current =
+                  event.target.value.trim() !==
+                  "";
+              },
+            })}
+            className="
+              h-8
+              w-full
+              rounded-md
+              border
+              border-[var(--admin-input-border)]
+              bg-[var(--admin-input-bg)]
+              px-2.5
+              text-[10px]
+              text-[var(--admin-input-text)]
+              outline-none
+              transition
+              focus:border-[var(--admin-input-focus)]
+              sm:h-11
+              sm:rounded-[var(--admin-input-radius)]
+              sm:px-4
+              sm:text-sm
+            "
+          />
 
           {errors.slug && (
             <p
               className="
-                text-xs
+                text-[9px]
                 text-[var(--user-danger)]
+                sm:text-xs
               "
             >
               {errors.slug.message}
@@ -227,13 +254,19 @@ useEffect(() => {
         </div>
       </div>
 
-      <div className="space-y-2">
+      <div
+        className="
+          space-y-1
+          sm:space-y-2
+        "
+      >
         <label
           htmlFor="description"
           className="
-            text-sm
+            text-[10px]
             font-medium
             text-[var(--admin-title)]
+            sm:text-sm
           "
         >
           Description
@@ -247,25 +280,30 @@ useEffect(() => {
           className="
             w-full
             resize-none
-            rounded-[var(--admin-input-radius)]
+            rounded-md
             border
             border-[var(--admin-input-border)]
             bg-[var(--admin-input-bg)]
-            px-4
-            py-3
-            text-sm
+            px-2.5
+            py-2
+            text-[10px]
             text-[var(--admin-input-text)]
             outline-none
             transition
             focus:border-[var(--admin-input-focus)]
+            sm:rounded-[var(--admin-input-radius)]
+            sm:px-4
+            sm:py-3
+            sm:text-sm
           "
         />
 
         {errors.description && (
           <p
             className="
-              text-xs
+              text-[9px]
               text-[var(--user-danger)]
+              sm:text-xs
             "
           >
             {errors.description.message}
@@ -276,17 +314,24 @@ useEffect(() => {
       <div
         className="
           grid
-          gap-[var(--space-lg)]
+          gap-3
           lg:grid-cols-[1fr_auto]
+          sm:gap-[var(--space-lg)]
         "
       >
-        <div className="space-y-2">
+        <div
+          className="
+            space-y-1
+            sm:space-y-2
+          "
+        >
           <label
             htmlFor="sortOrder"
             className="
-              text-sm
+              text-[10px]
               font-medium
               text-[var(--admin-title)]
+              sm:text-sm
             "
           >
             Sort Order
@@ -302,18 +347,22 @@ useEffect(() => {
               }
             )}
             className="
-              h-11
+              h-8
               w-full
-              rounded-[var(--admin-input-radius)]
+              rounded-md
               border
               border-[var(--admin-input-border)]
               bg-[var(--admin-input-bg)]
-              px-4
-              text-sm
+              px-2.5
+              text-[10px]
               text-[var(--admin-input-text)]
               outline-none
               transition
               focus:border-[var(--admin-input-focus)]
+              sm:h-11
+              sm:rounded-[var(--admin-input-radius)]
+              sm:px-4
+              sm:text-sm
             "
           />
         </div>
@@ -323,16 +372,23 @@ useEffect(() => {
             mt-auto
             flex
             items-center
-            gap-3
-            text-sm
+            gap-2
+            text-[10px]
             font-medium
             text-[var(--admin-title)]
+            sm:gap-3
+            sm:text-sm
           "
         >
           <input
             type="checkbox"
             {...register("isActive")}
-            className="h-4 w-4"
+            className="
+              h-3
+              w-3
+              sm:h-4
+              sm:w-4
+            "
           />
 
           Active
@@ -366,19 +422,23 @@ useEffect(() => {
           disabled={loading}
           className="
             inline-flex
-            h-11
+            h-8
             items-center
             justify-center
-            rounded-[var(--admin-input-radius)]
+            rounded-md
             bg-[var(--admin-button-primary-bg)]
-            px-5
-            text-sm
+            px-3
+            text-[10px]
             font-medium
             text-[var(--admin-button-primary-text)]
             transition
             hover:bg-[var(--admin-button-primary-hover)]
             disabled:cursor-not-allowed
             disabled:opacity-60
+            sm:h-11
+            sm:rounded-[var(--admin-input-radius)]
+            sm:px-5
+            sm:text-sm
           "
         >
           {loading

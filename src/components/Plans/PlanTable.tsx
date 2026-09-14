@@ -12,8 +12,6 @@ import type {
   SubscriptionPlan,
 } from "@/types/plan.types";
 
-
-
 type PlanTableProps = {
   plans: SubscriptionPlan[];
   loading?: boolean;
@@ -38,7 +36,14 @@ export default function PlanTable({
   if (loading) {
     return (
       <div
-        className="rounded-[var(--admin-card-radius)] border p-8 text-center"
+        className="
+          rounded-lg
+          border
+          p-5
+          text-center
+          sm:rounded-[var(--admin-card-radius)]
+          sm:p-8
+        "
         style={{
           background:
             "var(--admin-card-bg)",
@@ -49,7 +54,10 @@ export default function PlanTable({
         }}
       >
         <p
-          className="text-sm"
+          className="
+            text-[11px]
+            sm:text-sm
+          "
           style={{
             color:
               "var(--admin-muted)",
@@ -64,7 +72,14 @@ export default function PlanTable({
   if (plans.length === 0) {
     return (
       <div
-        className="rounded-[var(--admin-card-radius)] border p-8 text-center"
+        className="
+          rounded-lg
+          border
+          p-5
+          text-center
+          sm:rounded-[var(--admin-card-radius)]
+          sm:p-8
+        "
         style={{
           background:
             "var(--admin-empty-bg)",
@@ -75,7 +90,11 @@ export default function PlanTable({
         }}
       >
         <h3
-          className="text-base font-semibold"
+          className="
+            text-sm
+            font-semibold
+            sm:text-base
+          "
           style={{
             color:
               "var(--admin-empty-title)",
@@ -85,7 +104,14 @@ export default function PlanTable({
         </h3>
 
         <p
-          className="mt-2 text-sm"
+          className="
+            mt-1.5
+            text-[10px]
+            leading-4
+            sm:mt-2
+            sm:text-sm
+            sm:leading-normal
+          "
           style={{
             color:
               "var(--admin-empty-text)",
@@ -100,7 +126,13 @@ export default function PlanTable({
   return (
     <>
       <div
-        className="hidden overflow-hidden rounded-[var(--admin-card-radius)] border lg:block"
+        className="
+          hidden
+          overflow-hidden
+          rounded-[var(--admin-card-radius)]
+          border
+          lg:block
+        "
         style={{
           background:
             "var(--admin-table-bg)",
@@ -149,7 +181,7 @@ export default function PlanTable({
           </thead>
 
           <tbody>
-                        {plans.map((plan) => (
+            {plans.map((plan) => (
               <tr
                 key={plan.id}
                 className="transition-colors"
@@ -166,7 +198,14 @@ export default function PlanTable({
                       </span>
 
                       <span
-                        className="rounded-full px-2 py-0.5 text-[10px] font-semibold text-white"
+                        className="
+                          rounded-full
+                          px-2
+                          py-0.5
+                          text-[10px]
+                          font-semibold
+                          text-white
+                        "
                         style={{
                           backgroundColor:
                             plan.badgeColor,
@@ -218,48 +257,60 @@ export default function PlanTable({
                   />
                 </Cell>
 
-<Cell align="center">
-  <div className="flex justify-center gap-2">
-    <ActionButton
-      label="View"
-      onClick={() =>
-        onView(plan)
-      }
-    >
-      <Eye size={16} />
-    </ActionButton>
+                <Cell align="center">
+                  <div className="flex justify-center gap-2">
+                    <ActionButton
+                      label="View"
+                      onClick={() =>
+                        onView(plan)
+                      }
+                    >
+                      <Eye size={16} />
+                    </ActionButton>
 
-    <ActionButton
-      label="Edit"
-      onClick={() =>
-        onEdit(plan)
-      }
-    >
-      <Pencil size={16} />
-    </ActionButton>
+                    <ActionButton
+                      label="Edit"
+                      onClick={() =>
+                        onEdit(plan)
+                      }
+                    >
+                      <Pencil size={16} />
+                    </ActionButton>
 
-    <ActionButton
-      label="Delete"
-      danger
-      onClick={() =>
-        onDelete(plan)
-      }
-    >
-      <Trash2 size={16} />
-    </ActionButton>
-  </div>
-</Cell>
+                    <ActionButton
+                      label="Delete"
+                      danger
+                      onClick={() =>
+                        onDelete(plan)
+                      }
+                    >
+                      <Trash2 size={16} />
+                    </ActionButton>
+                  </div>
+                </Cell>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      <div className="space-y-4 lg:hidden">
+      <div
+        className="
+          space-y-2.5
+          lg:hidden
+          sm:space-y-3
+        "
+      >
         {plans.map((plan) => (
           <div
             key={plan.id}
-            className="rounded-[var(--admin-card-radius)] border p-4"
+            className="
+              rounded-lg
+              border
+              p-2.5
+              sm:rounded-[var(--admin-card-radius)]
+              sm:p-4
+            "
             style={{
               background:
                 "var(--admin-card-bg)",
@@ -269,11 +320,32 @@ export default function PlanTable({
                 "var(--admin-card-shadow)",
             }}
           >
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <div className="flex items-center gap-2">
+            <div
+              className="
+                flex
+                items-start
+                justify-between
+                gap-2
+                sm:gap-3
+              "
+            >
+              <div className="min-w-0">
+                <div
+                  className="
+                    flex
+                    min-w-0
+                    items-center
+                    gap-1.5
+                    sm:gap-2
+                  "
+                >
                   <h3
-                    className="font-semibold"
+                    className="
+                      truncate
+                      text-xs
+                      font-semibold
+                      sm:text-base
+                    "
                     style={{
                       color:
                         "var(--admin-title)",
@@ -283,7 +355,17 @@ export default function PlanTable({
                   </h3>
 
                   <span
-                    className="rounded-full px-2 py-0.5 text-[10px] font-semibold text-white"
+                    className="
+                      shrink-0
+                      rounded-full
+                      px-1.5
+                      py-0.5
+                      text-[8px]
+                      font-semibold
+                      text-white
+                      sm:px-2
+                      sm:text-[10px]
+                    "
                     style={{
                       backgroundColor:
                         plan.badgeColor,
@@ -294,7 +376,13 @@ export default function PlanTable({
                 </div>
 
                 <p
-                  className="mt-1 text-xs"
+                  className="
+                    mt-0.5
+                    truncate
+                    text-[9px]
+                    sm:mt-1
+                    sm:text-xs
+                  "
                   style={{
                     color:
                       "var(--admin-muted)",
@@ -311,7 +399,18 @@ export default function PlanTable({
               />
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+            <div
+              className="
+                mt-2.5
+                grid
+                grid-cols-2
+                gap-1.5
+                text-xs
+                sm:mt-4
+                sm:gap-3
+                sm:text-sm
+              "
+            >
               <Info
                 label="Price"
                 value={`$${plan.price.toLocaleString()}`}
@@ -335,38 +434,67 @@ export default function PlanTable({
               />
             </div>
 
-<div className="mt-4 flex gap-2">
-  <ActionButton
-    className="flex-1"
-    label="View"
-    onClick={() =>
-      onView(plan)
-    }
-  >
-    <Eye size={16} />
-  </ActionButton>
+            <div
+              className="
+                mt-2.5
+                flex
+                gap-1.5
+                sm:mt-4
+                sm:gap-2
+              "
+            >
+              <ActionButton
+                className="flex-1"
+                label="View"
+                onClick={() =>
+                  onView(plan)
+                }
+              >
+                <Eye
+                  size={14}
+                  className="sm:hidden"
+                />
+                <Eye
+                  size={16}
+                  className="hidden sm:block"
+                />
+              </ActionButton>
 
-  <ActionButton
-    className="flex-1"
-    label="Edit"
-    onClick={() =>
-      onEdit(plan)
-    }
-  >
-    <Pencil size={16} />
-  </ActionButton>
+              <ActionButton
+                className="flex-1"
+                label="Edit"
+                onClick={() =>
+                  onEdit(plan)
+                }
+              >
+                <Pencil
+                  size={14}
+                  className="sm:hidden"
+                />
+                <Pencil
+                  size={16}
+                  className="hidden sm:block"
+                />
+              </ActionButton>
 
-  <ActionButton
-    className="flex-1"
-    label="Delete"
-    danger
-    onClick={() =>
-      onDelete(plan)
-    }
-  >
-    <Trash2 size={16} />
-  </ActionButton>
-</div>
+              <ActionButton
+                className="flex-1"
+                label="Delete"
+                danger
+                onClick={() =>
+                  onDelete(plan)
+                }
+              >
+                <Trash2
+                  size={14}
+                  className="sm:hidden"
+                />
+                <Trash2
+                  size={16}
+                  className="hidden sm:block"
+                />
+              </ActionButton>
+            </div>
           </div>
         ))}
       </div>
@@ -432,9 +560,28 @@ function Info({
   value: React.ReactNode;
 }) {
   return (
-    <div>
+    <div
+      className="
+        rounded-lg
+        border
+        px-2
+        py-1.5
+        sm:rounded-none
+        sm:border-0
+        sm:p-0
+      "
+      style={{
+        background:
+          "var(--admin-table-header-bg)",
+        borderColor:
+          "var(--admin-card-border)",
+      }}
+    >
       <p
-        className="text-xs"
+        className="
+          text-[8px]
+          sm:text-xs
+        "
         style={{
           color:
             "var(--admin-muted)",
@@ -444,7 +591,13 @@ function Info({
       </p>
 
       <p
-        className="mt-1 font-medium"
+        className="
+          mt-0.5
+          text-[11px]
+          font-medium
+          sm:mt-1
+          sm:text-sm
+        "
         style={{
           color:
             "var(--admin-text)",
@@ -476,7 +629,16 @@ function ActionButton({
       type="button"
       title={label}
       aria-label={label}
-      className={`h-9 w-9 p-0 ${className ?? ""}`}
+      className={`
+        h-7
+        min-w-0
+        p-0
+        text-[9px]
+        sm:h-9
+        sm:w-9
+        sm:text-sm
+        ${className ?? ""}
+      `}
       onClick={onClick}
       style={
         danger
@@ -501,7 +663,19 @@ function StatusBadge({
 }) {
   return (
     <span
-      className="inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-semibold"
+      className="
+        inline-flex
+        shrink-0
+        items-center
+        rounded-full
+        px-1.5
+        py-0.5
+        text-[8px]
+        font-semibold
+        sm:px-2.5
+        sm:py-1
+        sm:text-[10px]
+      "
       style={{
         background: active
           ? "var(--admin-status-success-bg)"

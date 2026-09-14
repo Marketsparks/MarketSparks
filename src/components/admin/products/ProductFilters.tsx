@@ -57,30 +57,36 @@ export default function ProductFilters({
   return (
     <section
       className="
-        rounded-[var(--admin-surface-radius)]
+        rounded-lg
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
-        p-[var(--space-lg)]
+        p-2.5
+        sm:rounded-[var(--admin-surface-radius)]
+        sm:p-[var(--space-lg)]
       "
     >
       <div
         className="
           grid
-          gap-[var(--space-md)]
+          gap-2
           lg:grid-cols-[2fr_1fr_1fr_auto]
+          sm:gap-[var(--space-md)]
         "
       >
         <div className="relative">
           <Search
-            size={16}
+            size={13}
             className="
               pointer-events-none
               absolute
-              left-3
+              left-2
               top-1/2
               -translate-y-1/2
               text-[var(--admin-muted)]
+              sm:left-3
+              sm:h-4
+              sm:w-4
             "
           />
 
@@ -96,19 +102,24 @@ export default function ProductFilters({
               )
             }
             className="
-              h-11
+              h-8
               w-full
-              rounded-[var(--admin-input-radius)]
+              rounded-md
               border
               border-[var(--admin-input-border)]
               bg-[var(--admin-input-bg)]
-              pl-10
-              pr-4
-              text-sm
+              pl-7
+              pr-2.5
+              text-[10px]
               text-[var(--admin-input-text)]
               outline-none
               transition
               focus:border-[var(--admin-input-focus)]
+              sm:h-11
+              sm:rounded-[var(--admin-input-radius)]
+              sm:pl-10
+              sm:pr-4
+              sm:text-sm
             "
           />
         </div>
@@ -124,31 +135,37 @@ export default function ProductFilters({
             )
           }
           className="
-            h-11
-            rounded-[var(--admin-input-radius)]
+            h-8
+            rounded-md
             border
             border-[var(--admin-input-border)]
             bg-[var(--admin-input-bg)]
-            px-3
-            text-sm
+            px-2
+            text-[10px]
             text-[var(--admin-input-text)]
             outline-none
             transition
             focus:border-[var(--admin-input-focus)]
+            sm:h-11
+            sm:rounded-[var(--admin-input-radius)]
+            sm:px-3
+            sm:text-sm
           "
         >
           <option value="ALL">
             All Statuses
           </option>
 
-{PRODUCT_STATUSES.map((status) => (
-  <option
-    key={status}
-    value={status}
-  >
-    {status}
-  </option>
-))}
+          {PRODUCT_STATUSES.map(
+            (status) => (
+              <option
+                key={status}
+                value={status}
+              >
+                {status}
+              </option>
+            )
+          )}
         </select>
 
         <select
@@ -173,17 +190,21 @@ export default function ProductFilters({
             );
           }}
           className="
-            h-11
-            rounded-[var(--admin-input-radius)]
+            h-8
+            rounded-md
             border
             border-[var(--admin-input-border)]
             bg-[var(--admin-input-bg)]
-            px-3
-            text-sm
+            px-2
+            text-[10px]
             text-[var(--admin-input-text)]
             outline-none
             transition
             focus:border-[var(--admin-input-focus)]
+            sm:h-11
+            sm:rounded-[var(--admin-input-radius)]
+            sm:px-3
+            sm:text-sm
           "
         >
           <option value="ALL">
@@ -208,25 +229,36 @@ export default function ProductFilters({
           onClick={clearFilters}
           className="
             inline-flex
-            h-11
+            h-7
             items-center
             justify-center
-            gap-2
-            rounded-[var(--admin-input-radius)]
+            gap-1
+            rounded-md
             border
             border-[var(--admin-button-secondary-border)]
             bg-[var(--admin-button-secondary-bg)]
-            px-4
-            text-sm
+            px-2.5
+            text-[9px]
             font-medium
             text-[var(--admin-title)]
             transition
             hover:bg-[var(--admin-button-secondary-hover)]
             disabled:cursor-not-allowed
             disabled:opacity-60
+            sm:h-11
+            sm:gap-2
+            sm:rounded-[var(--admin-input-radius)]
+            sm:px-4
+            sm:text-sm
           "
         >
-          <X size={16} />
+          <X
+            size={13}
+            className="
+              sm:h-4
+              sm:w-4
+            "
+          />
 
           Clear
         </button>

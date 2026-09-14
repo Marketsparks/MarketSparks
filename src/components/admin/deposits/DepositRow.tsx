@@ -24,31 +24,27 @@ export default function DepositRow({
     <tr
       className="
         border-b
-
         border-[var(--admin-table-border)]
-
         text-[var(--admin-table-text)]
-
         transition-all
         duration-300
-
         hover:bg-[var(--admin-table-row-hover)]
       "
     >
       <td
         className="
-          px-4
-
-          py-4
-
-          sm:px-6
+          px-3
+          py-2.5
+          sm:px-4
+          sm:py-3
         "
       >
         <div
           className="
+            text-xs
             font-semibold
-
             text-[var(--admin-table-title)]
+            sm:text-sm
           "
         >
           {[
@@ -61,11 +57,12 @@ export default function DepositRow({
 
         <div
           className="
-            mt-1
-
-            text-sm
-
+            mt-0.5
+            text-[11px]
+            leading-4
             text-[var(--admin-table-muted)]
+            sm:mt-1
+            sm:text-xs
           "
         >
           {deposit.user.email}
@@ -74,18 +71,18 @@ export default function DepositRow({
 
       <td
         className="
-          px-4
-
-          py-4
-
-          sm:px-6
+          px-3
+          py-2.5
+          sm:px-4
+          sm:py-3
         "
       >
         <div
           className="
+            text-xs
             font-semibold
-
             text-[var(--admin-table-title)]
+            sm:text-sm
           "
         >
           {deposit.depositMethod.symbol}
@@ -93,11 +90,12 @@ export default function DepositRow({
 
         <div
           className="
-            mt-1
-
-            text-sm
-
+            mt-0.5
+            text-[11px]
+            leading-4
             text-[var(--admin-table-muted)]
+            sm:mt-1
+            sm:text-xs
           "
         >
           {deposit.depositMethod.network}
@@ -106,15 +104,14 @@ export default function DepositRow({
 
       <td
         className="
-          px-4
-
-          py-4
-
+          px-3
+          py-2.5
+          text-xs
           font-medium
-
           text-[var(--admin-table-text)]
-
-          sm:px-6
+          sm:px-4
+          sm:py-3
+          sm:text-sm
         "
       >
         $
@@ -125,11 +122,10 @@ export default function DepositRow({
 
       <td
         className="
-          px-4
-
-          py-4
-
-          sm:px-6
+          px-3
+          py-2.5
+          sm:px-4
+          sm:py-3
         "
       >
         <DepositStatusBadge
@@ -139,15 +135,13 @@ export default function DepositRow({
 
       <td
         className="
-          px-4
-
-          py-4
-
-          text-sm
-
+          px-3
+          py-2.5
+          text-[11px]
           text-[var(--admin-table-muted)]
-
-          sm:px-6
+          sm:px-4
+          sm:py-3
+          sm:text-xs
         "
       >
         {new Date(
@@ -157,13 +151,11 @@ export default function DepositRow({
 
       <td
         className="
-          px-4
-
-          py-4
-
+          px-3
+          py-2
           text-right
-
-          sm:px-6
+          sm:px-4
+          sm:py-2.5
         "
       >
         <Button
@@ -171,11 +163,16 @@ export default function DepositRow({
           size="sm"
           variant="secondary"
           className="
-            h-9
-
-            min-w-[84px]
-
-            rounded-lg
+            h-8
+            min-w-[68px]
+            rounded-md
+            px-2.5
+            text-xs
+            sm:h-9
+            sm:min-w-[84px]
+            sm:rounded-lg
+            sm:px-3
+            sm:text-sm
           "
           onClick={() =>
             onView(deposit)

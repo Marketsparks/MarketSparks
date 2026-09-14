@@ -35,14 +35,14 @@ export default function DepositFilters({
   }
 
   const inputClasses = `
-    h-11
+    h-10
     w-full
     rounded-[var(--admin-input-radius)]
     border
     border-[var(--admin-input-border)]
     bg-[var(--admin-input-bg)]
-    px-4
-    text-sm
+    px-3
+    text-xs
     text-[var(--admin-input-text)]
     outline-none
     transition-all
@@ -51,7 +51,9 @@ export default function DepositFilters({
     focus:border-[var(--admin-input-focus)]
     focus:ring-2
     focus:ring-[var(--admin-input-focus)]/20
-    sm:h-12
+    sm:h-11
+    sm:px-4
+    sm:text-sm
   `;
 
   return (
@@ -61,31 +63,32 @@ export default function DepositFilters({
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
-        p-4
+        p-3
         shadow-[var(--admin-card-shadow)]
         transition-all
         duration-[var(--admin-card-transition)]
-        sm:p-5
+        sm:p-4
       "
     >
       <div
         className="
           grid
-          gap-4
+          gap-3
           sm:grid-cols-2
+          sm:gap-4
           xl:grid-cols-4
         "
       >
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <label
             className="
               block
-              text-xs
+              text-[10px]
               font-semibold
               uppercase
               tracking-wide
               text-[var(--admin-muted)]
-              sm:text-sm
+              sm:text-xs
             "
           >
             Search
@@ -105,16 +108,16 @@ export default function DepositFilters({
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <label
             className="
               block
-              text-xs
+              text-[10px]
               font-semibold
               uppercase
               tracking-wide
               text-[var(--admin-muted)]
-              sm:text-sm
+              sm:text-xs
             "
           >
             Status
@@ -149,16 +152,16 @@ export default function DepositFilters({
           </select>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <label
             className="
               block
-              text-xs
+              text-[10px]
               font-semibold
               uppercase
               tracking-wide
               text-[var(--admin-muted)]
-              sm:text-sm
+              sm:text-xs
             "
           >
             Deposit Method
@@ -204,16 +207,20 @@ export default function DepositFilters({
             type="button"
             size="md"
             className="
-              h-11
+              h-10
               w-full
               border
               border-[var(--admin-button-secondary-border)]
               bg-[var(--admin-button-secondary-bg)]
+              px-3
+              text-xs
               text-[var(--admin-button-secondary-text)]
               transition-all
               duration-300
               hover:bg-[var(--admin-button-secondary-hover)]
-              sm:h-12
+              sm:h-11
+              sm:px-4
+              sm:text-sm
             "
             onClick={() =>
               onChange({

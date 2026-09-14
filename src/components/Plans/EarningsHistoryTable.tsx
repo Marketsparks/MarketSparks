@@ -15,10 +15,12 @@ export default function EarningsHistoryTable({
     return (
       <section
         className="
-          rounded-[var(--user-radius-md)]
+          rounded-lg
           border
-          p-6
+          p-4
           text-center
+          sm:rounded-[var(--user-radius-md)]
+          sm:p-6
         "
         style={{
           background:
@@ -30,7 +32,11 @@ export default function EarningsHistoryTable({
         }}
       >
         <h3
-          className="text-base font-semibold"
+          className="
+            text-sm
+            font-semibold
+            sm:text-base
+          "
           style={{
             color:
               "var(--user-title)",
@@ -40,7 +46,14 @@ export default function EarningsHistoryTable({
         </h3>
 
         <p
-          className="mt-2 text-sm"
+          className="
+            mt-1.5
+            text-[10px]
+            leading-4
+            sm:mt-2
+            sm:text-sm
+            sm:leading-normal
+          "
           style={{
             color:
               "var(--user-text-muted)",
@@ -56,8 +69,9 @@ export default function EarningsHistoryTable({
     <section
       className="
         overflow-hidden
-        rounded-[var(--user-radius-md)]
+        rounded-lg
         border
+        sm:rounded-[var(--user-radius-md)]
       "
       style={{
         background:
@@ -69,7 +83,7 @@ export default function EarningsHistoryTable({
       }}
     >
       <div className="overflow-x-auto">
-        <table className="min-w-full">
+        <table className="min-w-[620px] sm:min-w-full">
           <thead
             style={{
               background:
@@ -225,11 +239,15 @@ function Header({
   return (
     <th
       className="
-        px-4
-        py-3
+        whitespace-nowrap
+        px-2.5
+        py-2
         text-left
-        text-xs
+        text-[9px]
         font-semibold
+        sm:px-4
+        sm:py-3
+        sm:text-xs
       "
       style={{
         color:
@@ -249,9 +267,13 @@ function Cell({
   return (
     <td
       className="
-        px-4
-        py-3
-        text-sm
+        whitespace-nowrap
+        px-2.5
+        py-2
+        text-[10px]
+        sm:px-4
+        sm:py-3
+        sm:text-sm
       "
       style={{
         color:

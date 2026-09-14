@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  Power,
+  RotateCcw,
+  Trash2,
+} from "lucide-react";
+
 type UserAction =
   | "activate"
   | "deactivate"
@@ -27,6 +33,7 @@ type ActionButtonProps = {
   action: UserAction;
   disabled: boolean;
   danger?: boolean;
+  icon: React.ReactNode;
   onClick: (
     action: UserAction,
   ) => void;
@@ -37,25 +44,35 @@ function ActionButton({
   action,
   disabled,
   danger = false,
+  icon,
   onClick,
 }: ActionButtonProps) {
   return (
     <button
       type="button"
+      title={label}
+      aria-label={label}
       disabled={disabled}
       onClick={() =>
         onClick(action)
       }
       className="
-        rounded-xl
+        inline-flex
+        h-7
+        w-7
+        shrink-0
+        items-center
+        justify-center
+        rounded-md
         border
-        px-3
-        py-2
-        text-sm
-        font-medium
         transition
+        hover:opacity-90
+        focus:outline-none
         disabled:cursor-not-allowed
         disabled:opacity-50
+        sm:h-9
+        sm:w-9
+        sm:rounded-lg
       "
       style={{
         background: danger
@@ -71,7 +88,7 @@ function ActionButton({
           : "var(--admin-button-secondary-border)",
       }}
     >
-      {label}
+      {icon}
     </button>
   );
 }
@@ -85,9 +102,9 @@ export function UserActions({
     <div
       className="
         flex
-        flex-wrap
         items-center
-        gap-2
+        gap-1
+        sm:gap-1.5
       "
     >
       {status ===
@@ -98,6 +115,12 @@ export function UserActions({
             action="deactivate"
             disabled={disabled}
             onClick={onAction}
+            icon={
+              <Power
+                size={13}
+                className="sm:h-4 sm:w-4"
+              />
+            }
           />
 
           <ActionButton
@@ -106,6 +129,12 @@ export function UserActions({
             danger
             disabled={disabled}
             onClick={onAction}
+            icon={
+              <Trash2
+                size={13}
+                className="sm:h-4 sm:w-4"
+              />
+            }
           />
         </>
       )}
@@ -118,6 +147,12 @@ export function UserActions({
             action="activate"
             disabled={disabled}
             onClick={onAction}
+            icon={
+              <Power
+                size={13}
+                className="sm:h-4 sm:w-4"
+              />
+            }
           />
 
           <ActionButton
@@ -126,6 +161,12 @@ export function UserActions({
             danger
             disabled={disabled}
             onClick={onAction}
+            icon={
+              <Trash2
+                size={13}
+                className="sm:h-4 sm:w-4"
+              />
+            }
           />
         </>
       )}
@@ -138,6 +179,12 @@ export function UserActions({
             action="restore"
             disabled={disabled}
             onClick={onAction}
+            icon={
+              <RotateCcw
+                size={13}
+                className="sm:h-4 sm:w-4"
+              />
+            }
           />
 
           <ActionButton
@@ -146,6 +193,12 @@ export function UserActions({
             danger
             disabled={disabled}
             onClick={onAction}
+            icon={
+              <Trash2
+                size={13}
+                className="sm:h-4 sm:w-4"
+              />
+            }
           />
         </>
       )}

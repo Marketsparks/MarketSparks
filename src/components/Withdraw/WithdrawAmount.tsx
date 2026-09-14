@@ -58,27 +58,25 @@ export default function WithdrawAmount({
   return (
     <div
       className="
-        mt-5
+        mt-4
+        sm:mt-5
       "
     >
       <div
         className="
           flex
-
           items-center
-
           justify-between
-
-          gap-3
+          gap-2
+          sm:gap-3
         "
       >
         <p
           className="
-            text-[12px]
-
+            text-[10px]
             font-medium
-
             text-[var(--withdraw-amount-label)]
+            sm:text-[12px]
           "
         >
           Available Balance
@@ -87,19 +85,17 @@ export default function WithdrawAmount({
         <div
           className="
             flex
-
             items-center
-
-            gap-2
+            gap-1.5
+            sm:gap-2
           "
         >
           <span
             className="
-              text-[12px]
-
+              text-[10px]
               font-medium
-
               text-[var(--withdraw-amount-balance)]
+              sm:text-[12px]
             "
           >
             {formatWithdrawAmount(
@@ -119,36 +115,24 @@ export default function WithdrawAmount({
             }
             className="
               rounded-md
-
               border
-
               border-[var(--withdraw-amount-max-border)]
-
               bg-[var(--withdraw-amount-max-bg)]
-
-              px-2
-
-              py-1
-
-              text-[11px]
-
+              px-1.5
+              py-0.5
+              text-[9px]
               font-medium
-
               text-[var(--withdraw-amount-max-text)]
-
               transition-all
-
               duration-[var(--withdraw-amount-transition)]
-
               hover:border-[var(--withdraw-amount-max-hover-border)]
-
               hover:bg-[var(--withdraw-amount-max-hover-bg)]
-
               hover:text-[var(--withdraw-amount-max-hover-text)]
-
               disabled:cursor-not-allowed
-
               disabled:opacity-50
+              sm:px-2
+              sm:py-1
+              sm:text-[11px]
             "
           >
             Use Max
@@ -159,17 +143,15 @@ export default function WithdrawAmount({
       <label
         htmlFor="withdrawal-amount"
         className="
-          mb-2
-
-          mt-4
-
+          mb-1.5
+          mt-3
           block
-
-          text-[12px]
-
+          text-[10px]
           font-medium
-
           text-[var(--withdraw-amount-label)]
+          sm:mb-2
+          sm:mt-4
+          sm:text-[12px]
         "
       >
         Withdrawal Amount
@@ -183,20 +165,15 @@ export default function WithdrawAmount({
         <span
           className="
             pointer-events-none
-
             absolute
-
-            left-3
-
+            left-2.5
             top-1/2
-
             -translate-y-1/2
-
-            text-[13px]
-
+            text-[11px]
             font-medium
-
             text-[var(--withdraw-amount-currency)]
+            sm:left-3
+            sm:text-[13px]
           "
         >
           $
@@ -222,61 +199,49 @@ export default function WithdrawAmount({
           placeholder="0.00"
           inputMode="decimal"
           className="
+            h-8
             w-full
-
-            rounded-xl
-
+            rounded-lg
             border
-
             border-[var(--withdraw-amount-input-border)]
-
             bg-[var(--withdraw-amount-input-bg)]
-
-            py-2.5
-
-            pl-7
-
-            pr-3
-
-            text-[13px]
-
+            pl-6
+            pr-2.5
+            text-[11px]
             text-[var(--withdraw-amount-input-text)]
-
             outline-none
-
             transition-all
-
             duration-[var(--withdraw-amount-transition)]
-
             placeholder:text-[var(--withdraw-amount-input-placeholder)]
-
             focus:border-[var(--withdraw-amount-input-focus)]
-
             disabled:cursor-not-allowed
-
             disabled:opacity-60
+            sm:h-auto
+            sm:rounded-xl
+            sm:py-2.5
+            sm:pl-7
+            sm:pr-3
+            sm:text-[13px]
           "
         />
       </div>
 
       <div
         className="
-          mt-3
-
+          mt-2.5
           flex
-
           items-center
-
           justify-between
-
-          gap-3
+          gap-2
+          sm:mt-3
+          sm:gap-3
         "
       >
         <span
           className="
-            text-[11px]
-
+            text-[9px]
             text-[var(--withdraw-amount-remaining-label)]
+            sm:text-[11px]
           "
         >
           Remaining Balance
@@ -284,11 +249,10 @@ export default function WithdrawAmount({
 
         <span
           className="
-            text-[12px]
-
+            text-[11px]
             font-semibold
-
             text-[var(--withdraw-amount-remaining-value)]
+            sm:text-[12px]
           "
         >
           {formatWithdrawAmount(

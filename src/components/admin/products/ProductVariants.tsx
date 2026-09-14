@@ -641,7 +641,8 @@ export default function ProductVariants({
   return (
     <section
       className="
-        space-y-4
+        space-y-3
+        sm:space-y-4
       "
     >
       <div
@@ -649,15 +650,17 @@ export default function ProductVariants({
           flex
           items-start
           justify-between
-          gap-3
+          gap-2
+          sm:gap-3
         "
       >
         <div className="min-w-0">
           <h3
             className="
-              text-sm
+              text-[11px]
               font-semibold
               text-[var(--admin-title)]
+              sm:text-sm
             "
           >
             Product Variants
@@ -666,10 +669,13 @@ export default function ProductVariants({
           <p
             className="
               mt-0.5
-              max-w-2xl
-              text-[11px]
-              leading-4
+              max-w-[280px]
+              text-[9px]
+              leading-3.5
               text-[var(--admin-muted)]
+              sm:max-w-2xl
+              sm:text-[11px]
+              sm:leading-4
             "
           >
             Add customer selectable
@@ -688,24 +694,41 @@ export default function ProductVariants({
           }
           className="
             inline-flex
-            h-8
+            h-7
             shrink-0
             items-center
-            gap-1.5
+            justify-center
+            gap-1
             rounded-md
-            bg-[#4F46E5]
+            border
+            border-[var(--admin-card-border)]
+            bg-[var(--admin-table-header-bg)]
             px-2.5
-            text-[11px]
+            text-[9px]
             font-medium
-            text-white
-            transition-colors
-            hover:bg-[#4338CA]
+            text-[var(--admin-table-title)]
+            transition
+            hover:opacity-90
+            focus:outline-none
             disabled:pointer-events-none
             disabled:opacity-60
+            sm:h-9
+            sm:gap-1.5
+            sm:rounded-[var(--admin-input-radius)]
+            sm:px-3
+            sm:text-xs
           "
+          style={{
+            boxShadow:
+              "0 1px 3px var(--admin-card-shadow)",
+          }}
         >
           <Plus
-            size={13}
+            size={12}
+            className="
+              sm:h-[13px]
+              sm:w-[13px]
+            "
           />
 
           Add Variant
@@ -716,20 +739,24 @@ export default function ProductVariants({
         0 && (
         <div
           className="
-            rounded-lg
+            rounded-md
             border
             border-dashed
             border-[var(--admin-card-border)]
-            px-4
-            py-5
+            px-3
+            py-6
             text-center
+            sm:rounded-lg
+            sm:px-4
+            sm:py-5
           "
         >
           <p
             className="
-              text-xs
+              text-[10px]
               font-medium
               text-[var(--admin-title)]
+              sm:text-xs
             "
           >
             No variants added
@@ -737,10 +764,13 @@ export default function ProductVariants({
 
           <p
             className="
-              mt-1
-              text-[11px]
-              leading-4
+              mt-0.5
+              text-[9px]
+              leading-3.5
               text-[var(--admin-muted)]
+              sm:mt-1
+              sm:text-[11px]
+              sm:leading-4
             "
           >
             Add a variant only when
@@ -752,7 +782,8 @@ export default function ProductVariants({
 
       <div
         className="
-          space-y-3
+          space-y-2
+          sm:space-y-3
         "
       >
         {variants.map(
@@ -790,17 +821,20 @@ export default function ProductVariants({
                   border
                   border-[var(--admin-card-border)]
                   bg-[var(--admin-card-bg)]
-                  p-3
+                  p-2.5
                   shadow-sm
+                  sm:p-3
                 "
               >
                 <div
                   className="
-                    mb-3
+                    mb-2.5
                     flex
                     items-center
                     justify-between
-                    gap-3
+                    gap-2
+                    sm:mb-3
+                    sm:gap-3
                   "
                 >
                   <div className="min-w-0">
@@ -808,14 +842,16 @@ export default function ProductVariants({
                       className="
                         flex
                         items-center
-                        gap-2
+                        gap-1.5
+                        sm:gap-2
                       "
                     >
                       <span
                         className="
-                          text-xs
+                          text-[10px]
                           font-semibold
                           text-[var(--admin-title)]
+                          sm:text-xs
                         "
                       >
                         Variant{" "}
@@ -827,11 +863,13 @@ export default function ProductVariants({
                         className="
                           rounded-full
                           bg-[var(--admin-input-bg)]
-                          px-2
+                          px-1.5
                           py-0.5
-                          text-[10px]
+                          text-[8px]
                           font-medium
                           text-[var(--admin-muted)]
+                          sm:px-2
+                          sm:text-[10px]
                         "
                       >
                         {
@@ -843,9 +881,14 @@ export default function ProductVariants({
                     <p
                       className="
                         mt-0.5
-                        text-[10px]
-                        leading-4
+                        max-w-[280px]
+                        truncate
+                        text-[8px]
+                        leading-3
                         text-[var(--admin-muted)]
+                        sm:max-w-none
+                        sm:text-[10px]
+                        sm:leading-4
                       "
                     >
                       {
@@ -866,8 +909,8 @@ export default function ProductVariants({
                     }
                     className="
                       inline-flex
-                      h-7
-                      w-7
+                      h-6
+                      w-6
                       shrink-0
                       items-center
                       justify-center
@@ -880,6 +923,8 @@ export default function ProductVariants({
                       hover:bg-[var(--admin-button-secondary-hover)]
                       disabled:pointer-events-none
                       disabled:opacity-50
+                      sm:h-7
+                      sm:w-7
                     "
                     aria-label={`Remove variant ${
                       variantIndex +
@@ -887,7 +932,11 @@ export default function ProductVariants({
                     }`}
                   >
                     <Trash2
-                      size={13}
+                      size={12}
+                      className="
+                        sm:h-[13px]
+                        sm:w-[13px]
+                      "
                     />
                   </button>
                 </div>
@@ -895,18 +944,21 @@ export default function ProductVariants({
                 <div
                   className="
                     grid
-                    gap-2.5
+                    gap-2
                     sm:grid-cols-2
+                    sm:gap-2.5
                   "
                 >
                   <div>
                     <label
                       className="
-                        mb-1
+                        mb-0.5
                         block
-                        text-[10px]
+                        text-[8px]
                         font-medium
                         text-[var(--admin-title)]
+                        sm:mb-1
+                        sm:text-[10px]
                       "
                     >
                       Variant Type
@@ -929,19 +981,21 @@ export default function ProductVariants({
                         )
                       }
                       className="
-                        h-8
+                        h-7
                         w-full
                         rounded-md
                         border
                         border-[var(--admin-input-border)]
                         bg-[var(--admin-input-bg)]
                         px-2
-                        text-xs
+                        text-[10px]
                         text-[var(--admin-input-text)]
                         outline-none
-                        focus:border-[#6366F1]
+                        focus:border-[var(--admin-input-focus)]
                         focus:ring-2
-                        focus:ring-[#6366F1]/15
+                        focus:ring-[var(--admin-input-focus)]/15
+                        sm:h-8
+                        sm:text-xs
                       "
                     >
                       {variantTypeOptions.map(
@@ -968,11 +1022,13 @@ export default function ProductVariants({
                   <div>
                     <label
                       className="
-                        mb-1
+                        mb-0.5
                         block
-                        text-[10px]
+                        text-[8px]
                         font-medium
                         text-[var(--admin-title)]
+                        sm:mb-1
+                        sm:text-[10px]
                       "
                     >
                       {
@@ -1003,20 +1059,23 @@ export default function ProductVariants({
                         )
                       }
                       className="
-                        h-8
+                        h-7
                         w-full
                         rounded-md
                         border
                         border-[var(--admin-input-border)]
                         bg-[var(--admin-input-bg)]
-                        px-2.5
-                        text-xs
+                        px-2
+                        text-[10px]
                         text-[var(--admin-input-text)]
                         outline-none
                         placeholder:text-[var(--admin-muted)]
-                        focus:border-[#6366F1]
+                        focus:border-[var(--admin-input-focus)]
                         focus:ring-2
-                        focus:ring-[#6366F1]/15
+                        focus:ring-[var(--admin-input-focus)]/15
+                        sm:h-8
+                        sm:px-2.5
+                        sm:text-xs
                       "
                     />
                   </div>
@@ -1024,12 +1083,14 @@ export default function ProductVariants({
 
                 <div
                   className="
-                    mt-3
+                    mt-2.5
                     rounded-md
                     border
                     border-[var(--admin-card-border)]
                     bg-[var(--admin-input-bg)]
-                    p-2.5
+                    p-2
+                    sm:mt-3
+                    sm:p-2.5
                   "
                 >
                   <div
@@ -1043,9 +1104,10 @@ export default function ProductVariants({
                     <div>
                       <p
                         className="
-                          text-[10px]
+                          text-[9px]
                           font-semibold
                           text-[var(--admin-title)]
+                          sm:text-[10px]
                         "
                       >
                         Variant Images
@@ -1054,8 +1116,9 @@ export default function ProductVariants({
                       <p
                         className="
                           mt-0.5
-                          text-[9px]
+                          text-[8px]
                           text-[var(--admin-muted)]
+                          sm:text-[9px]
                         "
                       >
                         Up to 4 images for
@@ -1065,9 +1128,10 @@ export default function ProductVariants({
 
                     <span
                       className="
-                        text-[9px]
+                        text-[8px]
                         font-medium
                         text-[var(--admin-muted)]
+                        sm:text-[9px]
                       "
                     >
                       {
@@ -1079,7 +1143,7 @@ export default function ProductVariants({
 
                   {variant.images.length <
                     4 && (
-                    <div className="mt-2">
+                    <div className="mt-1.5 sm:mt-2">
                       <CloudinaryUploader
                         value={
                           null
@@ -1104,10 +1168,12 @@ export default function ProductVariants({
                     0 && (
                     <div
                       className="
-                        mt-2
+                        mt-1.5
                         grid
                         grid-cols-4
-                        gap-2
+                        gap-1.5
+                        sm:mt-2
+                        sm:gap-2
                       "
                     >
                       {variant.images.map(
@@ -1165,15 +1231,19 @@ export default function ProductVariants({
                                   <span
                                     className="
                                       absolute
-                                      left-1
-                                      top-1
+                                      left-0.5
+                                      top-0.5
                                       rounded
                                       bg-black/65
-                                      px-1.5
+                                      px-1
                                       py-0.5
-                                      text-[8px]
+                                      text-[7px]
                                       font-medium
                                       text-white
+                                      sm:left-1
+                                      sm:top-1
+                                      sm:px-1.5
+                                      sm:text-[8px]
                                     "
                                   >
                                     Primary
@@ -1193,11 +1263,11 @@ export default function ProductVariants({
                                   }
                                   className="
                                     absolute
-                                    right-1
-                                    top-1
+                                    right-0.5
+                                    top-0.5
                                     inline-flex
-                                    h-5
-                                    w-5
+                                    h-4
+                                    w-4
                                     items-center
                                     justify-center
                                     rounded
@@ -1206,13 +1276,21 @@ export default function ProductVariants({
                                     hover:bg-black/80
                                     disabled:pointer-events-none
                                     disabled:opacity-50
+                                    sm:right-1
+                                    sm:top-1
+                                    sm:h-5
+                                    sm:w-5
                                   "
                                   aria-label="Remove variant image"
                                 >
                                   <Trash2
                                     size={
-                                      10
+                                      9
                                     }
+                                    className="
+                                      sm:h-[10px]
+                                      sm:w-[10px]
+                                    "
                                   />
                                 </button>
                               </div>
@@ -1238,16 +1316,19 @@ export default function ProductVariants({
                                   )
                                 }
                                 className="
-                                  h-6
+                                  h-5
                                   w-full
                                   border-0
                                   border-t
                                   border-[var(--admin-card-border)]
                                   bg-transparent
-                                  px-1.5
-                                  text-[9px]
+                                  px-1
+                                  text-[8px]
                                   text-[var(--admin-input-text)]
                                   outline-none
+                                  sm:h-6
+                                  sm:px-1.5
+                                  sm:text-[9px]
                                 "
                               />
                             </div>
@@ -1259,17 +1340,19 @@ export default function ProductVariants({
                 </div>
 
                 {fashionColor ? (
-                  <div className="mt-3">
+                  <div className="mt-2.5 sm:mt-3">
                     <div
                       className="
-                        mb-2
+                        mb-1.5
+                        sm:mb-2
                       "
                     >
                       <p
                         className="
-                          text-[10px]
+                          text-[9px]
                           font-semibold
                           text-[var(--admin-title)]
+                          sm:text-[10px]
                         "
                       >
                         Size Stock
@@ -1278,8 +1361,9 @@ export default function ProductVariants({
                       <p
                         className="
                           mt-0.5
-                          text-[9px]
+                          text-[8px]
                           text-[var(--admin-muted)]
+                          sm:text-[9px]
                         "
                       >
                         Set available stock for
@@ -1291,8 +1375,9 @@ export default function ProductVariants({
                       className="
                         grid
                         grid-cols-3
-                        gap-2
+                        gap-1.5
                         sm:grid-cols-6
+                        sm:gap-2
                       "
                     >
                       {variant.sizes.map(
@@ -1310,23 +1395,26 @@ export default function ProductVariants({
                               border
                               border-[var(--admin-card-border)]
                               bg-[var(--admin-card-bg)]
-                              p-2
+                              p-1.5
+                              sm:p-2
                             "
                           >
                             <div
                               className="
-                                mb-1.5
+                                mb-1
                                 flex
                                 items-center
                                 justify-between
                                 gap-1
+                                sm:mb-1.5
                               "
                             >
                               <span
                                 className="
-                                  text-[10px]
+                                  text-[9px]
                                   font-semibold
                                   text-[var(--admin-title)]
+                                  sm:text-[10px]
                                 "
                               >
                                 {
@@ -1336,8 +1424,9 @@ export default function ProductVariants({
 
                               <span
                                 className="
-                                  text-[8px]
+                                  text-[7px]
                                   text-[var(--admin-muted)]
+                                  sm:text-[8px]
                                 "
                               >
                                 stock
@@ -1368,20 +1457,23 @@ export default function ProductVariants({
                                 )
                               }
                               className="
-                                h-7
+                                h-6
                                 w-full
                                 rounded-md
                                 border
                                 border-[var(--admin-input-border)]
                                 bg-[var(--admin-input-bg)]
-                                px-2
-                                text-[11px]
+                                px-1.5
+                                text-[10px]
                                 font-medium
                                 text-[var(--admin-input-text)]
                                 outline-none
-                                focus:border-[#6366F1]
+                                focus:border-[var(--admin-input-focus)]
                                 focus:ring-2
-                                focus:ring-[#6366F1]/15
+                                focus:ring-[var(--admin-input-focus)]/15
+                                sm:h-7
+                                sm:px-2
+                                sm:text-[11px]
                               "
                             />
                           </div>
@@ -1392,12 +1484,14 @@ export default function ProductVariants({
                 ) : (
                   <div
                     className="
-                      mt-3
+                      mt-2.5
                       rounded-md
                       border
                       border-[var(--admin-card-border)]
                       bg-[var(--admin-card-bg)]
-                      p-2.5
+                      p-2
+                      sm:mt-3
+                      sm:p-2.5
                     "
                   >
                     <div
@@ -1411,9 +1505,10 @@ export default function ProductVariants({
                       <div>
                         <p
                           className="
-                            text-[10px]
+                            text-[9px]
                             font-semibold
                             text-[var(--admin-title)]
+                            sm:text-[10px]
                           "
                         >
                           Stock
@@ -1422,8 +1517,9 @@ export default function ProductVariants({
                         <p
                           className="
                             mt-0.5
-                            text-[9px]
+                            text-[8px]
                             text-[var(--admin-muted)]
+                            sm:text-[9px]
                           "
                         >
                           Available units for{" "}
@@ -1456,20 +1552,23 @@ export default function ProductVariants({
                           )
                         }
                         className="
-                          h-8
-                          w-24
+                          h-7
+                          w-20
                           rounded-md
                           border
                           border-[var(--admin-input-border)]
                           bg-[var(--admin-input-bg)]
                           px-2
-                          text-xs
+                          text-[10px]
                           font-medium
                           text-[var(--admin-input-text)]
                           outline-none
-                          focus:border-[#6366F1]
+                          focus:border-[var(--admin-input-focus)]
                           focus:ring-2
-                          focus:ring-[#6366F1]/15
+                          focus:ring-[var(--admin-input-focus)]/15
+                          sm:h-8
+                          sm:w-24
+                          sm:text-xs
                         "
                       />
                     </div>

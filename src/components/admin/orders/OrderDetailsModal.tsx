@@ -138,8 +138,8 @@ export default function OrderDetailsModal({
     return null;
   }
 
-const currentOrder =
-  order;
+  const currentOrder =
+    order;
 
   const isCrypto =
     order.paymentMethod ===
@@ -176,9 +176,9 @@ const currentOrder =
       return;
     }
 
-await onApprove(
-  currentOrder,
-);
+    await onApprove(
+      currentOrder,
+    );
   }
 
   async function handleReject() {
@@ -196,10 +196,10 @@ await onApprove(
       return;
     }
 
-await onReject(
-  currentOrder,
-  reason,
-);
+    await onReject(
+      currentOrder,
+      reason,
+    );
   }
 
   async function handleStatusUpdate() {
@@ -215,20 +215,20 @@ await onReject(
     const nextStatus =
       selectedStatus as OrderStatus;
 
-if (
-  nextStatus ===
-  currentOrder.status
-) {
-  return;
-}
+    if (
+      nextStatus ===
+      currentOrder.status
+    ) {
+      return;
+    }
 
     try {
       setUpdatingStatus(true);
 
-await onUpdateStatus(
-  currentOrder,
-  nextStatus,
-);
+      await onUpdateStatus(
+        currentOrder,
+        nextStatus,
+      );
     } finally {
       setUpdatingStatus(false);
     }
@@ -244,7 +244,8 @@ await onUpdateStatus(
         items-center
         justify-center
         bg-[var(--admin-modal-overlay)]
-        p-3
+        p-2
+        sm:p-3
       "
       role="presentation"
       onMouseDown={(event) => {
@@ -264,16 +265,18 @@ await onUpdateStatus(
       <div
         className="
           flex
-          max-h-[92vh]
+          max-h-[96vh]
           w-full
           max-w-2xl
           flex-col
           overflow-hidden
-          rounded-xl
+          rounded-lg
           border
           border-[var(--admin-modal-border)]
           bg-[var(--admin-modal-bg)]
           shadow-[var(--admin-modal-shadow)]
+          sm:max-h-[92vh]
+          sm:rounded-xl
         "
         role="dialog"
         aria-modal="true"
@@ -284,22 +287,27 @@ await onUpdateStatus(
             flex
             items-start
             justify-between
-            gap-3
+            gap-2
             border-b
             border-[var(--admin-modal-border)]
             bg-[var(--admin-modal-header-bg)]
-            px-4
-            py-3.5
+            px-3
+            py-2.5
+            sm:gap-3
+            sm:px-4
+            sm:py-3.5
           "
         >
           <div className="min-w-0">
             <p
               className="
-                text-[10px]
+                text-[8px]
                 font-semibold
                 uppercase
-                tracking-[0.12em]
+                tracking-[0.1em]
                 text-[var(--admin-muted)]
+                sm:text-[10px]
+                sm:tracking-[0.12em]
               "
             >
               Order details
@@ -308,11 +316,13 @@ await onUpdateStatus(
             <h2
               id="order-details-title"
               className="
-                mt-1
+                mt-0.5
                 truncate
-                text-sm
+                text-[12px]
                 font-semibold
                 text-[var(--admin-title)]
+                sm:mt-1
+                sm:text-sm
               "
             >
               {order.orderNumber}
@@ -321,8 +331,9 @@ await onUpdateStatus(
             <p
               className="
                 mt-0.5
-                text-[11px]
+                text-[9px]
                 text-[var(--admin-muted)]
+                sm:text-[11px]
               "
             >
               {formatDateTime(
@@ -337,12 +348,12 @@ await onUpdateStatus(
             aria-label="Close order details"
             className="
               flex
-              h-8
-              w-8
+              h-6
+              w-6
               shrink-0
               items-center
               justify-center
-              rounded-lg
+              rounded-md
               border
               border-[var(--admin-modal-border)]
               text-[var(--admin-muted)]
@@ -350,6 +361,9 @@ await onUpdateStatus(
               hover:text-[var(--admin-title)]
               disabled:cursor-not-allowed
               disabled:opacity-50
+              sm:h-8
+              sm:w-8
+              sm:rounded-lg
             "
             disabled={
               loading ||
@@ -357,7 +371,8 @@ await onUpdateStatus(
             }
           >
             <X
-              size={16}
+              size={13}
+              className="sm:h-4 sm:w-4"
             />
           </button>
         </header>
@@ -367,13 +382,15 @@ await onUpdateStatus(
             min-h-0
             flex-1
             overflow-y-auto
-            p-4
+            p-2.5
+            sm:p-4
           "
         >
           <div
             className="
               grid
-              gap-3
+              gap-2
+              sm:gap-3
               sm:grid-cols-2
             "
           >
@@ -407,12 +424,15 @@ await onUpdateStatus(
           {order.cryptoDeposit && (
             <section
               className="
-                mt-3
-                rounded-lg
+                mt-2.5
+                rounded-md
                 border
                 border-[var(--admin-card-border)]
                 bg-[var(--admin-card-bg)]
-                p-3
+                p-2.5
+                sm:mt-3
+                sm:rounded-lg
+                sm:p-3
               "
             >
               <div
@@ -421,17 +441,20 @@ await onUpdateStatus(
                   flex-wrap
                   items-start
                   justify-between
-                  gap-3
+                  gap-2
+                  sm:gap-3
                 "
               >
                 <div>
                   <p
                     className="
-                      text-[10px]
+                      text-[8px]
                       font-semibold
                       uppercase
-                      tracking-[0.08em]
+                      tracking-[0.07em]
                       text-[var(--admin-muted)]
+                      sm:text-[10px]
+                      sm:tracking-[0.08em]
                     "
                   >
                     Crypto payment
@@ -439,10 +462,12 @@ await onUpdateStatus(
 
                   <p
                     className="
-                      mt-1
-                      text-xs
+                      mt-0.5
+                      text-[10px]
                       font-semibold
                       text-[var(--admin-title)]
+                      sm:mt-1
+                      sm:text-xs
                     "
                   >
                     {
@@ -456,8 +481,9 @@ await onUpdateStatus(
                   <p
                     className="
                       mt-0.5
-                      text-[11px]
+                      text-[9px]
                       text-[var(--admin-muted)]
+                      sm:text-[11px]
                     "
                   >
                     {
@@ -479,8 +505,9 @@ await onUpdateStatus(
                 <div className="text-right">
                   <p
                     className="
-                      text-[10px]
+                      text-[8px]
                       text-[var(--admin-muted)]
+                      sm:text-[10px]
                     "
                   >
                     Reference
@@ -489,9 +516,10 @@ await onUpdateStatus(
                   <p
                     className="
                       mt-0.5
-                      text-[11px]
+                      text-[9px]
                       font-medium
                       text-[var(--admin-title)]
+                      sm:text-[11px]
                     "
                   >
                     {
@@ -504,15 +532,18 @@ await onUpdateStatus(
               </div>
 
               {order.cryptoDeposit.receiptUrl ? (
-                <div className="mt-3">
+                <div className="mt-2.5 sm:mt-3">
                   <p
                     className="
-                      mb-2
-                      text-[10px]
+                      mb-1.5
+                      text-[8px]
                       font-semibold
                       uppercase
-                      tracking-[0.08em]
+                      tracking-[0.07em]
                       text-[var(--admin-muted)]
+                      sm:mb-2
+                      sm:text-[10px]
+                      sm:tracking-[0.08em]
                     "
                   >
                     Payment receipt
@@ -534,15 +565,20 @@ await onUpdateStatus(
               ) : (
                 <div
                   className="
-                    mt-3
-                    rounded-lg
+                    mt-2.5
+                    rounded-md
                     border
                     border-[var(--admin-card-border)]
                     bg-[var(--admin-card-bg)]
-                    px-3
-                    py-2.5
-                    text-[11px]
+                    px-2.5
+                    py-2
+                    text-[9px]
                     text-[var(--admin-muted)]
+                    sm:mt-3
+                    sm:rounded-lg
+                    sm:px-3
+                    sm:py-2.5
+                    sm:text-[11px]
                   "
                 >
                   No receipt was attached.
@@ -553,21 +589,26 @@ await onUpdateStatus(
 
           <section
             className="
-              mt-3
-              rounded-lg
+              mt-2.5
+              rounded-md
               border
               border-[var(--admin-card-border)]
               bg-[var(--admin-card-bg)]
-              p-3
+              p-2.5
+              sm:mt-3
+              sm:rounded-lg
+              sm:p-3
             "
           >
             <p
               className="
-                text-[10px]
+                text-[8px]
                 font-semibold
                 uppercase
-                tracking-[0.08em]
+                tracking-[0.07em]
                 text-[var(--admin-muted)]
+                sm:text-[10px]
+                sm:tracking-[0.08em]
               "
             >
               Delivery
@@ -575,10 +616,13 @@ await onUpdateStatus(
 
             <div
               className="
-                mt-2
+                mt-1.5
                 grid
-                gap-x-4
-                gap-y-2
+                gap-x-3
+                gap-y-1.5
+                sm:mt-2
+                sm:gap-x-4
+                sm:gap-y-2
                 sm:grid-cols-2
               "
             >
@@ -622,12 +666,15 @@ await onUpdateStatus(
 
           <section
             className="
-              mt-3
-              rounded-lg
+              mt-2.5
+              rounded-md
               border
               border-[var(--admin-card-border)]
               bg-[var(--admin-card-bg)]
-              p-3
+              p-2.5
+              sm:mt-3
+              sm:rounded-lg
+              sm:p-3
             "
           >
             <div
@@ -635,16 +682,19 @@ await onUpdateStatus(
                 flex
                 items-center
                 justify-between
-                gap-3
+                gap-2
+                sm:gap-3
               "
             >
               <p
                 className="
-                  text-[10px]
+                  text-[8px]
                   font-semibold
                   uppercase
-                  tracking-[0.08em]
+                  tracking-[0.07em]
                   text-[var(--admin-muted)]
+                  sm:text-[10px]
+                  sm:tracking-[0.08em]
                 "
               >
                 Items
@@ -652,8 +702,9 @@ await onUpdateStatus(
 
               <p
                 className="
-                  text-[10px]
+                  text-[8px]
                   text-[var(--admin-muted)]
+                  sm:text-[10px]
                 "
               >
                 {order.items.length}{" "}
@@ -666,9 +717,10 @@ await onUpdateStatus(
 
             <div
               className="
-                mt-2
+                mt-1.5
                 divide-y
                 divide-[var(--admin-table-border)]
+                sm:mt-2
               "
             >
               {order.items.map(
@@ -680,21 +732,26 @@ await onUpdateStatus(
                     className="
                       flex
                       items-center
-                      gap-3
-                      py-2.5
+                      gap-2
+                      py-2
+                      sm:gap-3
+                      sm:py-2.5
                     "
                   >
                     <div
                       className="
                         relative
-                        h-10
-                        w-10
+                        h-8
+                        w-8
                         shrink-0
                         overflow-hidden
-                        rounded-md
+                        rounded
                         border
                         border-[var(--admin-card-border)]
                         bg-[var(--admin-table-header-bg)]
+                        sm:h-10
+                        sm:w-10
+                        sm:rounded-md
                       "
                     >
                       {item.primaryImage ? (
@@ -719,8 +776,9 @@ await onUpdateStatus(
                             w-full
                             items-center
                             justify-center
-                            text-[8px]
+                            text-[7px]
                             text-[var(--admin-muted)]
+                            sm:text-[8px]
                           "
                         >
                           No image
@@ -732,9 +790,10 @@ await onUpdateStatus(
                       <p
                         className="
                           truncate
-                          text-xs
+                          text-[10px]
                           font-semibold
                           text-[var(--admin-title)]
+                          sm:text-xs
                         "
                       >
                         {
@@ -745,8 +804,9 @@ await onUpdateStatus(
                       <p
                         className="
                           mt-0.5
-                          text-[10px]
+                          text-[8px]
                           text-[var(--admin-muted)]
+                          sm:text-[10px]
                         "
                       >
                         Qty{" "}
@@ -765,9 +825,10 @@ await onUpdateStatus(
                     <p
                       className="
                         shrink-0
-                        text-xs
+                        text-[10px]
                         font-semibold
                         text-[var(--admin-title)]
+                        sm:text-xs
                       "
                     >
                       $
@@ -791,12 +852,15 @@ await onUpdateStatus(
 
           <section
             className="
-              mt-3
-              rounded-lg
+              mt-2.5
+              rounded-md
               border
               border-[var(--admin-card-border)]
               bg-[var(--admin-card-bg)]
-              p-3
+              p-2.5
+              sm:mt-3
+              sm:rounded-lg
+              sm:p-3
             "
           >
             <SummaryRow
@@ -831,10 +895,12 @@ await onUpdateStatus(
 
             <div
               className="
-                mt-2
+                mt-1.5
                 border-t
                 border-[var(--admin-table-border)]
-                pt-2
+                pt-1.5
+                sm:mt-2
+                sm:pt-2
               "
             >
               <SummaryRow
@@ -858,22 +924,28 @@ await onUpdateStatus(
           {order.notes && (
             <section
               className="
-                mt-3
-                rounded-lg
+                mt-2.5
+                rounded-md
                 border
                 border-[var(--admin-card-border)]
                 bg-[var(--admin-card-bg)]
-                px-3
-                py-2.5
+                px-2.5
+                py-2
+                sm:mt-3
+                sm:rounded-lg
+                sm:px-3
+                sm:py-2.5
               "
             >
               <p
                 className="
-                  text-[10px]
+                  text-[8px]
                   font-semibold
                   uppercase
-                  tracking-[0.08em]
+                  tracking-[0.07em]
                   text-[var(--admin-muted)]
+                  sm:text-[10px]
+                  sm:tracking-[0.08em]
                 "
               >
                 Customer note
@@ -881,11 +953,14 @@ await onUpdateStatus(
 
               <p
                 className="
-                  mt-1
+                  mt-0.5
                   whitespace-pre-wrap
-                  text-xs
-                  leading-5
+                  text-[10px]
+                  leading-4
                   text-[var(--admin-title)]
+                  sm:mt-1
+                  sm:text-xs
+                  sm:leading-5
                 "
               >
                 {
@@ -899,22 +974,27 @@ await onUpdateStatus(
             showRejectForm && (
               <section
                 className="
-                  mt-3
-                  rounded-lg
+                  mt-2.5
+                  rounded-md
                   border
                   border-[var(--admin-badge-danger-border)]
                   bg-[var(--admin-badge-danger-bg)]
-                  p-3
+                  p-2.5
+                  sm:mt-3
+                  sm:rounded-lg
+                  sm:p-3
                 "
               >
                 <label
                   className="
                     block
-                    text-[10px]
+                    text-[8px]
                     font-semibold
                     uppercase
-                    tracking-[0.08em]
+                    tracking-[0.07em]
                     text-[var(--admin-muted)]
+                    sm:text-[10px]
+                    sm:tracking-[0.08em]
                   "
                 >
                   Rejection reason
@@ -936,29 +1016,36 @@ await onUpdateStatus(
                   rows={3}
                   placeholder="Enter the reason for rejecting this payment."
                   className="
-                    mt-2
+                    mt-1.5
                     w-full
                     resize-none
-                    rounded-lg
+                    rounded-md
                     border
                     border-[var(--admin-input-border)]
                     bg-[var(--admin-input-bg)]
-                    px-3
-                    py-2.5
-                    text-xs
+                    px-2.5
+                    py-2
+                    text-[10px]
                     text-[var(--admin-input-text)]
                     placeholder:text-[var(--admin-input-placeholder)]
                     outline-none
                     focus:border-[var(--admin-input-focus)]
+                    sm:mt-2
+                    sm:rounded-lg
+                    sm:px-3
+                    sm:py-2.5
+                    sm:text-xs
                   "
                 />
 
                 <div
                   className="
-                    mt-2
+                    mt-1.5
                     flex
                     justify-end
-                    gap-2
+                    gap-1.5
+                    sm:mt-2
+                    sm:gap-2
                   "
                 >
                   <button
@@ -972,17 +1059,21 @@ await onUpdateStatus(
                       )
                     }
                     className="
-                      h-8
-                      rounded-lg
+                      h-7
+                      rounded-md
                       border
                       border-[var(--admin-card-border)]
-                      px-3
-                      text-xs
+                      px-2.5
+                      text-[9px]
                       font-medium
                       text-[var(--admin-muted)]
                       transition
                       hover:text-[var(--admin-title)]
                       disabled:opacity-50
+                      sm:h-8
+                      sm:rounded-lg
+                      sm:px-3
+                      sm:text-xs
                     "
                   >
                     Cancel
@@ -998,19 +1089,23 @@ await onUpdateStatus(
                       void handleReject()
                     }
                     className="
-                      h-8
-                      rounded-lg
+                      h-7
+                      rounded-md
                       border
                       border-[var(--admin-badge-danger-border)]
                       bg-[var(--admin-badge-danger-bg)]
-                      px-3
-                      text-xs
+                      px-2.5
+                      text-[9px]
                       font-semibold
                       text-[var(--admin-badge-danger-text)]
                       transition
                       hover:opacity-90
                       disabled:cursor-not-allowed
                       disabled:opacity-50
+                      sm:h-8
+                      sm:rounded-lg
+                      sm:px-3
+                      sm:text-xs
                     "
                   >
                     {loading
@@ -1024,12 +1119,15 @@ await onUpdateStatus(
           {canManageStatus && (
             <section
               className="
-                mt-3
-                rounded-lg
+                mt-2.5
+                rounded-md
                 border
                 border-[var(--admin-card-border)]
                 bg-[var(--admin-card-bg)]
-                p-3
+                p-2.5
+                sm:mt-3
+                sm:rounded-lg
+                sm:p-3
               "
             >
               <div
@@ -1038,17 +1136,20 @@ await onUpdateStatus(
                   flex-wrap
                   items-center
                   justify-between
-                  gap-3
+                  gap-2
+                  sm:gap-3
                 "
               >
                 <div>
                   <p
                     className="
-                      text-[10px]
+                      text-[8px]
                       font-semibold
                       uppercase
-                      tracking-[0.08em]
+                      tracking-[0.07em]
                       text-[var(--admin-muted)]
+                      sm:text-[10px]
+                      sm:tracking-[0.08em]
                     "
                   >
                     Delivery status
@@ -1057,8 +1158,9 @@ await onUpdateStatus(
                   <p
                     className="
                       mt-0.5
-                      text-[11px]
+                      text-[9px]
                       text-[var(--admin-muted)]
+                      sm:text-[11px]
                     "
                   >
                     Update the order's current
@@ -1072,13 +1174,17 @@ await onUpdateStatus(
                     border
                     border-[var(--admin-card-border)]
                     bg-[var(--admin-table-header-bg)]
-                    px-2
-                    py-1
-                    text-[9px]
+                    px-1.5
+                    py-0.5
+                    text-[8px]
                     font-semibold
                     uppercase
-                    tracking-[0.06em]
+                    tracking-[0.05em]
                     text-[var(--admin-title)]
+                    sm:px-2
+                    sm:py-1
+                    sm:text-[9px]
+                    sm:tracking-[0.06em]
                   "
                 >
                   {formatStatusLabel(
@@ -1089,10 +1195,12 @@ await onUpdateStatus(
 
               <div
                 className="
-                  mt-3
+                  mt-2
                   flex
                   flex-col
-                  gap-2
+                  gap-1.5
+                  sm:mt-3
+                  sm:gap-2
                   sm:flex-row
                 "
               >
@@ -1114,16 +1222,16 @@ await onUpdateStatus(
                       )
                     }
                     className="
-                      h-9
+                      h-8
                       w-full
                       appearance-none
-                      rounded-lg
+                      rounded-md
                       border
                       border-[var(--admin-input-border)]
                       bg-[var(--admin-input-bg)]
-                      px-3
-                      pr-9
-                      text-xs
+                      px-2.5
+                      pr-8
+                      text-[10px]
                       font-medium
                       text-[var(--admin-input-text)]
                       outline-none
@@ -1131,6 +1239,11 @@ await onUpdateStatus(
                       focus:border-[var(--admin-input-focus)]
                       disabled:cursor-not-allowed
                       disabled:opacity-60
+                      sm:h-9
+                      sm:rounded-lg
+                      sm:px-3
+                      sm:pr-9
+                      sm:text-xs
                     "
                   >
                     {ORDER_STATUS_OPTIONS.map(
@@ -1152,14 +1265,17 @@ await onUpdateStatus(
                   </select>
 
                   <ChevronDown
-                    size={14}
+                    size={12}
                     className="
                       pointer-events-none
                       absolute
-                      right-3
+                      right-2.5
                       top-1/2
                       -translate-y-1/2
                       text-[var(--admin-muted)]
+                      sm:right-3
+                      sm:h-3.5
+                      sm:w-3.5
                     "
                   />
                 </div>
@@ -1178,21 +1294,26 @@ await onUpdateStatus(
                   }
                   className="
                     inline-flex
-                    h-9
+                    h-8
                     shrink-0
                     items-center
                     justify-center
-                    gap-2
-                    rounded-lg
+                    gap-1.5
+                    rounded-md
                     bg-[var(--admin-badge-success-bg)]
-                    px-3.5
-                    text-xs
+                    px-3
+                    text-[10px]
                     font-semibold
                     text-[var(--admin-badge-success-text)]
                     transition
                     hover:opacity-90
                     disabled:cursor-not-allowed
                     disabled:opacity-50
+                    sm:h-9
+                    sm:gap-2
+                    sm:rounded-lg
+                    sm:px-3.5
+                    sm:text-xs
                   "
                 >
                   {updatingStatus
@@ -1209,11 +1330,13 @@ await onUpdateStatus(
             className="
               flex
               flex-col-reverse
-              gap-2
+              gap-1.5
               border-t
               border-[var(--admin-modal-border)]
               bg-[var(--admin-modal-footer-bg)]
-              p-3
+              p-2.5
+              sm:gap-2
+              sm:p-3
               sm:flex-row
               sm:justify-end
             "
@@ -1231,26 +1354,32 @@ await onUpdateStatus(
                 }
                 className="
                   inline-flex
-                  h-9
+                  h-7
                   items-center
                   justify-center
-                  gap-2
-                  rounded-lg
+                  gap-1.5
+                  rounded-md
                   border
                   border-[var(--admin-badge-danger-border)]
                   bg-[var(--admin-badge-danger-bg)]
-                  px-3
-                  text-xs
+                  px-2.5
+                  text-[9px]
                   font-semibold
                   text-[var(--admin-badge-danger-text)]
                   transition
                   hover:opacity-90
                   disabled:cursor-not-allowed
                   disabled:opacity-50
+                  sm:h-9
+                  sm:gap-2
+                  sm:rounded-lg
+                  sm:px-3
+                  sm:text-xs
                 "
               >
                 <XCircle
-                  size={14}
+                  size={12}
+                  className="sm:h-3.5 sm:w-3.5"
                 />
 
                 Reject
@@ -1267,24 +1396,30 @@ await onUpdateStatus(
               }
               className="
                 inline-flex
-                h-9
+                h-7
                 items-center
                 justify-center
-                gap-2
-                rounded-lg
+                gap-1.5
+                rounded-md
                 bg-[var(--admin-badge-success-bg)]
-                px-3
-                text-xs
+                px-2.5
+                text-[9px]
                 font-semibold
                 text-[var(--admin-badge-success-text)]
                 transition
                 hover:opacity-90
                 disabled:cursor-not-allowed
                 disabled:opacity-50
+                sm:h-9
+                sm:gap-2
+                sm:rounded-lg
+                sm:px-3
+                sm:text-xs
               "
             >
               <CheckCircle2
-                size={14}
+                size={12}
+                className="sm:h-3.5 sm:w-3.5"
               />
 
               {loading
@@ -1314,21 +1449,26 @@ function InfoCard({
   return (
     <div
       className="
-        rounded-lg
+        rounded-md
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
-        px-3
-        py-2.5
+        px-2.5
+        py-2
+        sm:rounded-lg
+        sm:px-3
+        sm:py-2.5
       "
     >
       <p
         className="
-          text-[10px]
+          text-[8px]
           font-semibold
           uppercase
-          tracking-[0.08em]
+          tracking-[0.07em]
           text-[var(--admin-muted)]
+          sm:text-[10px]
+          sm:tracking-[0.08em]
         "
       >
         {label}
@@ -1336,11 +1476,13 @@ function InfoCard({
 
       <p
         className="
-          mt-1
+          mt-0.5
           truncate
-          text-xs
+          text-[10px]
           font-semibold
           text-[var(--admin-title)]
+          sm:mt-1
+          sm:text-xs
         "
       >
         {value}
@@ -1351,8 +1493,9 @@ function InfoCard({
           className="
             mt-0.5
             truncate
-            text-[10px]
+            text-[8px]
             text-[var(--admin-muted)]
+            sm:text-[10px]
           "
         >
           {secondary}
@@ -1379,11 +1522,13 @@ function Detail({
     <div className="min-w-0">
       <p
         className="
-          text-[10px]
+          text-[8px]
           font-medium
           uppercase
-          tracking-[0.08em]
+          tracking-[0.07em]
           text-[var(--admin-muted)]
+          sm:text-[10px]
+          sm:tracking-[0.08em]
         "
       >
         {label}
@@ -1393,9 +1538,10 @@ function Detail({
         className="
           mt-0.5
           break-words
-          text-xs
+          text-[10px]
           font-medium
           text-[var(--admin-title)]
+          sm:text-xs
         "
       >
         {value ||
@@ -1424,13 +1570,15 @@ function SummaryRow({
         flex
         items-center
         justify-between
-        gap-3
+        gap-2
+        sm:gap-3
       "
     >
       <span
         className="
-          text-xs
+          text-[10px]
           text-[var(--admin-muted)]
+          sm:text-xs
         "
       >
         {label}
@@ -1439,8 +1587,8 @@ function SummaryRow({
       <span
         className={
           strong
-            ? "text-sm font-bold text-[var(--admin-title)]"
-            : "text-xs font-medium text-[var(--admin-title)]"
+            ? "text-[11px] font-bold text-[var(--admin-title)] sm:text-sm"
+            : "text-[10px] font-medium text-[var(--admin-title)] sm:text-xs"
         }
       >
         {value}
@@ -1471,17 +1619,21 @@ function ReceiptPreview({
           flex
           items-center
           justify-center
-          rounded-lg
+          rounded-md
           border
           border-[var(--admin-card-border)]
           bg-[var(--admin-table-header-bg)]
-          px-4
-          py-8
-          text-xs
+          px-3
+          py-6
+          text-[10px]
           font-medium
           text-[var(--primary)]
           transition
           hover:opacity-80
+          sm:rounded-lg
+          sm:px-4
+          sm:py-8
+          sm:text-xs
         "
       >
         Open payment receipt
@@ -1497,10 +1649,11 @@ function ReceiptPreview({
       className="
         block
         overflow-hidden
-        rounded-lg
+        rounded-md
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-table-header-bg)]
+        sm:rounded-lg
       "
     >
       <div
@@ -1508,8 +1661,9 @@ function ReceiptPreview({
           relative
           mx-auto
           aspect-[16/10]
-          max-h-[280px]
+          max-h-[220px]
           w-full
+          sm:max-h-[280px]
         "
       >
         <Image
@@ -1519,7 +1673,8 @@ function ReceiptPreview({
           sizes="(max-width: 640px) 90vw, 640px"
           className="
             object-contain
-            p-2
+            p-1.5
+            sm:p-2
           "
         />
       </div>

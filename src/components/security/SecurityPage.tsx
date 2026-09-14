@@ -13,7 +13,8 @@ export default function SecurityPage() {
         w-full
         max-w-4xl
         flex-col
-        gap-5
+        gap-3
+        sm:gap-5
       "
     >
       <SecurityHeader />

@@ -24,14 +24,14 @@ import {
 import { useRouter } from "next/navigation";
 
 export default function KycForm() {
-const {
-  register,
-  control,
-  watch,
- handleSubmit,
-  setValue,
-  formState: { errors },
-} = useForm<KycFormValues>({
+  const {
+    register,
+    control,
+    watch,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<KycFormValues>({
     resolver: zodResolver(kycSchema),
 
     defaultValues: {
@@ -208,12 +208,12 @@ const {
 
       await submitKyc(values);
 
-toast.success(
-  "KYC submitted successfully.",
-);
+      toast.success(
+        "KYC submitted successfully.",
+      );
 
-router.replace("/kyc");
-router.refresh();
+      router.replace("/kyc");
+      router.refresh();
     } catch (error) {
       console.error(error);
 
@@ -227,99 +227,106 @@ router.refresh();
     }
   }
 
-return (
-  <form
-    onSubmit={handleSubmit(onSubmit)}
-    className="
-      space-y-4
-      sm:space-y-5
-    "
-  >
-<PersonalInformationSection
-  register={register}
-  control={control}
-  errors={errors}
-/>
-
-    <IdentityDocumentSection
-      register={register}
-      watch={watch}
-      errors={errors}
-      frontPreview={frontPreview}
-      backPreview={backPreview}
-      frontLoading={frontLoading}
-      backLoading={backLoading}
-      onFrontSelect={handleFrontSelect}
-      onBackSelect={handleBackSelect}
-      onRemoveFront={() => {
-        setFrontPreview(null);
-
-        setValue(
-          "frontDocumentKey",
-          "",
-          {
-            shouldValidate: true,
-          },
-        );
-      }}
-      onRemoveBack={() => {
-        setBackPreview(null);
-
-        setValue(
-          "backDocumentKey",
-          "",
-          {
-            shouldValidate: true,
-          },
-        );
-      }}
-    />
-
-    <SelfieVerificationSection
-      selfiePreview={selfiePreview}
-      selfieLoading={selfieLoading}
-      onSelfieSelect={handleSelfieSelect}
-      onRemoveSelfie={() => {
-        setSelfiePreview(null);
-
-        setValue(
-          "selfieKey",
-          "",
-          {
-            shouldValidate: true,
-          },
-        );
-      }}
-    />
-
-    <button
-      type="submit"
-      disabled={
-        loading ||
-        frontLoading ||
-        backLoading ||
-        selfieLoading
-      }
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
       className="
-        w-full
-        rounded-xl
-        bg-[var(--user-button-bg)]
-        px-4
-        py-2.5
-        text-sm
-        font-semibold
-        text-[var(--user-button-text)]
-        transition-colors
-        duration-[var(--user-transition)]
-        hover:bg-[var(--user-button-hover)]
-        disabled:cursor-not-allowed
-        disabled:opacity-60
+        space-y-3
+        sm:space-y-5
       "
     >
-      {loading
-        ? "Submitting..."
-        : "Submit KYC"}
-    </button>
-  </form>
-);
+      <PersonalInformationSection
+        register={register}
+        control={control}
+        errors={errors}
+      />
+
+      <IdentityDocumentSection
+        register={register}
+        watch={watch}
+        errors={errors}
+        frontPreview={frontPreview}
+        backPreview={backPreview}
+        frontLoading={frontLoading}
+        backLoading={backLoading}
+        onFrontSelect={handleFrontSelect}
+        onBackSelect={handleBackSelect}
+        onRemoveFront={() => {
+          setFrontPreview(null);
+
+          setValue(
+            "frontDocumentKey",
+            "",
+            {
+              shouldValidate: true,
+            },
+          );
+        }}
+        onRemoveBack={() => {
+          setBackPreview(null);
+
+          setValue(
+            "backDocumentKey",
+            "",
+            {
+              shouldValidate: true,
+            },
+          );
+        }}
+      />
+
+      <SelfieVerificationSection
+        selfiePreview={selfiePreview}
+        selfieLoading={selfieLoading}
+        onSelfieSelect={
+          handleSelfieSelect
+        }
+        onRemoveSelfie={() => {
+          setSelfiePreview(null);
+
+          setValue(
+            "selfieKey",
+            "",
+            {
+              shouldValidate: true,
+            },
+          );
+        }}
+      />
+
+      <button
+        type="submit"
+        disabled={
+          loading ||
+          frontLoading ||
+          backLoading ||
+          selfieLoading
+        }
+        className="
+          h-9
+          w-full
+          rounded-lg
+          bg-[var(--user-button-bg)]
+          px-3
+          text-[11px]
+          font-semibold
+          text-[var(--user-button-text)]
+          transition-colors
+          duration-[var(--user-transition)]
+          hover:bg-[var(--user-button-hover)]
+          disabled:cursor-not-allowed
+          disabled:opacity-60
+          sm:h-auto
+          sm:rounded-xl
+          sm:px-4
+          sm:py-2.5
+          sm:text-sm
+        "
+      >
+        {loading
+          ? "Submitting..."
+          : "Submit KYC"}
+      </button>
+    </form>
+  );
 }

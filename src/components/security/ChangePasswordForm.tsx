@@ -75,7 +75,8 @@ export default function ChangePasswordForm() {
         onSubmit,
       )}
       className="
-        space-y-4
+        space-y-3
+        sm:space-y-4
       "
     >
       <PasswordField
@@ -131,12 +132,12 @@ export default function ChangePasswordForm() {
         type="submit"
         disabled={isSubmitting}
         className="
-          h-10
+          h-9
           w-full
           rounded-lg
           bg-[var(--user-button-bg)]
-          px-4
-          text-sm
+          px-3
+          text-[11px]
           font-semibold
           text-[var(--user-button-text)]
           transition-colors
@@ -144,6 +145,9 @@ export default function ChangePasswordForm() {
           hover:bg-[var(--user-button-hover)]
           disabled:cursor-not-allowed
           disabled:opacity-60
+          sm:h-10
+          sm:px-4
+          sm:text-sm
         "
       >
         {isSubmitting

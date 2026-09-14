@@ -5,22 +5,17 @@ export default function WalletPageHeader() {
     <header
       className="
         flex
-
         flex-col
-
-        gap-2
+        gap-1
+        sm:gap-2
       "
     >
       <h1
         className="
-          text-2xl
-
+          text-xl
           font-bold
-
           tracking-tight
-
           text-[var(--admin-title)]
-
           sm:text-3xl
         "
       >
@@ -30,14 +25,11 @@ export default function WalletPageHeader() {
       <p
         className="
           max-w-2xl
-
-          text-sm
-
-          leading-6
-
+          text-xs
+          leading-5
           text-[var(--admin-muted)]
-
           sm:text-base
+          sm:leading-6
         "
       >
         Search for any user and instantly credit or debit their wallet balance.

@@ -79,10 +79,10 @@ export default function AffiliateInterestCard({
     setNegotiateOpen,
   ] = useState(false);
 
-const [
-  actionDialogOpen,
-  setActionDialogOpen,
-] = useState(false);
+  const [
+    actionDialogOpen,
+    setActionDialogOpen,
+  ] = useState(false);
 
   const buyer =
     currentInterest.testBuyer;
@@ -280,19 +280,29 @@ const [
     }
   }
 
-async function handleAcceptNegotiation() {
-  await handleAccept();
+  async function handleAcceptNegotiation() {
+    await handleAccept();
 
-  setActionDialogOpen(false);
-  setNegotiateOpen(false);
-}
+    setActionDialogOpen(
+      false,
+    );
 
-async function handleCloseNegotiation() {
-  await handleReject();
+    setNegotiateOpen(
+      false,
+    );
+  }
 
-  setActionDialogOpen(false);
-  setNegotiateOpen(false);
-}
+  async function handleCloseNegotiation() {
+    await handleReject();
+
+    setActionDialogOpen(
+      false,
+    );
+
+    setNegotiateOpen(
+      false,
+    );
+  }
 
   async function handleNegotiate(
     message: string,
@@ -403,8 +413,9 @@ async function handleCloseNegotiation() {
       <article
         className="
           overflow-hidden
-          rounded-xl
+          rounded-lg
           border
+          sm:rounded-xl
         "
         style={{
           background:
@@ -421,22 +432,26 @@ async function handleCloseNegotiation() {
           className="
             flex
             items-start
-            gap-3
-            p-3
+            gap-2.5
+            p-2.5
+            sm:gap-3
+            sm:p-3
           "
         >
           <div
             className="
               relative
               flex
-              h-10
-              w-10
+              h-9
+              w-9
               shrink-0
               items-center
               justify-center
               overflow-hidden
               rounded-full
               bg-[var(--user-surface-secondary)]
+              sm:h-10
+              sm:w-10
             "
           >
             {imageUrl ? (
@@ -489,15 +504,14 @@ async function handleCloseNegotiation() {
                     truncate
                     text-[11px]
                     font-semibold
+                    sm:text-xs
                   "
                   style={{
                     color:
                       "var(--user-title)",
                   }}
                 >
-                  {
-                    buyer.name
-                  }
+                  {buyer.name}
                 </h3>
 
                 <p
@@ -508,6 +522,7 @@ async function handleCloseNegotiation() {
                     gap-1
                     truncate
                     text-[9px]
+                    sm:text-[10px]
                   "
                   style={{
                     color:
@@ -518,9 +533,7 @@ async function handleCloseNegotiation() {
                     size={10}
                   />
 
-                  {
-                    buyer.phone
-                  }
+                  {buyer.phone}
                 </p>
               </div>
 
@@ -537,15 +550,14 @@ async function handleCloseNegotiation() {
                   mt-1
                   truncate
                   text-[9px]
+                  sm:text-[10px]
                 "
                 style={{
                   color:
                     "var(--user-text-muted)",
                 }}
               >
-                {
-                  buyer.email
-                }
+                {buyer.email}
               </p>
             )}
           </div>
@@ -554,8 +566,10 @@ async function handleCloseNegotiation() {
         <div
           className="
             border-t
-            px-3
-            py-2.5
+            px-2.5
+            py-2
+            sm:px-3
+            sm:py-2.5
           "
           style={{
             borderColor:
@@ -591,8 +605,9 @@ async function handleCloseNegotiation() {
               <p
                 className="
                   mt-0.5
-                  text-sm
+                  text-[13px]
                   font-bold
+                  sm:text-sm
                 "
                 style={{
                   color:
@@ -612,6 +627,7 @@ async function handleCloseNegotiation() {
             <p
               className="
                 text-[9px]
+                sm:text-[10px]
               "
               style={{
                 color:
@@ -627,10 +643,11 @@ async function handleCloseNegotiation() {
           {isPending && (
             <div
               className="
-                mt-3
+                mt-2.5
                 flex
                 flex-wrap
                 gap-1.5
+                sm:mt-3
               "
             >
               <InterestAction
@@ -696,6 +713,7 @@ async function handleCloseNegotiation() {
                 className="
                   text-[9px]
                   leading-4
+                  sm:text-[10px]
                 "
                 style={{
                   color:
@@ -760,6 +778,7 @@ async function handleCloseNegotiation() {
                 border
                 px-2.5
                 py-2
+                sm:mt-3
               "
               style={{
                 background:
@@ -773,6 +792,7 @@ async function handleCloseNegotiation() {
                 className="
                   text-[9px]
                   font-semibold
+                  sm:text-[10px]
                 "
                 style={{
                   color:
@@ -787,6 +807,7 @@ async function handleCloseNegotiation() {
                   mt-0.5
                   text-[9px]
                   leading-4
+                  sm:text-[10px]
                 "
                 style={{
                   color:
@@ -801,69 +822,69 @@ async function handleCloseNegotiation() {
         </div>
       </article>
 
-<NegotiationDialog
-  open={
-    negotiateOpen
-  }
-  buyerName={
-    buyer.name
-  }
-  currentOffer={
-    currentInterest.offeredPrice
-  }
-  messages={
-    currentInterest.messages
-  }
-  currentUserId={
-    user?.id ??
-    null
-  }
-  loading={
-    actionLoading ===
-    "negotiate"
-  }
-  onClose={() =>
-    setNegotiateOpen(
-      false,
-    )
-  }
-  onAction={() =>
-    setActionDialogOpen(
-      true,
-    )
-  }
-  onSubmit={
-    handleNegotiate
-  }
-/>
+      <NegotiationDialog
+        open={
+          negotiateOpen
+        }
+        buyerName={
+          buyer.name
+        }
+        currentOffer={
+          currentInterest.offeredPrice
+        }
+        messages={
+          currentInterest.messages
+        }
+        currentUserId={
+          user?.id ??
+          null
+        }
+        loading={
+          actionLoading ===
+          "negotiate"
+        }
+        onClose={() =>
+          setNegotiateOpen(
+            false,
+          )
+        }
+        onAction={() =>
+          setActionDialogOpen(
+            true,
+          )
+        }
+        onSubmit={
+          handleNegotiate
+        }
+      />
 
-{actionDialogOpen && (
-  <FinalNegotiationActionDialog
-    buyerName={
-      buyer.name
-    }
-    loadingAction={
-      actionLoading ===
-      "accept"
-        ? "accept"
-        : actionLoading ===
-            "reject"
-          ? "reject"
-          : null
-    }
-    onClose={() =>
-      setActionDialogOpen(
-        false,
-      )
-    }
-    onAccept={
-      handleAcceptNegotiation
-    }
-    onReject={
-      handleCloseNegotiation
-    }
-  />
-)}
+      {actionDialogOpen && (
+        <FinalNegotiationActionDialog
+          buyerName={
+            buyer.name
+          }
+          loadingAction={
+            actionLoading ===
+            "accept"
+              ? "accept"
+              : actionLoading ===
+                  "reject"
+                ? "reject"
+                : null
+          }
+          onClose={() =>
+            setActionDialogOpen(
+              false,
+            )
+          }
+          onAccept={
+            handleAcceptNegotiation
+          }
+          onReject={
+            handleCloseNegotiation
+          }
+        />
+      )}
     </>
   );
 }
@@ -885,11 +906,13 @@ function TransactionSummary({
   return (
     <div
       className="
-        mt-3
+        mt-2.5
         rounded-lg
         border
         px-2.5
-        py-2.5
+        py-2
+        sm:mt-3
+        sm:py-2.5
       "
       style={{
         background:
@@ -1078,6 +1101,9 @@ function InterestAction({
         hover:bg-[var(--user-surface-secondary)]
         disabled:cursor-not-allowed
         disabled:opacity-60
+        sm:h-8
+        sm:px-3
+        sm:text-[10px]
       "
       style={{
         background:
@@ -1125,6 +1151,7 @@ function InterestStatusBadge({
         py-0.5
         text-[8px]
         font-semibold
+        sm:text-[9px]
       "
       style={{
         background:
@@ -1257,8 +1284,9 @@ function NegotiationDialog({
         items-center
         justify-center
         bg-black/45
-        p-3
+        p-2
         backdrop-blur-sm
+        sm:p-3
       "
     >
       <form
@@ -1269,12 +1297,16 @@ function NegotiationDialog({
           handleSubmit
         }
         className="
+          max-h-[96vh]
           w-full
           max-w-sm
-          rounded-xl
+          overflow-y-auto
+          rounded-lg
           border
-          p-4
+          p-3
           shadow-2xl
+          sm:rounded-xl
+          sm:p-4
         "
         style={{
           background:
@@ -1312,8 +1344,9 @@ function NegotiationDialog({
               className="
                 mt-0.5
                 truncate
-                text-sm
+                text-[13px]
                 font-semibold
+                sm:text-sm
               "
               style={{
                 color:
@@ -1366,11 +1399,14 @@ function NegotiationDialog({
         {!hasMessages && (
           <div
             className="
-              mt-3
+              mt-2.5
               rounded-lg
               border
-              px-3
-              py-2.5
+              px-2.5
+              py-2
+              sm:mt-3
+              sm:px-3
+              sm:py-2.5
             "
             style={{
               background:
@@ -1417,13 +1453,16 @@ function NegotiationDialog({
         {hasMessages && (
           <div
             className="
-              mt-3
-              max-h-52
+              mt-2.5
+              max-h-48
               space-y-2
               overflow-y-auto
               rounded-lg
               border
-              p-2.5
+              p-2
+              sm:mt-3
+              sm:max-h-52
+              sm:p-2.5
             "
             style={{
               background:
@@ -1552,8 +1591,10 @@ function NegotiationDialog({
 
         <div
           className="
-            mt-3
-            space-y-2.5
+            mt-2.5
+            space-y-2
+            sm:mt-3
+            sm:space-y-2.5
           "
         >
           <div>
@@ -1635,151 +1676,158 @@ function NegotiationDialog({
             setValue={
               setProposedPrice
             }
-            placeholder={currentOffer.toFixed(
-              2,
-            )}
+            placeholder={
+              currentOffer.toFixed(
+                2,
+              )
+            }
             loading={
               loading
             }
           />
         </div>
 
-<div
-  className="
-    mt-4
-    flex
-    items-center
-    justify-between
-    gap-2
-  "
->
-  <button
-    type="button"
-    onClick={() =>
-      onAction()
-    }
-    disabled={
-      loading
-    }
-    className="
-      inline-flex
-      h-8
-      items-center
-      justify-center
-      rounded-md
-      border
-      px-3
-      text-[10px]
-      font-semibold
-      transition
-      hover:bg-[var(--user-surface-secondary)]
-      disabled:cursor-not-allowed
-      disabled:opacity-50
-    "
-    style={{
-      background:
-        "var(--user-card-bg)",
+        <div
+          className="
+            mt-3
+            flex
+            items-center
+            justify-between
+            gap-2
+            sm:mt-4
+          "
+        >
+          <button
+            type="button"
+            onClick={() =>
+              onAction()
+            }
+            disabled={
+              loading
+            }
+            className="
+              inline-flex
+              h-8
+              items-center
+              justify-center
+              rounded-md
+              border
+              px-2.5
+              text-[10px]
+              font-semibold
+              transition
+              hover:bg-[var(--user-surface-secondary)]
+              disabled:cursor-not-allowed
+              disabled:opacity-50
+              sm:px-3
+            "
+            style={{
+              background:
+                "var(--user-card-bg)",
 
-      color:
-        "var(--user-text-muted)",
+              color:
+                "var(--user-text-muted)",
 
-      borderColor:
-        "var(--user-card-border)",
-    }}
-  >
-    Take Action
-  </button>
+              borderColor:
+                "var(--user-card-border)",
+            }}
+          >
+            Take Action
+          </button>
 
-  <div
-    className="
-      flex
-      items-center
-      gap-2
-    "
-  >
-    <button
-      type="button"
-      onClick={
-        onClose
-      }
-      disabled={
-        loading
-      }
-      className="
-        h-8
-        rounded-md
-        border
-        px-3
-        text-[10px]
-        font-semibold
-        transition
-        hover:bg-[var(--user-surface-secondary)]
-        disabled:opacity-50
-      "
-      style={{
-        background:
-          "var(--user-card-bg)",
+          <div
+            className="
+              flex
+              items-center
+              gap-1.5
+              sm:gap-2
+            "
+          >
+            <button
+              type="button"
+              onClick={
+                onClose
+              }
+              disabled={
+                loading
+              }
+              className="
+                h-8
+                rounded-md
+                border
+                px-2.5
+                text-[10px]
+                font-semibold
+                transition
+                hover:bg-[var(--user-surface-secondary)]
+                disabled:opacity-50
+                sm:px-3
+              "
+              style={{
+                background:
+                  "var(--user-card-bg)",
 
-        color:
-          "var(--user-text-muted)",
+                color:
+                  "var(--user-text-muted)",
 
-        borderColor:
-          "var(--user-card-border)",
-      }}
-    >
-      Close
-    </button>
+                borderColor:
+                  "var(--user-card-border)",
+              }}
+            >
+              Close
+            </button>
 
-    <button
-      type="submit"
-      disabled={
-        loading ||
-        !message.trim()
-      }
-      className="
-        inline-flex
-        h-8
-        items-center
-        justify-center
-        gap-1.5
-        rounded-md
-        border
-        px-3
-        text-[10px]
-        font-semibold
-        transition
-        hover:bg-[var(--user-surface-secondary)]
-        disabled:cursor-not-allowed
-        disabled:opacity-60
-      "
-      style={{
-        background:
-          "var(--user-card-bg)",
+            <button
+              type="submit"
+              disabled={
+                loading ||
+                !message.trim()
+              }
+              className="
+                inline-flex
+                h-8
+                items-center
+                justify-center
+                gap-1.5
+                rounded-md
+                border
+                px-2.5
+                text-[10px]
+                font-semibold
+                transition
+                hover:bg-[var(--user-surface-secondary)]
+                disabled:cursor-not-allowed
+                disabled:opacity-60
+                sm:px-3
+              "
+              style={{
+                background:
+                  "var(--user-card-bg)",
 
-        color:
-          "var(--user-text-muted)",
+                color:
+                  "var(--user-text-muted)",
 
-        borderColor:
-          "var(--user-card-border)",
-      }}
-    >
-      {loading ? (
-        <>
-          <Loader2
-            size={12}
-            className="animate-spin"
-          />
+                borderColor:
+                  "var(--user-card-border)",
+              }}
+            >
+              {loading ? (
+                <>
+                  <Loader2
+                    size={12}
+                    className="animate-spin"
+                  />
 
-          Sending...
-        </>
-      ) : hasMessages ? (
-        "Reply"
-      ) : (
-        "Send Message"
-      )}
-    </button>
-  </div>
-</div>
+                  Sending...
+                </>
+              ) : hasMessages ? (
+                "Reply"
+              ) : (
+                "Send Message"
+              )}
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   );
@@ -1807,6 +1855,7 @@ function FinalNegotiationActionDialog({
 }) {
   const loading =
     loadingAction !== null;
+
   return (
     <div
       role="presentation"
@@ -1818,8 +1867,9 @@ function FinalNegotiationActionDialog({
         items-center
         justify-center
         bg-black/50
-        p-3
+        p-2
         backdrop-blur-sm
+        sm:p-3
       "
       onMouseDown={(
         event,
@@ -1839,10 +1889,12 @@ function FinalNegotiationActionDialog({
         className="
           w-full
           max-w-xs
-          rounded-xl
+          rounded-lg
           border
-          p-4
+          p-3
           shadow-2xl
+          sm:rounded-xl
+          sm:p-4
         "
         style={{
           background:
@@ -1879,8 +1931,9 @@ function FinalNegotiationActionDialog({
             <h3
               className="
                 mt-0.5
-                text-sm
+                text-[13px]
                 font-semibold
+                sm:text-sm
               "
               style={{
                 color:
@@ -1931,9 +1984,10 @@ function FinalNegotiationActionDialog({
 
         <p
           className="
-            mt-3
+            mt-2.5
             text-[10px]
             leading-4
+            sm:mt-3
           "
           style={{
             color:
@@ -1946,8 +2000,10 @@ function FinalNegotiationActionDialog({
 
         <div
           className="
-            mt-4
-            space-y-2
+            mt-3
+            space-y-1.5
+            sm:mt-4
+            sm:space-y-2
           "
         >
           <button
@@ -1965,13 +2021,15 @@ function FinalNegotiationActionDialog({
               justify-between
               rounded-lg
               border
-              px-3
-              py-2.5
+              px-2.5
+              py-2
               text-left
               transition
               hover:bg-[var(--user-surface-secondary)]
               disabled:cursor-not-allowed
               disabled:opacity-60
+              sm:px-3
+              sm:py-2.5
             "
             style={{
               background:
@@ -1991,37 +2049,40 @@ function FinalNegotiationActionDialog({
                   font-semibold
                 "
               >
-{loadingAction ===
-"accept"
-  ? "Accepting..."
-  : "Accept negotiation"}
+                {loadingAction ===
+                "accept"
+                  ? "Accepting..."
+                  : "Accept negotiation"}
               </p>
 
               <p
                 className="
                   mt-0.5
                   text-[8px]
+                  leading-3.5
                 "
                 style={{
                   color:
                     "var(--user-text-muted)",
                 }}
               >
-                Confirm that you have agreed to the buyer's offer and want to proceed.
+                Confirm that you have agreed
+                to the buyer's offer and want
+                to proceed.
               </p>
             </div>
 
-{loadingAction ===
-"accept" ? (
-  <Loader2
-    size={14}
-    className="animate-spin"
-  />
-) : (
-  <Check
-    size={14}
-  />
-)}
+            {loadingAction ===
+            "accept" ? (
+              <Loader2
+                size={14}
+                className="animate-spin"
+              />
+            ) : (
+              <Check
+                size={14}
+              />
+            )}
           </button>
 
           <button
@@ -2039,13 +2100,15 @@ function FinalNegotiationActionDialog({
               justify-between
               rounded-lg
               border
-              px-3
-              py-2.5
+              px-2.5
+              py-2
               text-left
               transition
               hover:bg-[var(--user-surface-secondary)]
               disabled:cursor-not-allowed
               disabled:opacity-60
+              sm:px-3
+              sm:py-2.5
             "
             style={{
               background:
@@ -2065,38 +2128,40 @@ function FinalNegotiationActionDialog({
                   font-semibold
                 "
               >
-{loadingAction ===
-"reject"
-  ? "Closing..."
-  : "Close negotiation"}
+                {loadingAction ===
+                "reject"
+                  ? "Closing..."
+                  : "Close negotiation"}
               </p>
 
               <p
                 className="
                   mt-0.5
                   text-[8px]
+                  leading-3.5
                 "
                 style={{
                   color:
                     "var(--user-text-muted)",
                 }}
               >
-                End the negotiation without reaching an agreement with the buyer.
-
+                End the negotiation without
+                reaching an agreement with the
+                buyer.
               </p>
             </div>
 
-{loadingAction ===
-"reject" ? (
-  <Loader2
-    size={14}
-    className="animate-spin"
-  />
-) : (
-  <X
-    size={14}
-  />
-)}
+            {loadingAction ===
+            "reject" ? (
+              <Loader2
+                size={14}
+                className="animate-spin"
+              />
+            ) : (
+              <X
+                size={14}
+              />
+            )}
           </button>
         </div>
 
@@ -2109,7 +2174,7 @@ function FinalNegotiationActionDialog({
             loading
           }
           className="
-            mt-3
+            mt-2.5
             h-8
             w-full
             rounded-md
@@ -2119,6 +2184,7 @@ function FinalNegotiationActionDialog({
             transition
             hover:bg-[var(--user-surface-secondary)]
             disabled:opacity-50
+            sm:mt-3
           "
           style={{
             background:
@@ -2172,6 +2238,7 @@ function PriceField({
         }}
       >
         Proposed Price
+
         <span className="ml-1 normal-case font-normal">
           Optional
         </span>

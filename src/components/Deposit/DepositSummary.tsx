@@ -29,28 +29,23 @@ export default function DepositSummary({
   return (
     <section
       className="
-        mt-8
-
+        mt-5
         rounded-[var(--deposit-summary-radius)]
-
         border
-
         border-[var(--deposit-summary-border)]
-
         bg-[var(--deposit-summary-bg)]
-
-        p-[var(--deposit-summary-padding)]
-
+        p-3
         shadow-[var(--deposit-summary-shadow)]
+        sm:mt-8
+        sm:p-[var(--deposit-summary-padding)]
       "
     >
       <h2
         className="
-          text-[20px]
-
+          text-[16px]
           font-bold
-
           text-[var(--deposit-summary-title)]
+          sm:text-[20px]
         "
       >
         Deposit Summary
@@ -58,9 +53,10 @@ export default function DepositSummary({
 
       <div
         className="
-          mt-6
-
-          space-y-4
+          mt-4
+          space-y-2.5
+          sm:mt-6
+          sm:space-y-4
         "
       >
         <SummaryRow
@@ -92,10 +88,9 @@ export default function DepositSummary({
         <div
           className="
             border-t
-
             border-[var(--deposit-summary-divider)]
-
-            pt-4
+            pt-2.5
+            sm:pt-4
           "
         >
           <SummaryRow
@@ -128,19 +123,17 @@ function SummaryRow({
     <div
       className="
         flex
-
         items-center
-
         justify-between
-
-        gap-4
+        gap-3
+        sm:gap-4
       "
     >
       <span
         className="
-          text-[14px]
-
+          text-[10px]
           text-[var(--deposit-summary-label)]
+          sm:text-[14px]
         "
       >
         {label}
@@ -150,18 +143,16 @@ function SummaryRow({
         className={
           total
             ? `
-                text-[18px]
-
+                text-[14px]
                 font-bold
-
                 text-[var(--deposit-summary-total)]
+                sm:text-[18px]
               `
             : `
-                text-[15px]
-
+                text-[11px]
                 font-semibold
-
                 text-[var(--deposit-summary-value)]
+                sm:text-[15px]
               `
         }
       >

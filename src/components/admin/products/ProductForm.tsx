@@ -157,19 +157,21 @@ export default function ProductForm({
   const slug =
     watch("slug");
 
-const categoryIds =
-  watch("categoryIds") ?? [];
+  const categoryIds =
+    watch("categoryIds") ?? [];
 
-useEffect(() => {
-  register("categoryIds");
-}, [
-  register,
-]);
+  useEffect(() => {
+    register("categoryIds");
+  }, [
+    register,
+  ]);
 
-const selectedCategory =
-  categories.find((category) =>
-    categoryIds.includes(category.id),
-  );
+  const selectedCategory =
+    categories.find((category) =>
+      categoryIds.includes(
+        category.id,
+      ),
+    );
 
   const selectedCategorySlug =
     selectedCategory?.slug ??
@@ -236,9 +238,9 @@ const selectedCategory =
         initialValues.compareAtPrice ??
         null,
 
-initialRating:
-  initialValues.initialRating ??
-  0,
+      initialRating:
+        initialValues.initialRating ??
+        0,
 
       featured:
         initialValues.featured ??
@@ -256,9 +258,9 @@ initialRating:
         initialValues.metaDescription ??
         "",
 
-categoryIds:
-  initialValues.categoryIds ??
-  [],
+      categoryIds:
+        initialValues.categoryIds ??
+        [],
 
       images:
         initialValues.images ??
@@ -310,23 +312,31 @@ categoryIds:
         className="
           flex
           flex-col
-          gap-[var(--space-xl)]
+          gap-4
+          sm:gap-[var(--space-xl)]
         "
       >
         <section
           className="
             grid
-            gap-[var(--space-lg)]
+            gap-3
             lg:grid-cols-2
+            sm:gap-[var(--space-lg)]
           "
         >
-          <div className="space-y-2">
+          <div
+            className="
+              space-y-1
+              sm:space-y-2
+            "
+          >
             <label
               htmlFor="name"
               className="
-                text-sm
+                text-[10px]
                 font-medium
                 text-[var(--admin-title)]
+                sm:text-sm
               "
             >
               Product Name
@@ -339,26 +349,31 @@ categoryIds:
                 "name",
               )}
               className="
-                h-11
+                h-8
                 w-full
-                rounded-[var(--admin-input-radius)]
+                rounded-md
                 border
                 border-[var(--admin-input-border)]
                 bg-[var(--admin-input-bg)]
-                px-4
-                text-sm
+                px-2.5
+                text-[10px]
                 text-[var(--admin-input-text)]
                 outline-none
                 transition
                 focus:border-[var(--admin-input-focus)]
+                sm:h-11
+                sm:rounded-[var(--admin-input-radius)]
+                sm:px-4
+                sm:text-sm
               "
             />
 
             {errors.name && (
               <p
                 className="
-                  text-xs
+                  text-[9px]
                   text-[var(--user-danger)]
+                  sm:text-xs
                 "
               >
                 {
@@ -369,13 +384,19 @@ categoryIds:
             )}
           </div>
 
-          <div className="space-y-2">
+          <div
+            className="
+              space-y-1
+              sm:space-y-2
+            "
+          >
             <label
               htmlFor="slug"
               className="
-                text-sm
+                text-[10px]
                 font-medium
                 text-[var(--admin-title)]
+                sm:text-sm
               "
             >
               Slug
@@ -398,26 +419,31 @@ categoryIds:
                 },
               )}
               className="
-                h-11
+                h-8
                 w-full
-                rounded-[var(--admin-input-radius)]
+                rounded-md
                 border
                 border-[var(--admin-input-border)]
                 bg-[var(--admin-input-bg)]
-                px-4
-                text-sm
+                px-2.5
+                text-[10px]
                 text-[var(--admin-input-text)]
                 outline-none
                 transition
                 focus:border-[var(--admin-input-focus)]
+                sm:h-11
+                sm:rounded-[var(--admin-input-radius)]
+                sm:px-4
+                sm:text-sm
               "
             />
 
             {errors.slug && (
               <p
                 className="
-                  text-xs
+                  text-[9px]
                   text-[var(--user-danger)]
+                  sm:text-xs
                 "
               >
                 {
@@ -428,52 +454,70 @@ categoryIds:
             )}
           </div>
 
-          <div className="space-y-2">
+          <div
+            className="
+              space-y-1
+              sm:space-y-2
+            "
+          >
             <label
               htmlFor="categoryIds"
               className="
-                text-sm
+                text-[10px]
                 font-medium
                 text-[var(--admin-title)]
+                sm:text-sm
               "
             >
               Category
             </label>
 
-<CategoryMultiSelect
-  options={categories}
-  value={categoryIds}
-  onChange={(value) =>
-    setValue(
-      "categoryIds",
-      value,
-      {
-        shouldDirty: true,
-        shouldValidate: true,
-      },
-    )
-  }
-/>
+            <CategoryMultiSelect
+              options={categories}
+              value={categoryIds}
+              onChange={(value) =>
+                setValue(
+                  "categoryIds",
+                  value,
+                  {
+                    shouldDirty:
+                      true,
+                    shouldValidate:
+                      true,
+                  },
+                )
+              }
+            />
 
-{errors.categoryIds && (
-  <p
-    className="
-      text-xs
-      text-[var(--user-danger)]
-    "
-  >
-    {errors.categoryIds.message}
-  </p>
-)}
+            {errors.categoryIds && (
+              <p
+                className="
+                  text-[9px]
+                  text-[var(--user-danger)]
+                  sm:text-xs
+                "
+              >
+                {
+                  errors.categoryIds
+                    .message
+                }
+              </p>
+            )}
           </div>
 
-          <div className="space-y-2">
+          <div
+            className="
+              space-y-1
+              sm:space-y-2
+            "
+          >
             <label
               htmlFor="sku"
               className="
-                text-sm
+                text-[10px]
                 font-medium
                 text-[var(--admin-title)]
+                sm:text-sm
               "
             >
               SKU
@@ -486,26 +530,31 @@ categoryIds:
                 "sku",
               )}
               className="
-                min-h-40
+                h-8
                 w-full
-                rounded-[var(--admin-input-radius)]
+                rounded-md
                 border
                 border-[var(--admin-input-border)]
                 bg-[var(--admin-input-bg)]
-                px-4
-                text-sm
+                px-2.5
+                text-[10px]
                 text-[var(--admin-input-text)]
                 outline-none
                 transition
                 focus:border-[var(--admin-input-focus)]
+                sm:h-11
+                sm:rounded-[var(--admin-input-radius)]
+                sm:px-4
+                sm:text-sm
               "
             />
 
             {errors.sku && (
               <p
                 className="
-                  text-xs
+                  text-[9px]
                   text-[var(--user-danger)]
+                  sm:text-xs
                 "
               >
                 {
@@ -517,13 +566,19 @@ categoryIds:
           </div>
         </section>
 
-        <div className="space-y-2">
+        <div
+          className="
+            space-y-1
+            sm:space-y-2
+          "
+        >
           <label
             htmlFor="description"
             className="
-              text-sm
+              text-[10px]
               font-medium
               text-[var(--admin-title)]
+              sm:text-sm
             "
           >
             Description
@@ -537,27 +592,34 @@ categoryIds:
               "description",
             )}
             className="
+              min-h-[110px]
               w-full
               resize-none
-              rounded-[var(--admin-input-radius)]
+              rounded-md
               border
               border-[var(--admin-input-border)]
               bg-[var(--admin-input-bg)]
-              px-4
-              py-3
-              text-sm
+              px-2.5
+              py-2
+              text-[10px]
               text-[var(--admin-input-text)]
               outline-none
               transition
               focus:border-[var(--admin-input-focus)]
+              sm:min-h-0
+              sm:rounded-[var(--admin-input-radius)]
+              sm:px-4
+              sm:py-3
+              sm:text-sm
             "
           />
 
           {errors.description && (
             <p
               className="
-                text-xs
+                text-[9px]
                 text-[var(--user-danger)]
+                sm:text-xs
               "
             >
               {
@@ -571,21 +633,28 @@ categoryIds:
         <section
           className="
             grid
-            gap-[var(--space-lg)]
+            gap-3
             sm:grid-cols-2
             xl:grid-cols-4
+            sm:gap-[var(--space-lg)]
           "
         >
-          <div className="space-y-2">
+          <div
+            className="
+              space-y-1
+              sm:space-y-2
+            "
+          >
             <label
               htmlFor="price"
               className="
-                text-sm
+                text-[10px]
                 font-medium
                 text-[var(--admin-title)]
+                sm:text-sm
               "
             >
-             Product Price
+              Product Price
             </label>
 
             <input
@@ -601,26 +670,31 @@ categoryIds:
                 },
               )}
               className="
-                h-11
+                h-8
                 w-full
-                rounded-[var(--admin-input-radius)]
+                rounded-md
                 border
                 border-[var(--admin-input-border)]
                 bg-[var(--admin-input-bg)]
-                px-4
-                text-sm
+                px-2.5
+                text-[10px]
                 text-[var(--admin-input-text)]
                 outline-none
                 transition
                 focus:border-[var(--admin-input-focus)]
+                sm:h-11
+                sm:rounded-[var(--admin-input-radius)]
+                sm:px-4
+                sm:text-sm
               "
             />
 
             {errors.price && (
               <p
                 className="
-                  text-xs
+                  text-[9px]
                   text-[var(--user-danger)]
+                  sm:text-xs
                 "
               >
                 {
@@ -631,13 +705,19 @@ categoryIds:
             )}
           </div>
 
-          <div className="space-y-2">
+          <div
+            className="
+              space-y-1
+              sm:space-y-2
+            "
+          >
             <label
               htmlFor="compareAtPrice"
               className="
-                text-sm
+                text-[10px]
                 font-medium
                 text-[var(--admin-title)]
+                sm:text-sm
               "
             >
               Discounted Amount
@@ -664,26 +744,31 @@ categoryIds:
                 },
               )}
               className="
-                h-11
+                h-8
                 w-full
-                rounded-[var(--admin-input-radius)]
+                rounded-md
                 border
                 border-[var(--admin-input-border)]
                 bg-[var(--admin-input-bg)]
-                px-4
-                text-sm
+                px-2.5
+                text-[10px]
                 text-[var(--admin-input-text)]
                 outline-none
                 transition
                 focus:border-[var(--admin-input-focus)]
+                sm:h-11
+                sm:rounded-[var(--admin-input-radius)]
+                sm:px-4
+                sm:text-sm
               "
             />
 
             {errors.compareAtPrice && (
               <p
                 className="
-                  text-xs
+                  text-[9px]
                   text-[var(--user-danger)]
+                  sm:text-xs
                 "
               >
                 {
@@ -694,13 +779,19 @@ categoryIds:
             )}
           </div>
 
-          <div className="space-y-2">
+          <div
+            className="
+              space-y-1
+              sm:space-y-2
+            "
+          >
             <label
               htmlFor="initialRating"
               className="
-                text-sm
+                text-[10px]
                 font-medium
                 text-[var(--admin-title)]
+                sm:text-sm
               "
             >
               Product Rating
@@ -720,26 +811,32 @@ categoryIds:
                 },
               )}
               className="
-                h-11
+                h-8
                 w-full
-                rounded-[var(--admin-input-radius)]
+                rounded-md
                 border
                 border-[var(--admin-input-border)]
                 bg-[var(--admin-input-bg)]
-                px-4
-                text-sm
+                px-2.5
+                text-[10px]
                 text-[var(--admin-input-text)]
                 outline-none
                 transition
                 focus:border-[var(--admin-input-focus)]
+                sm:h-11
+                sm:rounded-[var(--admin-input-radius)]
+                sm:px-4
+                sm:text-sm
               "
             />
 
             <p
               className="
-                text-[11px]
-                leading-4
+                text-[9px]
+                leading-3.5
                 text-[var(--admin-muted)]
+                sm:text-[11px]
+                sm:leading-4
               "
             >
               Optional rating from 0 to 5.
@@ -750,8 +847,9 @@ categoryIds:
             {errors.initialRating && (
               <p
                 className="
-                  text-xs
+                  text-[9px]
                   text-[var(--user-danger)]
+                  sm:text-xs
                 "
               >
                 {
@@ -762,13 +860,19 @@ categoryIds:
             )}
           </div>
 
-          <div className="space-y-2">
+          <div
+            className="
+              space-y-1
+              sm:space-y-2
+            "
+          >
             <label
               htmlFor="status"
               className="
-                text-sm
+                text-[10px]
                 font-medium
                 text-[var(--admin-title)]
+                sm:text-sm
               "
             >
               Status
@@ -780,18 +884,22 @@ categoryIds:
                 "status",
               )}
               className="
-                h-11
+                h-8
                 w-full
-                rounded-[var(--admin-input-radius)]
+                rounded-md
                 border
                 border-[var(--admin-input-border)]
                 bg-[var(--admin-input-bg)]
-                px-4
-                text-sm
+                px-2.5
+                text-[10px]
                 text-[var(--admin-input-text)]
                 outline-none
                 transition
                 focus:border-[var(--admin-input-focus)]
+                sm:h-11
+                sm:rounded-[var(--admin-input-radius)]
+                sm:px-4
+                sm:text-sm
               "
             >
               {PRODUCT_STATUSES.map(
@@ -811,8 +919,9 @@ categoryIds:
             {errors.status && (
               <p
                 className="
-                  text-xs
+                  text-[9px]
                   text-[var(--user-danger)]
+                  sm:text-xs
                 "
               >
                 {
@@ -828,10 +937,12 @@ categoryIds:
           className="
             inline-flex
             items-center
-            gap-3
-            text-sm
+            gap-2
+            text-[10px]
             font-medium
             text-[var(--admin-title)]
+            sm:gap-3
+            sm:text-sm
           "
         >
           <input
@@ -840,8 +951,10 @@ categoryIds:
               "featured",
             )}
             className="
-              h-4
-              w-4
+              h-3
+              w-3
+              sm:h-4
+              sm:w-4
             "
           />
 
@@ -913,7 +1026,8 @@ categoryIds:
           className="
             flex
             justify-end
-            pt-[var(--space-md)]
+            pt-1
+            sm:pt-[var(--space-md)]
           "
         >
           <button
@@ -923,13 +1037,13 @@ categoryIds:
             }
             className="
               inline-flex
-              h-11
+              h-8
               items-center
               justify-center
-              rounded-[var(--admin-input-radius)]
+              rounded-md
               bg-[#4F46E5]
-              px-5
-              text-sm
+              px-3
+              text-[10px]
               font-medium
               text-white
               transition-colors
@@ -940,6 +1054,10 @@ categoryIds:
               focus:ring-offset-2
               disabled:pointer-events-none
               disabled:opacity-60
+              sm:h-11
+              sm:rounded-[var(--admin-input-radius)]
+              sm:px-5
+              sm:text-sm
             "
           >
             {loading

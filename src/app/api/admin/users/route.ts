@@ -18,6 +18,11 @@ const ALLOWED_STATUSES = [
   "PENDING_DELETION",
 ] as const;
 
+const ALLOWED_ROLES = [
+  "USER",
+  "ADMIN",
+] as const;
+
 function unauthorizedResponse() {
   return NextResponse.json(
     {
@@ -126,76 +131,91 @@ export async function GET(
             | "PENDING_DELETION")
         : "ALL";
 
-const where = {
-  role: UserRole.USER,
+    const roleParam =
+      searchParams.get("role");
 
-  ...(status !== "ALL"
-    ? {
-        status: UserStatus[status],
-      }
-    : {}),
+    const role =
+      roleParam &&
+      ALLOWED_ROLES.includes(
+        roleParam as (typeof ALLOWED_ROLES)[number],
+      )
+        ? (roleParam as
+            (typeof ALLOWED_ROLES)[number])
+        : "USER";
 
-  ...(search
-    ? {
-        OR: [
-          {
-            firstName: {
-              contains: search,
-            },
-          },
-          {
-            lastName: {
-              contains: search,
-            },
-          },
-          {
-            email: {
-              contains: search,
-            },
-          },
-        ],
-      }
-    : {}),
-};
+    const where = {
+      role:
+        role === "ADMIN"
+          ? UserRole.ADMIN
+          : UserRole.USER,
 
+      ...(status !== "ALL"
+        ? {
+            status: UserStatus[status],
+          }
+        : {}),
 
-        const [totalUsers, users] =
+      ...(search
+        ? {
+            OR: [
+              {
+                firstName: {
+                  contains: search,
+                },
+              },
+              {
+                lastName: {
+                  contains: search,
+                },
+              },
+              {
+                email: {
+                  contains: search,
+                },
+              },
+            ],
+          }
+        : {}),
+    };
+
+    const [totalUsers, users] =
       await Promise.all([
         prisma.user.count({
           where,
         }),
 
-prisma.user.findMany({
-  where,
+        prisma.user.findMany({
+          where,
 
-  orderBy: {
-    createdAt: "desc",
-  },
+          orderBy: {
+            createdAt: "desc",
+          },
 
-  skip,
+          skip,
 
-  take: limit,
+          take: limit,
 
-  select: {
-    id: true,
-    firstName: true,
-    lastName: true,
-    email: true,
-    phoneNumber: true,
-    role: true,
-    status: true,
-    country: true,
-    createdAt: true,
-    deletedAt: true,
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+            phoneNumber: true,
+            avatarKey: true,
+            role: true,
+            status: true,
+            country: true,
+            createdAt: true,
+            deletedAt: true,
 
-    wallet: {
-      select: {
-        availableBalance: true,
-      },
-    },
-  },
-}),
-]);
+            wallet: {
+              select: {
+                availableBalance: true,
+              },
+            },
+          },
+        }),
+      ]);
 
     const totalPages = Math.max(
       1,
@@ -208,21 +228,21 @@ prisma.user.findMany({
       {
         success: true,
 
-data: {
-users: users.map((user) => ({
-  ...user,
-  balance: Number(
-    user.wallet?.availableBalance ?? 0,
-  ),
-})),
+        data: {
+          users: users.map((user) => ({
+            ...user,
+            balance: Number(
+              user.wallet?.availableBalance ?? 0,
+            ),
+          })),
 
-  pagination: {
-    page,
-    limit,
-    total: totalUsers,
-    totalPages,
-  },
-},
+          pagination: {
+            page,
+            limit,
+            total: totalUsers,
+            totalPages,
+          },
+        },
       },
       {
         status: 200,

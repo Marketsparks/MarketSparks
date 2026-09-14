@@ -32,14 +32,16 @@ export default function LoadingSkeleton() {
                 <th
                   key={label}
                   className="
-                    px-4
-                    py-3.5
+                    px-3
+                    py-2.5
                     text-left
                     text-[10px]
                     font-semibold
                     uppercase
                     tracking-[0.08em]
                     text-[var(--admin-table-header-text)]
+                    sm:px-4
+                    sm:py-3
                   "
                 >
                   {label}
@@ -60,7 +62,12 @@ export default function LoadingSkeleton() {
                 {Array.from({ length: 7 }).map((_, cell) => (
                   <td
                     key={cell}
-                    className="px-4 py-4"
+                    className="
+                      px-3
+                      py-3
+                      sm:px-4
+                      sm:py-3.5
+                    "
                   >
                     <div
                       className="

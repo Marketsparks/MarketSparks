@@ -6,15 +6,17 @@ export default function HelpPage() {
   return (
     <div
       className="
-        space-y-6
+        space-y-4
+        sm:space-y-6
       "
     >
       <header>
         <h1
           className="
-            text-2xl
+            text-[18px]
             font-bold
             text-[var(--foreground)]
+            sm:text-2xl
           "
         >
           Help Center
@@ -22,10 +24,14 @@ export default function HelpPage() {
 
         <p
           className="
-            mt-2
+            mt-1
             max-w-2xl
-            text-sm
+            text-[11px]
+            leading-5
             text-[var(--foreground-muted)]
+            sm:mt-2
+            sm:text-sm
+            sm:leading-normal
           "
         >
           Need assistance? Our support team is available through live chat.
@@ -40,39 +46,57 @@ export default function HelpPage() {
           border
           border-[var(--border)]
           bg-[var(--surface-card)]
-          p-6
+          p-3
           shadow-[var(--shadow-sm)]
+          sm:p-6
         "
       >
         <div
           className="
             flex
             items-start
-            gap-4
+            gap-2.5
+            sm:gap-4
           "
         >
           <div
             className="
               flex
-              h-12
-              w-12
+              h-9
+              w-9
               shrink-0
               items-center
               justify-center
               rounded-full
               bg-[color-mix(in_srgb,var(--primary)_12%,transparent)]
               text-[var(--primary)]
+              sm:h-12
+              sm:w-12
             "
           >
-            <MessageCircle className="h-6 w-6" />
+            <MessageCircle
+              className="
+                h-4.5
+                w-4.5
+                sm:h-6
+                sm:w-6
+              "
+            />
           </div>
 
-          <div className="space-y-2">
+          <div
+            className="
+              min-w-0
+              space-y-1.5
+              sm:space-y-2
+            "
+          >
             <h2
               className="
-                text-lg
+                text-[13px]
                 font-semibold
                 text-[var(--foreground)]
+                sm:text-lg
               "
             >
               Live Chat Support
@@ -80,9 +104,11 @@ export default function HelpPage() {
 
             <p
               className="
-                text-sm
-                leading-6
+                text-[10px]
+                leading-5
                 text-[var(--foreground-muted)]
+                sm:text-sm
+                sm:leading-6
               "
             >
               Our support team is ready to help with your account, orders,

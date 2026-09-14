@@ -207,51 +207,51 @@ export default function AffiliateProductsPage({
       status,
     ]);
 
-function replaceListing(
-  updatedListing: Pick<
-    AdminAffiliateListing,
-    | "id"
-    | "status"
-    | "publicationStatus"
-    | "publishedAt"
-    | "submittedAt"
-    | "reviewedAt"
-    | "rejectionReason"
-    | "removedAt"
-    | "updatedAt"
-  >,
-) {
-  const currentListing =
-    listings.find(
-      (listing) =>
-        listing.id ===
-        updatedListing.id,
+  function replaceListing(
+    updatedListing: Pick<
+      AdminAffiliateListing,
+      | "id"
+      | "status"
+      | "publicationStatus"
+      | "publishedAt"
+      | "submittedAt"
+      | "reviewedAt"
+      | "rejectionReason"
+      | "removedAt"
+      | "updatedAt"
+    >,
+  ) {
+    const currentListing =
+      listings.find(
+        (listing) =>
+          listing.id ===
+          updatedListing.id,
+      );
+
+    if (!currentListing) {
+      return;
+    }
+
+    const mergedListing: AdminAffiliateListing = {
+      ...currentListing,
+
+      ...updatedListing,
+    };
+
+    updateListings(
+      listings.map(
+        (listing) =>
+          listing.id ===
+          mergedListing.id
+            ? mergedListing
+            : listing,
+      ),
     );
 
-  if (!currentListing) {
-    return;
+    setSelectedListing(
+      mergedListing,
+    );
   }
-
-  const mergedListing: AdminAffiliateListing = {
-    ...currentListing,
-
-    ...updatedListing,
-  };
-
-  updateListings(
-    listings.map(
-      (listing) =>
-        listing.id ===
-        mergedListing.id
-          ? mergedListing
-          : listing,
-    ),
-  );
-
-  setSelectedListing(
-    mergedListing,
-  );
-}
 
   async function handleReview(
     listingId: string,
@@ -444,7 +444,8 @@ function replaceListing(
   return (
     <div
       className="
-        space-y-3
+        space-y-2.5
+        sm:space-y-3
       "
     >
       <div
@@ -452,7 +453,8 @@ function replaceListing(
           flex
           items-center
           justify-between
-          gap-3
+          gap-2
+          sm:gap-3
         "
       >
         <div className="min-w-0">
@@ -460,39 +462,46 @@ function replaceListing(
             className="
               flex
               items-center
-              gap-2
+              gap-1.5
+              sm:gap-2
             "
           >
             <div
               className="
                 flex
-                h-7
-                w-7
+                h-6
+                w-6
                 shrink-0
                 items-center
                 justify-center
-                rounded-lg
+                rounded-md
+                sm:h-7
+                sm:w-7
+                sm:rounded-lg
               "
               style={{
                 background:
                   "var(--surface-hover)",
+
                 color:
                   "var(--primary)",
               }}
             >
               <ClipboardList
-                size={14}
+                size={12}
                 strokeWidth={
                   2
                 }
+                className="sm:h-3.5 sm:w-3.5"
               />
             </div>
 
             <h1
               className="
                 truncate
-                text-sm
+                text-[13px]
                 font-bold
+                sm:text-sm
               "
               style={{
                 color:
@@ -505,8 +514,12 @@ function replaceListing(
 
           <p
             className="
-              mt-1
-              text-[10px]
+              mt-0.5
+              text-[9px]
+              leading-3.5
+              sm:mt-1
+              sm:text-[10px]
+              sm:leading-normal
             "
             style={{
               color:
@@ -520,18 +533,24 @@ function replaceListing(
         <div
           className="
             shrink-0
-            rounded-lg
+            rounded-md
             border
-            px-2.5
-            py-1.5
-            text-[9px]
+            px-2
+            py-1
+            text-[8px]
             font-semibold
+            sm:rounded-lg
+            sm:px-2.5
+            sm:py-1.5
+            sm:text-[9px]
           "
           style={{
             background:
               "var(--surface)",
+
             borderColor:
               "var(--border)",
+
             color:
               "var(--foreground-muted)",
           }}
@@ -671,8 +690,9 @@ function RejectReasonDialog({
         items-center
         justify-center
         bg-black/45
-        p-3
+        p-2
         backdrop-blur-sm
+        sm:p-3
       "
     >
       <div
@@ -682,22 +702,26 @@ function RejectReasonDialog({
         className="
           w-full
           max-w-sm
-          rounded-xl
+          rounded-lg
           border
-          p-4
+          p-3
           shadow-2xl
+          sm:rounded-xl
+          sm:p-4
         "
         style={{
           background:
             "var(--surface)",
+
           borderColor:
             "var(--border)",
         }}
       >
         <h2
           className="
-            text-sm
+            text-[13px]
             font-bold
+            sm:text-sm
           "
           style={{
             color:
@@ -709,9 +733,12 @@ function RejectReasonDialog({
 
         <p
           className="
-            mt-1
-            text-[10px]
-            leading-5
+            mt-0.5
+            text-[9px]
+            leading-4
+            sm:mt-1
+            sm:text-[10px]
+            sm:leading-5
           "
           style={{
             color:
@@ -734,27 +761,34 @@ function RejectReasonDialog({
             )
           }
           placeholder="Enter rejection reason..."
-          rows={4}
+          rows={3}
           autoFocus
           className="
-            mt-3
+            mt-2.5
             w-full
             resize-none
-            rounded-lg
+            rounded-md
             border
             bg-transparent
-            px-3
-            py-2.5
-            text-[11px]
+            px-2
+            py-2
+            text-[10px]
+            leading-4
             outline-none
             transition
             focus:border-[var(--primary)]
             focus:ring-2
             focus:ring-[var(--primary)]/10
+            sm:mt-3
+            sm:rounded-lg
+            sm:px-3
+            sm:py-2.5
+            sm:text-[11px]
           "
           style={{
             borderColor:
               "var(--border)",
+
             color:
               "var(--foreground)",
           }}
@@ -762,10 +796,12 @@ function RejectReasonDialog({
 
         <div
           className="
-            mt-3
+            mt-2.5
             flex
             justify-end
-            gap-2
+            gap-1.5
+            sm:mt-3
+            sm:gap-2
           "
         >
           <button
@@ -777,19 +813,23 @@ function RejectReasonDialog({
               onClose
             }
             className="
-              h-8
+              h-7
               rounded-md
               border
-              px-3
-              text-[10px]
+              px-2.5
+              text-[9px]
               font-semibold
               transition
               hover:bg-[var(--surface-hover)]
               disabled:opacity-50
+              sm:h-8
+              sm:px-3
+              sm:text-[10px]
             "
             style={{
               borderColor:
                 "var(--border)",
+
               color:
                 "var(--foreground-muted)",
             }}
@@ -797,45 +837,48 @@ function RejectReasonDialog({
             Cancel
           </button>
 
-<button
-  type="button"
-  disabled={
-    loading ||
-    !reason.trim()
-  }
-  onClick={
-    onSubmit
-  }
-  className="
-    inline-flex
-    h-8
-    items-center
-    justify-center
-    rounded-md
-    border
-    px-3
-    text-[10px]
-    font-semibold
-    transition
-    hover:bg-[var(--surface-hover)]
-    disabled:cursor-not-allowed
-    disabled:opacity-50
-  "
-  style={{
-    background:
-      "var(--surface)",
+          <button
+            type="button"
+            disabled={
+              loading ||
+              !reason.trim()
+            }
+            onClick={
+              onSubmit
+            }
+            className="
+              inline-flex
+              h-7
+              items-center
+              justify-center
+              rounded-md
+              border
+              px-2.5
+              text-[9px]
+              font-semibold
+              transition
+              hover:bg-[var(--surface-hover)]
+              disabled:cursor-not-allowed
+              disabled:opacity-50
+              sm:h-8
+              sm:px-3
+              sm:text-[10px]
+            "
+            style={{
+              background:
+                "var(--surface)",
 
-    color:
-      "var(--foreground-muted)",
+              color:
+                "var(--foreground-muted)",
 
-    borderColor:
-      "var(--border)",
-  }}
->
-  {loading
-    ? "Rejecting..."
-    : "Reject Product"}
-</button>
+              borderColor:
+                "var(--border)",
+            }}
+          >
+            {loading
+              ? "Rejecting..."
+              : "Reject Product"}
+          </button>
         </div>
       </div>
     </div>

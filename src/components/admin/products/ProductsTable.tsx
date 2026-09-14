@@ -81,14 +81,18 @@ export default function ProductsTable({
     return (
       <div
         className="
-          rounded-[var(--admin-surface-radius)]
+          rounded-lg
           border
           border-[var(--admin-card-border)]
           bg-[var(--admin-card-bg)]
-          p-10
+          px-3
+          py-7
           text-center
-          text-sm
+          text-[9px]
           text-[var(--admin-muted)]
+          sm:rounded-[var(--admin-surface-radius)]
+          sm:p-10
+          sm:text-sm
         "
       >
         Loading products...
@@ -100,14 +104,18 @@ export default function ProductsTable({
     return (
       <div
         className="
-          rounded-[var(--admin-surface-radius)]
+          rounded-lg
           border
           border-[var(--admin-card-border)]
           bg-[var(--admin-card-bg)]
-          p-10
+          px-3
+          py-7
           text-center
-          text-sm
+          text-[9px]
           text-[var(--admin-muted)]
+          sm:rounded-[var(--admin-surface-radius)]
+          sm:p-10
+          sm:text-sm
         "
       >
         No products found.
@@ -119,17 +127,19 @@ export default function ProductsTable({
     <div
       className="
         overflow-hidden
-        rounded-[var(--admin-surface-radius)]
+        rounded-lg
         border
         border-[var(--admin-card-border)]
         bg-[var(--admin-card-bg)]
+        sm:rounded-[var(--admin-surface-radius)]
       "
     >
       <div className="overflow-x-auto">
         <table
           className="
-            min-w-full
+            min-w-[900px]
             border-collapse
+            sm:min-w-full
           "
         >
           <thead
@@ -150,14 +160,19 @@ export default function ProductsTable({
                 <th
                   key={title}
                   className="
-                    px-5
-                    py-4
+                    whitespace-nowrap
+                    px-2.5
+                    py-2.5
                     text-left
-                    text-xs
+                    text-[8px]
                     font-semibold
                     uppercase
-                    tracking-wide
+                    tracking-[0.06em]
                     text-[var(--admin-muted)]
+                    sm:px-5
+                    sm:py-4
+                    sm:text-xs
+                    sm:tracking-wide
                   "
                 >
                   {title}
@@ -178,24 +193,37 @@ export default function ProductsTable({
                     hover:bg-[var(--admin-hover-bg)]
                   "
                 >
-                  <td className="px-5 py-4">
+                  <td
+                    className="
+                      whitespace-nowrap
+                      px-2.5
+                      py-2.5
+                      sm:px-5
+                      sm:py-4
+                    "
+                  >
                     <div
                       className="
                         flex
                         items-center
-                        gap-4
+                        gap-2
+                        sm:gap-4
                       "
                     >
                       <div
                         className="
                           relative
-                          h-14
-                          w-14
+                          h-9
+                          w-9
+                          shrink-0
                           overflow-hidden
-                          rounded-[var(--radius-md)]
+                          rounded-md
                           border
                           border-[var(--admin-card-border)]
                           bg-[var(--admin-input-bg)]
+                          sm:h-14
+                          sm:w-14
+                          sm:rounded-[var(--radius-md)]
                         "
                       >
                         {product.images?.[0] ? (
@@ -220,8 +248,13 @@ export default function ProductsTable({
                       <div>
                         <p
                           className="
+                            max-w-[180px]
+                            truncate
+                            text-[10px]
                             font-medium
                             text-[var(--admin-title)]
+                            sm:max-w-none
+                            sm:text-sm
                           "
                         >
                           {product.name}
@@ -229,9 +262,11 @@ export default function ProductsTable({
 
                         <p
                           className="
-                            mt-1
-                            text-xs
+                            mt-0.5
+                            text-[8px]
                             text-[var(--admin-muted)]
+                            sm:mt-1
+                            sm:text-xs
                           "
                         >
                           {product.sku ||
@@ -241,29 +276,39 @@ export default function ProductsTable({
                     </div>
                   </td>
 
-<td
-  className="
-    px-5
-    py-4
-    text-sm
-  "
->
-  {product.categories.length > 0
-    ? product.categories
-        .map(
-          (item) =>
-            item.category.name,
-        )
-        .join(", ")
-    : "Uncategorized"}
-</td>
+                  <td
+                    className="
+                      whitespace-nowrap
+                      px-2.5
+                      py-2.5
+                      text-[9px]
+                      text-[var(--admin-title)]
+                      sm:px-5
+                      sm:py-4
+                      sm:text-sm
+                    "
+                  >
+                    {product.categories.length > 0
+                      ? product.categories
+                          .map(
+                            (item) =>
+                              item.category.name,
+                          )
+                          .join(", ")
+                      : "Uncategorized"}
+                  </td>
 
                   <td
                     className="
-                      px-5
-                      py-4
-                      text-sm
+                      whitespace-nowrap
+                      px-2.5
+                      py-2.5
+                      text-[9px]
                       font-medium
+                      text-[var(--admin-title)]
+                      sm:px-5
+                      sm:py-4
+                      sm:text-sm
                     "
                   >
                     {formatPrice(
@@ -273,9 +318,14 @@ export default function ProductsTable({
 
                   <td
                     className="
-                      px-5
-                      py-4
-                      text-sm
+                      whitespace-nowrap
+                      px-2.5
+                      py-2.5
+                      text-[9px]
+                      text-[var(--admin-title)]
+                      sm:px-5
+                      sm:py-4
+                      sm:text-sm
                     "
                   >
                     {getAvailableStock(
@@ -283,7 +333,15 @@ export default function ProductsTable({
                     )}
                   </td>
 
-                  <td className="px-5 py-4">
+                  <td
+                    className="
+                      whitespace-nowrap
+                      px-2.5
+                      py-2.5
+                      sm:px-5
+                      sm:py-4
+                    "
+                  >
                     <ProductStatusBadge
                       status={
                         product.status
@@ -293,8 +351,11 @@ export default function ProductsTable({
 
                   <td
                     className="
-                      px-5
-                      py-4
+                      whitespace-nowrap
+                      px-2.5
+                      py-2.5
+                      sm:px-5
+                      sm:py-4
                     "
                   >
                     {product.featured ? (
@@ -303,11 +364,14 @@ export default function ProductsTable({
                           inline-flex
                           rounded-full
                           bg-[var(--admin-status-success-bg)]
-                          px-2
-                          py-1
-                          text-xs
+                          px-1.5
+                          py-0.5
+                          text-[8px]
                           font-medium
                           text-[var(--admin-status-success-text)]
+                          sm:px-2
+                          sm:py-1
+                          sm:text-xs
                         "
                       >
                         Featured
@@ -315,8 +379,9 @@ export default function ProductsTable({
                     ) : (
                       <span
                         className="
-                          text-xs
+                          text-[8px]
                           text-[var(--admin-muted)]
+                          sm:text-xs
                         "
                       >
                         No
@@ -324,31 +389,51 @@ export default function ProductsTable({
                     )}
                   </td>
 
-                  <td className="px-5 py-4">
+                  <td
+                    className="
+                      whitespace-nowrap
+                      px-2.5
+                      py-2.5
+                      sm:px-5
+                      sm:py-4
+                    "
+                  >
                     <div
                       className="
                         flex
                         items-center
-                        gap-2
+                        gap-1
+                        sm:gap-2
                       "
                     >
                       <Link
                         href={`/admin/products/${product.id}`}
+                        title="View product"
+                        aria-label="View product"
                         className="
                           inline-flex
-                          h-9
-                          w-9
+                          h-7
+                          w-7
                           items-center
                           justify-center
-                          rounded-[var(--admin-input-radius)]
+                          rounded-md
                           border
                           border-[var(--admin-button-secondary-border)]
                           bg-[var(--admin-button-secondary-bg)]
                           transition
                           hover:bg-[var(--admin-button-secondary-hover)]
+                          sm:h-9
+                          sm:w-9
+                          sm:rounded-[var(--admin-input-radius)]
                         "
                       >
-                        <Eye size={16} />
+                        <Eye
+                          size={13}
+                          className="
+                            sm:h-4
+                            sm:w-4
+                          "
+                        />
                       </Link>
 
                       <button
@@ -358,21 +443,32 @@ export default function ProductsTable({
                             product,
                           )
                         }
+                        title="Edit product"
+                        aria-label="Edit product"
                         className="
                           inline-flex
-                          h-9
-                          w-9
+                          h-7
+                          w-7
                           items-center
                           justify-center
-                          rounded-[var(--admin-input-radius)]
+                          rounded-md
                           border
                           border-[var(--admin-button-secondary-border)]
                           bg-[var(--admin-button-secondary-bg)]
                           transition
                           hover:bg-[var(--admin-button-secondary-hover)]
+                          sm:h-9
+                          sm:w-9
+                          sm:rounded-[var(--admin-input-radius)]
                         "
                       >
-                        <Edit size={16} />
+                        <Edit
+                          size={13}
+                          className="
+                            sm:h-4
+                            sm:w-4
+                          "
+                        />
                       </button>
 
                       <button
@@ -382,21 +478,30 @@ export default function ProductsTable({
                             product,
                           )
                         }
+                        title="Delete product"
+                        aria-label="Delete product"
                         className="
                           inline-flex
-                          h-9
-                          w-9
+                          h-7
+                          w-7
                           items-center
                           justify-center
-                          rounded-[var(--admin-input-radius)]
+                          rounded-md
                           bg-[var(--admin-button-danger-bg)]
                           text-[var(--admin-button-danger-text)]
                           transition
                           hover:opacity-90
+                          sm:h-9
+                          sm:w-9
+                          sm:rounded-[var(--admin-input-radius)]
                         "
                       >
                         <Trash2
-                          size={16}
+                          size={13}
+                          className="
+                            sm:h-4
+                            sm:w-4
+                          "
                         />
                       </button>
                     </div>

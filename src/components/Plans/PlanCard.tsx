@@ -27,11 +27,11 @@ export function PlanCard({
   disabled = false,
   onSubscribe,
 }: PlanCardProps) {
-const buttonLabel = current
-  ? "Current"
-  : hasActiveSubscription
-    ? "Upgrade"
-    : "Subscribe";
+  const buttonLabel = current
+    ? "Current"
+    : hasActiveSubscription
+      ? "Upgrade"
+      : "Subscribe";
 
   return (
     <div
@@ -39,10 +39,12 @@ const buttonLabel = current
         flex
         h-full
         flex-col
-        rounded-[var(--user-radius-md)]
+        rounded-lg
         border
-        p-4
+        p-3
         transition-all
+        sm:rounded-[var(--user-radius-md)]
+        sm:p-4
         ${
           disabled
             ? "opacity-60"
@@ -64,15 +66,17 @@ const buttonLabel = current
           flex
           items-start
           justify-between
-          gap-3
+          gap-2
+          sm:gap-3
         "
       >
         <div className="min-w-0">
           <h3
             className="
               truncate
-              text-base
+              text-sm
               font-semibold
+              sm:text-base
             "
             style={{
               color:
@@ -85,9 +89,13 @@ const buttonLabel = current
           {plan.description && (
             <p
               className="
-                mt-1
+                mt-0.5
                 line-clamp-2
-                text-xs
+                text-[10px]
+                leading-4
+                sm:mt-1
+                sm:text-xs
+                sm:leading-normal
               "
               style={{
                 color:
@@ -104,10 +112,13 @@ const buttonLabel = current
             shrink-0
             rounded-full
             border
-            px-2.5
-            py-1
-            text-[11px]
+            px-1.5
+            py-0.5
+            text-[9px]
             font-medium
+            sm:px-2.5
+            sm:py-1
+            sm:text-[11px]
           "
           style={{
             background:
@@ -126,8 +137,10 @@ const buttonLabel = current
 
       <div
         className="
-          mt-4
-          space-y-2
+          mt-3
+          space-y-1.5
+          sm:mt-4
+          sm:space-y-2
         "
       >
         <div
@@ -137,8 +150,10 @@ const buttonLabel = current
             justify-between
             rounded-lg
             border
-            px-3
-            py-2
+            px-2.5
+            py-1.5
+            sm:px-3
+            sm:py-2
           "
           style={{
             background:
@@ -150,7 +165,8 @@ const buttonLabel = current
         >
           <span
             className="
-              text-xs
+              text-[10px]
+              sm:text-xs
             "
             style={{
               color:
@@ -162,8 +178,9 @@ const buttonLabel = current
 
           <span
             className="
-              text-sm
+              text-xs
               font-semibold
+              sm:text-sm
             "
             style={{
               color:
@@ -179,14 +196,16 @@ const buttonLabel = current
           className="
             grid
             grid-cols-2
-            gap-2
+            gap-1.5
+            sm:gap-2
           "
         >
           <div
             className="
               rounded-lg
               border
-              p-2.5
+              p-2
+              sm:p-2.5
             "
             style={{
               background:
@@ -198,7 +217,8 @@ const buttonLabel = current
           >
             <p
               className="
-                text-[11px]
+                text-[9px]
+                sm:text-[11px]
               "
               style={{
                 color:
@@ -210,9 +230,11 @@ const buttonLabel = current
 
             <p
               className="
-                mt-1
-                text-sm
+                mt-0.5
+                text-xs
                 font-semibold
+                sm:mt-1
+                sm:text-sm
               "
               style={{
                 color:
@@ -227,7 +249,8 @@ const buttonLabel = current
             className="
               rounded-lg
               border
-              p-2.5
+              p-2
+              sm:p-2.5
             "
             style={{
               background:
@@ -239,7 +262,8 @@ const buttonLabel = current
           >
             <p
               className="
-                text-[11px]
+                text-[9px]
+                sm:text-[11px]
               "
               style={{
                 color:
@@ -251,9 +275,11 @@ const buttonLabel = current
 
             <p
               className="
-                mt-1
-                text-sm
+                mt-0.5
+                text-xs
                 font-semibold
+                sm:mt-1
+                sm:text-sm
               "
               style={{
                 color:
@@ -271,7 +297,8 @@ const buttonLabel = current
               col-span-2
               rounded-lg
               border
-              p-2.5
+              p-2
+              sm:p-2.5
             "
             style={{
               background:
@@ -290,7 +317,8 @@ const buttonLabel = current
             >
               <span
                 className="
-                  text-[11px]
+                  text-[9px]
+                  sm:text-[11px]
                 "
                 style={{
                   color:
@@ -302,8 +330,9 @@ const buttonLabel = current
 
               <span
                 className="
-                  text-sm
+                  text-xs
                   font-semibold
+                  sm:text-sm
                 "
                 style={{
                   color:
@@ -322,9 +351,13 @@ const buttonLabel = current
 
       <Button
         className="
-          mt-4
-          h-10
+          mt-3
+          h-8
           w-full
+          text-[10px]
+          sm:mt-4
+          sm:h-10
+          sm:text-sm
         "
         disabled={
           current ||

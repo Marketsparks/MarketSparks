@@ -109,144 +109,169 @@ export default function RejectDepositDialog({
     }
   }
 
-return (
-  <div
-    className="
-      fixed
-      inset-0
-      z-[100]
-      flex
-      items-center
-      justify-center
-      bg-black/60
-      p-4
-      backdrop-blur-sm
-    "
-  >
+  return (
     <div
       className="
-        w-full
-        max-w-lg
-        rounded-2xl
-        border
-        border-[var(--admin-border)]
-        bg-[var(--admin-card-bg)]
-        p-6
-        shadow-2xl
+        fixed
+        inset-0
+        z-[100]
+        flex
+        items-center
+        justify-center
+        bg-black/60
+        p-3
+        backdrop-blur-sm
+        sm:p-4
       "
     >
-      <h2
+      <div
         className="
-          text-xl
-          font-semibold
-          text-[var(--admin-foreground)]
+          w-full
+          max-w-lg
+          rounded-xl
+          border
+          border-[var(--admin-border)]
+          bg-[var(--admin-card-bg)]
+          p-4
+          shadow-2xl
+          sm:rounded-2xl
+          sm:p-5
         "
       >
-        Reject Deposit
-      </h2>
-
-      <p
-        className="
-          mt-2
-          text-sm
-          leading-6
-          text-[var(--admin-muted-foreground)]
-        "
-      >
-        This action cannot be undone. Tell the user why this
-        deposit was rejected.
-      </p>
-
-      <div className="mt-6">
-        <label
+        <h2
           className="
-            mb-2
-            block
-            text-sm
-            font-medium
+            text-base
+            font-semibold
             text-[var(--admin-foreground)]
+            sm:text-lg
           "
         >
-          Reason for rejection
-        </label>
+          Reject Deposit
+        </h2>
 
-        <textarea
-          value={adminNote}
-          onChange={(event) =>
-            setAdminNote(
-              event.target.value,
-            )
-          }
-          rows={5}
-          placeholder="Explain why this deposit was rejected..."
+        <p
           className="
-            w-full
-            rounded-xl
-            border
-            border-[var(--admin-border)]
-            bg-[var(--admin-background)]
-            px-4
-            py-3
-            text-[var(--admin-foreground)]
-            placeholder:text-[var(--admin-muted-foreground)]
-            outline-none
-            transition-colors
-            focus:border-[var(--admin-primary)]
-            focus:ring-2
-            focus:ring-[var(--admin-primary)]/20
+            mt-1.5
+            text-xs
+            leading-5
+            text-[var(--admin-muted-foreground)]
+            sm:mt-2
+            sm:text-sm
           "
-        />
-      </div>
+        >
+          This action cannot be undone. Tell the user why this
+          deposit was rejected.
+        </p>
 
-      {error && (
         <div
           className="
             mt-4
-            rounded-xl
-            border
-            border-red-500/20
-            bg-red-500/10
-            px-4
-            py-3
-            text-sm
-            text-red-400
+            sm:mt-5
           "
         >
-          {error}
+          <label
+            className="
+              mb-1.5
+              block
+              text-xs
+              font-medium
+              text-[var(--admin-foreground)]
+              sm:text-sm
+            "
+          >
+            Reason for rejection
+          </label>
+
+          <textarea
+            value={adminNote}
+            onChange={(event) =>
+              setAdminNote(
+                event.target.value,
+              )
+            }
+            rows={4}
+            placeholder="Explain why this deposit was rejected..."
+            className="
+              w-full
+              resize-none
+              rounded-lg
+              border
+              border-[var(--admin-border)]
+              bg-[var(--admin-background)]
+              px-3
+              py-2.5
+              text-sm
+              text-[var(--admin-foreground)]
+              placeholder:text-[var(--admin-muted-foreground)]
+              outline-none
+              transition-colors
+              focus:border-[var(--admin-primary)]
+              focus:ring-2
+              focus:ring-[var(--admin-primary)]/20
+              sm:rounded-xl
+              sm:px-4
+              sm:py-3
+            "
+          />
         </div>
-      )}
 
-      <div
-        className="
-          mt-8
-          flex
-          justify-end
-          gap-3
-        "
-      >
-        <Button
-          type="button"
-          variant="secondary"
-          onClick={onClose}
-          disabled={loading}
-        >
-          Cancel
-        </Button>
+        {error && (
+          <div
+            className="
+              mt-3
+              rounded-lg
+              border
+              border-red-500/20
+              bg-red-500/10
+              px-3
+              py-2.5
+              text-xs
+              leading-4
+              text-red-400
+              sm:mt-4
+              sm:rounded-xl
+              sm:px-4
+              sm:py-3
+              sm:text-sm
+            "
+          >
+            {error}
+          </div>
+        )}
 
-        <Button
-          type="button"
-          variant="primary"
-          onClick={
-            handleReject
-          }
-          disabled={loading}
+        <div
+          className="
+            mt-5
+            flex
+            justify-end
+            gap-2
+            sm:mt-6
+            sm:gap-3
+          "
         >
-          {loading
-            ? "Rejecting..."
-            : "Reject Deposit"}
-        </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={onClose}
+            disabled={loading}
+          >
+            Cancel
+          </Button>
+
+          <Button
+            type="button"
+            variant="primary"
+            onClick={
+              handleReject
+            }
+            disabled={loading}
+          >
+            {loading
+              ? "Rejecting..."
+              : "Reject Deposit"}
+          </Button>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 }

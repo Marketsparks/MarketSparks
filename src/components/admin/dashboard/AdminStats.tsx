@@ -11,11 +11,8 @@ import AdminStatCard from "./AdminStatCard";
 
 type AdminStatsProps = {
   users: number;
-
   products: number;
-
   affiliateProducts: number;
-
   orders: number;
 };
 
@@ -30,8 +27,9 @@ export default function AdminStats({
       className="
         grid
         grid-cols-1
-        gap-[var(--admin-page-gap)]
+        gap-1.5
         sm:grid-cols-2
+        sm:gap-[var(--admin-page-gap)]
         xl:grid-cols-4
       "
     >

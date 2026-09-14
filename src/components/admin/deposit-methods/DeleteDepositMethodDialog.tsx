@@ -51,37 +51,46 @@ export default function DeleteDepositMethodDialog({
   const [error, setError] =
     useState("");
 
-if (!method) {
-  return null;
-}
+  if (!method) {
+    return null;
+  }
 
-const imageUrl = getCloudinaryImageUrl(method.iconKey);
+  const imageUrl =
+    getCloudinaryImageUrl(
+      method.iconKey,
+    );
 
   async function handleDelete() {
-if (!method) {
- return;
-}
+    if (!method) {
+      return;
+    }
+
     try {
       setLoading(true);
 
       setError("");
 
-const response = await fetch(
-  `/api/admin/deposit-methods/${method.id}`,
-  {
-    method: "DELETE",
-  },
-);
+      const response =
+        await fetch(
+          `/api/admin/deposit-methods/${method.id}`,
+          {
+            method: "DELETE",
+          },
+        );
 
-const text = await response.text();
+      const text =
+        await response.text();
 
-const result = text ? JSON.parse(text) : {};
+      const result = text
+        ? JSON.parse(text)
+        : {};
 
-if (!response.ok) {
-  throw new Error(
-    result.error ?? "Failed to delete deposit method",
-  );
-}
+      if (!response.ok) {
+        throw new Error(
+          result.error ??
+            "Failed to delete deposit method",
+        );
+      }
 
       onSuccess();
 
@@ -108,24 +117,47 @@ if (!response.ok) {
         }
       }}
     >
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
+      <DialogContent
+        className="
+          w-[calc(100%-1.5rem)]
+          max-w-md
+          rounded-xl
+          p-4
+          sm:w-full
+          sm:p-5
+        "
+      >
+        <DialogHeader className="space-y-1.5">
           <DialogTitle
             className="
               flex
               items-center
-              gap-2
+              gap-1.5
+              text-base
+              leading-tight
+              sm:text-lg
             "
           >
             <AlertTriangle
-              size={20}
-              className="text-red-500"
+              size={18}
+              className="
+                shrink-0
+                text-red-500
+              "
             />
 
-            Delete Deposit Method
+            <span className="min-w-0">
+              Delete Deposit Method
+            </span>
           </DialogTitle>
 
-          <DialogDescription>
+          <DialogDescription
+            className="
+              text-xs
+              leading-4
+              sm:text-sm
+            "
+          >
             This action cannot be undone.
           </DialogDescription>
         </DialogHeader>
@@ -133,41 +165,42 @@ if (!response.ok) {
         <div
           className="
             flex
+            min-w-0
             items-center
-            gap-4
-
-            rounded-xl
+            gap-3
+            rounded-lg
             border
-
             border-red-200
-
             bg-red-50
-
-            p-4
+            p-3
           "
         >
-{imageUrl ? (
-  <Image
-    src={imageUrl}
-    alt={method.name}
-    width={56}
-    height={56}
-    className="rounded-lg"
-  />
-) : (
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={method.name}
+              width={44}
+              height={44}
+              className="
+                h-11
+                w-11
+                shrink-0
+                rounded-lg
+                object-cover
+              "
+            />
+          ) : (
             <div
               className="
                 flex
-                h-14
-                w-14
+                h-11
+                w-11
+                shrink-0
                 items-center
                 justify-center
-
                 rounded-lg
-
                 bg-gray-200
-
-                text-lg
+                text-sm
                 font-semibold
               "
             >
@@ -176,13 +209,22 @@ if (!response.ok) {
           )}
 
           <div className="min-w-0">
-            <p className="font-semibold">
+            <p
+              className="
+                truncate
+                text-sm
+                font-semibold
+                leading-5
+              "
+            >
               {method.name}
             </p>
 
             <p
               className="
-                text-sm
+                truncate
+                text-xs
+                leading-4
                 text-muted-foreground
               "
             >
@@ -191,13 +233,14 @@ if (!response.ok) {
 
             <p
               className="
-                mt-2
-                text-sm
+                mt-1.5
+                text-xs
+                leading-4
                 text-red-600
               "
             >
-              Deleting this method removes it from
-              the platform immediately.
+              Deleting this method removes it
+              from the platform immediately.
             </p>
           </div>
         </div>
@@ -205,7 +248,8 @@ if (!response.ok) {
         {error && (
           <p
             className="
-              text-sm
+              text-xs
+              leading-4
               text-red-600
             "
           >
@@ -213,7 +257,14 @@ if (!response.ok) {
           </p>
         )}
 
-        <DialogFooter>
+        <DialogFooter
+          className="
+            flex-row
+            justify-end
+            gap-2
+            sm:gap-2
+          "
+        >
           <Button
             type="button"
             variant="secondary"
@@ -232,9 +283,9 @@ if (!response.ok) {
             {loading ? (
               <>
                 <Loader2
-                  size={16}
+                  size={14}
                   className="
-                    mr-2
+                    mr-1.5
                     animate-spin
                   "
                 />
@@ -244,8 +295,8 @@ if (!response.ok) {
             ) : (
               <>
                 <Trash2
-                  size={16}
-                  className="mr-2"
+                  size={14}
+                  className="mr-1.5"
                 />
 
                 Delete Method

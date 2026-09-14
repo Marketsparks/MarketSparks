@@ -39,7 +39,8 @@ export default function WithdrawalMethodDeleteModal({
         items-center
         justify-center
         bg-[var(--admin-modal-overlay)]
-        p-4
+        p-2
+        sm:p-4
       "
     >
       <div
@@ -62,36 +63,44 @@ export default function WithdrawalMethodDeleteModal({
             border-b
             border-[var(--admin-modal-border)]
             bg-[var(--admin-modal-header-bg)]
-            px-6
-            py-8
+            px-3
+            py-4
             text-center
+            sm:px-6
+            sm:py-8
           "
         >
           <div
             className="
               flex
-              h-16
-              w-16
+              h-9
+              w-9
               items-center
               justify-center
               rounded-full
               bg-[var(--admin-status-failed-bg)]
+              sm:h-16
+              sm:w-16
             "
           >
             <AlertTriangle
-              size={30}
+              size={18}
               className="
                 text-[var(--admin-status-failed-text)]
+                sm:h-[30px]
+                sm:w-[30px]
               "
             />
           </div>
 
           <h2
             className="
-              mt-5
-              text-xl
+              mt-2.5
+              text-sm
               font-bold
               text-[var(--admin-title)]
+              sm:mt-5
+              sm:text-xl
             "
           >
             Delete Withdrawal Method
@@ -99,11 +108,14 @@ export default function WithdrawalMethodDeleteModal({
 
           <p
             className="
-              mt-3
+              mt-1.5
               max-w-md
-              text-sm
-              leading-6
+              text-[10px]
+              leading-4
               text-[var(--admin-muted)]
+              sm:mt-3
+              sm:text-sm
+              sm:leading-6
             "
           >
             You are about to permanently delete{" "}
@@ -127,12 +139,13 @@ export default function WithdrawalMethodDeleteModal({
           className="
             flex
             flex-col-reverse
-            gap-3
+            gap-1.5
             bg-[var(--admin-modal-footer-bg)]
-            p-6
-
+            p-2.5
             sm:flex-row
             sm:justify-end
+            sm:gap-3
+            sm:p-6
           "
         >
           <button
@@ -140,13 +153,13 @@ export default function WithdrawalMethodDeleteModal({
             disabled={loading}
             onClick={onClose}
             className="
-              h-11
-              rounded-[var(--admin-input-radius)]
+              h-7
+              rounded
               border
               border-[var(--admin-button-secondary-border)]
               bg-[var(--admin-button-secondary-bg)]
-              px-5
-              text-sm
+              px-2.5
+              text-[9px]
               font-semibold
               text-[var(--admin-button-secondary-text)]
               transition-all
@@ -154,6 +167,10 @@ export default function WithdrawalMethodDeleteModal({
               hover:bg-[var(--admin-button-secondary-hover)]
               disabled:cursor-not-allowed
               disabled:opacity-60
+              sm:h-11
+              sm:rounded-[var(--admin-input-radius)]
+              sm:px-5
+              sm:text-sm
             "
           >
             Cancel
@@ -164,11 +181,11 @@ export default function WithdrawalMethodDeleteModal({
             disabled={loading}
             onClick={onDelete}
             className="
-              h-11
-              rounded-[var(--admin-input-radius)]
+              h-7
+              rounded
               bg-[var(--admin-button-danger-bg)]
-              px-5
-              text-sm
+              px-2.5
+              text-[9px]
               font-semibold
               text-[var(--admin-button-danger-text)]
               transition-all
@@ -176,9 +193,15 @@ export default function WithdrawalMethodDeleteModal({
               hover:bg-[var(--admin-button-danger-hover)]
               disabled:cursor-not-allowed
               disabled:opacity-60
+              sm:h-11
+              sm:rounded-[var(--admin-input-radius)]
+              sm:px-5
+              sm:text-sm
             "
           >
-            {loading ? "Deleting..." : "Delete Method"}
+            {loading
+              ? "Deleting..."
+              : "Delete Method"}
           </button>
         </div>
       </div>

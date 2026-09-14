@@ -31,22 +31,17 @@ export default function WalletUsersTable({
   return (
     <div
       className="
-        mb-28
-
+        mb-16
+        w-full
         overflow-hidden
-
         rounded-[var(--admin-card-radius)]
-
         border
-
         border-[var(--admin-card-border)]
-
         bg-[var(--admin-card-bg)]
-
         shadow-[var(--admin-card-shadow)]
-
         transition-all
         duration-300
+        sm:mb-28
       "
     >
       <div
@@ -56,10 +51,8 @@ export default function WalletUsersTable({
       >
         <table
           className="
-            min-w-[960px]
-
             w-full
-
+            min-w-[960px]
             border-collapse
           "
         >
@@ -67,29 +60,22 @@ export default function WalletUsersTable({
             <tr
               className="
                 border-b
-
                 border-[var(--admin-table-border)]
-
                 bg-[var(--admin-table-header-bg)]
               "
             >
               <th
                 className="
-                  px-6
-
-                  py-4
-
+                  px-3
+                  py-2.5
                   text-left
-
-                  text-xs
-
+                  text-[10px]
                   font-semibold
-
                   uppercase
-
                   tracking-[0.08em]
-
                   text-[var(--admin-table-header-text)]
+                  sm:px-4
+                  sm:py-3
                 "
               >
                 User
@@ -97,21 +83,16 @@ export default function WalletUsersTable({
 
               <th
                 className="
-                  px-6
-
-                  py-4
-
+                  px-3
+                  py-2.5
                   text-left
-
-                  text-xs
-
+                  text-[10px]
                   font-semibold
-
                   uppercase
-
                   tracking-[0.08em]
-
                   text-[var(--admin-table-header-text)]
+                  sm:px-4
+                  sm:py-3
                 "
               >
                 Email
@@ -119,21 +100,16 @@ export default function WalletUsersTable({
 
               <th
                 className="
-                  px-6
-
-                  py-4
-
+                  px-3
+                  py-2.5
                   text-left
-
-                  text-xs
-
+                  text-[10px]
                   font-semibold
-
                   uppercase
-
                   tracking-[0.08em]
-
                   text-[var(--admin-table-header-text)]
+                  sm:px-4
+                  sm:py-3
                 "
               >
                 Balance
@@ -141,21 +117,16 @@ export default function WalletUsersTable({
 
               <th
                 className="
-                  px-6
-
-                  py-4
-
+                  px-3
+                  py-2.5
                   text-left
-
-                  text-xs
-
+                  text-[10px]
                   font-semibold
-
                   uppercase
-
                   tracking-[0.08em]
-
                   text-[var(--admin-table-header-text)]
+                  sm:px-4
+                  sm:py-3
                 "
               >
                 Status
@@ -163,21 +134,16 @@ export default function WalletUsersTable({
 
               <th
                 className="
-                  px-6
-
-                  py-4
-
+                  px-3
+                  py-2.5
                   text-right
-
-                  text-xs
-
+                  text-[10px]
                   font-semibold
-
                   uppercase
-
                   tracking-[0.08em]
-
                   text-[var(--admin-table-header-text)]
+                  sm:px-4
+                  sm:py-3
                 "
               >
                 Action

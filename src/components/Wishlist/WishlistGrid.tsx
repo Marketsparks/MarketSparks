@@ -37,21 +37,15 @@ export default function WishlistGrid({
   return (
     <section
       aria-label="Wishlist products"
-className="
-  grid
-
-  w-full
-
-  max-w-2xl
-
-  grid-cols-2
-
-  gap-2.5
-
-  sm:gap-3
-
-  xl:grid-cols-3
-"
+      className="
+        grid
+        w-full
+        max-w-2xl
+        grid-cols-2
+        gap-2
+        sm:gap-3
+        xl:grid-cols-3
+      "
     >
       {items.map((item) => (
         <WishlistItem
