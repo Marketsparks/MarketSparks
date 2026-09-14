@@ -1044,11 +1044,9 @@ export function UsersTable({
                   justify-center
                   gap-1
                   rounded-md
-                  bg-[var(--admin-button-primary-bg)]
                   px-2.5
                   text-[9px]
                   font-semibold
-                  text-[var(--admin-button-primary-text)]
                   shadow-sm
                   transition
                   hover:opacity-90
@@ -1059,6 +1057,16 @@ export function UsersTable({
                   sm:px-4
                   sm:text-xs
                 "
+                style={{
+                  background:
+                    "var(--admin-table-header-bg)",
+                  color:
+                    "var(--admin-table-title)",
+                  borderColor:
+                    "var(--admin-card-border)",
+                  boxShadow:
+                    "0 1px 3px var(--admin-card-shadow)",
+                }}
               >
                 {updatingRole ? (
                   <>
