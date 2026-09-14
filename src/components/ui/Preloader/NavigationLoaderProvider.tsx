@@ -2,6 +2,7 @@
 
 import {
   createContext,
+  Suspense,
   useCallback,
   useContext,
   useEffect,
@@ -12,6 +13,7 @@ import {
 } from "react";
 
 import { AnimatePresence } from "framer-motion";
+
 import {
   usePathname,
   useSearchParams,
@@ -33,30 +35,25 @@ type NavigationLoaderProviderProps = {
   children: ReactNode;
 };
 
-export default function NavigationLoaderProvider({
-  children,
-}: NavigationLoaderProviderProps) {
+function NavigationLoaderWatcher({
+  loading,
+  setLoading,
+}: {
+  loading: boolean;
+  setLoading: (value: boolean) => void;
+}) {
   const pathname = usePathname();
+
   const searchParams =
     useSearchParams();
 
-  const [loading, setLoading] =
-    useState(false);
+  const currentUrl =
+    `${pathname}?${searchParams.toString()}`;
 
   const previousUrl =
-    useRef(
-      `${pathname}?${searchParams.toString()}`,
-    );
-
-  const startNavigation =
-    useCallback(() => {
-      setLoading(true);
-    }, []);
+    useRef(currentUrl);
 
   useEffect(() => {
-    const currentUrl =
-      `${pathname}?${searchParams.toString()}`;
-
     if (
       !loading ||
       currentUrl === previousUrl.current
@@ -74,10 +71,24 @@ export default function NavigationLoaderProvider({
     return () =>
       clearTimeout(timer);
   }, [
-    pathname,
-    searchParams,
+    currentUrl,
     loading,
+    setLoading,
   ]);
+
+  return null;
+}
+
+export default function NavigationLoaderProvider({
+  children,
+}: NavigationLoaderProviderProps) {
+  const [loading, setLoading] =
+    useState(false);
+
+  const startNavigation =
+    useCallback(() => {
+      setLoading(true);
+    }, []);
 
   const value = useMemo(
     () => ({
@@ -92,6 +103,13 @@ export default function NavigationLoaderProvider({
       value={value}
     >
       {children}
+
+      <Suspense fallback={null}>
+        <NavigationLoaderWatcher
+          loading={loading}
+          setLoading={setLoading}
+        />
+      </Suspense>
 
       <AnimatePresence mode="wait">
         {loading && (
