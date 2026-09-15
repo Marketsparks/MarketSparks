@@ -17,6 +17,7 @@ import {
   Send,
   UserRound,
   X,
+  ShoppingBag,
 } from "lucide-react";
 
 import { toast } from "sonner";
@@ -540,36 +541,38 @@ export default function AffiliateProductDetailsModal({
             onClose();
           }
         }}
-        className="
-          fixed
-          inset-0
-          z-[100]
-          flex
-          items-center
-          justify-center
-          bg-black/50
-          p-2
-          backdrop-blur-sm
-          sm:p-5
-        "
+className="
+  fixed
+  inset-0
+  z-[100]
+  flex
+  items-start
+  justify-center
+  bg-black/50
+  p-2
+  pt-3
+  backdrop-blur-sm
+  sm:items-center
+  sm:p-5
+"
       >
         <div
           role="dialog"
           aria-modal="true"
           aria-label="Affiliate product details"
-          className="
-            flex
-            max-h-[96vh]
-            w-full
-            max-w-2xl
-            flex-col
-            overflow-hidden
-            rounded-lg
-            border
-            shadow-2xl
-            sm:max-h-[90vh]
-            sm:rounded-xl
-          "
+className="
+  flex
+  max-h-[88dvh]
+  w-full
+  max-w-2xl
+  flex-col
+  overflow-hidden
+  rounded-lg
+  border
+  shadow-2xl
+  sm:max-h-[90vh]
+  sm:rounded-xl
+"
           style={{
             background:
               "var(--surface)",
@@ -578,158 +581,179 @@ export default function AffiliateProductDetailsModal({
               "var(--border)",
           }}
         >
-          <header
-            className="
-              flex
-              items-center
-              justify-between
-              gap-2
-              border-b
-              px-3
-              py-2.5
-              sm:gap-3
-              sm:px-4
-              sm:py-3
-            "
-            style={{
-              borderColor:
-                "var(--border)",
-            }}
-          >
-            <div className="min-w-0">
-              <p
-                className="
-                  text-[8px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.1em]
-                  sm:text-[9px]
-                "
-                style={{
-                  color:
-                    "var(--foreground-muted)",
-                }}
-              >
-                Affiliate Product
-              </p>
+<header
+  className="
+    flex
+    shrink-0
+    items-center
+    gap-1.5
+    border-b
+    px-2
+    py-2
+    sm:gap-3
+    sm:px-4
+    sm:py-3
+  "
+  style={{
+    borderColor:
+      "var(--border)",
+  }}
+>
+  <div
+    className="
+      min-w-0
+      flex-[1.15]
+    "
+  >
+    <p
+      className="
+        truncate
+        text-[7px]
+        font-semibold
+        uppercase
+        tracking-[0.08em]
+        sm:text-[9px]
+        sm:tracking-[0.1em]
+      "
+      style={{
+        color:
+          "var(--foreground-muted)",
+      }}
+    >
+      Affiliate Product
+    </p>
 
-              <h2
-                className="
-                  mt-0.5
-                  truncate
-                  text-[13px]
-                  font-bold
-                  sm:text-sm
-                "
-                style={{
-                  color:
-                    "var(--foreground)",
-                }}
-              >
-                {
-                  currentListing
-                    .product
-                    .name
-                }
-              </h2>
-            </div>
+    <h2
+      className="
+        mt-0.5
+        truncate
+        text-[10px]
+        font-bold
+        leading-tight
+        sm:text-sm
+      "
+      style={{
+        color:
+          "var(--foreground)",
+      }}
+    >
+      {
+        currentListing
+          .product
+          .name
+      }
+    </h2>
+  </div>
 
-            <div
-              className="
-                flex
-                items-center
-                gap-1
-                sm:gap-1.5
-              "
-            >
-              {currentListing
-                .publicationStatus ===
-                "PUBLISHED" && (
-                <button
-                  type="button"
-                  onClick={() =>
-                    setCreateInterestOpen(
-                      true,
-                    )
-                  }
-                  className="
-                    inline-flex
-                    h-6
-                    items-center
-                    justify-center
-                    rounded-md
-                    border
-                    px-1.5
-                    text-[8px]
-                    font-semibold
-                    transition
-                    hover:bg-[var(--surface-hover)]
-                    sm:h-7
-                    sm:px-2
-                    sm:text-[9px]
-                  "
-                  style={{
-                    background:
-                      "var(--surface)",
+  <div
+    className="
+      flex
+      shrink-0
+      items-center
+      gap-0.5
+      sm:gap-1.5
+    "
+  >
+    {currentListing
+      .publicationStatus ===
+      "PUBLISHED" && (
+<button
+  type="button"
+  onClick={() =>
+    setCreateInterestOpen(
+      true,
+    )
+  }
+  className="
+    inline-flex
+    h-5
+    shrink-0
+    items-center
+    justify-center
+    gap-0.5
+    whitespace-nowrap
+    rounded-md
+    border
+    px-1
+    text-[6.5px]
+    font-semibold
+    leading-none
+    transition
+    hover:bg-[var(--surface)]
+    sm:h-7
+    sm:gap-1
+    sm:px-2
+    sm:text-[9px]
+  "
+  style={{
+    background:
+      "var(--surface-hover)",
+    color:
+      "var(--foreground)",
+    borderColor:
+      "var(--foreground-muted)",
+  }}
+>
+  <ShoppingBag
+    size={9}
+    className="sm:hidden"
+  />
 
-                    color:
-                      "var(--foreground-muted)",
+  <ShoppingBag
+    size={12}
+    className="hidden sm:block"
+  />
 
-                    borderColor:
-                      "var(--border)",
-                  }}
-                >
-                  Create Interest
-                </button>
-              )}
+  Buy
+</button>
+    )}
 
-              <AffiliatePublicationStatusBadge
-                status={
-                  currentListing
-                    .publicationStatus
-                }
-              />
+    <AffiliatePublicationStatusBadge
+      status={
+        currentListing
+          .publicationStatus
+      }
+    />
 
-              <button
-                type="button"
-                onClick={
-                  onClose
-                }
-                aria-label="Close"
-                className="
-                  flex
-                  h-6
-                  w-6
-                  shrink-0
-                  items-center
-                  justify-center
-                  rounded-md
-                  border
-                  transition
-                  hover:bg-[var(--surface-hover)]
-                  sm:h-7
-                  sm:w-7
-                "
-                style={{
-                  borderColor:
-                    "var(--border)",
+    <button
+      type="button"
+      onClick={
+        onClose
+      }
+      aria-label="Close"
+      className="
+        flex
+        h-5
+        w-5
+        shrink-0
+        items-center
+        justify-center
+        rounded-md
+        border
+        transition
+        hover:bg-[var(--surface-hover)]
+        sm:h-7
+        sm:w-7
+      "
+      style={{
+        borderColor:
+          "var(--border)",
+        color:
+          "var(--foreground-muted)",
+      }}
+    >
+      <X
+        size={11}
+        className="sm:hidden"
+      />
 
-                  color:
-                    "var(--foreground-muted)",
-                }}
-              >
-                <X
-                  size={12}
-                  className="sm:hidden"
-                />
-
-                <X
-                  size={14}
-                  className="hidden sm:block"
-                />
-              </button>
-            </div>
-          </header>
+      <X
+        size={14}
+        className="hidden sm:block"
+      />
+    </button>
+  </div>
+</header>
 
           <div
             className="
@@ -1281,110 +1305,123 @@ export default function AffiliateProductDetailsModal({
                                         }
                                       `}
                                     >
-                                      <div
-                                        className="
-                                          max-w-[85%]
-                                          rounded-md
-                                          border
-                                          px-2
-                                          py-1.5
-                                          sm:rounded-lg
-                                          sm:px-2.5
-                                          sm:py-2
-                                        "
-                                        style={{
-                                          background:
-                                            "var(--surface)",
+<div
+  className="
+    max-w-[85%]
+    rounded-md
+    border
+    px-2
+    py-1.5
+    sm:rounded-lg
+    sm:px-2.5
+    sm:py-2
+  "
+  style={{
+    background:
+      message.sender.role ===
+      "ADMIN"
+        ? "rgba(59, 130, 246, 0.18)"
+        : "rgba(34, 197, 94, 0.18)",
 
-                                          borderColor:
-                                            "var(--border)",
-                                        }}
-                                      >
-                                        <div
-                                          className="
-                                            flex
-                                            items-center
-                                            justify-between
-                                            gap-2
-                                            sm:gap-3
-                                          "
-                                        >
-                                          <p
-                                            className="
-                                              text-[7px]
-                                              font-semibold
-                                              sm:text-[8px]
-                                            "
-                                            style={{
-                                              color:
-                                                "var(--foreground-muted)",
-                                            }}
-                                          >
-                                            {message.sender.role ===
-                                            "ADMIN"
-                                              ? interest
-                                                  .testBuyer
-                                                  .name
-                                              : `${message.sender.firstName} ${message.sender.lastName}`}
-                                          </p>
+    borderColor:
+      message.sender.role ===
+      "ADMIN"
+        ? "rgba(59, 130, 246, 0.35)"
+        : "rgba(34, 197, 94, 0.35)",
+  }}
+>
+  <div
+    className="
+      flex
+      items-center
+      justify-between
+      gap-2
+      sm:gap-3
+    "
+  >
+    <p
+      className="
+        text-[7px]
+        font-semibold
+        sm:text-[8px]
+      "
+      style={{
+        color:
+          message.sender.role ===
+          "ADMIN"
+            ? "var(--message-blue)"
+            : "var(--message-green)",
+      }}
+    >
+      {message.sender.role ===
+      "ADMIN"
+        ? interest
+            .testBuyer
+            .name
+        : `${message.sender.firstName} ${message.sender.lastName}`}
+    </p>
 
-                                          <p
-                                            className="
-                                              text-[7px]
-                                              sm:text-[8px]
-                                            "
-                                            style={{
-                                              color:
-                                                "var(--foreground-muted)",
-                                            }}
-                                          >
-                                            {formatTime(
-                                              message.createdAt,
-                                            )}
-                                          </p>
-                                        </div>
+    <p
+      className="
+        text-[7px]
+        sm:text-[8px]
+      "
+      style={{
+        color:
+          message.sender.role ===
+          "ADMIN"
+            ? "var(--message-blue)"
+            : "var(--message-green)",
+      }}
+    >
+      {formatTime(
+        message.createdAt,
+      )}
+    </p>
+  </div>
 
-                                        <p
-                                          className="
-                                            mt-0.5
-                                            text-[9px]
-                                            leading-3.5
-                                            sm:mt-1
-                                            sm:text-[10px]
-                                            sm:leading-4
-                                          "
-                                          style={{
-                                            color:
-                                              "var(--foreground)",
-                                          }}
-                                        >
-                                          {
-                                            message.message
-                                          }
-                                        </p>
+  <p
+    className="
+      mt-0.5
+      text-[9px]
+      leading-3.5
+      sm:mt-1
+      sm:text-[10px]
+      sm:leading-4
+    "
+    style={{
+      color:
+        "var(--foreground)",
+    }}
+  >
+    {message.message}
+  </p>
 
-                                        {message.offeredPrice !==
-                                          null && (
-                                          <p
-                                            className="
-                                              mt-1
-                                              text-[8px]
-                                              font-semibold
-                                              sm:mt-1.5
-                                              sm:text-[9px]
-                                            "
-                                            style={{
-                                              color:
-                                                "var(--foreground-muted)",
-                                            }}
-                                          >
-                                            Offered: $
-                                            {message.offeredPrice.toFixed(
-                                              2,
-                                            )}
-                                          </p>
-                                        )}
-                                      </div>
+  {message.offeredPrice !==
+    null && (
+    <p
+      className="
+        mt-1
+        text-[8px]
+        font-semibold
+        sm:mt-1.5
+        sm:text-[9px]
+      "
+      style={{
+        color:
+          message.sender.role ===
+          "ADMIN"
+            ? "var(--message-blue)"
+            : "var(--message-green)",
+      }}
+    >
+      Offered: $
+      {message.offeredPrice.toFixed(
+        2,
+      )}
+    </p>
+  )}
+</div>
                                     </div>
                                   ),
                                 )

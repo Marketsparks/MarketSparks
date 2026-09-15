@@ -275,22 +275,22 @@ export default function AffiliateCreateInterestDialog({
               Buyer Interest
             </p>
 
-            <h2
-              id="create-affiliate-interest-title"
-              className="
-                mt-0.5
-                truncate
-                text-[13px]
-                font-bold
-                sm:text-sm
-              "
-              style={{
-                color:
-                  "var(--foreground)",
-              }}
-            >
-              Create Interest
-            </h2>
+<h2
+  id="create-affiliate-interest-title"
+  className="
+    mt-0.5
+    truncate
+    text-[10px]
+    font-bold
+    sm:text-sm
+  "
+  style={{
+    color:
+      "var(--foreground)",
+  }}
+>
+  Create Interest
+</h2>
 
             <p
               className="
