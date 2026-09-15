@@ -382,16 +382,12 @@ async function handleNegotiate(
               : currentInterest.messages,
         };
 
-      setCurrentInterest(
-        updatedInterest,
-      );
+setCurrentInterest(
+  updatedInterest,
+);
 
-      onNegotiate?.(
-        updatedInterest,
-      );
-
-setNegotiateOpen(
-  false,
+onNegotiate?.(
+  updatedInterest,
 );
 
 toast.success(
