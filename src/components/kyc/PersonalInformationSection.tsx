@@ -132,6 +132,7 @@ export default function PersonalInformationSection({
         >
           <input
             {...register("firstName")}
+            placeholder="Enter your first name"
             className="
               h-8
               w-full
@@ -162,6 +163,7 @@ export default function PersonalInformationSection({
         >
           <input
             {...register("lastName")}
+            placeholder="Enter your last name"
             className="
               h-8
               w-full
@@ -193,26 +195,29 @@ export default function PersonalInformationSection({
           <input
             type="date"
             {...register("dateOfBirth")}
-            className="
-              h-8
-              w-full
-              rounded-lg
-              border
-              border-[var(--user-input-border)]
-              bg-[var(--user-input-bg)]
-              px-2.5
-              text-[11px]
-              text-[var(--user-input-text)]
-              outline-none
-              transition-colors
-              duration-[var(--user-transition)]
-              focus:border-[var(--user-input-border-focus)]
-              sm:h-auto
-              sm:rounded-[var(--user-radius-md)]
-              sm:px-4
-              sm:py-3
-              sm:text-base
-            "
+            placeholder="Select your date of birth"
+className="
+  h-8
+  w-full
+  min-w-0
+  appearance-none
+  rounded-lg
+  border
+  border-[var(--user-input-border)]
+  bg-[var(--user-input-bg)]
+  px-2.5
+  text-[11px]
+  text-[var(--user-input-text)]
+  outline-none
+  transition-colors
+  duration-[var(--user-transition)]
+  focus:border-[var(--user-input-border-focus)]
+  sm:h-auto
+  sm:rounded-[var(--user-radius-md)]
+  sm:px-4
+  sm:py-3
+  sm:text-base
+"
           />
         </Input>
 
@@ -222,6 +227,7 @@ export default function PersonalInformationSection({
         >
           <input
             {...register("nationality")}
+            placeholder="Enter your nationality"
             className="
               h-8
               w-full
@@ -261,6 +267,7 @@ export default function PersonalInformationSection({
               {...register(
                 "residentialAddress",
               )}
+              placeholder="Enter your residential address"
               className="
                 h-8
                 w-full
@@ -292,6 +299,7 @@ export default function PersonalInformationSection({
         >
           <input
             {...register("city")}
+            placeholder="Enter your city"
             className="
               h-8
               w-full
@@ -302,6 +310,7 @@ export default function PersonalInformationSection({
               px-2.5
               text-[11px]
               text-[var(--user-input-text)]
+              placeholder:text-[var(--user-input-placeholder)]
               outline-none
               transition-colors
               duration-[var(--user-transition)]
@@ -321,6 +330,7 @@ export default function PersonalInformationSection({
         >
           <input
             {...register("state")}
+            placeholder="Enter your state or province"
             className="
               h-8
               w-full
@@ -331,6 +341,7 @@ export default function PersonalInformationSection({
               px-2.5
               text-[11px]
               text-[var(--user-input-text)]
+              placeholder:text-[var(--user-input-placeholder)]
               outline-none
               transition-colors
               duration-[var(--user-transition)]
@@ -350,6 +361,7 @@ export default function PersonalInformationSection({
         >
           <input
             {...register("postalCode")}
+            placeholder="Enter your postal code"
             className="
               h-8
               w-full
@@ -360,6 +372,7 @@ export default function PersonalInformationSection({
               px-2.5
               text-[11px]
               text-[var(--user-input-text)]
+              placeholder:text-[var(--user-input-placeholder)]
               outline-none
               transition-colors
               duration-[var(--user-transition)]
@@ -381,15 +394,16 @@ export default function PersonalInformationSection({
             name="country"
             control={control}
             render={({ field }) => (
-              <CountrySelect
-                label=""
-                value={
-                  (field.value as Country) || ""
-                }
-                onChange={(country) =>
-                  field.onChange(country)
-                }
-              />
+<CountrySelect
+  label=""
+  value={
+    (field.value as Country) || ""
+  }
+  onChange={(country) =>
+    field.onChange(country)
+  }
+  placeholder="Select your country"
+/>
             )}
           />
         </Input>
