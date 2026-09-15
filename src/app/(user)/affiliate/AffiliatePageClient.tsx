@@ -20,6 +20,7 @@ import {
 import type {
   AffiliateListing,
   AffiliateOverview,
+  AffiliateInterest,
 } from "@/types/affiliate.types";
 
 import DashboardPageLayout from "@/components/dashboard/DashboardPage";
@@ -45,6 +46,14 @@ export default function AffiliatePageClient() {
   const [
     selectedListing,
     setSelectedListing,
+  ] =
+    useState<AffiliateListing | null>(
+      null,
+    );
+
+  const [
+    selectedInterestsListing,
+    setSelectedInterestsListing,
   ] =
     useState<AffiliateListing | null>(
       null,
@@ -81,6 +90,52 @@ export default function AffiliatePageClient() {
 
     void load();
   }, []);
+
+  function handleInterestUpdate(
+    updatedInterest: AffiliateInterest,
+  ) {
+    setListings(
+      (currentListings) =>
+        currentListings.map(
+          (listing) =>
+            listing.id ===
+            updatedInterest.affiliateListingId
+              ? {
+                  ...listing,
+
+                  interests:
+                    listing.interests.map(
+                      (interest) =>
+                        interest.id ===
+                        updatedInterest.id
+                          ? updatedInterest
+                          : interest,
+                    ),
+                }
+              : listing,
+        ),
+    );
+
+    setSelectedInterestsListing(
+      (currentListing) =>
+        currentListing &&
+        currentListing.id ===
+          updatedInterest.affiliateListingId
+          ? {
+              ...currentListing,
+
+              interests:
+                currentListing.interests.map(
+                  (interest) =>
+                    interest.id ===
+                    updatedInterest.id
+                      ? updatedInterest
+                      : interest,
+                ),
+            }
+          : currentListing,
+    );
+  }
 
   if (loading) {
     return null;
@@ -179,19 +234,16 @@ export default function AffiliatePageClient() {
                       onView={
                         setSelectedListing
                       }
+                      onViewInterests={
+                        listing.publicationStatus ===
+                          "PUBLISHED" &&
+                        listing.interests
+                          .length >
+                          0
+                          ? setSelectedInterestsListing
+                          : undefined
+                      }
                     />
-
-                    {listing.publicationStatus ===
-                      "PUBLISHED" &&
-                      listing.interests
-                        .length >
-                        0 && (
-                        <AffiliateInterestsSection
-                          interests={
-                            listing.interests
-                          }
-                        />
-                      )}
                   </section>
                 ),
               )}
@@ -212,6 +264,30 @@ export default function AffiliatePageClient() {
           setSelectedListing(
             null,
           )
+        }
+      />
+
+      <AffiliateInterestsSection
+        listing={
+          selectedInterestsListing
+        }
+        open={
+          selectedInterestsListing !==
+          null
+        }
+        onClose={() =>
+          setSelectedInterestsListing(
+            null,
+          )
+        }
+        onAccept={
+          handleInterestUpdate
+        }
+        onReject={
+          handleInterestUpdate
+        }
+        onNegotiate={
+          handleInterestUpdate
         }
       />
     </>

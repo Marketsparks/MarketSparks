@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  useRef,
   useState,
 } from "react";
 
@@ -11,6 +12,7 @@ import {
   Loader2,
   MessageSquareText,
   Phone,
+  Send,
   X,
 } from "lucide-react";
 
@@ -304,13 +306,13 @@ export default function AffiliateInterestCard({
     );
   }
 
-  async function handleNegotiate(
-    message: string,
-    offeredPrice: number | null,
-  ) {
-    if (actionLoading) {
-      return;
-    }
+async function handleNegotiate(
+  message: string,
+  offeredPrice: number | null,
+) {
+  if (actionLoading) {
+    return false;
+  }
 
     try {
       setActionLoading(
@@ -388,19 +390,23 @@ export default function AffiliateInterestCard({
         updatedInterest,
       );
 
-      setNegotiateOpen(
-        false,
-      );
+setNegotiateOpen(
+  false,
+);
 
-      toast.success(
-        "Negotiation message sent.",
-      );
+toast.success(
+  "Negotiation message sent.",
+);
+
+return true;
     } catch (error) {
       toast.error(
         error instanceof Error
           ? error.message
           : "Unable to send negotiation message.",
       );
+
+      return false;
     } finally {
       setActionLoading(
         null,
@@ -1186,10 +1192,10 @@ type NegotiationDialogProps = {
 
   onAction: () => void;
 
-  onSubmit: (
-    message: string,
-    offeredPrice: number | null,
-  ) => void;
+onSubmit: (
+  message: string,
+  offeredPrice: number | null,
+) => Promise<boolean>;
 };
 
 function NegotiationDialog({
@@ -1213,6 +1219,11 @@ function NegotiationDialog({
     setProposedPrice,
   ] = useState("");
 
+const messageInputRef =
+  useRef<HTMLTextAreaElement | null>(
+    null,
+  );
+
   if (!open) {
     return null;
   }
@@ -1220,9 +1231,9 @@ function NegotiationDialog({
   const hasMessages =
     messages.length > 0;
 
-  function handleSubmit(
-    event: React.FormEvent<HTMLFormElement>,
-  ) {
+async function handleSubmit(
+  event: React.FormEvent<HTMLFormElement>,
+) {
     event.preventDefault();
 
     const trimmedMessage =
@@ -1257,10 +1268,15 @@ function NegotiationDialog({
       return;
     }
 
-    onSubmit(
-      trimmedMessage,
-      parsedPrice,
-    );
+const succeeded =
+  await onSubmit(
+    trimmedMessage,
+    parsedPrice,
+  );
+
+if (succeeded) {
+  setMessage("");
+}
   }
 
   return (
@@ -1286,7 +1302,7 @@ function NegotiationDialog({
         bg-black/45
         p-2
         backdrop-blur-sm
-        sm:p-3
+        sm:p-4
       "
     >
       <form
@@ -1297,16 +1313,17 @@ function NegotiationDialog({
           handleSubmit
         }
         className="
+          flex
           max-h-[96vh]
           w-full
           max-w-sm
-          overflow-y-auto
+          flex-col
+          overflow-hidden
           rounded-lg
           border
-          p-3
           shadow-2xl
+          sm:max-h-[90vh]
           sm:rounded-xl
-          sm:p-4
         "
         style={{
           background:
@@ -1319,18 +1336,29 @@ function NegotiationDialog({
         <div
           className="
             flex
-            items-start
+            items-center
             justify-between
             gap-3
+            border-b
+            px-3
+            py-2.5
+            sm:px-4
+            sm:py-3
           "
+          style={{
+            borderColor:
+              "var(--user-divider)",
+          }}
         >
           <div className="min-w-0">
             <p
               className="
-                text-[9px]
+                truncate
+                text-[8px]
                 font-semibold
                 uppercase
                 tracking-[0.08em]
+                sm:text-[9px]
               "
               style={{
                 color:
@@ -1344,8 +1372,9 @@ function NegotiationDialog({
               className="
                 mt-0.5
                 truncate
-                text-[13px]
-                font-semibold
+                text-[11px]
+                font-bold
+                leading-tight
                 sm:text-sm
               "
               style={{
@@ -1367,8 +1396,8 @@ function NegotiationDialog({
             }
             className="
               flex
-              h-7
-              w-7
+              h-6
+              w-6
               shrink-0
               items-center
               justify-center
@@ -1376,7 +1405,10 @@ function NegotiationDialog({
               border
               transition
               hover:bg-[var(--user-surface-secondary)]
+              disabled:cursor-not-allowed
               disabled:opacity-50
+              sm:h-7
+              sm:w-7
             "
             style={{
               background:
@@ -1391,358 +1423,480 @@ function NegotiationDialog({
             aria-label="Close"
           >
             <X
+              size={12}
+              className="sm:hidden"
+            />
+
+            <X
               size={14}
+              className="hidden sm:block"
             />
           </button>
         </div>
 
-        {!hasMessages && (
-          <div
-            className="
-              mt-2.5
-              rounded-lg
-              border
-              px-2.5
-              py-2
-              sm:mt-3
-              sm:px-3
-              sm:py-2.5
-            "
-            style={{
-              background:
-                "var(--user-surface-secondary)",
-
-              borderColor:
-                "var(--user-divider)",
-            }}
-          >
-            <p
-              className="
-                text-[9px]
-                font-semibold
-              "
-              style={{
-                color:
-                  "var(--user-title)",
-              }}
-            >
-              A quicker negotiation may be
-              possible offline.
-            </p>
-
-            <p
-              className="
-                mt-1
-                text-[9px]
-                leading-4
-              "
-              style={{
-                color:
-                  "var(--user-text-muted)",
-              }}
-            >
-              You can continue negotiating
-              here, but contact {buyerName}
-              directly when possible. The
-              buyer may not be online at the
-              moment.
-            </p>
-          </div>
-        )}
-
-        {hasMessages && (
-          <div
-            className="
-              mt-2.5
-              max-h-48
-              space-y-2
-              overflow-y-auto
-              rounded-lg
-              border
-              p-2
-              sm:mt-3
-              sm:max-h-52
-              sm:p-2.5
-            "
-            style={{
-              background:
-                "var(--user-surface-secondary)",
-
-              borderColor:
-                "var(--user-divider)",
-            }}
-          >
-            {messages.map(
-              (item) => {
-                const isMine =
-                  item.senderUserId ===
-                  currentUserId;
-
-                return (
-                  <div
-                    key={
-                      item.id
-                    }
-                    className={`
-                      flex
-                      ${
-                        isMine
-                          ? "justify-end"
-                          : "justify-start"
-                      }
-                    `}
-                  >
-                    <div
-                      className="
-                        max-w-[88%]
-                        rounded-lg
-                        border
-                        px-2.5
-                        py-2
-                      "
-                      style={{
-                        background:
-                          "var(--user-card-bg)",
-
-                        borderColor:
-                          "var(--user-divider)",
-                      }}
-                    >
-                      <div
-                        className="
-                          flex
-                          items-center
-                          justify-between
-                          gap-3
-                        "
-                      >
-                        <span
-                          className="
-                            text-[8px]
-                            font-semibold
-                          "
-                          style={{
-                            color:
-                              "var(--user-text-muted)",
-                          }}
-                        >
-                          {isMine
-                            ? "You"
-                            : buyerName}
-                        </span>
-
-                        <span
-                          className="
-                            text-[8px]
-                          "
-                          style={{
-                            color:
-                              "var(--user-text-muted)",
-                          }}
-                        >
-                          {formatDateTime(
-                            item.createdAt,
-                          )}
-                        </span>
-                      </div>
-
-                      <p
-                        className="
-                          mt-1
-                          text-[10px]
-                          leading-4
-                        "
-                        style={{
-                          color:
-                            "var(--user-title)",
-                        }}
-                      >
-                        {
-                          item.message
-                        }
-                      </p>
-
-                      {item.offeredPrice !==
-                        null && (
-                        <p
-                          className="
-                            mt-1.5
-                            text-[9px]
-                            font-semibold
-                          "
-                          style={{
-                            color:
-                              "var(--user-text-muted)",
-                          }}
-                        >
-                          Offered: $
-                          {item.offeredPrice.toFixed(
-                            2,
-                          )}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                );
-              },
-            )}
-          </div>
-        )}
-
         <div
           className="
-            mt-2.5
-            space-y-2
-            sm:mt-3
-            sm:space-y-2.5
+            min-h-0
+            overflow-y-auto
+            p-2.5
+            sm:p-3
           "
         >
-          <div>
-            <label
-              htmlFor="affiliate-negotiation-message"
+          <div
+            className="
+              overflow-hidden
+              rounded-lg
+              border
+            "
+            style={{
+              background:
+                "var(--user-surface-secondary)",
+
+              borderColor:
+                "var(--user-divider)",
+            }}
+          >
+            <div
               className="
-                mb-1
-                block
-                text-[9px]
-                font-semibold
-                uppercase
-                tracking-[0.06em]
+                max-h-52
+                min-h-[72px]
+                space-y-1.5
+                overflow-y-auto
+                p-2
+                sm:max-h-60
+                sm:space-y-2
+                sm:p-2.5
+              "
+            >
+              {!hasMessages ? (
+                <div
+                  className="
+                    flex
+                    min-h-[68px]
+                    items-center
+                    justify-center
+                    px-2
+                    py-3
+                    sm:min-h-[76px]
+                  "
+                >
+                  <div className="w-full">
+                    <p
+                      className="
+                        text-[8px]
+                        font-semibold
+                        sm:text-[9px]
+                      "
+                      style={{
+                        color:
+                          "var(--user-title)",
+                      }}
+                    >
+                      A quicker negotiation may be possible offline.
+                    </p>
+
+                    <p
+                      className="
+                        mt-0.5
+                        text-[8px]
+                        leading-3.5
+                        sm:mt-1
+                        sm:text-[9px]
+                        sm:leading-4
+                      "
+                      style={{
+                        color:
+                          "var(--user-text-muted)",
+                      }}
+                    >
+                      You can continue negotiating
+                      here, but contact {buyerName}
+                      directly when possible. The
+                      buyer may not be online at the
+                      moment.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                messages.map(
+                  (item) => {
+                    const isMine =
+                      item.senderUserId ===
+                      currentUserId;
+
+                    return (
+                      <div
+                        key={
+                          item.id
+                        }
+                        className={`
+                          flex
+                          ${
+                            isMine
+                              ? "justify-end"
+                              : "justify-start"
+                          }
+                        `}
+                      >
+                        <div
+                          className="
+                            max-w-[85%]
+                            rounded-md
+                            border
+                            px-2
+                            py-1.5
+                            sm:rounded-lg
+                            sm:px-2.5
+                            sm:py-2
+                          "
+                          style={{
+                            background:
+                              isMine
+                                ? "rgba(59, 130, 246, 0.18)"
+                                : "rgba(34, 197, 94, 0.18)",
+
+                            borderColor:
+                              isMine
+                                ? "rgba(59, 130, 246, 0.35)"
+                                : "rgba(34, 197, 94, 0.35)",
+                          }}
+                        >
+                          <div
+                            className="
+                              flex
+                              items-center
+                              justify-between
+                              gap-2
+                              sm:gap-3
+                            "
+                          >
+                            <p
+                              className="
+                                text-[7px]
+                                font-semibold
+                                sm:text-[8px]
+                              "
+                              style={{
+                                color:
+                                  isMine
+                                    ? "var(--message-blue)"
+                                    : "var(--message-green)",
+                              }}
+                            >
+                              {isMine
+                                ? "You"
+                                : buyerName}
+                            </p>
+
+                            <p
+                              className="
+                                text-[7px]
+                                sm:text-[8px]
+                              "
+                              style={{
+                                color:
+                                  isMine
+                                    ? "var(--message-blue)"
+                                    : "var(--message-green)",
+                              }}
+                            >
+                              {formatDateTime(
+                                item.createdAt,
+                              )}
+                            </p>
+                          </div>
+
+                          <p
+                            className="
+                              mt-0.5
+                              text-[9px]
+                              leading-3.5
+                              sm:mt-1
+                              sm:text-[10px]
+                              sm:leading-4
+                            "
+                            style={{
+                              color:
+                                "var(--user-title)",
+                            }}
+                          >
+                            {
+                              item.message
+                            }
+                          </p>
+
+                          {item.offeredPrice !==
+                            null && (
+                            <p
+                              className="
+                                mt-1
+                                text-[8px]
+                                font-semibold
+                                sm:mt-1.5
+                                sm:text-[9px]
+                              "
+                              style={{
+                                color:
+                                  isMine
+                                    ? "var(--message-blue)"
+                                    : "var(--message-green)",
+                              }}
+                            >
+                              Offered: $
+                              {item.offeredPrice.toFixed(
+                                2,
+                              )}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  },
+                )
+              )}
+            </div>
+
+            <div
+              className="
+                border-t
+                p-1.5
+                sm:p-2
               "
               style={{
-                color:
-                  "var(--user-text-muted)",
+                borderColor:
+                  "var(--user-divider)",
               }}
             >
-              {hasMessages
-                ? "Reply"
-                : "Message"}
-            </label>
+<div
+  className="
+    flex
+    min-h-7
+    items-center
+    gap-1
+    rounded-full
+    border
+    px-1
+    py-0.5
+    sm:min-h-7
+    sm:gap-1.5
+    sm:px-1.5
+    sm:py-0
+  "
+  style={{
+    background:
+      "var(--user-card-bg)",
 
-            <textarea
-              id="affiliate-negotiation-message"
+    borderColor:
+      "var(--user-card-border)",
+  }}
+>
+<textarea
+  ref={
+    messageInputRef
+  }
+  id="affiliate-negotiation-message"
+  value={
+    message
+  }
+  onChange={(
+    event,
+  ) => {
+    const value =
+      event.target.value;
+
+    setMessage(
+      value,
+    );
+
+    const textarea =
+      event.target;
+
+    textarea.style.height =
+      "0px";
+
+    const maxHeight =
+      window.innerWidth >=
+      640
+        ? 84
+        : 60;
+
+    const nextHeight =
+      Math.min(
+        textarea.scrollHeight,
+        maxHeight,
+      );
+
+    textarea.style.height =
+      `${nextHeight}px`;
+
+    textarea.style.overflowY =
+      textarea.scrollHeight >
+      maxHeight
+        ? "auto"
+        : "hidden";
+  }}
+  placeholder={
+    hasMessages
+      ? "Write a reply..."
+      : "Write a professional message..."
+  }
+  rows={1}
+  disabled={
+    loading
+  }
+  className="
+    min-h-6
+    flex-1
+    resize-none
+    overflow-hidden
+    bg-transparent
+    px-2
+    py-0.5
+    text-[9px]
+    leading-4
+    outline-none
+    placeholder:text-[var(--user-text-muted)]
+    disabled:opacity-60
+    sm:min-h-8
+    sm:px-2.5
+    sm:py-1.5
+    sm:text-[10px]
+  "
+  style={{
+    color:
+      "var(--user-title)",
+  }}
+/>
+
+                <button
+                  type="submit"
+                  disabled={
+                    loading ||
+                    !message.trim()
+                  }
+                  aria-label={
+                    loading
+                      ? "Sending reply"
+                      : hasMessages
+                        ? "Send reply"
+                        : "Send message"
+                  }
+                  className="
+                    flex
+                    h-7
+                    w-7
+                    shrink-0
+                    items-center
+                    justify-center
+                    rounded-full
+                    border
+                    transition
+                    hover:bg-[var(--user-surface-secondary)]
+                    disabled:cursor-not-allowed
+                    disabled:opacity-50
+                    sm:h-8
+                    sm:w-8
+                  "
+                  style={{
+                    background:
+                      "var(--user-surface-secondary)",
+
+                    color:
+                      "var(--user-text-muted)",
+
+                    borderColor:
+                      "var(--user-card-border)",
+                  }}
+                >
+                  {loading ? (
+                    <Loader2
+                      size={12}
+                      className="animate-spin"
+                    />
+                  ) : (
+                    <Send
+                      size={12}
+                    />
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="
+              mt-2.5
+              sm:mt-3
+            "
+          >
+            <PriceField
               value={
-                message
+                proposedPrice
               }
-              onChange={(
-                event,
-              ) =>
-                setMessage(
-                  event.target
-                    .value,
-                )
+              setValue={
+                setProposedPrice
               }
               placeholder={
-                hasMessages
-                  ? "Write a reply..."
-                  : "Write a professional message to the buyer..."
+                currentOffer.toFixed(
+                  2,
+                )
               }
-              rows={
-                hasMessages
-                  ? 3
-                  : 4
+              loading={
+                loading
+              }
+            />
+          </div>
+
+          <div
+            className="
+              mt-2.5
+              flex
+              items-center
+              justify-between
+              gap-2
+              sm:mt-3
+            "
+          >
+            <button
+              type="button"
+              onClick={() =>
+                onAction()
               }
               disabled={
                 loading
               }
               className="
-                w-full
-                resize-none
+                inline-flex
+                h-7
+                items-center
+                justify-center
                 rounded-md
                 border
-                bg-transparent
-                px-2.5
-                py-2
-                text-[10px]
-                leading-4
-                outline-none
+                px-2
+                text-[8px]
+                font-semibold
                 transition
-                focus:border-[var(--primary)]
-                disabled:opacity-60
+                hover:bg-[var(--user-surface-secondary)]
+                disabled:cursor-not-allowed
+                disabled:opacity-50
+                sm:h-8
+                sm:px-3
+                sm:text-[10px]
               "
               style={{
-                borderColor:
-                  "var(--user-card-border)",
+                background:
+                  "var(--user-card-bg)",
 
                 color:
-                  "var(--user-title)",
+                  "var(--user-text-muted)",
+
+                borderColor:
+                  "var(--user-card-border)",
               }}
-            />
-          </div>
+            >
+              Take Action
+            </button>
 
-          <PriceField
-            value={
-              proposedPrice
-            }
-            setValue={
-              setProposedPrice
-            }
-            placeholder={
-              currentOffer.toFixed(
-                2,
-              )
-            }
-            loading={
-              loading
-            }
-          />
-        </div>
-
-        <div
-          className="
-            mt-3
-            flex
-            items-center
-            justify-between
-            gap-2
-            sm:mt-4
-          "
-        >
-          <button
-            type="button"
-            onClick={() =>
-              onAction()
-            }
-            disabled={
-              loading
-            }
-            className="
-              inline-flex
-              h-8
-              items-center
-              justify-center
-              rounded-md
-              border
-              px-2.5
-              text-[10px]
-              font-semibold
-              transition
-              hover:bg-[var(--user-surface-secondary)]
-              disabled:cursor-not-allowed
-              disabled:opacity-50
-              sm:px-3
-            "
-            style={{
-              background:
-                "var(--user-card-bg)",
-
-              color:
-                "var(--user-text-muted)",
-
-              borderColor:
-                "var(--user-card-border)",
-            }}
-          >
-            Take Action
-          </button>
-
-          <div
-            className="
-              flex
-              items-center
-              gap-1.5
-              sm:gap-2
-            "
-          >
             <button
               type="button"
               onClick={
@@ -1752,16 +1906,18 @@ function NegotiationDialog({
                 loading
               }
               className="
-                h-8
+                h-7
                 rounded-md
                 border
-                px-2.5
-                text-[10px]
+                px-2
+                text-[8px]
                 font-semibold
                 transition
                 hover:bg-[var(--user-surface-secondary)]
                 disabled:opacity-50
+                sm:h-8
                 sm:px-3
+                sm:text-[10px]
               "
               style={{
                 background:
@@ -1775,56 +1931,6 @@ function NegotiationDialog({
               }}
             >
               Close
-            </button>
-
-            <button
-              type="submit"
-              disabled={
-                loading ||
-                !message.trim()
-              }
-              className="
-                inline-flex
-                h-8
-                items-center
-                justify-center
-                gap-1.5
-                rounded-md
-                border
-                px-2.5
-                text-[10px]
-                font-semibold
-                transition
-                hover:bg-[var(--user-surface-secondary)]
-                disabled:cursor-not-allowed
-                disabled:opacity-60
-                sm:px-3
-              "
-              style={{
-                background:
-                  "var(--user-card-bg)",
-
-                color:
-                  "var(--user-text-muted)",
-
-                borderColor:
-                  "var(--user-card-border)",
-              }}
-            >
-              {loading ? (
-                <>
-                  <Loader2
-                    size={12}
-                    className="animate-spin"
-                  />
-
-                  Sending...
-                </>
-              ) : hasMessages ? (
-                "Reply"
-              ) : (
-                "Send Message"
-              )}
             </button>
           </div>
         </div>

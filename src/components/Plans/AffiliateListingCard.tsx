@@ -7,6 +7,7 @@ import {
   CalendarDays,
   Eye,
   Heart,
+  MessageCircle,
   TrendingUp,
 } from "lucide-react";
 
@@ -23,11 +24,16 @@ type AffiliateListingCardProps = {
   onView?: (
     listing: AffiliateListing,
   ) => void;
+
+  onViewInterests?: (
+    listing: AffiliateListing,
+  ) => void;
 };
 
 export default function AffiliateListingCard({
   listing,
   onView,
+  onViewInterests,
 }: AffiliateListingCardProps) {
   const primaryImage =
     listing.product.images.find(
@@ -56,6 +62,9 @@ export default function AffiliateListingCard({
           },
         )
       : "Not published";
+
+  const interestCount =
+    listing.interests.length;
 
   return (
     <article
@@ -296,7 +305,7 @@ export default function AffiliateListingCard({
           flex
           items-center
           justify-between
-          gap-2.5
+          gap-2
           border-t
           px-2.5
           py-2
@@ -336,42 +345,100 @@ export default function AffiliateListingCard({
           </span>
         </div>
 
-        <Button
-          type="button"
-          onClick={() =>
-            onView?.(
-              listing,
-            )
-          }
+        <div
           className="
+            flex
             shrink-0
-            !h-7
-            !px-2.5
-            !text-[10px]
-            !rounded-md
-            sm:!h-8
-            sm:!px-3
-            sm:!text-[11px]
-            sm:!rounded-lg
+            items-center
+            gap-1
+            sm:gap-1.5
           "
-          style={{
-            background:
-              "var(--user-button-secondary-bg)",
-
-            color:
-              "var(--user-button-secondary-text)",
-
-            border:
-              "1px solid var(--user-button-secondary-border)",
-          }}
         >
-          <Eye
-            size={12}
-            className="mr-1 sm:mr-1.5"
-          />
+          {interestCount >
+            0 && (
+            <Button
+              type="button"
+              onClick={() =>
+                onViewInterests?.(
+                  listing,
+                )
+              }
+              className="
+                shrink-0
+                !h-7
+                !px-2
+                !text-[9px]
+                !rounded-md
+                sm:!h-8
+                sm:!px-2.5
+                sm:!text-[10px]
+                sm:!rounded-lg
+              "
+              style={{
+                background:
+                  "var(--user-surface-secondary)",
 
-          View Details
-        </Button>
+                color:
+                  "var(--user-text-muted)",
+
+                border:
+                  "1px solid var(--user-card-border)",
+              }}
+            >
+              <MessageCircle
+                size={11}
+                className="mr-1 sm:mr-1.5"
+              />
+
+              {interestCount}
+              <span className="hidden sm:inline">
+                {" "}
+                Interest
+                {interestCount ===
+                1
+                  ? ""
+                  : "s"}
+              </span>
+            </Button>
+          )}
+
+          <Button
+            type="button"
+            onClick={() =>
+              onView?.(
+                listing,
+              )
+            }
+            className="
+              shrink-0
+              !h-7
+              !px-2.5
+              !text-[10px]
+              !rounded-md
+              sm:!h-8
+              sm:!px-3
+              sm:!text-[11px]
+              sm:!rounded-lg
+            "
+            style={{
+              background:
+                "var(--user-button-secondary-bg)",
+
+              color:
+                "var(--user-button-secondary-text)",
+
+              border:
+                "1px solid var(--user-button-secondary-border)",
+            }}
+          >
+            <Eye
+              size={12}
+              className="mr-1 sm:mr-1.5"
+            />
+
+            View Details
+          </Button>
+        </div>
       </div>
     </article>
   );
@@ -391,11 +458,7 @@ function Stat({
   value,
 }: StatProps) {
   return (
-    <div
-      className="
-        min-w-0
-      "
-    >
+    <div className="min-w-0">
       <div
         className="
           flex
