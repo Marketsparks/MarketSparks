@@ -120,16 +120,6 @@ export default function KycPage() {
         "
       >
         <div>
-          <h1
-            className="
-              text-lg
-              font-bold
-              text-[var(--user-title)]
-              sm:text-3xl
-            "
-          >
-            Identity Verification
-          </h1>
 
           <p
             className="
