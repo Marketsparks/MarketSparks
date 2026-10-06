@@ -1,6 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
 
 import Link from "next/link";
 
@@ -32,7 +35,7 @@ type LoginFormProps = {
 
       rememberMe: boolean;
     },
-  ) => void;
+  ) => void | Promise<void>;
 
   onRegister?: () => void;
 };
@@ -49,7 +52,13 @@ export default function LoginForm({
   const [locked, setLocked] =
     useState(false);
 
-  function handleSubmit(
+useEffect(() => {
+  if (!loading) {
+    setLocked(false);
+  }
+}, [loading]);
+
+  async function handleSubmit(
     event: React.FormEvent<HTMLFormElement>,
   ) {
     event.preventDefault();
@@ -93,7 +102,11 @@ export default function LoginForm({
 
     setLocked(true);
 
-    onSubmit?.(values);
+    try {
+      await onSubmit?.(values);
+    } catch {
+      setLocked(false);
+    }
   }
 
   return (
