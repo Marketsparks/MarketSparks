@@ -89,20 +89,29 @@ export async function POST(request: Request) {
       );
     }
 
-    if (
-      user.status === "DEACTIVATED" ||
-      user.status === "PENDING_DELETION"
-    ) {
-      return NextResponse.json(
-        {
-          success: false,
-          error:
-            "This account has been deleted. Please contact support if you believe this is a mistake.",
-          code: "ACCOUNT_DEACTIVATED",
-        },
-        { status: 403 },
-      );
-    }
+if (user.status === "DEACTIVATED") {
+  return NextResponse.json(
+    {
+      success: false,
+      error:
+        "This account has been temporarily deactivated. Please contact support if you believe this was a mistake.",
+      code: "ACCOUNT_DEACTIVATED",
+    },
+    { status: 403 },
+  );
+}
+
+if (user.status === "PENDING_DELETION") {
+  return NextResponse.json(
+    {
+      success: false,
+      error:
+        "This account has been permanently deleted. Please contact support if you believe this was a mistake.",
+      code: "ACCOUNT_PENDING_DELETION",
+    },
+    { status: 403 },
+  );
+}
 
     await createSession({
       userId: user.id,
