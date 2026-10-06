@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "sonner";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AuthLayout, AuthTabs, LoginForm, RegisterForm } from "@/components/auth";
 import type { RegisterFormValues } from "@/components/auth/RegisterForm";
@@ -608,6 +610,66 @@ return;
 
 return (
   <AuthLayout>
+<Link
+  href="/"
+  aria-label="Return to home"
+  className="
+    group
+
+    absolute
+    left-4
+    top-4
+    z-20
+
+    inline-flex
+    items-center
+    gap-1.5
+
+    rounded-full
+
+    border-[2.5px]
+    border-[var(--border)]
+
+    bg-[var(--auth-card-bg)]
+
+    px-3
+    py-1.5
+
+    text-xs
+    font-medium
+    text-[var(--foreground)]
+
+    shadow-[0_5px_16px_rgba(0,0,0,0.05)]
+
+    backdrop-blur-xl
+
+    transition-all
+    duration-200
+
+    hover:-translate-y-0.5
+    hover:border-[var(--primary)]
+    hover:shadow-[0_7px_20px_rgba(0,0,0,0.08)]
+
+    active:translate-y-0
+    active:scale-[0.98]
+
+    sm:left-6
+    sm:top-6
+  "
+>
+  <ArrowLeft
+    size={14}
+    strokeWidth={2.5}
+    className="
+      transition-transform
+      duration-200
+      group-hover:-translate-x-0.5
+    "
+  />
+
+  <span>Home</span>
+</Link>
+
     <AnimatePresence
       mode="wait"
     >

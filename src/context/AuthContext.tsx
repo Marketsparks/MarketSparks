@@ -10,7 +10,7 @@ import {
   useState,
 } from "react";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 type AuthUser = {
   id: string;
@@ -24,13 +24,9 @@ type AuthUser = {
 
 type AuthContextValue = {
   user: AuthUser | null;
-
   loading: boolean;
-
   refresh: () => Promise<void>;
-
   logout: () => Promise<void>;
-
   isAuthenticated: boolean;
 };
 
@@ -44,11 +40,13 @@ type AuthProviderProps = {
 };
 
 const HEARTBEAT_INTERVAL = 60_000;
+const SESSION_VALIDATION_INTERVAL = 30_000;
 
 export function AuthProvider({
   children,
 }: AuthProviderProps) {
   const pathname = usePathname();
+  const router = useRouter();
 
   const [user, setUser] =
     useState<AuthUser | null>(null);
@@ -58,6 +56,14 @@ export function AuthProvider({
 
   const lastHeartbeat =
     useRef(0);
+
+  const validatingSession =
+    useRef(false);
+
+const handleSessionInvalid = useCallback(() => {
+  setUser(null);
+  router.replace("/Auth");
+}, [router]);
 
   const refresh = useCallback(
     async () => {
@@ -70,9 +76,13 @@ export function AuthProvider({
           },
         );
 
+        if (response.status === 401) {
+          setUser(null);
+          return;
+        }
+
         if (!response.ok) {
           setUser(null);
-
           return;
         }
 
@@ -81,7 +91,6 @@ export function AuthProvider({
 
         if (!data.success) {
           setUser(null);
-
           return;
         }
 
@@ -92,6 +101,57 @@ export function AuthProvider({
     },
     [],
   );
+
+  const validateSession =
+    useCallback(async () => {
+      if (
+        !user ||
+        validatingSession.current
+      ) {
+        return;
+      }
+
+      validatingSession.current = true;
+
+      try {
+        const response = await fetch(
+          "/api/auth/me",
+          {
+            credentials: "include",
+            cache: "no-store",
+          },
+        );
+
+        if (response.status === 401) {
+          handleSessionInvalid();
+          return;
+        }
+
+        if (!response.ok) {
+          return;
+        }
+
+        const data =
+          await response.json();
+
+        if (!data.success) {
+          handleSessionInvalid();
+          return;
+        }
+
+        setUser(data.user);
+      } catch {
+        /*
+         * Network failures should not log the user out.
+         * The session may still be completely valid.
+         */
+      } finally {
+        validatingSession.current = false;
+      }
+    }, [
+      user,
+      handleSessionInvalid,
+    ]);
 
   const logout = useCallback(
     async () => {
@@ -140,17 +200,96 @@ export function AuthProvider({
       lastHeartbeat.current = now;
 
       try {
-        await fetch(
-          "/api/auth/activity",
-          {
-            method: "POST",
-            credentials: "include",
-            keepalive: true,
-          },
-        );
+        const response =
+          await fetch(
+            "/api/auth/activity",
+            {
+              method: "POST",
+              credentials: "include",
+              keepalive: true,
+            },
+          );
+
+        if (response.status === 401) {
+          handleSessionInvalid();
+        }
       } catch {
+        /*
+         * Network failures should not log the user out.
+         */
       }
-    }, [user]);
+    }, [
+      user,
+      handleSessionInvalid,
+    ]);
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
+    const interval = window.setInterval(
+      () => {
+        void validateSession();
+      },
+      SESSION_VALIDATION_INTERVAL,
+    );
+
+    return () => {
+      window.clearInterval(interval);
+    };
+  }, [
+    user,
+    validateSession,
+  ]);
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
+    const handleVisibilityChange =
+      () => {
+        if (
+          document.visibilityState ===
+          "visible"
+        ) {
+          void validateSession();
+          void sendHeartbeat();
+        }
+      };
+
+    const handleFocus = () => {
+      void validateSession();
+      void sendHeartbeat();
+    };
+
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibilityChange,
+    );
+
+    window.addEventListener(
+      "focus",
+      handleFocus,
+    );
+
+    return () => {
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange,
+      );
+
+      window.removeEventListener(
+        "focus",
+        handleFocus,
+      );
+    };
+  }, [
+    user,
+    validateSession,
+    sendHeartbeat,
+  ]);
 
   useEffect(() => {
     if (!user) {
@@ -192,7 +331,10 @@ export function AuthProvider({
         );
       });
     };
-  }, [user, sendHeartbeat]);
+  }, [
+    user,
+    sendHeartbeat,
+  ]);
 
   useEffect(() => {
     if (!user) {
@@ -209,13 +351,9 @@ export function AuthProvider({
   const value = useMemo(
     () => ({
       user,
-
       loading,
-
       refresh,
-
       logout,
-
       isAuthenticated:
         user !== null,
     }),
