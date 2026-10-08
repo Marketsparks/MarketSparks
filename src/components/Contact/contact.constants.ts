@@ -33,7 +33,6 @@ export const CONTACT_METHODS: ContactMethod[] = [
 
     href: "mailto:contact@marketsparks.top",
   },
-
   
   {
     title: "Response Time",
