@@ -21,9 +21,9 @@ export const CONTACT_METHODS: ContactMethod[] = [
   {
     title: "Phone",
 
-    value: "+234 434 343 5344",
+    value: "+100 000 000 0000",
 
-    href: "tel:+2344343435344",
+    href: "tel:+10000000000",
   },
 
   {
