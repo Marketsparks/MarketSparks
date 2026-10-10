@@ -17,6 +17,7 @@ export const CONTACT_INTRO = {
     "Whether you're looking for guidance, have questions about our resources, or want to discuss a potential collaboration, we're always happy to hear from you.",
 };
 
+
 export const CONTACT_METHODS: ContactMethod[] = [
   {
     title: "Phone",
