@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Geist,
   Poppins,
@@ -15,6 +15,8 @@ import AppToaster from "@/components/ui/AppToaster";
 import { SITE } from "@/constants/site";
 import { cn } from "@/lib/utils";
 import NavigationLoaderProvider from "@/components/ui/Preloader/NavigationLoaderProvider";
+import MetaPixel from "@/components/MetaPixel";
+import LiveChat from "@/components/help/LiveChat";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -37,49 +39,48 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    "https://marketsparks.top",
-  ),
+  metadataBase: new URL("https://marketra.shop"),
 
   title: {
-    default: "MarketSparks",
-    template:
-      "%s | MarketSparks",
+    default: "MarkEtra",
+    template: "%s | MarkEtra",
   },
 
-  description:
-    SITE.description,
+  description: SITE.description,
 
   openGraph: {
     type: "website",
-    url: "https://marketsparks.top",
-    siteName:
-      "MarketSparks",
-    title:
-      "MarketSparks",
-    description:
-      SITE.description,
+    url: "https://marketra.shop",
+    siteName: "MarkEtra",
+    locale: "en_NG",
+    title: "MarkEtra",
+    description: SITE.description,
     images: [
       {
         url: "/assets/images/og-image.png",
         width: 1200,
         height: 630,
-        alt: "MarketSparks",
+        type: "image/png",
+        alt: "MarkEtra online marketplace",
       },
     ],
   },
 
   twitter: {
-    card:
-      "summary_large_image",
-    title:
-      "MarketSparks",
-    description:
-      SITE.description,
+    card: "summary_large_image",
+    title: "MarkEtra",
+    description: SITE.description,
     images: [
-      "/assets/images/og-image.png",
+      {
+        url: "/assets/images/og-image.png",
+        alt: "MarkEtra online marketplace",
+      },
     ],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
@@ -96,21 +97,26 @@ export default function RootLayout({
         geist.variable,
       )}
     >
+
       <body
         className={`${poppins.variable} antialiased`}
       >
-<AppProvider>
-  <NavigationLoaderProvider>
-    <AppSearch />
+        <MetaPixel />
 
-    <AppPreloader>
-      {children}
-    </AppPreloader>
+        <AppProvider>
+          <NavigationLoaderProvider>
+            <AppSearch />
 
-    <AppToaster />
-  </NavigationLoaderProvider>
-</AppProvider>
+            <AppPreloader>
+              {children}
+              <LiveChat />
+            </AppPreloader>
+
+            <AppToaster />
+          </NavigationLoaderProvider>
+        </AppProvider>
       </body>
+
     </html>
   );
 }
