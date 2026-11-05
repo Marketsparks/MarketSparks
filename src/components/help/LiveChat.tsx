@@ -20,6 +20,7 @@ declare global {
   }
 }
 
+
 const SMARTSUPP_KEY =
   "4029abaa8b423b97c4a2ee028407b8c202f1ce29";
 
