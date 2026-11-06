@@ -12,6 +12,7 @@ export default function HelpCenterPage() {
         },
       ]}
     >
+      
       <HelpPage />
     </DashboardPageLayout>
   );
