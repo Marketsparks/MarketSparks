@@ -135,7 +135,6 @@ export default function LiveChat() {
     window._smartsupp = window._smartsupp ?? {};
     window._smartsupp.key = SMARTSUPP_KEY;
 
-    // Must be set before the loader script runs.
     window._smartsupp.offsetX = OFFSET_X;
     window._smartsupp.offsetY =
       window.innerWidth < MOBILE_BREAKPOINT
